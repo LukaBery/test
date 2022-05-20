@@ -162,7 +162,7 @@ System.out.println("리스트 추가완료");
 		 Date checkIn = formatter.parse(checkIndate); 
 		String checkoutdate = receiverMap.get("checkOut_date");
 		 Date checkout = formatter.parse(checkoutdate); 
-
+			String cart_code = receiverMap.get("cart_code");
 		String room_code = receiverMap.get("room_code");
 		int people_count = Integer.parseInt(receiverMap.get("people_count"));
 		int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
@@ -181,6 +181,7 @@ System.out.println("리스트 추가완료");
 		cartVO.setCheckOut_date(checkout);
 		cartVO.setU_id(memberInfo.getU_id());
 		mav.addObject("orderVO", cartVO);
+		mav.addObject("cart_code", cart_code);
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
 		HostGoodsVO hostGoodsVo = (HostGoodsVO) goodsMap.get("goodsVO");
 		mav.addObject("goodsVO", hostGoodsVo);
@@ -223,7 +224,8 @@ System.out.println("리스트 추가완료");
 			System.out.println("오더리스트 이프문 진입");
 			orderVO.setRoom_code(receiverMap.get("room_code"));
 			orderVO.setH_code(receiverMap.get("h_code"));
-
+			String cart_code = (String)receiverMap.get("cart_code");
+			System.out.println("카트코드@@@@@@@@@@@@@@@@@"+ cart_code);
 			String checkin = receiverMap.get("checkIn_date");
 			System.out.println(checkin);
 			  orderVO.setCheckIn_date(dt.parse(receiverMap.get("checkIn_date")));
@@ -246,7 +248,8 @@ System.out.println("리스트 추가완료");
 			System.out.println("애드 멤버 메서드 진입");
 	    orderService.addNewOrder(orderVO);
 		System.out.println("애드 메서드 끝 ");
-
+		
+		cartService.removeCartGoods(cart_code);
 		mav.addObject("myOrderInfo",receiverMap);
 		mav.addObject("orderVO", orderVO);
 	

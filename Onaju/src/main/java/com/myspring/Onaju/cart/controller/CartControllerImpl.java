@@ -158,7 +158,7 @@ public class CartControllerImpl extends BaseController implements CartController
 	}
 	@Override
 	@RequestMapping(value="/removeCart.do" ,method = RequestMethod.POST)
-	public ModelAndView removeCart(@RequestParam("cart_id") int cart_id,
+	public ModelAndView removeCart(@RequestParam("cart_id") String cart_id,
 			                          HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		ModelAndView mav=new ModelAndView();
 		cartService.removeCartGoods(cart_id);

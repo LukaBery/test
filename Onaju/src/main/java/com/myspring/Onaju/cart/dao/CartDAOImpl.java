@@ -26,8 +26,8 @@ public class CartDAOImpl implements CartDAO{
 		sqlSession.insert("mapper.cart.insertNewCart",cartVO);
 	}
 	@Override
-	public void deleteCartGoods(int cart_id) throws DataAccessException{
-		sqlSession.delete("mapper.cart.deleteCartGoods",cart_id);
+	public void deleteCartGoods(String cart_code) throws DataAccessException{
+		sqlSession.delete("mapper.cart.deleteCartGoods",cart_code);
 	}
 
 }
