@@ -45,6 +45,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	@RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
 	public ModelAndView goodsDetail(@RequestParam("room_code") String room_code, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		System.out.println("룸코드"+room_code);
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
@@ -56,7 +57,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		System.out.println(goodsMap);
 		return mav;
 	}
-
 	
 	private void addGoodsInQuick(String room_code, HostGoodsVO hostgoodsVO, HttpSession session) {
 		boolean already_existed = false;

@@ -1,5 +1,6 @@
 package com.myspring.Onaju.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,8 +87,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			
 			
 		}else if(nonmemberVO != null) {
-			String u_id=nonmemberVO.getU_id();
-			 List<CartVO> myCartList=cartService.listMyCartGoods(u_id); 
+			
+			 List<CartVO> myCartList= (ArrayList<CartVO>) session.getAttribute("nonMemberCart");
 			 mav.addObject("myCartList", myCartList); 
 		}else {
 			mav.setViewName("redirect:/main/main.do");

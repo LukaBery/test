@@ -802,6 +802,7 @@ function addCart(){
 			<br>
 			<p style="text-align: left; margin-left: 5px; opacity: 80%;">${goods.roadAddress }</p>
 			<h1 id="h2_left">${goods.title }</h1>
+			
 
 		</section>
 		<!-- 사진 이미지 섹션 -->
@@ -838,7 +839,11 @@ function addCart(){
 					<div class="seller"><div id="seller_text_box_1">
 							&lt;${goods.h_name }&gt;님의 게스트 하우스
 						 </div> 
+						 					<input type="hidden" name="room_imageName" value="${imageList[0].room_imageName}">
+						 
 						 <input type="hidden" name="room_code" value="${goods.room_code }">
+						 <input type="hidden" name="title" value="${goods.title }">
+						 <input type="hidden" name="h_name" value="${goods.h_name }">
 						 <input type="hidden" name="h_code" value="${goods.h_code }">
 						<div class="seller-profile">
 							<a id="hb_a_main_profile_2" href="#"><img
@@ -949,7 +954,7 @@ function addCart(){
 							<div class="hb_rec_16"
 								style="float: left; border-right: 1px solid #CCCCCC;">
 								<h6 style="font-size:12px; width:100%;">체크인</h6>
-								<input type=text style="text-align:center; margin-top:3px;" name="checkIn_date" id="checkIn_date" placeholder="yyyy-dd-mm"/>
+								<input type=text style="text-align:center; margin-top:3px;" value="${cartVO.checkIn_date }"name="checkIn_date" id="checkIn_date" placeholder="yyyy-dd-mm"/>
 								</div>
 							<div class="hb_rec_16" style="float: right;">
 							<h6 style="font-size:12px; width:100%;">체크아웃</h6>

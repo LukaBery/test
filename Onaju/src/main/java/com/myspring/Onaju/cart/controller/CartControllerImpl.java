@@ -1,7 +1,9 @@
 package com.myspring.Onaju.cart.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +47,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		System.out.println(checkIndate_);
 		String isLogOn = (String) session.getAttribute("isLogOn");
 		String action = (String) session.getAttribute("action");
+		
 		if (isLogOn == null) {     // 로그인 정보가 없을 때 로그인 창으로 장바구니 정보 들고감
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,8 +62,15 @@ public class CartControllerImpl extends BaseController implements CartController
 			int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 			int total = room_fee * checkDate;
 			String h_code = receiverMap.get("h_code");
+			String h_name = receiverMap.get("h_name");
+			String room_imageName = receiverMap.get("room_imageName");
+			String title = receiverMap.get("title");
 			cartVO.setH_code(h_code);
 			cartVO.setTotal(total);
+			cartVO.setRoom_imageName(room_imageName);
+			cartVO.setTitle(title);
+			cartVO.setH_name(h_name);
+
 			cartVO.setPeople_count(people_count);
 			cartVO.setRoom_fee(room_fee);
 			cartVO.setRoom_code(room_code);
@@ -93,8 +99,15 @@ public class CartControllerImpl extends BaseController implements CartController
 				int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 				int total = room_fee * checkDate;
 				String h_code = receiverMap.get("h_code");
+				String h_name = receiverMap.get("h_name");
+				String room_imageName = receiverMap.get("room_imageName");
+				String title = receiverMap.get("title");
 				cartVO.setH_code(h_code);
-
+				System.out.println(room_imageName);
+				System.out.println("타이틀@@@@"+title);
+				cartVO.setRoom_imageName(room_imageName);
+				cartVO.setTitle(title);
+				cartVO.setH_name(h_name);
 				cartVO.setTotal(total);
 				cartVO.setPeople_count(people_count);
 				cartVO.setRoom_fee(room_fee);
@@ -111,7 +124,19 @@ public class CartControllerImpl extends BaseController implements CartController
 
 		if (memberInfo != null) {
 			cartVO.setU_id(memberInfo.getU_id());
+			cartService.addCart(cartVO);
 		} else if (nonmemberInfo != null) {
+			List<CartVO> myCartList = (ArrayList<CartVO>) session.getAttribute("nonMemberCart");
+			if(myCartList == null ) { 
+				List<CartVO> myCart = new ArrayList<CartVO>(); 
+			 
+				myCart.add(cartVO);
+			session.setAttribute("nonMemberCart", myCart);}
+			else {
+				myCartList.add(cartVO);
+				session.setAttribute("nonMemberCart", myCartList);
+			}
+			
 			System.out.println("비회원 주문 성공");
 
 		} else {
@@ -121,9 +146,12 @@ public class CartControllerImpl extends BaseController implements CartController
 		
 		
 		
-		cartService.addCart(cartVO);
-		String room_code = receiverMap.get("room_code");
+		
+		String room_code = cartVO.getRoom_code();
+		System.out.println("코드드드드드드"+room_code);
 		mav.addObject("room_code", room_code);
+		
+		mav.addObject("cartVO", cartVO);
 		mav.setViewName("redirect:/host/goods/goodsDetail.do");
 		return mav;
 		
