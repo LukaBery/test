@@ -13,6 +13,20 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
+
+<c:if test='${ not empty message }'>
+
+	<script>
+		window.onload = function() {
+			result();
+		}
+
+		function result() {
+			alert("${message}");
+			
+		}
+	</script>
+</c:if>
 <script type="text/javascript">
 	
 
@@ -23,44 +37,15 @@ request.setCharacterEncoding("UTF-8");
 
 function fn_delete_member() {
 
-	var frm_mod_member = document.frm_mod_member;
-	var _member_id = frm_mod_member.u_id.value;
-	var _member_pw_delete = frm_mod_member.u_pw_delete.value;
-	var _member_pw = frm_mod_member.u_pw.value;
-
 	
-	if (_member_pw != _member_pw_delete) {
-		alert("비밀번호가 일치하지 않습니다.");
-		return;
-	}
 	
 		
 		
-	
+	document.frm_del_member.submit(); 
 
 
-	$.ajax({
-		type : "post",
-		async : false,
-		url : "${contextPath}/mypage/deleteMember.do",
-		dataType : "text",
-		data : {
-			u_id : _member_id,
-		},
-		success : function(data, textStatus) {
-			alert("회원 탈퇴했습니다.");
-		},
-		error : function(data, textStatus) {
-			alert("에러가 발생했습니다." + data);
 
-		},
-		complete : function(data, textStatus) {
-			 window.location.href = "${contextPath}/main/main.do";
-		}
-
-	});
-
-}
+}	
 
 
 </script>
@@ -343,7 +328,7 @@ padding: 15px 0px 15px 0px;
 				height="100px"></a>
 		</section>
 
-	<form name="frm_mod_member">
+	<form name="frm_del_member" action="${contextPath}/mypage/deleteMember.do" method="post" >
 
 			<div class="hb_rec_order_1" >
 				<p id="h1_order_title">회원 탈퇴</p>
@@ -354,10 +339,12 @@ padding: 15px 0px 15px 0px;
 				<span class="inputWrap_order"> <input type="text" name="u_id"
 					id="u_id" value="${memberInfo.u_id }" tabindex="1" placeholder="아이디">
 				</span> <span class="inputWrap_order"> <input type="password"
-					 id="u_pw_delete" tabindex="1" placeholder="비밀번호"name="u_pw_delete" >
-					<input type="hidden"
-					name="u_pw" id="u_pw" tabindex="1" name="u_pw" value="${memberInfo.u_pw }" >
-				</span> <span class="hb_order_a"> 정말로 회원 탈퇴 하시겠습니까?
+					 id="u_pw" tabindex="1" placeholder="비밀번호"name="u_pw" >
+					
+				</span> 
+				
+				
+				<span class="hb_order_a"> 정말로 회원 탈퇴 하시겠습니까?
 
 				</span> 
 				<a class="hb_order_submit"  style="background-color: rgb(252, 96, 143); color: white;" href="${contextPath}/main/main.do">돌아가기</a>
