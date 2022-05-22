@@ -20,9 +20,13 @@
 <artifactId>commons-codec</artifactId>
 <version>1.10</version>
 </dependency>
+<!-- 경도 위도 라이브러리 -->
+  <dependency>
+  <groupId>com.google.code.geocoder-java</groupId>
+  <artifactId>geocoder-java</artifactId>
+  <version>0.16</version>
+</dependency>
 <!-- 구글 json 라이브러리 -->
-  
-
 	<dependency>
 	<groupId>com.googlecode.json-simple</groupId>
 	<artifactId>json-simple</artifactId>

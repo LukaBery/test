@@ -54,6 +54,9 @@ public class HostGoodsVO {
 	private int roomImage_NO;
 	private String room_imageName;
 	private String room_imageType;
+	private String longitude;
+	private String latitude;
+	
 	
 	
 	public HostGoodsVO() {
@@ -63,6 +66,26 @@ public class HostGoodsVO {
 
 	public String getHostInfo_name() {
 		return hostInfo_name;
+	}
+
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 
