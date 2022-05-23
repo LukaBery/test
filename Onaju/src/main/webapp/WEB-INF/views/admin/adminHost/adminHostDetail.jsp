@@ -136,13 +136,13 @@
 				<div class="mem-item2-chil-1"><div>아이디</div></div>
 				<div class="mem-item2-chil-2"><div>${hostVO.h_id }</div></div>
 				<div class="mem-item2-chil-1"><div>원정생성일</div></div>
-				<div class="mem-item2-chil-2"><div><fmt:formatDate value="${hostVO.joinDate }" pattern="yyyy년 MM월 dd일"/></div></div>
+				<div class="mem-item2-chil-2"><div>${hostVO.joinDate }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자명</div></div>
 				<div class="mem-item2-chil-2"><div>${hostVO.h_name }</div></div>
 				<div class="mem-item2-chil-1"><div>대표자생년월일</div></div>
-				<div class="mem-item2-chil-2"><div>${h_birth }</div></div>
+				<div class="mem-item2-chil-2"><div>${hostVO.h_birth_y }년${hostVO.h_birth_m }월${hostVO.h_birth_d }일 </div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자 전화번호</div></div>
@@ -184,7 +184,7 @@
 				<div class="mem-item2-chil-4"><div>이벤트 수신 여부</div></div>
 				<div class="mem-item2-chil-5"><div>${hostVO.h_service_01 }${hostVO.h_service_01 }</div></div>
 				<div class="mem-item2-chil-4"><div>승인 완료일</div></div>
-				<div class="mem-item2-chil-5"><div><fmt:formatDate value="${hostVO.joinDate }" pattern="yyyy년 MM월 dd일"/></div></div>
+				<div class="mem-item2-chil-5"><div>${hostVO.joinDate }</div></div>
 			</div>		
 		</div>
 		
@@ -199,20 +199,22 @@
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>대리인 전화번호</div></div>
-				<div class="mem-item2-chil-5"><div><fmt:formatDate value="${hostVO.joinDate }" type="both" dateStyle="long" /></div></div>
+				<div class="mem-item2-chil-5"><div>${hostVO.deputy_phone }</div></div>
 				<div class="mem-item2-chil-4"><div>대표자와의 관계</div></div>
 				<div class="mem-item2-chil-5"><div>${hostVO.deputy_department }</div></div>
 			</div>
 		</div>
 		
-		
-		<div class="mem-item1"><div><h3>사업장 상세 정보</h3></div></div>
+<%-- 		<c:choose>
+		<c:when test="${!empty hostInfoVO}" >
+		<c:forEach  var="hostInfoVO" items="${hostInfoVO }" >
+		<div class="mem-item1"><div><h3 style="color: #ff3333;">${hostInfoVO.hostInfo_name }</h3></div><div><h3>사업장 정보</h3></div></div>
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>가맹점명</div></div>
 				<div class="mem-item2-chil-2"><div>${hostInfoVO.hostInfo_name }</div></div>
 				<div class="mem-item2-chil-1"><div>원정생성일</div></div>
-				<div class="mem-item2-chil-2"><div><fmt:formatDate value="${hostVO.joinDate }" pattern="yyyy년 MM월 dd일"/></div></div>
+				<div class="mem-item2-chil-2"><div>${hostInfoVO.creDate }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>사업자등록번호</div></div>
@@ -237,9 +239,15 @@
 				<div class="mem-item2-chil-5"><div>${hostInfoVO.del_yn }</div></div>
 			</div>		
 		</div>
+		</c:forEach>
+		</c:when>
+		<c:otherwise>
+		
+		</c:otherwise>
+		</c:choose> --%>
 		<div class="mem-item5">
-			<div><a class="a1" href="${contextPath }/host.hostModify.do?h_id=${hostVO.h_id}">수정하기</a></div>
-			<div><a class="a2" href="${contextPath }/host.hostList.do?">돌아가기</a></div>
+			<div><a class="a1" href="${contextPath }/admin/hostModify.do?h_id=${hostVO.h_id}">수정하기</a></div>
+			<div><a class="a2" href="${contextPath }/admin/hostList.do?">돌아가기</a></div>
 		</div>	
 	</section>
 </body>
