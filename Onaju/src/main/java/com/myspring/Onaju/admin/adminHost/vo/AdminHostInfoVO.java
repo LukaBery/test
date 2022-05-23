@@ -1,12 +1,12 @@
-package com.myspring.Onaju.host.goods.vo;
-
-import java.util.Date;
+package com.myspring.Onaju.admin.adminHost.vo;
 
 import org.springframework.stereotype.Component;
-@Component("hostInfoVO")
-public class HostInfoVO {
+
+@Component("adminHostInfoVO")
+public class AdminHostInfoVO {
 	private int h_code;
 	private String h_id;
+	private String h_name;
 	private String hostInfo_name;
 	private String h_sellerNum;
 	private String h_accountNum;
@@ -16,13 +16,48 @@ public class HostInfoVO {
 	private String restAddress;
 	private String host_type;
 	private String room_count;
-	private Date creDate;
+	private String creDate;
 	private String del_yn;
+	
+	private String h_email1;
+	private String h_email2;
+	private String h_phone;
+	private String deputy_name;
+	private String deputy_phone;
+	private String deputy_department;
+	private String deputy_birth;
 
-	public HostInfoVO() {
-		System.out.println("HostInfoVO 생성자 메서드 호출");
+	private int viewPage = 1;
+	private int startNO = 1;
+	private int endNO = 10;
+	
+	
+	public int getViewPage() {
+		return viewPage;
+	}
+	public void setViewPage(int viewPage) {
+		this.viewPage = viewPage;
+	}
+	public int getStartNO() {
+		return startNO;
+	}
+	public void setStartNO(int startNO) {
+		this.startNO = startNO;
+	}
+	public int getEndNO() {
+		return endNO;
+	}
+	public void setEndNO(int endNO) {
+		this.endNO = endNO;
 	}
 
+	
+	public String getH_name() {
+		return h_name;
+	}
+	public void setH_name(String h_name) {
+		this.h_name = h_name;
+	}
 	public String getDel_yn() {
 		return del_yn;
 	}
@@ -119,12 +154,54 @@ public class HostInfoVO {
 		this.room_count = room_count;
 	}
 
-	public Date getCreDate() {
+	public String getCreDate() {
 		return creDate;
 	}
 
-	public void setCreDate(Date creDate) {
+	public void setCreDate(String creDate) {
 		this.creDate = creDate;
+	}
+	public String getH_email1() {
+		return h_email1;
+	}
+	public void setH_email1(String h_email1) {
+		this.h_email1 = h_email1;
+	}
+	public String getH_email2() {
+		return h_email2;
+	}
+	public void setH_email2(String h_email2) {
+		this.h_email2 = h_email2;
+	}
+	public String getH_phone() {
+		return h_phone;
+	}
+	public void setH_phone(String h_phone) {
+		this.h_phone = h_phone;
+	}
+	public String getDeputy_name() {
+		return deputy_name;
+	}
+	public void setDeputy_name(String deputy_name) {
+		this.deputy_name = deputy_name;
+	}
+	public String getDeputy_phone() {
+		return deputy_phone;
+	}
+	public void setDeputy_phone(String deputy_phone) {
+		this.deputy_phone = deputy_phone;
+	}
+	public String getDeputy_department() {
+		return deputy_department;
+	}
+	public void setDeputy_department(String deputy_department) {
+		this.deputy_department = deputy_department;
+	}
+	public String getDeputy_birth() {
+		return deputy_birth;
+	}
+	public void setDeputy_birth(String deputy_birth) {
+		this.deputy_birth = deputy_birth;
 	}
 
 	

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin.host">
+
+	<resultMap id="hostResult" type="adminHostVO">
+      	<result property="h_id" column="h_id" />
+      	<result property="h_pw" column="h_pw" />
+      	<result property="h_name" column="h_name" />
+      	<result property="h_birth_y" column="h_birth_y" />
+      	<result property="h_birth_m" column="h_birth_m" />
+      	<result property="h_birth_d" column="h_birth_d" />
+      	<result property="h_gender" column="h_gender" />
+      	<result property="h_phone" column="h_phone" />
+      	<result property="h_email1" column="h_email1" />
+      	<result property="h_email2" column="h_email2" />
+      	<result property="zipcode" column="zipcode" />
+      	<result property="roadAddress" column="roadAddress" />
+      	<result property="numberAddress" column="numberAddress" />
+      	<result property="restAddress" column="restAddress" />
+      	<result property="deputy_name" column="deputy_name" />
+      	<result property="deputy_phone" column="deputy_phone" />
+      	<result property="deputy_department" column="deputy_department" />
+      	<result property="deputy_birth" column="deputy_birth" />
+      	<result property="h_imageName" column="h_imageName" />
+      	<result property="h_imageType" column="h_imageType" />
+      	<result property="h_agree_1" column="h_agree_1" />
+      	<result property="h_agree_2" column="h_agree_2" />
+      	<result property="h_agree_3" column="h_agree_3" />
+      	<result property="h_service_01" column="h_service_01" />
+      	<result property="h_service_02" column="h_service_02" />
+      	<result property="joinDate" column="joinDate" />
+      	<result property="del_yn" column="del_yn" />
+	</resultMap>
+	
+	
+	<resultMap id="hostInfoResult" type="adminHostInfoVO">
+      	<result property="h_code" column="h_code" />
+      	<result property="h_id" column="h_id" />
+      	<result property="h_name" column="h_name" />
+      	<result property="hostInfo_name" column="hostInfo_name" />
+      	<result property="zipcode" column="zipcode" />
+      	<result property="roadAddress" column="roadAddress" />
+      	<result property="numberAddress" column="numberAddress" />
+      	<result property="restAddress" column="restAddress" />
+      	<result property="host_type" column="host_type" />
+      	<result property="room_count" column="room_count" />
+      	<result property="h_sellerNum" column="h_sellerNum" />
+      	<result property="h_accountNum" column="h_accountNum" />
+      	<result property="creDate" column="creDate" />
+      	<result property="del_yn" column="del_yn" />
+      	
+      	<result property="h_email1" column="h_email1" />
+      	<result property="h_email2" column="h_email2" />
+      	<result property="h_phone" column="h_phone" />
+      	<result property="deputy_name" column="deputy_name" />
+      	<result property="deputy_phone" column="deputy_phone" />
+      	<result property="deputy_department" column="deputy_department" />
+      	<result property="deputy_birth" column="deputy_birth" />
+	</resultMap>
+	
+	<select id="selectAllHostList" resultMap="hostResult"   parameterType="adminHostVO"  >
+		 <![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_phone, del_yn, roadAddress 
+        from h_host, (select @rownum := 0)  as rowcolumn order by joinDate desc) z 
+		where rn >= #{startNO} and rn <= #{endNO};
+		 ]]>						        
+	</select>
+	
+	<select id="selectAllHostTotal" resultType="java.lang.Integer">
+   		<![CDATA[
+        SELECT count(*) total FROM h_host
+    	]]>
+	</select>
+	
+	<select id="selectHostDetail" resultMap="hostResult"   parameterType="String"  >
+		 select * from h_host where h_id = #{h_id}					        
+	</select>
+	
+	<select id="selectHostInfoDetailList" resultMap="hostInfoResult"   parameterType="String"  >
+		 select * from h_host_info where h_id = #{h_id}					        
+	</select>
+	
+	<select id="selectAllHostInfoList" resultMap="hostInfoResult"   parameterType="adminHostInfoVO"  >
+		 <![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, I.h_id, H.h_name, I.hostInfo_name, I.creDate, I.h_sellerNum, I.host_type, I.del_yn, I.roadAddress, I.h_code
+        from h_host_Info I inner join h_host H on I.h_id = H.h_id , (select @rownum := 0)  as rowcolumn order by I.creDate desc) z 
+		where rn >= #{startNO} and rn <= #{endNO};
+		 ]]>						        
+	</select>
+	<select id="selectHostInfoDetail" resultMap="hostInfoResult"   parameterType="String"  >
+		 select I.h_code, 
+		 		I.h_id, 
+		 		I.hostInfo_name, 
+		 		I.h_sellerNum, 
+		 		I.h_accountNum, 
+		 		I.zipcode, 
+		 		I.roadAddress, 
+		 		I.numberAddress, 
+		 		I. restAddress, 
+		 		I.host_type, 
+		 		I.room_count, 
+		 		I.del_yn, 
+		 		I.creDate, 
+		 		H.h_name, 
+		 		H.h_email1, 
+		 		H.h_email2, 
+		 		H.h_phone, 
+		 		H.deputy_name, 
+		 		H.deputy_phone, 
+		 		H.deputy_department, 
+		 		H.deputy_birth 
+		 		from h_host_info I 
+		 		inner join h_host H 
+		 		on I.h_id = H.h_id 
+		 		where I.h_code = #{h_code}					        
+	</select>
+</mapper>

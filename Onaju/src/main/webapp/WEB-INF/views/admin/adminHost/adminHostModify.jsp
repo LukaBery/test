@@ -244,7 +244,7 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>대표자명</div></div>
 				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.h_name }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대표자생년월일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="date" size="20" value="${h_birth }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="date" size="20" value="" /></div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자 전화번호</div></div>

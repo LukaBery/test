@@ -88,8 +88,8 @@
 	<task:scheduler id="scheduler" pool-size="10"/>
 	
 	<task:scheduled-tasks>
-		<task:scheduled ref="schedule" method="memberSchedule" cron="0/5 * * * * ?"/>
-		<task:scheduled ref="schedule" method="listMemberScheduler" cron="0/5 * * * * ?"/>
+		<task:scheduled ref="schedule" method="memberSchedule" cron="0/5 * * 1 * ?"/>
+		<task:scheduled ref="schedule" method="listMemberScheduler" cron="0/5 * * 1 * ?"/>
 	</task:scheduled-tasks> 
     
 
