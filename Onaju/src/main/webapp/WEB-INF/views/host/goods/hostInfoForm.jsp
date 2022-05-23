@@ -13,6 +13,14 @@
 <meta charset="UTF-8">
 <title>사업장 정보 등록하기</title>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script>
+		window.onload = function() {
+			getCurrentPosBtn();
+		}
+
+		
+	</script>
 <script type="text/javascript">
 	function execDaumPostcode() {
 		new daum.Postcode(
@@ -49,23 +57,10 @@
 						document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
 						document.getElementById('roadAddress').value = fullRoadAddr;
 						searchMap(fullRoadAddr)
-						document.getElementById('restAddress').value = data.numberAddress;
+      document.getElementById('numberAddress').value = data.jibunAddress;
 
 						// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-						if (data.autoRoadAddress) {
-							//예상되는 도로명 주소에 조합형 주소를 추가한다.
-							var expRoadAddr = data.autoRoadAddress
-									+ extraRoadAddr;
-							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-									+ expRoadAddr + ')';
-
-						} else if (data.autonumberAddress) {
-							var expJibunAddr = data.autonumberAddress;
-							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-									+ expJibunAddr + ')';
-						} else {
-							document.getElementById('guide').innerHTML = '';
-						}
+						
 
 					}
 				}).open();
@@ -76,14 +71,13 @@
 <style>
 @charset "utf-8";
 
-
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 
 section.host_notice {
-	width : 850px;
+	width: 850px;
 	padding: 0 auto;
 	margin-left: 50px;
 }
@@ -120,7 +114,8 @@ section.host_notice {
 	border: 1px solid #cbdea6;
 }
 
-#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input:focus {
+#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input:focus
+	{
 	border-color: #333;
 	outline: 0;
 	border-width: 1px;
@@ -137,12 +132,11 @@ section.host_notice {
 }
 
 .board-table {
-	color:#403e3f;
+	color: #403e3f;
 	font-size: 14px;
 	width: 100%;
 	border-top: 1px solid #cbdea6;;
 	border-bottom: 1px solid #cbdea6;;
-	
 }
 
 .board-table a {
@@ -159,41 +153,35 @@ section.host_notice {
 
 .roomSelect {
 	border: 1px solid #7f9b75;
-    font-size: 15px;
-    height: 28px;
-    padding: 1px;
-    width: 180px;
-    text-align: left;
-
+	font-size: 15px;
+	height: 28px;
+	padding: 1px;
+	width: 180px;
+	text-align: left;
 }
 
-.search_button{
+.search_button {
 	font-size: 10pt;
-    color: #666;
-    text-decoration: none;
-    display: inline-block;
-    
-    width: 150px;
-    height: 25px;
-    border: 1px solid #cfcfcf;
-    background: #dedede;
-    color: #626262;
-    text-align: center;
-   
-   
+	color: #666;
+	text-decoration: none;
+	display: inline-block;
+	width: 150px;
+	height: 25px;
+	border: 1px solid #cfcfcf;
+	background: #dedede;
+	color: #626262;
+	text-align: center;
 }
 
 .board-table th {
-	text-align: center;
-
+	text-align: left;
 }
 
-.td-date-writer{
+.td-date-writer {
 	text-align: center;
 }
 
 .board-table .th-num {
-	
 	width: 100px;
 	text-align: center;
 }
@@ -202,16 +190,16 @@ section.host_notice {
 	width: 200px;
 }
 
-.board-table th, .board-table td {	
-	padding: 10px 0;
+.board-table th, .board-table td {
+	padding: 10px 0px 10px 20px;
 	border-top: 1px solid #cbdea6;
 }
 
-.th-content{
+.th-content {
 	min-height: 250px;
 }
 
-.th-image{
+.th-image {
 	min-height: 80px;
 }
 
@@ -220,10 +208,11 @@ section.host_notice {
 	padding: 0;
 	font-weight: 400;
 }
+
 .noticeBtn2 {
 	display: inline-block;
 	padding: 5px 30px;
-	margin:30px 10px 30px 10px;
+	margin: 30px 10px 30px 10px;
 	font-size: 16px;
 	font-weight: 400;
 	background: transparent;
@@ -261,7 +250,7 @@ section.host_notice {
 }
 
 .noticeBtn2Box {
-	width:850px;
+	width: 850px;
 	margin-left: 600px;
 }
 
@@ -285,25 +274,28 @@ section.host_notice {
 	height: 1px;
 }
 
-.file_input{
+.file_input {
 	margin: 5px;
-    font-size: 13px;
-    
+	font-size: 13px;
 }
 
 .hb_rec_13 {
 	float: right;
-
-	width: 500px;
-	height:500px;
+	width: 300px;
+	height: 300px;
 	border-radius: 10px;
 	border: 1px solid #cccccc;
 	text-align: center;
-	
-	
 }
 
-
+#Info_tr {
+	width: 100%;
+	height: 46px;
+	border-bottom: 1px solid #cbdea6;
+	font-weight: 550;
+	font-weight: 550;
+	padding:10px 0px 10px 20px;
+}
 </style>
 </head>
 
@@ -356,52 +348,66 @@ section.host_notice {
 											<td class="notice_title" ><input type="button" class="search_button" value="계좌번호 확인" onclick="f()"></td>
 										</tr>
 										
-										<tr>
-											<th class="th-title">우편 번호</th>
-											<td class="notice_title" colspan="2"><input type="text" id="zipcode" name="zipcode" disabled></td>
-											<td class="notice_title" ><input type="button" class="search_button" value="우편번호 검색" onclick="execDaumPostcode()"></td>
-										</tr>
-										<tr>
-											<th class="th-title">도로명 주소</th>
-											<td class="notice_title" colspan="3"><input type="text" name="roadAddress" id="roadAddress" disabled
-											><input type="hidden" name="longitude" id="longitude"><input type="hidden" name="latitude" id="latitude"></td>
-											
-										</tr>
-										<tr>
-											<th class="th-title">지번 주소</th>
-											<td class="notice_title" colspan="3"><input type="text" name="numberAddress" id="numberAddress" disabled></td>
-										</tr>
-										<tr>
-											<th class="th-title">나머지 주소</th>
-											<td class="notice_title" colspan="3"><input type="text" name="restAddress" id="restAddress"></td>
-										</tr>
+														</thead>
+															</table>
+										<div style="width:60%;height:100%; float:left; display:inline-block;">
 										
-									</thead>					
-							</table>
+										<div id="Info_tr">
+											<div style="width:30%;height:25px;display:inline-block;">우편 번호</div>
+											<div style="width:38%;height:20px;display:inline-block;margin-top:5px;"><input type="text" id="zipcode" name="zipcode" style="font-size:14px;" disabled></div>
+											<div style="width:30%;height:25px;display:inline-block;" ><input type="button" class="search_button" value="우편번호 검색" onclick="execDaumPostcode()"></div>
+										</div>
+										<div id="Info_tr">
+											<div style="width:30%;height:25px;display:inline-block;">도로명 주소</div>
+											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="roadAddress" id="roadAddress" style="font-size:14px;"disabled
+											><input type="hidden" name="longitude" id="longitude"><input type="hidden" name="latitude" id="latitude"></div>
+											
+										</div>
+										<div id="Info_tr">
+											<div style="width:30%;height:25px;display:inline-block;">지번 주소</div>
+											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="numberAddress" id="numberAddress" style="font-size:14px;"disabled></div>
+										</div>
+										<div id="Info_tr">
+											<div style="width:30%;height:25px;display:inline-block;">나머지 주소</div>
+											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="restAddress" id="restAddress"style="font-size:14px;"></div>
+										</div>
+										
+										</div>
+											<div class="hb_rec_13" id="map">지도API</div>
+										
+										
+										
+						
 						</div> 
 					</div>
 					<div class="noticeBtn2Box">
-						<button type="submit" class="noticeBtn2 btn-dark2" onClick="${contextPath}/host/goods/hostInfoList.do">목록</button>
-						<button type="submit" class="noticeBtn2 btn-dark2">등록</button>
+						<button type="button" class="noticeBtn2 btn-dark2" onClick="${contextPath}/host/goods/hostInfoList.do">목록</button>
+						<button type="button" class="noticeBtn2 btn-dark2" onClick="addHostInfo()">등록</button>
 					</div>		
 				</form>
 		</section>
-		<div class="hb_rec_13" id="map">지도API</div>
+	
 </body>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
 
 <script>
+function addHostInfo(){
+	document.getElementById('zipcode').disabled = false;
+	document.getElementById('roadAddress').disabled = false;
+	document.getElementById('numberAddress').disabled = false;
 
+	
+	document.addNewhostInfo.submit();
+}
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 2// 지도의 확대 레벨
 };  
 
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
-
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
@@ -440,7 +446,7 @@ geocoder.addressSearch(kkAddress, function(result, status) {
     });
     mapOption = {
     	    center: new kakao.maps.LatLng(result[0].y, result[0].x), // 지도의 중심좌표
-    	    level: 3 // 지도의 확대 레벨
+    	    level: 2 // 지도의 확대 레벨
     	};  
 
 
@@ -452,10 +458,31 @@ geocoder.addressSearch(kkAddress, function(result, status) {
 
     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
     map.setCenter(coords);
+  
 } 
 });    
 }
 
+
+function locationLoadSuccess(pos) {
+	// 현재 위치 받아오기
+	var currentPos = new kakao.maps.LatLng(pos.coords.latitude,
+			pos.coords.longitude);
+
+	// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+	map.panTo(currentPos);
+
+	
+};
+
+function locationLoadError(pos) {
+	alert('위치 정보를 가져오는데 실패했습니다.');
+};
+
+function getCurrentPosBtn() {
+	navigator.geolocation.getCurrentPosition(locationLoadSuccess,
+			locationLoadError);
+};
 
 
 </script>
