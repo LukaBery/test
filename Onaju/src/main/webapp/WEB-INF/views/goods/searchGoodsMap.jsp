@@ -64,13 +64,13 @@
 
 .hb_rec_13 {
 	float: right;
-	position: fixed;
+	position: sticky;
 	width: 550px;
 	height: 760px;
 	border-radius: 10px;
 	border: 1px solid #cccccc;
 	text-align: center;
-	top: 170px;
+	top: 100px;
 	left: 50%;
 }
 
@@ -752,11 +752,12 @@
 
           	       
         </div>
+        <div style="height:100%;min-height:1000px; top:10px;">
         <div class="hb_rec_13" id="map">지도API</div>
-        
+        </div>
         <button type="button" onClick="getCurrentPosBtn()">현재 위치 받아오기</button>
      
-	
+	<!-- 카카오맵 API -->
 	<script>
 	
 		var container = document.getElementById('map');
@@ -793,29 +794,8 @@
 		 
 		var arr = new Array();
 		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		arr[0] = ["우리집",36.36265890440353,127.34991943416111, "대전시 장대동 303-1","1980287267"];
-		arr[1] = ["우리집2",36.34992223679174, 127.3761423866767 , "대전시 장대동 303-1","1438742395"];
-		arr[2] = ["우리집3",36.34947407893532, 127.38106421065027 , "대전시 장대동 303-1","10068807"];
-		arr[3] = ["우리집4",36.348428340444116, 127.37548907639513 , "대전시 장대동 303-1","27154726"];
-		arr[4] = ["우리집5",36.34698164121866, 127.37701943235601 , "대전시 장대동 303-1","20587860"];
-		arr[5] = ["우리집6",36.34832585798189, 127.37368389401702 , "대전시 장대동 303-1","842394951"];
-		
 			<c:forEach  var="item" items="${hostgoodsMap.goodsList }" varStatus="membersNum" >
-			
 			 arr.push(["${item.title}",${item.longitude },${item.latitude} , "${item.roadAddress}","${item.room_code}"]);
-			
-			
-
 		</c:forEach>
 
 		var markerTmp; // 마커

@@ -119,7 +119,7 @@ height:100%;
 	z-index: 1000;
 	text-align: center;
 	clear: both;
-	margin-top: 150px;
+	margin-top: 30px;
 	border: 0px solid #bcbcbc;
 }
 </style>
