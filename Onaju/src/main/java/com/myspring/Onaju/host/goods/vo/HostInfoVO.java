@@ -17,6 +17,8 @@ public class HostInfoVO {
 	private String host_type;
 	private String room_count;
 	private Date creDate;
+	private String longitude;
+	private String latitude;
 
 	public HostInfoVO() {
 		System.out.println("HostInfoVO 생성자 메서드 호출");
@@ -24,6 +26,22 @@ public class HostInfoVO {
 
 	public int getH_code() {
 		return h_code;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	public void setH_code(int h_code) {

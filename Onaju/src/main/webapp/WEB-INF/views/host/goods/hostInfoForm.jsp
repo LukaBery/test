@@ -39,15 +39,17 @@
 						if (extraRoadAddr !== '') {
 							extraRoadAddr = ' (' + extraRoadAddr + ')';
 						}
-						// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
 						if (fullRoadAddr !== '') {
 							fullRoadAddr += extraRoadAddr;
 						}
+						// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+						
 
 						// 우편번호와 주소 정보를 해당 필드에 넣는다.
 						document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
 						document.getElementById('roadAddress').value = fullRoadAddr;
-						document.getElementById('numberAddress').value = data.numberAddress;
+						searchMap(fullRoadAddr)
+						document.getElementById('restAddress').value = data.numberAddress;
 
 						// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 						if (data.autoRoadAddress) {
@@ -289,6 +291,18 @@ section.host_notice {
     
 }
 
+.hb_rec_13 {
+	float: right;
+
+	width: 500px;
+	height:500px;
+	border-radius: 10px;
+	border: 1px solid #cccccc;
+	text-align: center;
+	
+	
+}
+
 
 </style>
 </head>
@@ -344,16 +358,18 @@ section.host_notice {
 										
 										<tr>
 											<th class="th-title">우편 번호</th>
-											<td class="notice_title" colspan="2"><input type="text" id="zipcode" name="zipcode"></td>
+											<td class="notice_title" colspan="2"><input type="text" id="zipcode" name="zipcode" disabled></td>
 											<td class="notice_title" ><input type="button" class="search_button" value="우편번호 검색" onclick="execDaumPostcode()"></td>
 										</tr>
 										<tr>
 											<th class="th-title">도로명 주소</th>
-											<td class="notice_title" colspan="3"><input type="text" name="roadAddress" id="roadAddress"></td>
+											<td class="notice_title" colspan="3"><input type="text" name="roadAddress" id="roadAddress" disabled
+											><input type="hidden" name="longitude" id="longitude"><input type="hidden" name="latitude" id="latitude"></td>
+											
 										</tr>
 										<tr>
 											<th class="th-title">지번 주소</th>
-											<td class="notice_title" colspan="3"><input type="text" name="numberAddress" id="numberAddress"></td>
+											<td class="notice_title" colspan="3"><input type="text" name="numberAddress" id="numberAddress" disabled></td>
 										</tr>
 										<tr>
 											<th class="th-title">나머지 주소</th>
@@ -370,5 +386,77 @@ section.host_notice {
 					</div>		
 				</form>
 		</section>
+		<div class="hb_rec_13" id="map">지도API</div>
 </body>
+    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
+
+<script>
+
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//지도 타입 변경 컨트롤을 생성한다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도에 확대 축소 컨트롤을 생성한다
+var zoomControl = new kakao.maps.ZoomControl();
+
+// 지도의 우측에 확대 축소 컨트롤을 추가한다
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//주소로 좌표를 검색합니다
+
+
+
+function searchMap(kkAddress){
+	/* var address = $(kkAddress).val(); */
+
+	
+geocoder.addressSearch(kkAddress, function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    document.getElementById('longitude').setAttribute('value',result[0].y);
+    document.getElementById('latitude').setAttribute('value',result[0].x);
+
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+    });
+    mapOption = {
+    	    center: new kakao.maps.LatLng(result[0].y, result[0].x), // 지도의 중심좌표
+    	    level: 3 // 지도의 확대 레벨
+    	};  
+
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">사업장 위치</div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+} 
+});    
+}
+
+
+
+</script>
 </html>

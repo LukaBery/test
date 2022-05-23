@@ -120,6 +120,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HttpSession session = request.getSession();
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		String h_id = hostVO.getH_id();
+		
+		
 		hostInfoVO.setH_id(h_id);
 		String message = null;
 		ResponseEntity resEntity = null;
