@@ -783,7 +783,7 @@
 		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 		//infowindow.open(map, marker); 
 		 
-		var imageSrc = '${contextPath}/resources/image/onajulogo.png';                              // 마커이미지 주소
+		var imageSrc = '${contextPath}/resources/image/onajumarkLast.png';                              // 마커이미지 주소
 		    imageSize = new kakao.maps.Size(34, 36);                // 마커이미지의 크기
 		    imageOption = {offset: new kakao.maps.Point(17, 36)};   // 마커의 좌표와 일치시킬 이미지 안에서의 좌표설정
 		      

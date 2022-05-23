@@ -282,7 +282,7 @@ section.host_notice {
 .hb_rec_13 {
 	float: right;
 	width: 300px;
-	height: 300px;
+	height: 270px;
 	border-radius: 10px;
 	border: 1px solid #cccccc;
 	text-align: center;
