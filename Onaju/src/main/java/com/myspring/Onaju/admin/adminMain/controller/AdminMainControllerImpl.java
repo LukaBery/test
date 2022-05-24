@@ -37,7 +37,8 @@ import com.myspring.Onaju.admin.adminMain.service.AdminMainService;
 	 public ModelAndView adminHome(HttpServletRequest request, HttpServletResponse response) throws Exception { 
 		 ModelAndView mav =new ModelAndView(); 
 		 String viewName = (String)request.getAttribute("viewName"); 
-		 mav.setViewName(viewName); return mav; 
+		 mav.setViewName(viewName); 
+		 return mav; 
 	}
 	 
 	// 관리자 로그인 폼 이동
