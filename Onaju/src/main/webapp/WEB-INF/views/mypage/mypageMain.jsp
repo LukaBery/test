@@ -412,7 +412,7 @@ function newReview(boardNum){
 
 					<c:forEach var="item" items="${myOrderList}" varStatus="membersNum">
 					<c:set var="i" value="${i +1 }" />
-						<form name="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
+						<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
 						<div  id="reviewForm_${i}" style="width:50%; height:100px;float: left;margin: 10px 0px;display:inline-block;">
 							<div
 								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
@@ -436,9 +436,12 @@ function newReview(boardNum){
 
 								<c:choose>
 									<c:when
-										test="${item.review_state eq 'Y' }">
+										test="${item.review_state eq 'y' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											작성완료</div>
+											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
+												작성완료 </a>
+												</div>
 									</c:when>
 									<c:otherwise>
 										<div style="width: 23%; height: 50%; float: right;">
@@ -471,20 +474,32 @@ function newReview(boardNum){
 								<div id = "reviewForm_0_${i }" style="width:97%; display:none;height:110px;margin:10px 0px 10px 0px;background-color:rgb(220,220,220,0.2);padding:10px;border: 1px solid #CCCCCC; border-radius: 12px;">
 								<input type="hidden" name="h_code" value="${item.h_code }">
 								<input type="hidden" name="room_code" value="${item.room_code }">
+								<input type="hidden" name="order_code" value="${item.order_code }">
 								<div 
 								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
-								<TEXTAREA name="review_content"
-								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;"></TEXTAREA>
-								
+								<TEXTAREA name="review_content" 
+								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
+								<c:choose>
+									<c:when
+										test="${item.review_state eq 'n' }"><div style="width:18%;height:68%;display: inline-block;"></div>
 								<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="newReview('new_'+${i})">
 												등록하기 </a>
-													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+												
+												</c:when>
+												<c:when
+										test="${item.review_state eq 'y' }">
+										<div style="width:18%;height:37%;display: inline-block;"></div>
+												<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
 												수정하기 </a>
 													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
 												삭제하기 </a>
+												
+												</c:when>
+												</c:choose>
+													
 								
 								
 								</div>
