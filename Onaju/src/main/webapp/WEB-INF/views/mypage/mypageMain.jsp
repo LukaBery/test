@@ -317,7 +317,14 @@ function reviewFormAdd(num){
 	
 }
 
-
+function newReview(boardNum){
+	
+	
+	
+	 document.getElementById(boardNum).submit();
+	 
+	 
+	 }
 
 
 </script>
@@ -405,7 +412,7 @@ function reviewFormAdd(num){
 
 					<c:forEach var="item" items="${myOrderList}" varStatus="membersNum">
 					<c:set var="i" value="${i +1 }" />
-						<form>
+						<form name="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
 						<div  id="reviewForm_${i}" style="width:50%; height:100px;float: left;margin: 10px 0px;display:inline-block;">
 							<div
 								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
@@ -448,6 +455,7 @@ function reviewFormAdd(num){
 
 									</c:otherwise>
 								</c:choose>
+								
 								<div
 									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
 									호스트: ${ item.h_name }</div>
@@ -461,13 +469,15 @@ function reviewFormAdd(num){
 							
 							
 								<div id = "reviewForm_0_${i }" style="width:97%; display:none;height:110px;margin:10px 0px 10px 0px;background-color:rgb(220,220,220,0.2);padding:10px;border: 1px solid #CCCCCC; border-radius: 12px;">
+								<input type="hidden" name="h_code" value="${item.h_code }">
+								<input type="hidden" name="room_code" value="${item.room_code }">
 								<div 
-								style="background-color:none;height:30%;width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
+								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
 								<TEXTAREA name="review_content"
 								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;"></TEXTAREA>
 								
 								<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="newReview('new_'+${i})">
 												등록하기 </a>
 													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
