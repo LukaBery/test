@@ -41,7 +41,7 @@ request.setCharacterEncoding("UTF-8");
 <link href="${contextPath}/resources/vendor/select2/select2.min.css" type="text/css" 
 	rel="stylesheet" media="all">
 <link
-	href="${contextPath}/resources/vendor/datepicker/daterangepicker.css"
+	href="${contextPath}/resources/vendor/datepicker/daterangepicker.css?ver=3"
 	rel="stylesheet" type="text/css"  media="all">
 
 <!-- Main CSS-->
@@ -186,6 +186,7 @@ height:100%;
 
 	<!-- Main JS-->
 	<script src="${contextPath}/resources/js/global.js"></script>
+	<script src="${contextPath}/resources/js/global2.js?ver=1"></script>
 
 
 <!-- Channel Plugin Scripts -->

@@ -696,17 +696,17 @@ request.setCharacterEncoding("UTF-8");
 }
 
 </style>
-<script>
 
+<script>
 function fn_check(){
-	var checkIn = document.getElementById("checkIn_date").value;
-	var checkOut = document.getElementById("checkOut_date").value;
+	var checkIn = document.getElementById("checkIn_date_goods").value;
+	var checkOut = document.getElementById("checkOut_date_goods").value;
 	
    var checkIn_date = dateFormat(checkIn);
    var checkOut_date = dateFormat(checkOut);
 
    var difference= Math.abs(checkOut_date-checkIn_date);
-   days = difference/(1000 * 3600 * 24)
+   days = difference/(1000 * 3600 * 24);
    
    let x = document.getElementsByClassName("days_1")[0];
    var check = document.getElementById("checkDate");
@@ -729,8 +729,8 @@ function dateFormat(dt){
 
 	var yyyyMMdd = String(dt);
     var sYear = yyyyMMdd.substring(0,4);
-    var sMonth = yyyyMMdd.substring(5,7);
     var sDate = yyyyMMdd.substring(8,10);
+    var sMonth = yyyyMMdd.substring(5,7);
 
    
     ddate =  new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
@@ -738,8 +738,8 @@ function dateFormat(dt){
 }
 
 function reservation(){
-	var checkIn_date = document.getElementById('checkIn_date').value;
-	var checkOut_date = document.getElementById('checkOut_date').value;
+	var checkIn_date = document.getElementById('checkIn_date_goods').value;
+	var checkOut_date = document.getElementById('checkOut_date_goods').value;
 	var people_count = document.getElementById('people_count').value;
 	if (checkIn_date == '') {
 		alert("체크인 날짜를 선택해주세요");
@@ -761,8 +761,8 @@ function reservation(){
 }
 function addCart(){
 
-	var checkIn_date = document.getElementById('checkIn_date').value;
-	var checkOut_date = document.getElementById('checkOut_date').value;
+	var checkIn_date = document.getElementById('checkIn_date_goods').value;
+	var checkOut_date = document.getElementById('checkOut_date_goods').value;
 	var people_count = document.getElementById('people_count').value;
 	if (checkIn_date == '') {
 		alert("체크인 날짜를 선택해주세요");
@@ -954,18 +954,27 @@ function addCart(){
 							<div class="hb_rec_16"
 								style="float: left; border-right: 1px solid #CCCCCC;">
 								<h6 style="font-size:12px; width:100%;">체크인</h6>
-								<input type=text style="text-align:center; margin-top:3px;" value="${cartVO.checkIn_date }"name="checkIn_date" id="checkIn_date" placeholder="yyyy-dd-mm"/>
+								<input type=text style="text-align:center; margin-top:3px;" value="${cartVO.checkIn_date }"autocomplete='off'name="checkIn_date" id="checkIn_date_goods" onchange="fn_check()"placeholder="yyyy-dd-mm"/>
 								</div>
 							<div class="hb_rec_16" style="float: right;">
 							<h6 style="font-size:12px; width:100%;">체크아웃</h6>
-								<input type="text" style="text-align:center; margin-top:3px;" name="checkOut_date" id="checkOut_date"placeholder="yyyy-dd-mm" onchange="fn_check()"/>
+								<input type="text" style="text-align:center; margin-top:3px;" name="checkOut_date" autocomplete='off'id="checkOut_date_goods"placeholder="yyyy-dd-mm" />
 					
 							</div>
 
 							<div class="hb_rec_18" style="float: left;">
-							<h6 style="font-size:12px; width:100%;">인원</h6>
-								<input type="text" style="text-align:center; margin-top:3px; width:40%;" name="people_count" id="people_count" placeholder="00"/>명
+							<h6 style="font-size:12px; width:30%;display:inline-block;float:left;">인원</h6>
+								<div class="input-group-icon js-number-input"
+									style="width: 30%; height: 100%; display: inline-block; padding: 10px;"
+									autocomplete='off'>
+									<div class="icon-con "
+										style="display: inline-block; position: absolute; right: 100px; top: 58%;text-align: center;">
+										<span class="plus">+</span> <span class="minus">-</span>
+									</div>
+									<input class="input--style-1 quantity1" type="text"
+										id="people_count" style="font-size:18px;margin-top:3px;"name="people_count" value="1 명" autocomplete='off'>
 								</div>
+							</div>
 
 						</div>
 						<button class="product-purchasing"type="button"

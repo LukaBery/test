@@ -61,14 +61,14 @@ private CartVO cartVO;
 
 		if(isLogOn==null){
 		
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 			String checkIndate = receiverMap.get("checkIn_date");
 			Date checkIn = formatter.parse(checkIndate);
 			String checkoutdate = receiverMap.get("checkOut_date");
 			Date checkout = formatter.parse(checkoutdate);
 			
 			String room_code = receiverMap.get("room_code");
-			int people_count = Integer.parseInt(receiverMap.get("people_count"));
+			int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 			int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 			int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 			int total = room_fee * checkDate;
@@ -91,14 +91,14 @@ private CartVO cartVO;
 				session.removeAttribute("orderVO");
 				session.removeAttribute("action");
 			 }else {
-					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 					String checkIndate = receiverMap.get("checkIn_date");
 					Date checkIn = formatter.parse(checkIndate);
 					String checkoutdate = receiverMap.get("checkOut_date");
 					Date checkout = formatter.parse(checkoutdate);
 					System.out.println(checkIn);
 					String room_code = receiverMap.get("room_code");
-					int people_count = Integer.parseInt(receiverMap.get("people_count"));
+					int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 					int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 					int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 					int total = room_fee * checkDate;
@@ -164,7 +164,7 @@ System.out.println("리스트 추가완료");
 		 Date checkout = formatter.parse(checkoutdate); 
 			String cart_code = receiverMap.get("cart_code");
 		String room_code = receiverMap.get("room_code");
-		int people_count = Integer.parseInt(receiverMap.get("people_count"));
+		int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 		int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 		long diff = checkout.getTime() - checkIn.getTime();
         TimeUnit time = TimeUnit.DAYS; 
@@ -234,7 +234,7 @@ System.out.println("리스트 추가완료");
 			 
 			String room_code = orderVO.getRoom_code();
 			System.out.println(room_code);
-			orderVO.setPeople_count(Integer.parseInt(receiverMap.get("people_count")));
+			orderVO.setPeople_count(Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]","")));
 			int people_count = orderVO.getPeople_count();
 			System.out.println(people_count);
 			orderVO.setRoom_fee(Integer.parseInt(receiverMap.get("room_fee")));	
