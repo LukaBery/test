@@ -298,7 +298,29 @@ hr {
 	}
 	</script>
 </c:if>
+<script>
+var bDisplay = false;
+function reviewFormAdd(num){
+	
+	var con = document.getElementById("reviewForm_0_"+num);
+	var div_0 = document.getElementById("reviewForm_"+num);
+	 if(con.style.display=='none'){    
+		
+		    con.style.display = 'block';   
+		div_0.style.height = '220px';  
+		
+	}else{       
+		 con.style.display = 'none';   
+		div_0.style.height = '100px';  
+		
+		 }
+	
+}
 
+
+
+
+</script>
 </head>
 
 <body>
@@ -382,38 +404,86 @@ hr {
 				<c:when test="${!empty myOrderList}">
 
 					<c:forEach var="item" items="${myOrderList}" varStatus="membersNum">
-
-						<div
-							style="width: 48%; height: 100px; border: 1px solid #CCCCCC; float: left; border-radius: 12px; padding: 10px; cursor: pointer; margin: 10px 0px;"
-							onClick="#">
-							<fmt:setLocale value="en_US" scope="session" />
-							<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
-								pattern="EEE MMM dd HH:mm:ss z yyyy" />
-							<fmt:formatDate var="checkIn_date" value="${checkIn}"
-								pattern="yyyy년 MM월 dd일" />
-							<fmt:parseDate var="checkOut" value="${ item.checkOut_date }"
-								pattern="EEE MMM dd HH:mm:ss z yyyy" />
-							<fmt:formatDate var="checkOut_date" value="${checkOut}"
-								pattern="yyyy년 MM월 dd일" />
-
-							<img
-								src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
-								style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
+					<c:set var="i" value="${i +1 }" />
+						<form>
+						<div  id="reviewForm_${i}" style="width:50%; height:100px;float: left;margin: 10px 0px;display:inline-block;">
 							<div
-								style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
-								${ item.title }</div>
-							<div
-								style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
-								호스트: ${ item.h_name }</div>
-							<div
-								style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
-								${checkIn_date } ~ ${checkOut_date }</div>
+								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
+								onClick="#">
+								<fmt:setLocale value="en_US" scope="session" />
+								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkIn_date" value="${checkIn}"
+									pattern="yyyy년 MM월 dd일" />
+								<fmt:parseDate var="checkOut" value="${ item.checkOut_date }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkOut_date" value="${checkOut}"
+									pattern="yyyy년 MM월 dd일" />
 
-						</div>
-						<div style="width: 2%; height: 100px; float: left;"></div>
+								<img
+									src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
+									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
+								<div
+									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+									${ item.title }</div>
+
+								<c:choose>
+									<c:when
+										test="${item.review_state eq 'Y' }">
+										<div style="width: 23%; height: 50%; float: right;">
+											작성완료</div>
+									</c:when>
+									<c:otherwise>
+										<div style="width: 23%; height: 50%; float: right;">
+											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
+												리뷰 작성 </a>
 
 
 
+										</div>
+									
+
+
+
+									</c:otherwise>
+								</c:choose>
+								<div
+									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									호스트: ${ item.h_name }</div>
+
+								<div
+									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									${checkIn_date } ~ ${checkOut_date }</div>
+
+							</div>
+							
+							
+							
+								<div id = "reviewForm_0_${i }" style="width:97%; display:none;height:110px;margin:10px 0px 10px 0px;background-color:rgb(220,220,220,0.2);padding:10px;border: 1px solid #CCCCCC; border-radius: 12px;">
+								<div 
+								style="background-color:none;height:30%;width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
+								<TEXTAREA name="review_content"
+								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;"></TEXTAREA>
+								
+								<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+												등록하기 </a>
+													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+												수정하기 </a>
+													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+												삭제하기 </a>
+								
+								
+								</div>
+							</div>
+						
+
+						</form>
+						
+						
 					</c:forEach>
 
 				</c:when>

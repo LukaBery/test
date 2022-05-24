@@ -26,6 +26,7 @@ public class OrderVO {
 	private float discount;
 	private int total;
 	private String room_imageName;
+	private String review_state;
 	public String getRoom_imageName() {
 		return room_imageName;
 	}
@@ -47,6 +48,12 @@ public class OrderVO {
 		this.order_phone = order_phone;
 	}
 
+	public String getReview_state() {
+		return review_state;
+	}
+	public void setReview_state(String review_state) {
+		this.review_state = review_state;
+	}
 	public String getH_name() {
 		return h_name;
 	}
