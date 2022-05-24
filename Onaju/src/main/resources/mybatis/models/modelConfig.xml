@@ -20,6 +20,7 @@
 		<typeAlias type="com.myspring.Onaju.admin.admin.vo.AdminVO" alias="adminVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminHost.vo.AdminHostVO" alias="adminHostVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO" alias="adminHostInfoVO" />
+		<typeAlias type="com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO" alias="adminNoticeVO" />
 		
 	</typeAliases>
 </configuration>
