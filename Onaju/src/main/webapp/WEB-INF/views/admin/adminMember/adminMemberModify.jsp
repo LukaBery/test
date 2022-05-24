@@ -250,7 +250,7 @@ $(document).ready(function(){
 <body>
 	<section class="memDetail_con">
 		<div class="mem-item1"><div><h3>회원 정보 수정</h3></div></div>
-		<form name="memModify-form" method="post" action="${contextPath }/admin/memberUpdate.do?u_id=${memberVO.u_id}">
+		<form name="memModify-form" method="post" action="${contextPath }/admin/memberUpdate.do?u_id=${memberVO.u_id}" onsubmit="toEnabled()">
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>아이디</div></div>
@@ -286,7 +286,7 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-7">
 					<div class="mem-item2-chil-3">
 						<div>
-							<input name="zipcode" id="zipcode" type="text" id="zipcode" name="zipcode" disabled />
+							<input name="zipcode" id="zipcode" type="text" id="zipcode" name="zipcode" value="${memberVO.zipcode }" disabled />
 							<input type="button" class="zipcode_search" value="우편번호검색" onclick="execDaumPostcode()">
 						</div>
 					</div>
@@ -302,6 +302,10 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="mem-item2-chil">
+				<div class="mem-item2-chil-1"><div>이메일</div></div>
+				<div class="mem-item2-chil-3"><div><input type="text" name="u_email1" value="${memberVO.u_email1 }" /><input type="text" name="u_email2" value="${memberVO.u_email2 }" /></div></div>
+			</div>
+			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>포인트</div></div>
 				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="u_point" value="${memberVO.u_point }" disabled /></div></div>
 				<div class="mem-item2-chil-1"><div>회원등급</div></div>
@@ -313,8 +317,8 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>이벤트 수신여부</div></div>
 				<div class="mem-item2-chil-2">
 					<div>
-						이벤트 수신:<input type="checkbox" size="10" name="u_service_01" id="u_service_01" value="${memberVO.u_service_01 }" />
-						이벤트 수신:<input type="checkbox" size="10" name="u_service_02" id="u_service_02" value="${memberVO.u_service_02 }" />
+						이벤트 수신:<input type="checkbox" size="10" name="u_service_01" id="u_service_01" value="${memberVO.u_service_01 }" onchange="checkYn(this);" />
+						이벤트 수신:<input type="checkbox" size="10" name="u_service_02" id="u_service_02" value="${memberVO.u_service_02 }" onchange="checkYn(this);" />
 					</div>
 				</div>
 			</div>
@@ -322,70 +326,16 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-4"><div>가입일</div></div>
 				<div class="mem-item2-chil-5"><div><fmt:formatDate value="${memberVO.joinDate }" type="both" dateStyle="long" /></div></div>
 				<div class="mem-item2-chil-4"><div>회원 상태</div></div>
-				<div class="mem-item2-chil-5"><div>${memberVO.del_yn }</div></div>
+				<div class="mem-item2-chil-5"><div><input type="text" name="del_yn" value="${memberVO.del_yn }" /></div></div>
 			</div>		
 		</div>
 		
 		<div class="mem-item1"><div><h2>예약 내역</h2></div></div>
 		<div class="mem-item1"><div><h2>이용 내역</h2></div></div>
-		<div class="mem-item5"><div><input class="a1" type="submit" value="수정하기" name="memModify-form" onclick=""></div><div><a class="a2" href="${contextPath}/admin/memberDetail.do?u_id=${memberVO.u_id}">돌아가기</a></div></div>
+		<div class="mem-item5"><div><input class="a1" type="submit" value="수정하기" name="memModify-form" /></div><div><a class="a2" href="${contextPath}/admin/memberDetail.do?u_id=${memberVO.u_id}">돌아가기</a></div></div>
 		</form>	
 	</section>
 <script type="text/javascript">
-function execDaumPostcode() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-					var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraRoadAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraRoadAddr += (extraRoadAddr !== '' ? ', '
-								+ data.buildingName : data.buildingName);
-					}
-					// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraRoadAddr !== '') {
-						extraRoadAddr = ' (' + extraRoadAddr + ')';
-					}
-					// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-					if (fullRoadAddr !== '') {
-						fullRoadAddr += extraRoadAddr;
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-					document.getElementById('roadAddress').value = fullRoadAddr;
-					document.getElementById('numberAddress').value = data.numberAddress;
-
-					// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-					if (data.autoRoadAddress) {
-						//예상되는 도로명 주소에 조합형 주소를 추가한다.
-						var expRoadAddr = data.autoRoadAddress
-								+ extraRoadAddr;
-						document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-								+ expRoadAddr + ')';
-
-					} else if (data.autonumberAddress) {
-						var expJibunAddr = data.autonumberAddress;
-						document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-								+ expJibunAddr + ')';
-					} else {
-						document.getElementById('guide').innerHTML = '';
-					}
-
-				}
-			}).open();
-}
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -434,73 +384,32 @@ function execDaumPostcode() {
         }
     }).open();
 }
-function fn_member_modify() {
-	var id = $("#u_id").val();
-	var u_name = $("#u_name").val();
-	var u_birth_y = $("#u_birth_y").val();
-	var u_birth_m = $("#u_birth_m").val();
-	var u_birth_d = $("#u_birth_d").val();
-	var u_gender = $("#u_gender").val();
-	var u_phone = $("#u_phone").val();
-	var u_email1 = ${memberVO.u_email1}.val();
-	var u_email2 = ${memberVO.u_email2}.val();
-	var zipcode = $("#zipcode").val();
-	var roadAddress = $("#roadAddress").val();
-	var numberAddress = $("#numberAddress").val();
-	var restAddress = $("#restAddress").val();
-	var u_point = $("#u_point").val();
-	var u_grade = $("#u_grade").val();
-	var proposer = $("#proposer").val();
-	var u_service_01 = $("#u_service_01").val();
-	var u_service_02 = $("#u_service_02").val();
-	var joinDate = $("#joinDate").val();
-	var del_yn = $("#del_yn").val();
-	
-	$.ajax({
-		type : "post",
-		async : false,
-		url : "${contextPath}/member.doMemberModify.do",
-		dataType : "json",
-		data : {u_id : u_id,
-				u_name : u_name,
-				u_birth_y : u_birth_y,
-				u_birth_m : u_birth_m,
-				u_birth_d : u_birth_d,
-				u_gender : u_gender,
-				u_phone : u_phone,
-				u_email1 : u_email1,
-				u_email2 : u_email2,
-				zipcode : zipcode,
-				roadAddress : roadAddress,
-				numberAddress : numberAddress,
-				restAddress : restAddress,
-				u_point : u_point,
-				u_grade : u_grade,
-				proposer : proposer,
-				u_service_01 : u_service_01,
-				u_service_02 : u_service_02,
-				joinDate : joinDate,
-				del_yn : del_yn
-		},
-				success : function(data, textstatus){
-					if(data == 'false'){
-						alret("회원정보 수정을 완료하였습니다.");
-						location.href="'${contextPath}/member.memberDetail.do?u_id='+${memberVO.u_id}"";
-					}else{
-						alret("회원정보 수정이 실패하였습니다.");
-						location.href="${contextPath}/member.memberModify.do?u_id=id";
-					}
-				},
-				error : function(data, textstatus){
-					alret("에러가 발생했습니다.");
-				}	
-	});
-}
 
+// 수신여부 변경 자바스크립트
+function checkYn(obj){
+	var checked = obj.checked;
+	if(checked){
+		obj.value = "Y";
+	}else{
+		obj.value = "N";
+	}
+};
+
+// select 성별 불러오기
 $('#u_gender option').each(function() {
 	if($(this).val() == ${memberVO.u_gender}.val())
 		$(this).attr('selected', true);
-})
+});
+
+// disabled로 설정된 값 Controller로 보내기
+function toEnabled() {
+	$("input[name=roadAddress]").attr("disabled", false);
+	$("input[name=numberAddress]").attr("disabled", false);
+	$("input[name=zipcode]").attr("disabled", false);
+	$("input[name=u_grade]").attr("disabled", false);
+	$("input[name=u_point]").attr("disabled", false);
+	$("input[name=joinDate]").attr("disabled", false);
+}
 </script>
 </body>
 </html>

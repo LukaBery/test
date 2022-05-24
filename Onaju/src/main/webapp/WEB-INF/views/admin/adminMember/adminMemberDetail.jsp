@@ -159,6 +159,10 @@
 				<div class="mem-item2-chil-3"><div>${memberVO.zipcode }</div><div>${memberVO.roadAddress }${memberVO.restAddress }</div></div>
 			</div>
 			<div class="mem-item2-chil">
+				<div class="mem-item2-chil-1"><div>이메일</div></div>
+				<div class="mem-item2-chil-3"><div>${memberVO.u_email1 }${memberVO.u_email2 }</div></div>
+			</div>
+			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>포인트</div></div>
 				<div class="mem-item2-chil-2"><div>${memberVO.u_point }</div></div>
 				<div class="mem-item2-chil-1"><div>회원등급</div></div>
@@ -168,7 +172,7 @@
 				<div class="mem-item2-chil-1"><div>추천인</div></div>
 				<div class="mem-item2-chil-2"><div>${memberVO.proposer }</div></div>
 				<div class="mem-item2-chil-1"><div>이벤트 수신여부</div></div>
-				<div class="mem-item2-chil-2"><div>${memberVO.u_service_01 }</div></div>
+				<div class="mem-item2-chil-2"><div>${memberVO.u_service_01 }${memberVO.u_service_02 }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>가입일</div></div>

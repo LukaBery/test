@@ -207,7 +207,7 @@
   			</tr>
   		</thead>
 	<c:choose>
-  	<c:when test="${empty hostList}" >
+  	<c:when test="${empty hostInfoList}" >
     	<tr  height="10">
     		<td colspan="11">
     			<p align="center">
@@ -216,19 +216,19 @@
       		</td>  
     	</tr>
   	</c:when>
-  	<c:when test="${!empty hostList}" >
-    	<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
-    		<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do?h_id=${host.h_id}'" >
+  	<c:when test="${!empty hostInfoList}" >
+    	<c:forEach  var="hostInfo" items="${hostInfoList }" varStatus="hostNum" >
+    		<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostInfoDetail.do?h_code=${hostInfo.h_code}'" >
 				<td width="5%">${hostNum.count}</td>
-				<td width="5%">${host.del_yn}</td>
+				<td width="5%">${hostInfo.del_yn}</td>
+				<td width="10%">${hostInfo.creDate}</td>
 				<td width="10%"><fmt:formatDate value="" pattern="yyyy년MM월dd일" /></td>
-				<td width="10%"><fmt:formatDate value="" pattern="yyyy년MM월dd일" /></td>
-				<td width="8%">${host.h_name}</td>
-				<td width="8%">${host.h_id }</td>   
-				<td width="8%">${host.h_name }</td>   
-				<td width="8%">${host.h_phone}</td>   
-				<td width="9%">${host.roadAddress }</td>   
-				<td width="7%">${host.del_yn}</td>    
+				<td width="8%">${hostInfo.hostInfo_name}</td>
+				<td width="8%">${hostInfo.h_id }</td>   
+				<td width="8%">${hostInfo.h_name }</td>   
+				<td width="8%">${hostInfo.h_sellerNum}</td>   
+				<td width="9%">${hostInfo.roadAddress }</td>   
+				<td width="7%">${hostInfo.del_yn}</td>    
 			</tr>
     	</c:forEach>
      </c:when>
@@ -240,7 +240,7 @@
 <section>
 	<div>
 		<c:forEach var="i" begin="1" end="${totalPage }">
-			<a href="${contextPath }/admin/hostList.do?viewPage=${i}">${i }</a>
+			<a href="${contextPath }/admin/hostInfoList.do?viewPage=${i}">${i }</a>
 		</c:forEach>
 	</div>
 </section>
