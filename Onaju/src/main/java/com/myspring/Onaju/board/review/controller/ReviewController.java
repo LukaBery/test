@@ -15,5 +15,7 @@ import com.myspring.Onaju.board.review.vo.ReviewVO;
 public interface ReviewController {
 	public ModelAndView addNewReview(@ModelAttribute("memberVO") ReviewVO reviewVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception; 
+	public ModelAndView myReviewList(HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 
 }

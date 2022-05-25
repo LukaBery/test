@@ -1,5 +1,7 @@
 package com.myspring.Onaju.board.review.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,4 +30,8 @@ public class ReviewServiceImpl implements ReviewService{
 		reviewDAO.updateReviewState(order_code);
 	}
 
+	@Override
+	public List<ReviewVO> selectReviewById(String u_id) throws Exception{
+	return reviewDAO.selectReviewListById(u_id);
+	}
 }

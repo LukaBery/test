@@ -15,6 +15,11 @@ public class ReviewVO {
 	private String review_content;
 	private Date creDate;
 	private String del_yn;
+	private String room_imageName;
+	private String title;
+	private Date checkIn_date;
+	private Date checkOut_date;
+	
 	
 	public int getReview_num() {
 		return review_num;
@@ -65,6 +70,30 @@ public class ReviewVO {
 	}
 	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
+	}
+	public String getRoom_imageName() {
+		return room_imageName;
+	}
+	public void setRoom_imageName(String room_imageName) {
+		this.room_imageName = room_imageName;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Date getCheckIn_date() {
+		return checkIn_date;
+	}
+	public void setCheckIn_date(Date checkIn_date) {
+		this.checkIn_date = checkIn_date;
+	}
+	public Date getCheckOut_date() {
+		return checkOut_date;
+	}
+	public void setCheckOut_date(Date checkOut_date) {
+		this.checkOut_date = checkOut_date;
 	}
 	
 }

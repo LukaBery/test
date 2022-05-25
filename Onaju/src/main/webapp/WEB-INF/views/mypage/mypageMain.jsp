@@ -270,6 +270,19 @@ hr {
 	opacity: 100%;
 	box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);
 	}
+	
+.draggable {  /* 드래그 가능 */
+  -webkit-user-select:all;
+  -moz-user-select:all;
+  -ms-user-select:all;
+  user-select:all
+}
+.draggFalse{  /* 드래그 불가능 */
+ -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
 </style>
 
 <c:if test='${ empty isLogOn }'>
@@ -354,7 +367,7 @@ function newReview(boardNum){
 				<a id="hb_a_main" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
 			</div>
 			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/Mypage5.do">내 리뷰 내역</a>
+				<a id="hb_a_main" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
 			<div class="hb_rec_3_mypage">
@@ -438,14 +451,14 @@ function newReview(boardNum){
 									<c:when
 										test="${item.review_state eq 'y' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											<a class="draggFalse" style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
 												작성완료 </a>
 												</div>
 									</c:when>
 									<c:otherwise>
 										<div style="width: 23%; height: 50%; float: right;">
-											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											<a class="draggFalse"style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
 												리뷰 작성 </a>
 
@@ -503,6 +516,10 @@ function newReview(boardNum){
 								
 								
 								</div>
+								
+								
+								
+								
 							</div>
 						
 

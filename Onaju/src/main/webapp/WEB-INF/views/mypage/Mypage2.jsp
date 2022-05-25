@@ -321,7 +321,7 @@ text-align:left;
 				<a id="hb_a_main" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
 			</div>
 			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/Mypage5.do">내 리뷰 내역</a>
+				<a id="hb_a_main" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
 			<div class="hb_rec_3_mypage">

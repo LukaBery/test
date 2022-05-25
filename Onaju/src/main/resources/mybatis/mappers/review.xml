@@ -16,11 +16,35 @@
 		
 		<result property="creDate" column="creDate" />
 
-		<result property="del_yn" column="del_yn" />
+		<result property="room_imageName" column="room_imageName" />
+		<result property="title" column="title" />
+		<result property="checkIn_date" column="checkIn_date" />
+		<result property="checkOut_date" column="checkOut_date" />
 	</resultMap>	
 
 <select id="selectReview" parameterType="String" resultType="reviewVO">
 	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} 
+	   		]]>
+	</select>
+	<select id="selectReviewListById" parameterType="String" resultType="reviewVO">
+	   <![CDATA[  
+
+
+select U.*, T.room_imageName, O.checkIn_date, O.checkOut_date, F.title from u_reviewboard U 
+left join h_roomimage T on T.room_code = U.room_code and T.room_imageType = 'main_image'
+left join u_order O on U.order_code = O.order_code 
+left join h_room F on U.room_code = F.room_code
+	   where U.u_id = #{u_id}
+    
+   
+	   
+
+
+    
+   
+	   
+
+
 	   		]]>
 	</select>
 

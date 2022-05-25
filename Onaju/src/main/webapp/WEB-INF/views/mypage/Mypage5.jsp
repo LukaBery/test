@@ -311,7 +311,7 @@ text-align:left;
 				<a id="hb_a_main" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
 			</div>
 			<div class="hb_rec_3_mypage"style="border: 2px solid #CCCCCC;">
-				<a id="hb_a_main"  style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/Mypage5.do">내 리뷰 내역</a>
+				<a id="hb_a_main" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
 			<div class="hb_rec_3_mypage">
@@ -335,7 +335,7 @@ text-align:left;
 						style="width: 100%; height: 100%; overflow: hidden; z-index: 9999; border-radius: 70%; border: 0px;"
 						src="${contextPath}/profileShow.do?u_id=${memberInfo.u_id}&fileName=${memberInfo.u_imageName}">
 
-					</a><input type="hidden" name="u_id" value="${memberInfo.u_id }">
+					</a>
 
 
 					<div
@@ -352,7 +352,7 @@ text-align:left;
 		
 		
 		<c:choose>
-  					<c:when test="${empty reviewList}" >
+  					<c:when test="${empty myReviewList}" >
     					<tr  height="10">
       						<td colspan="9">
          						<p align="center">
@@ -361,38 +361,75 @@ text-align:left;
       						</td>  
     					</tr>
   					</c:when>
-  					<c:when test="${!empty reviewList}" >
+  					<c:when test="${!empty myReviewList}" >
   					
-			<c:forEach  var="item" items="${reviewList}" varStatus="membersNum" >
+			<c:forEach  var="item" items="${myReviewList}" varStatus="membersNum" >
 					<c:set var="i" value="${i +1 }"/>
-		<form name="cartPay_${i}" id="cartPay_${i}"action="${contextPath}/order/orderCartGoods.do" method="post">
+					
+					
+					<div style="width:100%;height:100px;border: 1px solid #CCCCCC; float:left; border-radius:12px;padding:10px;margin:10px 0px;">
+	
 
-		<div style="width:48%; height:100px; border: 1px solid #CCCCCC; float:left; border-radius:12px;padding:10px;cursor:pointer; margin:10px 0px;"onClick="cartPay('cartPay_' +${i})">
+
+
+
+		<div style="width:48%; height:100%;  float:left; border-radius:12px;display:inline-block;cursor:pointer; "onClick="cartPay('cartPay_' +${i})">
 		<fmt:setLocale value="en_US" scope="session"/>
 		<fmt:parseDate var="checkIn" value="${ item.checkIn_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
 		<fmt:formatDate var="checkIn_date" value="${checkIn}" pattern="yyyy년 MM월 dd일"/>
 		<fmt:parseDate var="checkOut" value="${ item.checkOut_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
 		<fmt:formatDate var="checkOut_date" value="${checkOut}" pattern="yyyy년 MM월 dd일"/>
-		<input type="hidden" name="cart_code" value="${ item.cart_code }">
-				<input type="hidden" name="total" value="${ item.total }">
-				<input type="hidden" name="people_count" value="${ item.people_count }">
-				<input type="hidden" name="room_fee" value="${ item.room_fee }">
+	
 				<input type="hidden" name="room_code" value="${ item.room_code }">
 				<input type="hidden" name="checkIn_date" value="${ item.checkIn_date }">
 				<input type="hidden" name="checkOut_date" value="${ item.checkOut_date }">
-				<input type="hidden" name="h_code" value="${ item.h_code }">
-		
+		        <input type="hidden" name="u_id" value="${memberInfo.u_id }">
+		        <input type="hidden" name="review_num" value="${item.review_num }">
 		
 		<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}" style="width:22%; height:100%; float:left;border: 1px solid #CCCCCC;border-radius:12px;">
 		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:570;">     ${ item.title }</div>
-		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:540;">     호스트: ${ item.h_name }</div>
+		
 		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:540;">     ${checkIn_date } ~ ${checkOut_date }</div>
-
+ 
+ 
+ 
+ 
+ 
 		</div>
-		<div style="width:2%; height:100px; float:left;" ></div>
+		<div id = "reviewForm_0_${i }" style="width:50%;height:100%; display:inline-block; ">
+								
+								<div 
+								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
+								<TEXTAREA name="review_content" 
+								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
+								
+									
+										<div style="width:18%;height:28%;display: inline-block;"></div>
+												<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+												수정하기 </a>
+													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+												삭제하기 </a>				
+								</div>
+				
 		
 		
-		</form>
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		
+		
+		</div>
 		</c:forEach>
 		
 	</c:when>
