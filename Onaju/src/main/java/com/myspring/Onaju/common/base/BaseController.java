@@ -136,4 +136,6 @@ public abstract class BaseController  {
 		return beginDate+","+endDate;
 	}
 	
+	
+	
 }

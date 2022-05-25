@@ -114,7 +114,8 @@
  		<li class="ohnaju-li">
  			<div><a href="#" class="ohnaju-first-btn"><i style="color:#FFB366" class="fa-solid fa-building-user"></i>&emsp;사업주 관리</a></div>
  				<ul class="ohnaju-first-show">
- 					<li class="ohnaju-li"><div><a href="${contextPath }/host.hostList.do">승인 관리</a></div></li>
+ 					<li class="ohnaju-li"><div><a href="${contextPath }/admin/hostList.do">사업주 관리</a></div></li>
+ 					<li class="ohnaju-li"><div><a href="${contextPath }/admin/hostInfoList.do">사업장 관리</a></div></li>
  					<li class="ohnaju-li"><div><a href="${contextPath }/host.hostCalculate.do">매출/정산 관리</a></div></li>
  			   </ul>
  		</li>

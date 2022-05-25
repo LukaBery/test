@@ -70,10 +70,10 @@
 								)         
    ]]>  
    </insert>    
-	<delete id="deleteCartGoods" parameterType="int">
+	<delete id="deleteCartGoods" parameterType="String">
 	    <![CDATA[
 	      delete from u_cart
-	      where cart_id=#{cart_id}
+	      where cart_code=#{cart_code}
     	]]>
 	</delete>
 	

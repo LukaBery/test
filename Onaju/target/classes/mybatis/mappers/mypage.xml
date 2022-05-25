@@ -47,6 +47,7 @@
 	 <select id="selectMyOrderGoodsList" resultMap="orderResult"  parameterType="String"  >
 	    <![CDATA[
 			select U.*, I.h_name, Y.title, G.room_imageName from u_order U, h_host I, h_host_info F, h_room Y, h_roomimage G
+			
             where U.u_id=#{u_id}
             and F.h_code=U.h_code
             and F.h_id= I.h_id

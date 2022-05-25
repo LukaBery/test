@@ -36,10 +36,10 @@ public class HostControllerImpl extends BaseController implements HostController
 	private HostVO hostVO;
 	@Autowired
 	
-	private HostInfoVO hostInfoVO; // 이정아 추가
+	private HostInfoVO hostInfoVO; // �씠�젙�븘 異붽�
 	 
 	@Autowired 
-	private HostGoodsService hostGoodsService; // 이정아 추가
+	private HostGoodsService hostGoodsService; // �씠�젙�븘 異붽�
 	@Autowired
 	AES256Util aes;
 
@@ -65,36 +65,36 @@ public class HostControllerImpl extends BaseController implements HostController
 
 		ModelAndView mav = new ModelAndView();
 		hostVO = hostService.h_login(loginMap);
-		/* �븫�샇�솕�맂 DB 鍮꾨�踰덊샇 */
+		/* 占쎈릊占쎌깈占쎌넅占쎈쭆 DB �뜮袁⑨옙甕곕뜇�깈 */
 
 		if (hostVO != null && hostVO.getH_id() != null) {
-			/* DB에 저장된 암호화 비밀번호 */
+			/* DB�뿉 ���옣�맂 �븫�샇�솕 鍮꾨�踰덊샇 */
 			String h_pw_com = hostVO.getH_pw();
-			/* DB에 저장된 SALT값 */
+			/* DB�뿉 ���옣�맂 SALT媛� */
 			String salt = hostVO.getSalt();
-			/* salt값을 가지고 사용자가 입력한 비밀번호 암호화 */
+			/* salt媛믪쓣 媛�吏�怨� �궗�슜�옄媛� �엯�젰�븳 鍮꾨�踰덊샇 �븫�샇�솕 */
 			String h_pw_enc = SHA256Util.getEncrypt(_pw, salt);
 	
 			if (h_pw_com.equals(h_pw_enc)) {
 				
 				HttpSession session = request.getSession();
 				session = request.getSession();
-				session.setAttribute("isLogOn", true);
+				session.setAttribute("isLogOn", "host");
 				session.setAttribute("hostInfo", hostVO);
 				
 				String h_id = hostVO.getH_id();
 				System.out.println("h_id: "+h_id);
 				 
 				
-				List<HostInfoVO> hostInfoVO =  hostGoodsService.h_login(h_id); // 이정아 추가
+				List<HostInfoVO> hostInfoVO =  hostGoodsService.h_login(h_id); // �씠�젙�븘 異붽�
 				 System.out.println("loginMap : " + loginMap);
-				 session.setAttribute("h_hostInfo",hostInfoVO); // 이정아 추가
+				 session.setAttribute("h_hostInfo",hostInfoVO); // �씠�젙�븘 異붽�
 				 System.out.println("h_hostInfo : " + hostInfoVO);
 				 
 				String action = (String) session.getAttribute("action");
 				System.out.println("action:" + action);
 				if (action != null && action.equals("#")) {
-					System.out.println("액션 진입");
+					System.out.println("�븸�뀡 吏꾩엯");
 					mav.setViewName("forward:" + action);
 				} else if (action != null && action.equals("#")) {
 					mav.setViewName("forward:" + action);
@@ -102,7 +102,7 @@ public class HostControllerImpl extends BaseController implements HostController
 					mav.setViewName("redirect:/host/main.do");
 				}
 			} else {
-				String message = "일치하는 회원 정보가 없습니다.";
+				String message = "�씪移섑븯�뒗 �쉶�썝 �젙蹂닿� �뾾�뒿�땲�떎.";
 
 				mav.addObject("message", message);
 				mav.setViewName("/member/loginForm");
@@ -139,13 +139,13 @@ public class HostControllerImpl extends BaseController implements HostController
 			_hostVO.setH_pw(h_pw);
 			hostService.addHost(_hostVO);
 			message = "<script>";
-			message += " alert('회원가입을 축하드립니다.');";
+			message += " alert('�쉶�썝媛��엯�쓣 異뺥븯�뱶由쎈땲�떎.');";
 			message += " location.href='" + request.getContextPath() + "/host/h_joinResult.do';";
 			message += " </script>";
 
 		} catch (Exception e) {
 			message = "<script>";
-			message += " alert('에러가 발생했습니다.');";
+			message += " alert('�뿉�윭媛� 諛쒖깮�뻽�뒿�땲�떎.');";
 			message += " location.href='" + request.getContextPath() + "/host/h_joinForm.do';";
 			message += " </script>";
 			e.printStackTrace();
@@ -193,13 +193,13 @@ public class HostControllerImpl extends BaseController implements HostController
 				}
 
 			} else {
-				String message = "디비랑 일치하지 읺습니다..";
+				String message = "�뵒鍮꾨옉 �씪移섑븯吏� �씦�뒿�땲�떎..";
 				mav.addObject("message", message);
 				System.out.println(message);
 				mav.setViewName("/host/h_idFindForm");
 			}
 		} catch (Exception e) {
-			String message = "트라이캐치";
+			String message = "�듃�씪�씠罹먯튂";
 			System.out.println(message);
 			HttpSession session = request.getSession();
 			session = request.getSession();
@@ -234,13 +234,13 @@ public class HostControllerImpl extends BaseController implements HostController
 				mav.setViewName("redirect:/host/h_pwdFind2Form.do");
 
 			} else {
-				String message = "회원 정보가 일치하지 읺습니다..";
+				String message = "�쉶�썝 �젙蹂닿� �씪移섑븯吏� �씦�뒿�땲�떎..";
 				mav.addObject("message", message);
 				System.out.println(message);
 				mav.setViewName("/host/h_pwdFindForm");
 			}
 		} catch (Exception e) {
-			String message = "트라이캐치";
+			String message = "�듃�씪�씠罹먯튂";
 			System.out.println(message);
 			HttpSession session = request.getSession();
 			session = request.getSession();

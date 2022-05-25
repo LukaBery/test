@@ -9,7 +9,7 @@ public class HostGoodsVO {
 	
 	private String hostInfo_name;
 	private String h_sellerNum;
-	private int h_accountNum;
+	private String h_accountNum;
 	private int zipcode;
 	private String roadAddress;
 	private String numberAddress;
@@ -54,6 +54,9 @@ public class HostGoodsVO {
 	private int roomImage_NO;
 	private String room_imageName;
 	private String room_imageType;
+	private String longitude;
+	private String latitude;
+	
 	
 	
 	public HostGoodsVO() {
@@ -63,6 +66,26 @@ public class HostGoodsVO {
 
 	public String getHostInfo_name() {
 		return hostInfo_name;
+	}
+
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 
@@ -81,7 +104,7 @@ public class HostGoodsVO {
 	}
 
 
-	public int getH_accountNum() {
+	public String getH_accountNum() {
 		return h_accountNum;
 	}
 
@@ -96,7 +119,7 @@ public class HostGoodsVO {
 	}
 
 
-	public void setH_accountNum(int h_accountNum) {
+	public void setH_accountNum(String h_accountNum) {
 		this.h_accountNum = h_accountNum;
 	}
 

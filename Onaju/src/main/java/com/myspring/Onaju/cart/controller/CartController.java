@@ -17,6 +17,6 @@ import com.myspring.Onaju.cart.vo.CartVO;
 public interface CartController {
 	public ModelAndView addCart(@RequestParam Map<String, String> receiverMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-	public ModelAndView removeCart(@RequestParam("cart_id") int cart_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView removeCart(@RequestParam("cart_id") String cart_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 
 }

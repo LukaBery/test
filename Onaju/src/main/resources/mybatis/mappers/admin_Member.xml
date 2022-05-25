@@ -102,7 +102,6 @@
 		proposer=#{proposer}, 
 		u_service_01=#{u_service_01}, 
 		u_service_02=#{u_service_02}, 
-		joinDate=#{joinDate},
 		del_yn=#{del_yn}
 		where u_id=#{u_id}
 		]]>	

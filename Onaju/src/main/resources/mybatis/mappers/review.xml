@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.review">
+<!-- 리절트 맵 정의 -->	
+	<resultMap id="reviewResult" type="ReviewVO">
+		<result property="review_num" column="review_num" />
+		<result property="u_id" column="u_id" />
+		<result property="order_code" column="order_code" />
+		
+		<result property="room_code" column="room_code" />
+		<result property="review_star" column="review_star" />
+		<result property="review_content" column="review_content" />
+		
+		<result property="creDate" column="creDate" />
+
+		<result property="del_yn" column="del_yn" />
+	</resultMap>	
+
+<select id="selectReview" parameterType="String" resultType="reviewVO">
+	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} 
+	   		]]>
+	</select>
+
+  <insert id="insertNewReview"  parameterType="reviewVO">
+  <![CDATA[
+    	insert into u_reviewboard (u_id,
+								order_code,
+								room_code,
+								review_star,
+								review_content
+							
+								)
+										
+					   values  (#{u_id},
+								#{order_code},
+								#{room_code},
+								#{review_star},
+								#{review_content}
+								)         
+   ]]>  
+   </insert>    
+   <update id="updateReviewState" parameterType="int">
+	   update u_order
+			   <set>
+			     
+			        review_state='y'
+			    
+			      
+			   </set>
+		where 
+		order_code=#{order_code}
+	</update>
+
+
+</mapper>

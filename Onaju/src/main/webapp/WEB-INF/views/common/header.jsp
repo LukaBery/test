@@ -168,12 +168,15 @@ color:black;
 }
 
 </style><script>
+
 	function fn_joinform_check() {
 		var people_num = $("#people_num").val();
 
 		alert(people_num);
 	}
 </script>
+
+
 </head>
 
 <section id="main_fixed">

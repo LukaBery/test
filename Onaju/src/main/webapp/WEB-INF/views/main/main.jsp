@@ -14,6 +14,19 @@ request.setCharacterEncoding("UTF-8");
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 
+<c:if test='${ not empty message }'>
+
+	<script>
+		window.onload = function() {
+			result();
+		}
+
+		function result() {
+			alert("${message}");
+			
+		}
+	</script>
+</c:if>
 <style>
 .hb_rec_1 {
 	float: left;

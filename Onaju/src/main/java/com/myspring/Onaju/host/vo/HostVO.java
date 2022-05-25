@@ -32,7 +32,7 @@ public class HostVO {
 	private String h_imageName;
 	private String h_imageType;
 	private String joinDate;
-	private Date del_yn;
+	private String del_yn;
 	private String salt;
 	
 	public HostVO() {
@@ -255,11 +255,11 @@ public class HostVO {
 		this.joinDate = joinDate;
 	}
 
-	public Date getDel_yn() {
+	public String getDel_yn() {
 		return del_yn;
 	}
 
-	public void setDel_yn(Date del_yn) {
+	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
 	}
 

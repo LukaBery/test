@@ -1,5 +1,6 @@
 package com.myspring.Onaju.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +17,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.cart.service.CartService;
 import com.myspring.Onaju.cart.vo.CartVO;
+import com.myspring.Onaju.common.aes256.SHA256Util;
 import com.myspring.Onaju.common.base.BaseController;
+import com.myspring.Onaju.member.service.MemberService;
 import com.myspring.Onaju.member.vo.MemberVO;
 import com.myspring.Onaju.mypage.service.MyPageService;
 import com.myspring.Onaju.order.vo.OrderVO;
@@ -35,7 +39,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private MemberVO memberVO;	
 	@Autowired
 	private CartService cartService;
-	
+	@Autowired
+	private MemberService memberService;
 	
 
 	@Override
@@ -86,8 +91,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			
 			
 		}else if(nonmemberVO != null) {
-			String u_id=nonmemberVO.getU_id();
-			 List<CartVO> myCartList=cartService.listMyCartGoods(u_id); 
+			
+			 List<CartVO> myCartList= (ArrayList<CartVO>) session.getAttribute("nonMemberCart");
 			 mav.addObject("myCartList", myCartList); 
 		}else {
 			mav.setViewName("redirect:/main/main.do");
@@ -166,19 +171,42 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		return resEntity;
 	}
 	@Override
+	@ResponseBody
 	@RequestMapping(value="/deleteMember.do", method = RequestMethod.POST)
-	public  ModelAndView deleteMember(@RequestParam("u_id") String u_id,
+	public  ModelAndView deleteMember(@RequestParam Map<String, String> loginMap,
 			                          HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		System.out.println("u_id : "+ u_id);
+	
+	
+		String u_id = loginMap.get("u_id");
+		String _pw = loginMap.get("u_pw");
+		HttpSession session = request.getSession(); 
+		ModelAndView mav = new ModelAndView();
+		String message = null;
+		memberVO = memberService.login(loginMap);
+		/* DB에 저장된 암호화 비밀번호 */
+		String u_pw_com = memberVO.getU_pw();
+		/* DB에 저장된 SALT값 */
+		String salt = memberVO.getSalt();
+		/* salt값을 가지고 사용자가 입력한 비밀번호 암호화 */
+		String u_pw_enc = SHA256Util.getEncrypt(_pw, salt);
+		Map data = new HashMap();
+		if(u_pw_com.equals(u_pw_enc)) {
+			myPageService.removeMember(u_id);
+			mav.addObject("message","회원 탈퇴에 성공하였습니다.");
+			mav.setViewName("forward:/main/main.do");
+			session.invalidate();
+		}else {
+			mav.addObject("message","비밀번호가 일치하지 않습니다.");
+			
+			mav.setViewName("/mypage/delMember");
+		}
+	
 		
 	
-		myPageService.removeMember(u_id);
-	
-		HttpSession session = request.getSession(); 
-		session.invalidate();
+		
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/main/main.do");
+
+		
 		return mav;
 	}
 

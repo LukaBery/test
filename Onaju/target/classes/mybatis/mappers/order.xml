@@ -34,6 +34,11 @@
 			<result property="total" column="total" />
 		<result property="pay_state" column="pay_state" />
 		<result property="creDate" column="creDate" />
+		<result property="review_state" column="review_state" />
+		
+		<result property="review_num" column="review_num" />
+		<result property="review_star" column="review_star" />
+		<result property="review_content" column="review_content" />
 		
 	</resultMap>	
 

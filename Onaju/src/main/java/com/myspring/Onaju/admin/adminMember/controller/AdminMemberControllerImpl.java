@@ -82,7 +82,7 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 			memberVO = adminMemberService.memberDetail(vo.getU_id());
 			String u_id = memberVO.getU_id();
 			mav.addObject("memberVO", memberVO);
-			mav.setView(new RedirectView("/member/memberDetail.do?u_id="+u_id,true));
+			mav.setView(new RedirectView("/admin/memberDetail.do?u_id="+u_id, true));
 		}else {
 			System.out.println("변경실패");
 		}

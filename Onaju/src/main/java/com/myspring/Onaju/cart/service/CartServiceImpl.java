@@ -27,7 +27,7 @@ public class CartServiceImpl implements CartService{
 		cartDAO.insertNewCart(cartVO);
 	}
 	@Override
-	public void removeCartGoods(int cart_id) throws Exception{
-		cartDAO.deleteCartGoods(cart_id);
+	public void removeCartGoods(String cart_code) throws Exception{
+		cartDAO.deleteCartGoods(cart_code);
 	}
 }

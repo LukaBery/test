@@ -476,6 +476,7 @@ font-size:14px;
 				var _h_code = $("#h_code").val().trim();
 				var _order_email1 = $("#order_email1").val().trim();
 				var _order_email2 = $("#order_email2").val().trim();
+				var _cart_code = $("#cart_code").val().trim();
 				
 				var form = {
 					"room_code" : _room_code,
@@ -489,12 +490,13 @@ font-size:14px;
 					"order_name" : _order_name,
 					"order_phone" : _order_phone,
 					"order_email1" : _order_email1,
-					"order_email2" : _order_email2
+					"order_email2" : _order_email2,
+					"cart_code" : _cart_code
 					
 					}
 				$.ajax({
 					url : "${contextPath}/order/payToOrderGoods.do",
-					data : JSON.stringify(form, ['room_code', 'checkIn_date', 'checkOut_date', 'people_count', 'room_fee', 'pay_type', 'total','h_code', 'order_name', 'order_phone','order_email1', 'order_email2']),
+					data : JSON.stringify(form, ['room_code', 'checkIn_date', 'checkOut_date', 'people_count', 'room_fee', 'pay_type', 'total','h_code', 'order_name', 'order_phone','order_email1', 'order_email2', 'cart_code']),
 					dataType : "JSON",
 					type : "post",
 					contentType : "application/json; charset=utf-8;",
@@ -502,6 +504,7 @@ font-size:14px;
 					
 					success : function(data) {
 						alert("주문 성공!.");
+						
 						
 						
 						
@@ -574,7 +577,7 @@ font-size:14px;
 					<input type="hidden" id="people_count" value="${ order.people_count}">
 					<input type="hidden" id="room_fee" value="${ order.room_fee}">
 					<input type="hidden" id="h_code" value="${ goods.h_code}">
-					
+						<input type="hidden" id="cart_code"name="cart_code" value="${cart_code }">
 					</div>
 				
 					<input type="text" value=""  style="width: 70%; display:none;	" disabled>
