@@ -426,6 +426,7 @@ function delReview(boardNum){
 								<TEXTAREA name="review_content" 
 								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
 										        <input type="hidden" name="review_num" value="${item.review_num }">
+										        <input type="hidden" name="order_code" value="${item.order_code }">
 								
 									
 										<div style="width:18%;height:28%;display: inline-block;"></div>

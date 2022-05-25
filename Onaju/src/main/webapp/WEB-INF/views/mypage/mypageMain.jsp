@@ -283,6 +283,23 @@ hr {
   -ms-user-select:none;
   user-select:none
 }
+
+#btn_mypage_0 {
+	width: 80%;
+	height: 80%;
+	z-index: 10;
+	border: 1px solid #CCCCCC;
+	color: black;
+	font-weight: 560;
+	background-color: white;
+	border-radius: 12px;
+	z-index: 9999;
+	font-size: 12px;
+	padding: 6px;
+}
+#btn_mypage_0:hover{
+    box-shadow: 1px 3px 5px rgb(0 0 0 / 18%);
+}
 </style>
 <c:if test='${ empty isLogOn }'>
 
@@ -460,26 +477,22 @@ function delReview(boardNum){
 								<fmt:formatDate var="checkOut_date" value="${checkOut}"
 									pattern="yyyy년 MM월 dd일" />
 
-								<img
-									src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
+								<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
 									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
-								<div
-									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+								<div style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
 									${ item.title }</div>
 
 								<c:choose>
 									<c:when
 										test="${item.review_state eq 'y' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											<a class="draggFalse" style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
+											<a class="draggFalse" id="btn_mypage_0"onClick="reviewFormAdd(${i})">
 												작성완료 </a>
 												</div>
 									</c:when>
 									<c:otherwise>
 										<div style="width: 23%; height: 50%; float: right;">
-											<a class="draggFalse"style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
+											<a class="draggFalse" id="btn_mypage_0" onClick="reviewFormAdd(${i})">
 												리뷰 작성 </a>
 
 

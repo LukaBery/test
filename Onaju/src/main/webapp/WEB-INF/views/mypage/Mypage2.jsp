@@ -22,9 +22,10 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <style>
-hr{
-border: 1px solid #CCCCCC;
-} 
+hr {
+	border: 1px solid #CCCCCC;
+}
+
 .hb_rec_1 {
 	float: left;
 	display: inline-block;
@@ -96,32 +97,30 @@ border: 1px solid #CCCCCC;
 
 .hb_section_mypagenav {
 	display: inline-block;
-    width: 160px;
-    height: 500px;
-    position: sticky;
-    top: 120px;
+	width: 160px;
+	height: 500px;
+	position: sticky;
+	top: 120px;
 }
-
 
 .hb_section_mypagemain {
-padding: 30px 0px;
+	padding: 30px 0px;
 	display: inline-block;
 	width: 84%;
-	height:100%;
+	height: 100%;
 }
-
 
 .hb_section_mypagemain_1 {
 	display: inline-block;
 	width: 920px;
-	height:170px;
+	height: 170px;
 }
 
 .hb_section_mypagemain_profile {
 	border: 1px solid #CCCCCC;
 	display: inline-block;
 	width: 150px;
-	height:168px;
+	height: 168px;
 }
 
 .hb_section_1 {
@@ -165,45 +164,48 @@ padding: 30px 0px;
 .margin_left_0 {
 	float: left;
 	margin-left: 0px;
-	border:0;
+	border: 0;
 }
 
-.margin_left_1{
-width:750px;
-height:168px;
-text-align:left;
+.margin_left_1 {
+	width: 750px;
+	height: 168px;
+	text-align: left;
 }
-#grade{
-display: inline-block;
-width:150px;
-height:33px;
-border:0;
-outline:0;
-border-radius: 5px;
-font-weight:bold;
-color:white;
+
+#grade {
+	display: inline-block;
+	width: 150px;
+	height: 33px;
+	border: 0;
+	outline: 0;
+	border-radius: 5px;
+	font-weight: bold;
+	color: white;
 }
 
 #img2 {
-display: inline-block;
-float:left;
-width:200px;
-height:150px;
+	display: inline-block;
+	float: left;
+	width: 200px;
+	height: 150px;
 }
-#btbt2{
-background-color:#FC4E82;
-display: inline-block;
-width:50px;
-height:25px;
-border:0;
-outline:0;
-border-radius: 5px;
-float:right;
-font-weight:bold;
-color:white;
+
+#btbt2 {
+	background-color: #FC4E82;
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	border: 0;
+	outline: 0;
+	border-radius: 5px;
+	float: right;
+	font-weight: bold;
+	color: white;
 }
-.r1{
-text-align:left;
+
+.r1 {
+	text-align: left;
 }
 /* <인라인블럭 왼쪽 고정> */
 .margin_right_0 {
@@ -229,14 +231,12 @@ text-align:left;
 }
 
 #h1_left {
-
 	text-align: left;
 	font-size: 25px;
 }
 
-#h1_left_title{
-
-	color:  #5C5C5C;
+#h1_left_title {
+	color: #5C5C5C;
 	font-weight: 600;
 	text-align: left;
 	font-size: 30px;
@@ -268,8 +268,25 @@ text-align:left;
 	border-radius: 9px;
 	background-color: white;
 	opacity: 100%;
-	box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);
-	}
+	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
+}
+
+#btn_mypage_0 {
+	width: 80%;
+	height: 80%;
+	z-index: 10;
+	border: 1px solid #CCCCCC;
+	color: black;
+	font-weight: 560;
+	background-color: white;
+	border-radius: 12px;
+	z-index: 9999;
+	font-size: 12px;
+	padding: 6px;
+}
+#btn_mypage_0:hover{
+    box-shadow: 1px 3px 5px rgb(0 0 0 / 18%);
+}
 </style>
 
 <c:if test='${ empty isLogOn }'>
@@ -288,7 +305,7 @@ text-align:left;
 <script>
 
  function cartPay(i){
-	 alert(i);
+	
 
 	 document.getElementById(i).submit();
  }
@@ -380,36 +397,31 @@ text-align:left;
 						<form name="cartPay_${i}" id="cartPay_${i}"
 							action="${contextPath}/order/orderCartGoods.do" method="post">
 
-							<div
-								style="width: 48%; height: 100px; border: 1px solid #CCCCCC; float: left; border-radius: 12px; padding: 10px; cursor: pointer; margin: 10px 0px;"
-								onClick="cartPay('cartPay_' +${i})">
+							<div style="width: 48%; height: 100px; z-index:1;border: 1px solid #CCCCCC; float: left; border-radius: 12px; padding: 10px;  margin: 10px 0px;"
+								>
 								<fmt:setLocale value="en_US" scope="session" />
-								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
-									pattern="EEE MMM dd HH:mm:ss z yyyy" />
-								<fmt:formatDate var="checkIn_date" value="${checkIn}"
-									pattern="yyyy년 MM월 dd일" />
-								<fmt:parseDate var="checkOut" value="${ item.checkOut_date }"
-									pattern="EEE MMM dd HH:mm:ss z yyyy" />
-								<fmt:formatDate var="checkOut_date" value="${checkOut}"
-									pattern="yyyy년 MM월 dd일" />
-								<input type="hidden" name="cart_code"
-									value="${ item.cart_code }"> <input type="hidden"
-									name="total" value="${ item.total }"> <input
-									type="hidden" name="people_count"
-									value="${ item.people_count }"> <input type="hidden"
-									name="room_fee" value="${ item.room_fee }"> <input
-									type="hidden" name="room_code" value="${ item.room_code }">
-								<input type="hidden" name="checkIn_date"
-									value="${ item.checkIn_date }"> <input type="hidden"
-									name="checkOut_date" value="${ item.checkOut_date }"> <input
-									type="hidden" name="h_code" value="${ item.h_code }"> <img
+								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkIn_date" value="${checkIn}" pattern="yyyy년 MM월 dd일" />
+								<fmt:parseDate var="checkOut" value="${ item.checkOut_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkOut_date" value="${checkOut}" pattern="yyyy년 MM월 dd일" />
+								<input type="hidden" name="cart_code" value="${ item.cart_code }"> 
+									<input type="hidden" name="total" value="${ item.total }"> 
+									<input type="hidden" name="people_count" value="${ item.people_count }"> 
+									<input type="hidden" name="room_fee" value="${ item.room_fee }"> 
+									<input type="hidden" name="room_code" value="${ item.room_code }">
+								    <input type="hidden" name="checkIn_date" value="${ item.checkIn_date }"> 
+									<input type="hidden" name="checkOut_date" value="${ item.checkOut_date }"> 
+									<input type="hidden" name="h_code" value="${ item.h_code }"> <img
 									src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
-									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
+									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; cursor:pointer;border-radius: 12px;"
+									onClick="location.href='${contextPath}/host/goods/goodsDetail.do?room_code=${ item.room_code}'" >
 								<div
-									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+									style="width: 50%; cursor:pointer;height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;"
+									onClick="location.href='${contextPath}/host/goods/goodsDetail.do?room_code=${ item.room_code}'" >
 									${ item.title }</div>
+									<div style="width: 23%; height: 50%; float: right;"><a id="btn_mypage_0" onClick="cartPay('cartPay_' +${i})" href="#">주문하기</a></div>
 								<div
-									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
 									호스트: ${ item.h_name }</div>
 								<div
 									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
