@@ -268,7 +268,8 @@ ChannelIO('boot', {
 				</a>
 			</li>
 			<li>
-				<a href="${contextPath}/main/main.do"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;로그아웃</a>
+				<a href="${contextPath}/host/h_logout.do">
+					<i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;로그아웃</a>
 			</li>
 			<li>
 				<a href="${contextPath}/main/main.do"><i class="fa-solid fa-house-user"></i>&nbsp;오나주홈</a>

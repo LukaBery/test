@@ -35,21 +35,15 @@ function result(){
 
 <style>
 
-*{
-	margin:0; padding:0;
-	font-size:15px; 
-}
-
-/* 테이블쪽 디자인 */
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-} 
+}
 
 section.host_notice {
 	width : 850px;
 	padding: 0 auto;
-	height: 1500px;
+	margin-left: 50px;
 }
 
 .page-title {
@@ -61,7 +55,43 @@ section.host_notice {
 	color: #7f9b75;
 	font-weight: 570;
 	text-align: center;
-	margin: 50px 0 50px 0;
+}
+
+#noticeBoard-search .noticeSearch-window {
+	padding: 15px 0;
+	background-color: #f9f7f9;
+}
+
+#noticeBoard-search .noticeSearch-window .noticeSearch-wrap {
+	position: relative;
+	/*   padding-right: 124px; */
+	margin: 0 auto;
+	width: 80%;
+	max-width: 564px;
+}
+
+#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input {
+	height: 28px;
+	width: 100%;
+	font-size: 14px;
+	padding: 7px 14px;
+	border: 1px solid #cbdea6;
+}
+
+#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input:focus {
+	border-color: #333;
+	outline: 0;
+	border-width: 1px;
+}
+
+#noticeBoard-search .noticeSearch-window .noticeSearch-wrap .noticeBtn {
+	position: absolute;
+	right: -30px;
+	top: 0;
+	bottom: 0;
+	width: 108px;
+	padding: 0;
+	font-size: 16px;
 }
 
 .board-table {
@@ -70,6 +100,7 @@ section.host_notice {
 	width: 100%;
 	border-top: 1px solid #cbdea6;;
 	border-bottom: 1px solid #cbdea6;;
+	
 }
 
 .board-table a {
@@ -84,77 +115,63 @@ section.host_notice {
 	text-decoration: underline;
 }
 
+.roomSelect {
+	border: 1px solid #7f9b75;
+    font-size: 15px;
+    height: 28px;
+    padding: 1px;
+    width: 250px;
+    text-align: center;
+    margin: 0px 0px 0px 350px;
+
+}
+
+.search_button{
+	font-size: 10pt;
+    color: #666;
+    text-decoration: none;
+    display: inline-block;
+    
+    width: 150px;
+    height: 25px;
+    border: 1px solid #cfcfcf;
+    background: #dedede;
+    color: #626262;
+    text-align: center;
+   
+   
+}
+
 .board-table th {
 	text-align: center;
 
 }
 
+.td-date-writer{
+	text-align: center;
+}
+
 .board-table .th-num {
 	
-	/* width: 100px; */
+	width: 100px;
 	text-align: center;
 }
 
-
-
-.board-table th, .board-table td {
-	padding: 5px 0 5px 5px;
-	border : 1px solid #cbdea6;
+.board-table .th-date {
+	width: 200px;
 }
 
-.board-table tbody td {
+.board-table th, .board-table td {	
+	padding: 10px 0;
 	border-top: 1px solid #cbdea6;
-	text-align: center;
 }
 
-.board-table tbody th {
-	padding-left: 28px;
-	padding-right: 14px;
-	border-top: 1px solid #cbdea6;
-	text-align: left;
+.th-content{
+	min-height: 250px;
 }
 
-.board-table tbody th p {
-	display: none;
-}
-
-.noticeBtn {
-	display: inline-block;
-	padding: 0 30px;
-	font-size: 15px;
-	font-weight: 400;
-	background: transparent;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	border: 1px solid transparent;
-	text-transform: uppercase;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.btn-dark {
-	background: #7f9b75;
-	color: #fff;
-}
-
-.btn-dark:hover, .btn-dark:focus {
-	background: #cbdea6;
-	border-color: #cbdea6;
-	color: #fff;
+.th-image{
+	min-height: 80px;
 }
 
 .noticeBtn2 {
@@ -165,7 +182,7 @@ section.host_notice {
 .noticeBtn2 {
 	display: inline-block;
 	padding: 5px 30px;
-	margin: 30px 0 30px 650px;
+	margin:30px 0px 0px 730px;
 	font-size: 16px;
 	font-weight: 400;
 	background: transparent;
@@ -202,6 +219,11 @@ section.host_notice {
 	color: #fff;
 }
 
+.noticeBtn2Box {
+	width:850px;
+	margin-left: 600px;
+}
+
 .clearfix:after {
 	content: '';
 	display: block;
@@ -209,8 +231,8 @@ section.host_notice {
 }
 
 .host_contai {
-	width: 750px;
-	margin: 0 auto;
+	width: 850px;
+	margin: 50px 0px 50px 0px;
 }
 
 .blind {
@@ -220,6 +242,12 @@ section.host_notice {
 	margin: -1px;
 	width: 1px;
 	height: 1px;
+}
+
+.file_input{
+	margin: 5px;
+    font-size: 13px;
+    
 }
 
 /* 테이블쪽 디자인 */
