@@ -1,24 +1,23 @@
 package com.myspring.Onaju.board.review.controller;
 
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myspring.Onaju.board.review.dao.ReviewDAO;
 import com.myspring.Onaju.board.review.service.ReviewService;
 import com.myspring.Onaju.board.review.vo.ReviewVO;
 import com.myspring.Onaju.common.base.BaseController;
+import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("reviewController")
 @RequestMapping(value = "/board")
@@ -26,18 +25,30 @@ public class ReviewControllerImpl extends BaseController implements ReviewContro
 
 	@Autowired
 	private ReviewVO reviewVO;
+	@Autowired
+	private ReviewService reviewService;
+	
 	
 	 
 	
 
 	@Override
 	@RequestMapping(value = "/review/addReview.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView addNewReview(@RequestParam Map<String, String> reviewMap, HttpServletRequest request,
+	public ModelAndView addNewReview(@ModelAttribute("memberVO") ReviewVO _reviewVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		session = request.getSession();
+		MemberVO mem = (MemberVO)session.getAttribute("memberInfo");
+		String u_id = mem.getU_id();
+		_reviewVO.setU_id(u_id);
 		
 		
+		
+		reviewService.addReview(_reviewVO);
 		ModelAndView mav = new ModelAndView();
-		mav.setView(null);
+		mav.setViewName("redirect:/mypage/mypageMain.do");
 		return mav;
 	}
 }

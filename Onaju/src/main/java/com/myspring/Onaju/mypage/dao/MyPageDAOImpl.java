@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.Onaju.cart.vo.CartVO;
+import com.myspring.Onaju.board.review.vo.ReviewVO;
 import com.myspring.Onaju.member.vo.MemberVO;
 import com.myspring.Onaju.order.vo.OrderVO;
 
@@ -20,6 +20,23 @@ public class MyPageDAOImpl implements MyPageDAO {
 
 	public List<OrderVO> selectMyOrderGoodsList(String u_id) throws DataAccessException {
 		List<OrderVO> orderGoodsList = (List) sqlSession.selectList("mapper.mypage.selectMyOrderGoodsList", u_id);
+	
+		for (int i = 0; i < orderGoodsList.size(); i++) {
+			OrderVO orderVO = (OrderVO) orderGoodsList.get(i);
+			if(orderVO.getReview_state().equals("y")) {
+				String order = orderVO.getOrder_code();
+				ReviewVO reviewVO = sqlSession.selectOne("mapper.review.selectReview", order);
+				int review_num = reviewVO.getReview_num();
+				String review_star = reviewVO.getReview_star();
+				String review_content = reviewVO.getReview_content();
+				orderVO.setReview_num(review_num);
+				orderVO.setReview_star(review_star);
+				orderVO.setReview_content(review_content);
+				orderGoodsList.set(i, orderVO);
+				
+			}
+		
+		}
 		return orderGoodsList;
 	}
 	public void updateMyInfo(Map memberMap) throws DataAccessException {

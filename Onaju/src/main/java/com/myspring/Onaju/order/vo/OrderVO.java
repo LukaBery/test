@@ -27,6 +27,15 @@ public class OrderVO {
 	private int total;
 	private String room_imageName;
 	private String review_state;
+	private int review_num;
+	private String review_star;
+	private String review_content;
+	
+	
+	
+	
+	
+	
 	public String getRoom_imageName() {
 		return room_imageName;
 	}
@@ -158,6 +167,24 @@ public class OrderVO {
 	}
 	public void setPay_state(String pay_state) {
 		this.pay_state = pay_state;
+	}
+	public int getReview_num() {
+		return review_num;
+	}
+	public void setReview_num(int review_num) {
+		this.review_num = review_num;
+	}
+	public String getReview_star() {
+		return review_star;
+	}
+	public void setReview_star(String review_star) {
+		this.review_star = review_star;
+	}
+	public String getReview_content() {
+		return review_content;
+	}
+	public void setReview_content(String review_content) {
+		this.review_content = review_content;
 	}
 
 }

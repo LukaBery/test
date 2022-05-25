@@ -9,11 +9,12 @@ public class ReviewVO {
 
 	private int review_num;
 	private String u_id;
-	private int h_code;
+	private int order_code;
 	private int room_code;
 	private String review_star;
 	private String review_content;
 	private Date creDate;
+	private String del_yn;
 	
 	public int getReview_num() {
 		return review_num;
@@ -27,11 +28,11 @@ public class ReviewVO {
 	public void setU_id(String u_id) {
 		this.u_id = u_id;
 	}
-	public int getH_code() {
-		return h_code;
+	public int getOrder_code() {
+		return order_code;
 	}
-	public void setH_code(int h_code) {
-		this.h_code = h_code;
+	public void setOrder_code(int order_code) {
+		this.order_code = order_code;
 	}
 	public int getRoom_code() {
 		return room_code;
@@ -52,10 +53,18 @@ public class ReviewVO {
 	public String getReview_content() {
 		return review_content;
 	}
+	
 	public void setReview_content(String review_content) {
 		this.review_content = review_content;
 	}
 	public void setCreDate(Date creDate) {
 		this.creDate = creDate;
 	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
+	}
+	
 }

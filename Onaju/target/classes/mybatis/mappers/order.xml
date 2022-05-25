@@ -36,6 +36,10 @@
 		<result property="creDate" column="creDate" />
 		<result property="review_state" column="review_state" />
 		
+		<result property="review_num" column="review_num" />
+		<result property="review_star" column="review_star" />
+		<result property="review_content" column="review_content" />
+		
 	</resultMap>	
 
 	<insert id="insertNewOrder" parameterType="orderVO"  >
