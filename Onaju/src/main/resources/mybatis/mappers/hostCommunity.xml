@@ -50,7 +50,7 @@
 <!-- 게시판 목록 불러오기 -->
 	<select id="hostAllCommunityList" resultType="hostCommunityVO"  parameterType="String"  >
 	    <![CDATA[
-				select C.cmnNum, I.hostInfo_name, R.room_number, C.bigTitle, C.creDate
+				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code, C.bigTitle, C.creDate
 				from h_community C inner join h_room R
 				on C.room_code = R.room_code
                 inner join h_host_info I
@@ -122,7 +122,7 @@
 	</insert>
 
 <!-- 게시판 수정글 불러오기 -->
-	<select id="modCommunity" resultType="hostCommunityVO"   parameterType="int"  >
+	<select id="modCommunity" resultType="hostCommunityVO"   parameterType="String"  >
      <![CDATA[
 			    select C.cmnNum,C.bigTitle,C.smallTitle,C.cmn_image,C.content,C.h_id,R.room_code,R.room_type,R.room_number,R.room_fee,
 				R.able_checkIn,R.able_checkOut,R.min_number,R.max_number,I.h_code,I.hostInfo_name,I.roadAddress,I.host_type,
@@ -137,7 +137,25 @@
 			    where C.cmnNum=#{cmnNum} 
      ]]>
 	</select>
-
+	<!-- 게시판 수정 -->
+	<update id="updateHostCommunity" parameterType="hostCommunityVO" >
+		   update h_community
+		    <set> 
+		      
+		        bigTitle=#{bigTitle},
+		     
+		        smallTitle=#{smallTitle},
+		      
+		        cmn_image=#{cmn_image},
+		      
+		        content=#{content},
+		   
+		      
+		     </set>
+		    where 
+		    cmnNum=#{cmnNum}
+		</update>
+		
 <!-- 게시판 삭제 -->
 	<delete id="deleteHostCommunity" parameterType="int">
 	    <![CDATA[

@@ -18,9 +18,16 @@ public interface HostCommunityController {
 	public ResponseEntity addNewCommunity(HostCommunityVO hostCommunityVO, MultipartHttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ModelAndView hostAllCommunityList(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView modCmnAticleForm(int cmnNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView deleteHostCommunity(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView modCmnConfirm(int cmnNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ModelAndView modCmnAticleForm(@RequestParam("cmnNum") int cmnNum, @RequestParam("room_code") int room_code,
+			HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView modingCmnAticleForm(@RequestParam("room_code") int room_code, @RequestParam("cmnNum") int cmnNum,
+			MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView confirmCmnAticle(int cmnNum, int room_code, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public void download2(String fileName, int room_code, HttpServletResponse response) throws Exception;
+	
+	public ResponseEntity deleteHostCommunity(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
 	
 	
 	

@@ -306,7 +306,7 @@ margin:0px 0px 0px 0px;
 												<td>${list.cmnNum}</td>
 												<td>${list.hostInfo_name}</td>
 												<td>${list.room_number}</td>
-												<td><a href="${pageContext.request.contextPath}/host/community/modCmnAticleForm.do?cmnNum=${list.cmnNum}">${list.bigTitle}</a></td>
+												<td><a href="${pageContext.request.contextPath}/host/community/confirmCmnAticle.do?cmnNum=${list.cmnNum}&room_code=${list.room_code}">${list.bigTitle}</a></td>
 												<td>${list.creDate}</td>
 											</tr>
 										</c:forEach>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ import com.myspring.Onaju.host.vo.HostVO;
 @Controller("hostCommunityController")
 @RequestMapping(value = "/host/community")
 public class HostCommunityControllerImpl extends BaseController implements HostCommunityController {
-
+	private static String CURR_IMAGE_REPO_PATH_COMMUNITY = "C:\\onaju\\host_community_image";
 	@Autowired
 	private HostCommunityVO hostCommunityVO;
 	@Autowired
@@ -94,28 +95,33 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 	@RequestMapping(value = "/addNewCommunity.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity addNewCommunity(@ModelAttribute("hostCommunityVO") HostCommunityVO hostCommunityVO,
 			MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		System.out.println("컨트롤러 진입");
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		String h_id = hostVO.getH_id();
 		hostCommunityVO.setH_id(h_id);
-
+		
 		// 이미지 업로드
-		String src = request.getParameter("src");
-		MultipartFile image = request.getFile("cmnImg");
-		String path = "C:\\onaju\\host_community_image\\";
+		String roomCode = request.getParameter("room_code");
+		MultipartFile image = request.getFile("cmnImage");
 
 		String originFileName = image.getOriginalFilename(); // 원본 파일 명
 		long fileSize = image.getSize(); // 파일 사이즈
 		hostCommunityVO.setCmn_image(originFileName);
 		System.out.println("originFileName : " + originFileName);
-		System.out.println("fileSize : " + fileSize);
 
-		String safeFile = path + originFileName;
-		System.out.println("####safeFile : " + safeFile);
-		image.transferTo(new File(safeFile));
+		File file = new File(CURR_IMAGE_REPO_PATH_COMMUNITY + "\\" + roomCode + "\\" + originFileName);
+		if (image.getSize() != 0) { // File Null Check
+			if (!file.exists()) {
+				if (file.mkdirs()) {
+					file.createNewFile();
+				}
+			}
+			image.transferTo(new File(CURR_IMAGE_REPO_PATH_COMMUNITY + "\\" + roomCode + "\\" + originFileName));
+		}
+//이미지 업로드 끝	
 
 		String message = null;
 		ResponseEntity resEntity = null;
@@ -162,14 +168,13 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		return mav;
 	}
 
-	/* 게시글 클릭하면 보여지는 화면 */
+	/* 게시글 클릭하면 보여지는 완성 화면 */
+
 	@Override
-	@RequestMapping(value = "/modCmnAticleForm.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView modCmnAticleForm(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		response.setContentType("text/html; charset=UTF-8" );
-		response.setContentType("image/jpeg");
-		request.setCharacterEncoding("utf-8");
-		
+	@RequestMapping(value = "/confirmCmnAticle.do", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView confirmCmnAticle(@RequestParam("cmnNum") int cmnNum, @RequestParam("room_code") int room_code,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
@@ -177,51 +182,69 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		System.out.println("hostVO의 VO : " + hostVO);
 		String h_id = hostVO.getH_id();
 		System.out.println("h_id : " + h_id);
-		
-		
-		// 이미지 보여주기
-		String src = request.getParameter("src");
-		File image = new File("cmnImg");
-		String path = "C:\\onaju\\host_community_image\\";
 
-		String fileName=(String)request.getParameter("fileName"); 
-		System.out.println("fileName:"+fileName);
-		hostCommunityVO.getCmn_image();
-		
-		ServletOutputStream out=response.getOutputStream(); //���䰴ü�� ����ִ� ��� ��¿� ���õ� ��Ʈ��(���ͼ� ��������)
-				
-		FileInputStream fis = new FileInputStream("C:\\onaju\\host_community_image\\");
-
-	    // 입출력 속도 향상을 위한 버퍼드 스트림 사용
-	    BufferedInputStream bis = new BufferedInputStream(fis);
-	    BufferedOutputStream bos = new BufferedOutputStream(out);
-
-	    int readBytes = 0; // 읽은 ㅏ이트수
-	    while((readBytes = bis.read()) != -1) {
-	      bos.write(readBytes);
-	    }
-
-	    bis.close();
-	    bos.close();
-	  
 		hostCommunityVO = hostCommunityService.modCommunity(cmnNum);
-		mav.addObject("hostCommunityVO", hostCommunityVO);
 		System.out.println("커뮤니티 글 modCommunity :" + hostCommunityVO);
-		
-		
+		mav.addObject("hostCommunityVO", hostCommunityVO);
+		Map goodsMap = hostCommunityService.selectCommunityView(room_code);
+		mav.addObject("goodsMap", goodsMap);
+
 		return mav;
-}
-	
-	/*수정 할 화면 */
-	
-	
-	/* 수정 한 화면 */
+	}
+
 	@Override
-	@RequestMapping(value = "/modCmnConfirm.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView modCmnConfirm(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request,HttpServletResponse response) throws Exception {
-		response.setContentType("text/html; charset=UTF-8" );
-		response.setContentType("image/jpeg");
-		request.setCharacterEncoding("utf-8");
+	@RequestMapping("/download2")
+	public void download2(@RequestParam("fileName") String fileName, @RequestParam("room_code") int room_code,
+			HttpServletResponse response) throws Exception {
+		// 이미지
+		OutputStream out = response.getOutputStream();
+		String filePath2 = CURR_IMAGE_REPO_PATH_COMMUNITY + "\\" + room_code + "\\" + fileName;
+
+		File image = new File(filePath2);
+
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
+		FileInputStream in = new FileInputStream(image);
+		byte[] buffer = new byte[1024 * 8];
+		while (true) {
+			int count = in.read(buffer);
+			if (count == -1)
+				break;
+			out.write(buffer, 0, count);
+		}
+		in.close();
+		out.close();
+	}
+	// 이미지끝
+
+	/* 수정 할 화면 */
+	
+	@Override
+	@RequestMapping(value = "/modCmnAticleForm.do", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView modCmnAticleForm(@RequestParam("cmnNum") int cmnNum, @RequestParam("room_code") int room_code,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
+		System.out.println("hostVO의 VO : " + hostVO);
+		String h_id = hostVO.getH_id();
+		System.out.println("h_id : " + h_id);
+
+		hostCommunityVO = hostCommunityService.modCommunity(cmnNum);
+		System.out.println("커뮤니티 글 modCommunity :" + hostCommunityVO);
+		mav.addObject("hostCommunityVO", hostCommunityVO);
+		Map goodsMap = hostCommunityService.selectCommunityView(room_code);
+		mav.addObject("goodsMap", goodsMap);
+
+		return mav;
+	}
+		
+	/* 수정 디비 저장 화면 */	
+	@RequestMapping(value = "/modingCmnAticleForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView modingCmnAticleForm(@RequestParam("room_code") int room_code, @RequestParam("cmnNum") int cmnNum,
+			MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -231,16 +254,106 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		String h_id = hostVO.getH_id();
 		System.out.println("h_id : " + h_id);
 		
-		return mav;
+		
+
+		
+		// 이미지 업로드
+				String src = request.getParameter("src");
+				String roomCode = request.getParameter("room_code");
+				MultipartFile image =  request.getFile("cmnImage");
+				
+				
+				String originFileName = image.getOriginalFilename(); // 원본 파일 명
+				long fileSize = image.getSize(); // 파일 사이즈
+				hostCommunityVO.setCmn_image(originFileName);
+				System.out.println("originFileName : " + originFileName);
+				
+				//폴더 안의 파일 삭제
+				String path=CURR_IMAGE_REPO_PATH_COMMUNITY ;
+				File folder = new File(path);
+				    if (folder.exists()) {
+				  	  FileUtils.cleanDirectory(folder);//하위 폴더와 파일 모두 삭제
+				  	  //isDirectory()경로에 있는 객체가 folder이면 true아니면 false
+				    if (folder.isDirectory()) {
+				      folder.delete(); // 대상폴더 삭제
+				      System.out.println(folder + "폴더가 삭제되었습니다.");
+				    }
+				    }else {
+				    	System.out.println("대실패");
+				    }
+				
+				File file = new File(CURR_IMAGE_REPO_PATH_COMMUNITY + "\\" + roomCode + "\\" + originFileName);
+					if (image.getSize() != 0) { // File Null Check
+						if (!file.exists()) {
+							if (file.mkdirs()) {
+								file.createNewFile();
+							}
+						}
+						image.transferTo(new File(CURR_IMAGE_REPO_PATH_COMMUNITY + "\\" + roomCode + "\\" + originFileName));
+					}
+				      
+				// 이미지 업로드 끝
+					String bigTitle = request.getParameter("bigTitle");
+					String smallTitle = request.getParameter("smallTitle");
+					String content = request.getParameter("content");
+					hostCommunityVO.setBigTitle(bigTitle);
+					hostCommunityVO.setSmallTitle(smallTitle);
+					hostCommunityVO.setContent(content);
+				String message = null;
+
+				try {
+					hostCommunityService.updateHostCommunity(hostCommunityVO);
+					message = "<script>";
+					message += " alert('커뮤니티 게시글 디비 저장 완료');";
+					message += " location.href='" + request.getContextPath() + "/host/community/confirmCmnAticle.do';";
+					message += " </script>";
+
+				} catch (Exception e) {
+					message = "<script>";
+					message += " alert('커뮤니티 게시글 디비 등록 실패');";
+					message += " location.href='" + request.getContextPath() + "/host/main.do';";
+					message += " </script>";
+					e.printStackTrace();
+				}
+				mav.addObject("message", message);
+				mav.setViewName("forward:/host/community/hostAllCommunityList.do");
+				return mav;
+			}
+	/* 게시글 삭제 */
+	@RequestMapping(value = "/deleteHostCommunity.do",  method = { RequestMethod.GET, RequestMethod.POST })
+	public ResponseEntity deleteHostCommunity(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
+		System.out.println("hostVO의 VO : " + hostVO);
+		String h_id = hostVO.getH_id();
+		System.out.println("h_id : " + h_id);
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
+		try {
+			hostCommunityService.deleteHostCommunity(cmnNum);
+			message = "<script>";
+			message += " alert('커뮤니티 게시글 삭제 완료');";
+			message += " location.href='" + request.getContextPath() + "/host/community/hostAllCommunityList.do';";
+			message += " </script>";
+
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('커뮤니티 게시글 삭제 실패');";
+			message += " location.href='" + request.getContextPath() + "/host/community/hostAllCommunityList.do';";
+			message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 
-	/* 게시글 삭제 */
-	@RequestMapping(value = "/deleteHostCommunity.do", method = RequestMethod.POST)
-	public ModelAndView deleteHostCommunity(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		hostCommunityService.deleteHostCommunity(cmnNum);
-		mav.setViewName("redirect:/community/hostAllCommunityList.do");
-		return mav;
-	}
 }

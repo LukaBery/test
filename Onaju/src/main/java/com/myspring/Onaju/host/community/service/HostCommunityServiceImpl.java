@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +58,11 @@ public class HostCommunityServiceImpl implements HostCommunityService{
 	@Override
 	public HostCommunityVO modCommunity(int cmnNum) throws Exception{
 		return hostCommunityDAO.modCommunity(cmnNum);
+	}
+	
+	@Override
+	public void updateHostCommunity(HostCommunityVO hostCommunityVO)throws Exception{
+		hostCommunityDAO.updateHostCommunity(hostCommunityVO);
 	}
 	
 	@Override

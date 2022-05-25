@@ -270,8 +270,20 @@ hr {
 	opacity: 100%;
 	box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);
 	}
+	
+.draggable {  /* 드래그 가능 */
+  -webkit-user-select:all;
+  -moz-user-select:all;
+  -ms-user-select:all;
+  user-select:all
+}
+.draggFalse{  /* 드래그 불가능 */
+ -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
 </style>
-
 <c:if test='${ empty isLogOn }'>
 
 	<script>
@@ -281,8 +293,11 @@ hr {
 
 		function result() {
 			alert("로그인이 필요한 서비스입니다.");
-			location.href="${contextPath}/main/main.do"
+			location.href="${contextPath}/main/main.do"	
 		}
+
+		
+	
 	</script>
 </c:if>
 <c:if test='${ not empty message }'>
@@ -326,6 +341,24 @@ function newReview(boardNum){
 	 
 	 }
 
+function modReview(boardNum){
+	
+	
+	  document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/modReview.do'); 
+	 document.getElementById(boardNum).submit();
+	 
+	 
+	 }
+
+function delReview(boardNum){
+	
+	
+	  document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/delReview.do'); 
+
+	 document.getElementById(boardNum).submit();
+	 
+	 
+	 }
 
 </script>
 </head>
@@ -354,7 +387,7 @@ function newReview(boardNum){
 				<a id="hb_a_main" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
 			</div>
 			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/Mypage5.do">내 리뷰 내역</a>
+				<a id="hb_a_main" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
 			<div class="hb_rec_3_mypage">
@@ -438,14 +471,14 @@ function newReview(boardNum){
 									<c:when
 										test="${item.review_state eq 'y' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											<a class="draggFalse" style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
 												작성완료 </a>
 												</div>
 									</c:when>
 									<c:otherwise>
 										<div style="width: 23%; height: 50%; float: right;">
-											<a style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
+											<a class="draggFalse"style="width: 80%; height: 80%; border: 1px solid #CCCCCC; color: black; font-weight: 560; background-color: white; 
 											border-radius: 12px; z-index: 9999; font-size: 12px; padding: 6px;" onClick="reviewFormAdd(${i})">
 												리뷰 작성 </a>
 
@@ -475,6 +508,7 @@ function newReview(boardNum){
 								<input type="hidden" name="h_code" value="${item.h_code }">
 								<input type="hidden" name="room_code" value="${item.room_code }">
 								<input type="hidden" name="order_code" value="${item.order_code }">
+								<input type="hidden" name="review_num" value="${item.review_num }">
 								<div 
 								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
 								<TEXTAREA name="review_content" 
@@ -483,7 +517,7 @@ function newReview(boardNum){
 									<c:when
 										test="${item.review_state eq 'n' }"><div style="width:18%;height:68%;display: inline-block;"></div>
 								<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="newReview('new_'+${i})">
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="newReview('new_'+${i})"href="#">
 												등록하기 </a>
 												
 												</c:when>
@@ -491,10 +525,10 @@ function newReview(boardNum){
 										test="${item.review_state eq 'y' }">
 										<div style="width:18%;height:37%;display: inline-block;"></div>
 												<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;z-index: 9999"onClick="modReview('new_'+${i})"href="#" >
 												수정하기 </a>
 													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="delReview('new_'+${i})"href="#">
 												삭제하기 </a>
 												
 												</c:when>
@@ -503,6 +537,10 @@ function newReview(boardNum){
 								
 								
 								</div>
+								
+								
+								
+								
 							</div>
 						
 

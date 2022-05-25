@@ -16,11 +16,47 @@
 		
 		<result property="creDate" column="creDate" />
 
-		<result property="del_yn" column="del_yn" />
+		<result property="room_imageName" column="room_imageName" />
+		<result property="title" column="title" />
+		<result property="checkIn_date" column="checkIn_date" />
+		<result property="checkOut_date" column="checkOut_date" />
+		<result property="u_name" column="u_name" />
+		<result property="u_imageName" column="u_imageName" />
 	</resultMap>	
 
 <select id="selectReview" parameterType="String" resultType="reviewVO">
 	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} 
+	   		]]>
+	</select>
+	<select id="selectReviewListByRoom" parameterType="String" resultType="reviewVO">
+	   <![CDATA[  
+
+select U.*, T.u_imageName, T.u_name from u_reviewboard U 
+left join u_member T on T.u_id = U.u_id
+	   where U.room_code = #{room_code}
+
+	   		]]>
+	</select>
+	
+	<select id="selectReviewListById" parameterType="String" resultType="reviewVO">
+	   <![CDATA[  
+
+
+select U.*, T.room_imageName, O.checkIn_date, O.checkOut_date, F.title from u_reviewboard U 
+left join h_roomimage T on T.room_code = U.room_code and T.room_imageType = 'main_image'
+left join u_order O on U.order_code = O.order_code 
+left join h_room F on U.room_code = F.room_code
+	   where U.u_id = #{u_id}
+    
+   
+	   
+
+
+    
+   
+	   
+
+
 	   		]]>
 	</select>
 
@@ -53,6 +89,32 @@
 		where 
 		order_code=#{order_code}
 	</update>
+	<update id="modReview" parameterType="reviewVO">
+	   update u_reviewboard
+			   <set>
+			     
+			      review_star = #{review_star},
+			      review_content = #{review_content}
+			    
+			      
+			   </set>
+		where 
+		review_num=#{review_num}
+	</update>
 
-
+<delete id="removeReview" parameterType="String">
+		delete from u_reviewboard where review_num = #{review_num}
+	</delete>
+	
+<update id="deleteReviewState" parameterType="int">
+	   update u_order
+			   <set>
+			     
+			        review_state='n'
+			    
+			      
+			   </set>
+		where 
+		order_code=#{order_code}
+	</update>
 </mapper>

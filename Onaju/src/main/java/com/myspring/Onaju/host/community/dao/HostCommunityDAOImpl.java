@@ -62,7 +62,14 @@ public class HostCommunityDAOImpl implements HostCommunityDAO {
 	}
 	
 	@Override
+	public void updateHostCommunity(HostCommunityVO hostCommunityVO) throws DataAccessException{
+		sqlSession.update("mapper.hostCommunity.updateHostCommunity",hostCommunityVO);
+	}
+	
+	@Override
 	public void deleteHostCommunity(int cmnNum) throws DataAccessException{
 		sqlSession.delete("mapper.hostCommunity.deleteHostCommunity",cmnNum);
 	}
+	
+	
 }
