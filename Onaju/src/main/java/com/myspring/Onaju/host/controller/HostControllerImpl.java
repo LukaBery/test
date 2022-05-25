@@ -117,6 +117,7 @@ public class HostControllerImpl extends BaseController implements HostController
 		HttpSession session = request.getSession();
 		session.removeAttribute("isLogOn");
 		session.removeAttribute("hostInfo");
+		session.removeAttribute("h_hostInfo");
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}

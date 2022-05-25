@@ -238,19 +238,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		
-		/*
-		 * Map hostInfoMap = new HashMap(); Enumeration enu =
-		 * request.getParameterNames(); while (enu.hasMoreElements()) { String name =
-		 * (String) enu.nextElement(); String value = request.getParameter(name);
-		 * hostInfoMap.put(name, value);
-		 * 
-		 * }
-		 */
-		/*
-		 * int _h_code = Integer.parseInt((String) hostInfoMap.get("h_code"));
-		 * System.out.println("컨트롤러의 h_code : " + _h_code);
-		 * System.out.println("컨트롤러의 hostInfoMap : " + hostInfoMap);
-		 */
 		System.out.println("삭제 컨트롤러 들어왔음 응답");
 		System.out.println("삭제 컨트롤러의 h_code : " + h_code);
 		

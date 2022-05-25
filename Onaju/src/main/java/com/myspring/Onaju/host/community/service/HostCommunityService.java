@@ -14,4 +14,5 @@ public interface HostCommunityService {
 	public List<HostCommunityVO> hostAllCommunityList(String h_id) throws Exception;
 	public HostCommunityVO modCommunity(int cmnNum) throws Exception;
 	public void deleteHostCommunity(int cmnNum) throws Exception;
+	public void updateHostCommunity(HostCommunityVO hostCommunityVO) throws Exception;
 }
