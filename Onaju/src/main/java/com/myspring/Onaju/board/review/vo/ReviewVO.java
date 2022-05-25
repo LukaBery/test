@@ -2,11 +2,13 @@ package com.myspring.Onaju.board.review.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component("reviewVO")
 public class ReviewVO {
 
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private int review_num;
 	private String u_id;
 	private int order_code;

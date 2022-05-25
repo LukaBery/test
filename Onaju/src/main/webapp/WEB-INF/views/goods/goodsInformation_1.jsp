@@ -118,11 +118,13 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .hb_rec_10 {
+margin-bottom:15px;
 	float: left;
 	display: inline-block;
 	width: 100%;
 	height: 300px;
 	border-radius: 10px;
+	border:2px solid #CCCCCC;
 }
 
 .hb_rec_11 {
@@ -800,7 +802,7 @@ function addCart(){
 			<br>
 			<p style="text-align: left; margin-left: 5px; opacity: 80%;">${goods.roadAddress }</p>
 			<h1 id="h2_left">${goods.title }</h1>
-			
+			<input type="hidden" name="longitude" id="longitude" value="${goods.longitude }"><input type="hidden" name="latitude" id="latitude" value="${goods.latitude }">
 
 		</section>
 		<!-- 사진 이미지 섹션 -->
@@ -873,10 +875,11 @@ function addCart(){
 					</div>
 					<hr style="width: 100%" style="margin:10px 0;">
 					<br>
-					<div class="hb_rec_10">
-						<a id="hb_a_main" href="#"><img
-							src="${contextPath }/resources/image/house_1.jpg"
-							style="width: 100%; height: 100%; border-radius: 10px;"> </a>
+					<div class="hb_rec_9">
+							<div class="seller2">숙소 위치</div>
+						</div>
+					<div class="hb_rec_10" id="map">
+						
 					</div>
 					<br>
 
@@ -887,46 +890,72 @@ function addCart(){
 							<div class="seller2">숙소 편의 시설</div>
 						</div>
 						<div>
-							<div>
+								<div
+									style="width: 100%; height: 100%; padding: 20px 0px; display: inline-block;">
 
-								<c:if test="${not empty goods.kitchen }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_kitchen.png">
-									<h4 id="icon_text_01">&emsp;주방</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.wifi }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_wifi.png">
-									<h4 id="icon_text_01">&emsp;무선 인터넷</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.parking }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_parking.png">
-									<h4 id="icon_text_01">&emsp;주차 공간</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.tv }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_tv.png">
-									<h4 id="icon_text_01">&emsp;tv</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.refrigerator }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_refrigerator.png">
-									<h4 id="icon_text_01">&emsp;냉장고</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.hairdryer }">
+									<c:if test="${ goods.kitchen == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_kitchen.png">
+											<h4 id="icon_text_01">&emsp;주방</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.wifi == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_wifi.png">
+											<h4 id="icon_text_01">&emsp;무선 인터넷</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.parking  == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_parking.png">
+											<h4 id="icon_text_01">&emsp;주차 공간</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.tv == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_tv.png">
+											<h4 id="icon_text_01">&emsp;tv</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.refrigerator == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_refrigerator.png">
+											<h4 id="icon_text_01">&emsp;냉장고</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.hairdryer  == 'Y' }">
 
-								<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_hairdryer.png">
-									<h4 id="icon_text_01">&emsp;헤어드라이어</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.washer}">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_washer.png">
-									<h4 id="icon_text_01">&emsp;세탁기</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.pet }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_pet.png">
-									<h4 id="icon_text_01">&emsp;애완동물</h4></div>
-								</c:if>
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_hairdryer.png">
+											<h4 id="icon_text_01">&emsp;헤어드라이어</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.washer == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_washer.png">
+											<h4 id="icon_text_01">&emsp;세탁기</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.pet  == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_pet.png">
+											<h4 id="icon_text_01">&emsp;애완동물</h4>
+										</div>
+									</c:if>
 
-							</div>
+								</div>
+								<div style="height:80px;width:100%;display:inline-block;">
 							<button type="button" id="hb_goods_review_a"
 								style="float: left;">편의시설 25개 모두 보기</button>
-						</div>
+						</div></div>
 					</div>
 				</div>
 </div>
@@ -1008,7 +1037,8 @@ function addCart(){
 
 						<div class="hb_section_review_2">
 							<div
-								style="width: 100%; height: 100%; display: inline-block; padding: 10px;">
+								style="width: 100%; height: 100%; display: inline-block; padding: 10px;border: 1px solid #CCCCCC;
+    border-radius: 20px;">
 								<div class="goodsInfo-profile">
 									<a id="hb_a_main_profile_2" href="#"> <i style="width: 60px; height: 60px; border-radius: 70%;float: left; border:1px solid #CCCCCC;"><img
 										style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;"
@@ -1044,4 +1074,51 @@ function addCart(){
 
 
 </body>
+
+    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
+
+<script>
+var longitude =  document.getElementById('longitude').value;
+var latitude =  document.getElementById('latitude').value;
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(longitude, latitude), // 지도의 중심좌표
+    level: 2 // 지도의 확대 레벨
+};  
+var markerPosition  = new kakao.maps.LatLng(longitude, latitude); 
+
+var marker = new kakao.maps.Marker({
+	  
+	    position: markerPosition,
+	    text: '숙소 위치'
+	});
+
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+marker.setMap(map);
+var infowindow = new kakao.maps.InfoWindow({
+    content: '<div style="width:150px;text-align:center;padding:6px 0;">숙소 위치</div>'
+});
+infowindow.open(map, marker);
+//주소-좌표 변환 객체를 생성합니다
+
+//지도 타입 변경 컨트롤을 생성한다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도에 확대 축소 컨트롤을 생성한다
+var zoomControl = new kakao.maps.ZoomControl();
+
+// 지도의 우측에 확대 축소 컨트롤을 추가한다
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//주소로 좌표를 검색합니다
+
+
+
+
+</script>
 </html>

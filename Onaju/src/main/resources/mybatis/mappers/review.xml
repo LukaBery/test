@@ -25,7 +25,7 @@
 	</resultMap>	
 
 <select id="selectReview" parameterType="String" resultType="reviewVO">
-	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} 
+	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} order by creDate desc
 	   		]]>
 	</select>
 	<select id="selectReviewListByRoom" parameterType="String" resultType="reviewVO">
@@ -34,6 +34,7 @@
 select U.*, T.u_imageName, T.u_name from u_reviewboard U 
 left join u_member T on T.u_id = U.u_id
 	   where U.room_code = #{room_code}
+	   order by U.creDate desc
 
 	   		]]>
 	</select>
@@ -47,6 +48,7 @@ left join h_roomimage T on T.room_code = U.room_code and T.room_imageType = 'mai
 left join u_order O on U.order_code = O.order_code 
 left join h_room F on U.room_code = F.room_code
 	   where U.u_id = #{u_id}
+	   order by U.creDate desc
     
    
 	   
