@@ -281,7 +281,7 @@ text-align:left;
 
 		function result() {
 			alert("로그인이 필요한 서비스입니다.");
-			location.href="${contextPath}/main/main.do"
+			location.href="${contextPath}/main/main.do";
 		}
 	</script>
 </c:if>

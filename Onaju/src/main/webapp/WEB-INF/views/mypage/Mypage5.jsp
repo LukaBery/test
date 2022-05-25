@@ -283,9 +283,32 @@ text-align:left;
 			alert("로그인이 필요한 서비스입니다.");
 			location.href="${contextPath}/main/main.do"
 		}
+
+		
+	
 	</script>
 </c:if>
+<script>
 
+function modReview(boardNum){
+	
+	
+	  
+	 document.getElementById(boardNum).submit();
+	 
+	 
+	 }
+function delReview(boardNum){
+	
+	
+	  document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/delReview.do'); 
+
+	 document.getElementById(boardNum).submit();
+	 
+	 
+	 }
+
+</script>
 </head>
 <body>
 
@@ -366,6 +389,7 @@ text-align:left;
 			<c:forEach  var="item" items="${myReviewList}" varStatus="membersNum" >
 					<c:set var="i" value="${i +1 }"/>
 					
+					<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/modReview.do" method="post">
 					
 					<div style="width:100%;height:100px;border: 1px solid #CCCCCC; float:left; border-radius:12px;padding:10px;margin:10px 0px;">
 	
@@ -376,49 +400,47 @@ text-align:left;
 		<div style="width:48%; height:100%;  float:left; border-radius:12px;display:inline-block;cursor:pointer; "onClick="cartPay('cartPay_' +${i})">
 		<fmt:setLocale value="en_US" scope="session"/>
 		<fmt:parseDate var="checkIn" value="${ item.checkIn_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
-		<fmt:formatDate var="checkIn_date" value="${checkIn}" pattern="yyyy년 MM월 dd일"/>
+		<fmt:formatDate var="checkIn_date" value="${checkIn}" pattern="yyyy/MM/dd"/>
 		<fmt:parseDate var="checkOut" value="${ item.checkOut_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
-		<fmt:formatDate var="checkOut_date" value="${checkOut}" pattern="yyyy년 MM월 dd일"/>
+		<fmt:formatDate var="checkOut_date" value="${checkOut}" pattern="yyyy/MM/dd"/>
+		<fmt:parseDate var="creDate" value="${ item.creDate }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+		<fmt:formatDate var="creDate_" value="${creDate}" pattern="yyyy/MM/dd"/>
 	
-				<input type="hidden" name="room_code" value="${ item.room_code }">
-				<input type="hidden" name="checkIn_date" value="${ item.checkIn_date }">
-				<input type="hidden" name="checkOut_date" value="${ item.checkOut_date }">
-		        <input type="hidden" name="u_id" value="${memberInfo.u_id }">
-		        <input type="hidden" name="review_num" value="${item.review_num }">
 		
 		<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}" style="width:22%; height:100%; float:left;border: 1px solid #CCCCCC;border-radius:12px;">
 		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:570;">     ${ item.title }</div>
+				<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:12px;font-weight:540;">리뷰 작성일: ${creDate_ }</div>
 		
-		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:540;">     ${checkIn_date } ~ ${checkOut_date }</div>
+		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:12px;font-weight:540;">이용 기간 : ${checkIn_date } ~ ${checkOut_date }</div>
  
  
  
  
  
 		</div>
+		
 		<div id = "reviewForm_0_${i }" style="width:50%;height:100%; display:inline-block; ">
 								
 								<div 
 								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
 								<TEXTAREA name="review_content" 
 								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
+										        <input type="hidden" name="review_num" value="${item.review_num }">
 								
 									
 										<div style="width:18%;height:28%;display: inline-block;"></div>
 												<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="modReview('new_'+${i})" href="#" >
 												수정하기 </a>
 													<a style="width: 18%; height: 25%; border: 1px solid #CCCCCC; color: black; font-weight: 540; background-color: white; 
-											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" >
+											border-radius: 12px; z-index: 9999; font-size: 11px; padding: 3px;margin:3px;" onClick="delReview('new_'+${i})" href="#">
 												삭제하기 </a>				
 								</div>
 				
 		
 		
 		
-		
-		
-		
+	
 		
 		
 		
@@ -430,6 +452,10 @@ text-align:left;
 		
 		
 		</div>
+		
+		</form>
+		
+		
 		</c:forEach>
 		
 	</c:when>

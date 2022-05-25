@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <%
 request.setCharacterEncoding("UTF-8");
 %>
@@ -181,7 +184,7 @@ request.setCharacterEncoding("UTF-8");
 	float: left;
 	display: inline-block;
 	width: 650px;
-	min-height: 200px;
+	min-height: 100px;
 	text-align: center;
 }
 
@@ -352,17 +355,16 @@ request.setCharacterEncoding("UTF-8");
 .goodsInfo-profile {
 	float: left;
 	display: inline-block;
-	width: 550px;
-	height: 62px;
+	width: 100%;
+	height: 40%;
 	margin-right: 0px;
-	margin-top: 10px;
-}
+	}
 
 .goodsInfo-text {
 	float: left;
 	display: inline-block;
-	width: 550px;
-	height: 128px;
+	width: 100%;
+	height: 60%;
 	word-break: break-all;
 	padding: 20px 60px 20px 0px;
 	margin-right: 0px;
@@ -515,8 +517,8 @@ request.setCharacterEncoding("UTF-8");
 #hb_a_main_profile_2 {
 	text-decoration: none;
 	display: inline-block;
-	width: 60px;
-	height: 60px;
+	width: 100%;
+	height: 100%;
 	font-size: 15px;
 	font-weight: 600;
 	color: black;
@@ -545,15 +547,10 @@ request.setCharacterEncoding("UTF-8");
 	color: black;
 }
 
-#hb_main_profile_image_2 {
-	width: 60px;
-	height: 60px;
-	border-radius: 70%;
-	overflow: hidden;
-}
+
 
 #hb_review_user {
-	width: 480px;
+	width: 80%;
 	text-align: left;
 	font-size: 16px;
 	font-weight: 570;
@@ -564,20 +561,20 @@ request.setCharacterEncoding("UTF-8");
 
 #hb_review_user_content {
 	text-align: left;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 540;
 	float: left;
 	color: black;
 }
 
 #hb_review_date {
-	width: 470px;
+	width: 80%;
 	text-align: left;
 	font-size: 14px;
 	font-weight: 520;
 	float: left;
 	color: #CCCCCC;
-	margin: 3px 0px 0px 12px;
+	margin: 10px 0px 0px 12px;
 }
 
 #hb_goods_review_a {
@@ -628,15 +625,16 @@ request.setCharacterEncoding("UTF-8");
 
 .hb_section_review_1 {
 	display: inline-block;
-	width: 1100px;
-	height: 600px;
+	width: 100%;
+	height: auto;
 }
 
 .hb_section_review_2 {
-	display: inline-block;
-	width: 550px;
-	height: 200px;
-	float: left;
+    display: inline-block;
+    width: 550px;
+    height: 200px;
+    float: left;
+    padding: 10px 30px 10px 10px;
 }
 
 .goods_text_01 {
@@ -846,10 +844,10 @@ function addCart(){
 						 <input type="hidden" name="h_name" value="${goods.h_name }">
 						 <input type="hidden" name="h_code" value="${goods.h_code }">
 						<div class="seller-profile">
-							<a id="hb_a_main_profile_2" href="#"><img
-								id="hb_main_profile_image_2"
-								src="${contextPath}/resources/image/dog_profile.PNG"></a>
-						</div>
+								<a id="hb_a_main_profile_2" href="#"><img
+									style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;:"
+									src="${contextPath}/resources/image/dog_profile.PNG"></a>
+							</div>
 						<div id="seller_text_box_2">최대 인원 ${goods.max_number }명 침실
 							${goods.bed_count }개 단독 사용 욕실 ${goods.bath_count}개</div>
 
@@ -985,158 +983,63 @@ function addCart(){
 
 				</div>
 		</section>
+			</form>
 		<section class="hb_section_goodsinfo">
 			<hr style="width: 100%; margin-bottom: 15px;">
 			<div class="hb_section_goodsinfo_title">
 
 				<img src="${contextPath }/resources/image/redstar.png"
 					style="width: 20px; height: 20p; display: inline-block; float: left; margin: 8px 8px 0px 0px;">
-				<p id="h1_left">4.90 후기 11개</p>
+				<p id="h1_left"> ${star_avg} 후기 ${fn:length(reviewList)}개</p>
 
 			</div>
 
-			<div class="hb_section_review_0"></div>
+			
 
 			<div class="hb_section_review_1">
+			
+					<c:forEach var="item" items="${reviewList}" varStatus="membersNum">
+						<c:set var="i" value="${i +1 }" />
+						
+						
+					
+						<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
 
-				<div class="hb_section_review_2">
 
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
+						<div class="hb_section_review_2">
+							<div
+								style="width: 100%; height: 100%; display: inline-block; padding: 10px;">
+								<div class="goodsInfo-profile">
+									<a id="hb_a_main_profile_2" href="#"> <i style="width: 60px; height: 60px; border-radius: 70%;float: left; border:1px solid #CCCCCC;"><img
+										style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;"
+										src="${contextPath}/profileShow.do?u_id=${item.u_id}&fileName=${item.u_imageName}"onerror="hide(event);"></i>
 
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
+										<i id="hb_review_user">${ item.u_name }</i> <fmt:parseDate
+											var="creDate" value="${ item.creDate }"
+											pattern="EEE MMM dd HH:mm:ss z yyyy" /> <fmt:formatDate
+											var="creDate_" value="${creDate}" pattern="yyyy/MM/dd" /> <i
+										id="hb_review_date">${creDate_ }</i></a>
+								</div>
+								<div class="goodsInfo-text">
+									<p id="hb_review_user_content">${item.review_content}</p>
+								</div>
+							</div>
 						</div>
-					</div>
-
-
-
-				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
+					</form>
+					</c:forEach>
 
 
 
 
 				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-
-
-
-
-
-
-			</div>
 
 		<div class="hb_section_goodsinfo_plus">
-				<a id="hb_goods_review_a" href='#'>후기 13개 모두보기</a>
+				<a id="hb_goods_review_a" href='#'>후기 ${fn:length(reviewList)}개 모두보기</a>
 			</div>
 	
 		</section>
 
-		<section class="hb_section_goodsinfo">
-			<hr style="width: 100%; margin-bottom: 15px;">
-
-
-		</section>
-		</form>
+		
 	</section>
 
 

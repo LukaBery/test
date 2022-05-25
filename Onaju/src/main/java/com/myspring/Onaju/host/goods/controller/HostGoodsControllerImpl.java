@@ -24,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.Onaju.board.review.service.ReviewService;
+import com.myspring.Onaju.board.review.vo.ReviewVO;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.goods.service.HostGoodsService;
 import com.myspring.Onaju.host.goods.vo.HostGoodsVO;
 import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
+import com.myspring.Onaju.order.vo.OrderVO;
 
 @Controller("hostGoodsController")
 @RequestMapping(value = "/host/goods")
@@ -41,6 +44,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	private HostGoodsService hostGoodsService;
 	@Autowired
 	private HostInfoVO hostInfoVO;
+	@Autowired
+	private ReviewService reviewService;
 
 	@RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
 	public ModelAndView goodsDetail(@RequestParam("room_code") String room_code, HttpServletRequest request,
@@ -50,11 +55,26 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HttpSession session = request.getSession();
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
 		ModelAndView mav = new ModelAndView(viewName);
-		/* List<ReviewVO> reviewList = reviewService.listReview(goods_id); */
-		/* mav.addObject("reviewsList",reviewList); */
+		List<ReviewVO> reviewList = reviewService.selectReviewByRoom(room_code);
+		if(reviewList != null) {
+			float total_star = 0;
+			int star_count= 0;
+			for(int i = 0; i < reviewList.size(); i++) {
+				ReviewVO reviewVO = (ReviewVO) reviewList.get(i);		
+				if(reviewVO.getReview_star() !=null ) {
+					total_star += Float.parseFloat(reviewVO.getReview_star());
+					star_count +=1;
+					}
+			}
+			float star_avg = total_star / star_count;
+			mav.addObject("star_avg", star_avg);
+
+		}
+		
+		mav.addObject("reviewList", reviewList);
+	
 		mav.addObject("goodsMap", goodsMap);
-		HostGoodsVO hostgoodsVO = (HostGoodsVO) goodsMap.get("goodsVO");
-		System.out.println(goodsMap);
+	
 		return mav;
 	}
 	

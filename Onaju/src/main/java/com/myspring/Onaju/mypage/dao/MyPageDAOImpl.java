@@ -23,7 +23,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 		if (orderGoodsList != null) {
 			for (int i = 0; i < orderGoodsList.size(); i++) {
 				OrderVO orderVO = (OrderVO) orderGoodsList.get(i);				
-					if (orderVO.getReview_state() != null || orderVO.getReview_state().equals("y")) {
+					if (orderVO.getReview_state() != null && orderVO.getReview_state().equals("y")) {
 						String order = orderVO.getOrder_code();
 						ReviewVO reviewVO = sqlSession.selectOne("mapper.review.selectReview", order);
 						if(reviewVO != null) {
