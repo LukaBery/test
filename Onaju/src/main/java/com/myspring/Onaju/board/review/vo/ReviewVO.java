@@ -2,11 +2,13 @@ package com.myspring.Onaju.board.review.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component("reviewVO")
 public class ReviewVO {
 
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private int review_num;
 	private String u_id;
 	private int order_code;
@@ -19,6 +21,9 @@ public class ReviewVO {
 	private String title;
 	private Date checkIn_date;
 	private Date checkOut_date;
+	private String u_name;
+	private String u_imageName;
+	
 	
 	
 	public int getReview_num() {
@@ -94,6 +99,18 @@ public class ReviewVO {
 	}
 	public void setCheckOut_date(Date checkOut_date) {
 		this.checkOut_date = checkOut_date;
+	}
+	public String getU_name() {
+		return u_name;
+	}
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
+	}
+	public String getU_imageName() {
+		return u_imageName;
+	}
+	public void setU_imageName(String u_imageName) {
+		this.u_imageName = u_imageName;
 	}
 	
 }
