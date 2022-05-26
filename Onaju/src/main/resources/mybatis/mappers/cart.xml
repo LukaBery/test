@@ -31,8 +31,14 @@
 	</resultMap>	
 
 
-	 <select id="selectMyCartGoodsList" resultMap="cartResult"  parameterType="String"  >
-	    <![CDATA[
+	 <select id="selectMyCartGoodsList" resultMap="cartResult"  parameterType="java.util.HashMap"  >
+	 select * from (
+	select @rowNum := @rowNum + 1 as recNum, t.*
+	from (select (@rowNum := 0)) R,
+	(
+	
+<!-- 	if문 넣는 자리
+ -->	
 			select U.*, I.h_name, Y.title, G.room_imageName from u_cart U, h_host I, h_host_info F, h_room Y, h_roomimage G
             where U.u_id=#{u_id}
             and F.h_code=U.h_code
@@ -41,7 +47,12 @@
             and G.room_code = U.room_code
             and G.room_imageType= 'main_image'
             order by creDate desc
-		]]>
+	   ) t
+	) y
+	where
+	recNum between(#{pageNum}-1)*10+1 and
+	(#{pageNum})*6	
+    
 	</select>
 	
   <insert id="insertNewCart"  parameterType="cartVO">

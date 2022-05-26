@@ -423,7 +423,7 @@ function delReview(boardNum){
 				<div
 					style="width: 20%; border-right: 1px solid #CCCCCC; height: 138px; float: left;">
 					<a
-						style="width: 80px; margin-top: 10px; height: 80px; border: 2px solid #CCCCCC; border-radius: 70%; display: block;">
+						style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
 						<img
 						style="width: 100%; height: 100%; overflow: hidden; z-index: 9999; border-radius: 70%; border: 0px;"
 						src="${contextPath}/profileShow.do?u_id=${memberInfo.u_id}&fileName=${memberInfo.u_imageName}">
@@ -447,7 +447,7 @@ function delReview(boardNum){
 
 
 
-
+<div style="display:flex;width:924px; justify-content:flex-start;flex-wrap:wrap;">
 			<c:choose>
 				<c:when test="${empty myOrderList}">
 					<tr height="10">
@@ -462,8 +462,8 @@ function delReview(boardNum){
 
 					<c:forEach var="item" items="${myOrderList}" varStatus="membersNum">
 					<c:set var="i" value="${i +1 }" />
-						<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
-						<div  id="reviewForm_${i}" style="width:50%; height:100px;float: left;margin: 10px 0px;display:inline-block;">
+						<form name="new_${i }" id="new_${i }" action="${contextPath}/board/review/addReview.do" method="post">
+						<div  id="reviewForm_${i}" style="width:462px; height:100px;margin: 10px 0px;" >
 							<div
 								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
 								onClick="#">
@@ -565,7 +565,7 @@ function delReview(boardNum){
 				</c:when>
 			</c:choose>
 
-
+</div>
 		</section>
 
 

@@ -249,7 +249,7 @@ margin-bottom:15px;
 .hb_section_goodsinfo {
 	display: inline-block;
 	width: 1100px;
-	height: 940px;
+	min-height: 300px;
 }
 
 .hb_section_goodsinfo_title {

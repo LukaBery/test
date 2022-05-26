@@ -1,6 +1,8 @@
 package com.myspring.Onaju.board.review.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.board.review.service.ReviewService;
@@ -54,17 +57,31 @@ public class ReviewControllerImpl extends BaseController implements ReviewContro
 	}
 	@Override
 	@RequestMapping(value = "/review/myReviewList.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView myReviewList(HttpServletRequest request,
+	public ModelAndView myReviewList(@RequestParam Map<String, String> _pageNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		session = request.getSession();
+		String pageNum = _pageNum.get("pageNum");
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		condMap.put("pageNum", pageNum);
+		
+	
+		
+		
+
 		MemberVO mem = (MemberVO)session.getAttribute("memberInfo");
 		String u_id = mem.getU_id();
-		List<ReviewVO> myReviewList = reviewService.selectReviewById(u_id);
+		condMap.put("u_id", u_id);
+		List<ReviewVO> myReviewList = reviewService.selectReviewById(condMap);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("myReviewList", myReviewList);
+		mav.addObject("pageNum", pageNum);
+
 		mav.setViewName("/mypage/Mypage5");
 		return mav;
 	}

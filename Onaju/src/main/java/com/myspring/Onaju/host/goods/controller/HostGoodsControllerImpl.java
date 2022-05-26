@@ -47,15 +47,28 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	@Autowired
 	private ReviewService reviewService;
 
+	@Autowired
+	private ReviewVO reviewVO;
+	
 	@RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
-	public ModelAndView goodsDetail(@RequestParam("room_code") String room_code, HttpServletRequest request,
+	public ModelAndView goodsDetail(@RequestParam Map<String, String> _goodsMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String room_code = _goodsMap.get("room_code");
 		System.out.println("룸코드"+room_code);
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
 		ModelAndView mav = new ModelAndView(viewName);
-		List<ReviewVO> reviewList = reviewService.selectReviewByRoom(room_code);
+		String pageNum = _goodsMap.get("pageNum");
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		condMap.put("pageNum", pageNum);
+		condMap.put("room_code", Integer.parseInt(room_code));
+	
+		
+		List<ReviewVO> reviewList = reviewService.selectReviewByRoom(condMap);
 		if(reviewList != null) {
 			float total_star = 0;
 			int star_count= 0;
@@ -76,7 +89,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		}
 		
 		mav.addObject("reviewList", reviewList);
-	
+		mav.addObject("pageNum", pageNum);
+
 		mav.addObject("goodsMap", goodsMap);
 	
 		return mav;

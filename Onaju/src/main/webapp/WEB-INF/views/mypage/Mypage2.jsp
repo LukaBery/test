@@ -357,7 +357,7 @@ hr {
 				<div
 					style="width: 20%; border-right: 1px solid #CCCCCC; height: 138px; float: left;">
 					<a 
-						style="width: 80px; margin-top: 10px; height: 80px; border: 2px solid #CCCCCC; border-radius: 70%; display: block;">
+						style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
 						<img
 						style="width: 100%; height: 100%; overflow: hidden; z-index: 9999; border-radius: 70%; border: 0px;"
 						src="${contextPath}/profileShow.do?u_id=${memberInfo.u_id}&fileName=${memberInfo.u_imageName}">

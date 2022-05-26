@@ -1,6 +1,7 @@
 package com.myspring.Onaju.board.review.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 	
 	@Override
-	public List<ReviewVO> selectReviewListById(String u_id) throws DataAccessException{
-		List<ReviewVO> MyReviewList = sqlSession.selectList("mapper.review.selectReviewListById",u_id);
+	public List<ReviewVO> selectReviewListById(Map condMap) throws DataAccessException{
+		List<ReviewVO> MyReviewList = sqlSession.selectList("mapper.review.selectReviewListById",condMap);
 		return MyReviewList;
 	}
 	@Override
-	public List<ReviewVO> selectReviewListByRoom(String room_code) throws DataAccessException{
-		List<ReviewVO> MyReviewList = sqlSession.selectList("mapper.review.selectReviewListByRoom",room_code);
+	public List<ReviewVO> selectReviewListByRoom(Map condMap) throws DataAccessException{
+		List<ReviewVO> MyReviewList = sqlSession.selectList("mapper.review.selectReviewListByRoom",condMap);
 		return MyReviewList;
 	}
 	@Override
