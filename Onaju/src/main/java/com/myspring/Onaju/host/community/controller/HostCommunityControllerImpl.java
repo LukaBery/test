@@ -355,5 +355,7 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
+	
+	
 
 }

@@ -621,7 +621,7 @@ text-shadow : 1px 1px 3px white;
 			<!-- hb_table_1 -->
 			<div class="hb_table_1">
 				<div class="hb_rec_4">
-					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do"><img
+					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do?cmnNum=39&room_code=175"><img
 						src="${contextPath }/resources/image/house_2.png"
 						style="width: 100%; height: 100%; border-radius: 20px;"></a>
 				</div>

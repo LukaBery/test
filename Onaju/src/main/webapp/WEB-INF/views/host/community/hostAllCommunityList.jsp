@@ -3,6 +3,7 @@
     isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
@@ -307,7 +308,7 @@ margin:0px 0px 0px 0px;
 												<td>${list.hostInfo_name}</td>
 												<td>${list.room_number}</td>
 												<td><a href="${pageContext.request.contextPath}/host/community/confirmCmnAticle.do?cmnNum=${list.cmnNum}&room_code=${list.room_code}">${list.bigTitle}</a></td>
-												<td>${list.creDate}</td>
+												<td><fmt:formatDate pattern="yyyy년MM월dd일 hh:mm" value="${list.creDate}"/></td>
 											</tr>
 										</c:forEach>
 									</c:when>

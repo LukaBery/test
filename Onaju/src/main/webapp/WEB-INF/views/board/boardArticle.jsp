@@ -1,369 +1,445 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"
+    isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-request.setCharacterEncoding("UTF-8");
-%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!doctype html>
-<html lang="en">
+  request.setCharacterEncoding("UTF-8");
+%> 
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="imageFileList"  value="${goodsMap.imageFileList}"  />
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
+<meta charset="UTF-8">
+<title>Life Style 글쓰기</title>
+<script src="http://madalla.kr/js/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript">
+
+function readURL(input,preview) {
+	   //  alert(preview);
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('#'+preview).attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	  }  
+
+
+
+	
+$(function () {
+    var n = 0;
+    var pos = 0;
+    setInterval(function () {
+        n = n + 1;
+        pos = -1 * 1100 * n;
+        $(".slider ul").animate({ "left": pos }, 300, function () {
+            if (n == 3) {
+                n = 0;
+                pos = 0;
+                $(".slider ul").css({ "left": pos });
+            }
+        });
+    }, 3000);
+});
+	</script>
 
 <style>
-.hb_rec_1 {
-	float: left;
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
+@charset "utf-8";
+body{
+height:100%;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-.hb_rec_2 {
-	display: inline-block;
-	float: right;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
+section.host_notice {
+	width: 1100px;
+	height:2450px; /* 삭제할 것 */ 
+	padding: 0 auto;
+	margin: 30px 290px 30px 75px;
 }
 
-.hb_rec_3 {
-	align-items: center;
+.page-title {
+	margin-bottom: 60px;
+}
+
+.host-title h3 {
+	width: 1100px;
+	font-size: 30px;
+	color: #f94b4b;
+	font-weight: 570;
 	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
 }
 
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
+.detail-table {
+	color: #5d605c;
+	font-size: 14px;
+	width: 1100px;
+	border: 1px solid #f9e7e7;
+	background-color: #f9e7e7;
+	margin: 40px 0px 0px 0px;
 }
 
-.hb_rec_5 {
+.detail-table a {
+	color: #403e3f;
 	display: inline-block;
-	width: 800px;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.detail-table a:hover {
+	text-decoration: underline;
+}
+
+.detail-table th {
+	text-align: left;
+}
+
+.td-date-writer {
+	text-align: left;
+}
+
+.detail-table .th-num {
+	width: 100px;
+	text-align: center;
+}
+
+.detail-table .th-date {
+	width: 200px;
+}
+
+.detail-table th {
+	padding: 10px 20px;
+}
+
+.detail-table td {
+	padding: 10px 0;
+}
+
+
+
+
+
+.noticeBtn2 {
+	display: inline-block;
+	padding: 5px 30px;
+	margin: 30px 50px 0px -15px;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	user-select: none;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	border-radius: 0;
+	transition: all 0.3s;
+}
+
+.btn-dark2 {
+	background: #7f9b75;
+	color: #fff;
+	cursor: pointer;
+}
+
+.btn-dark2:hover, .btn-dark2:focus {
+	background: #cbdea6;
+	border-color: #cbdea6;
+	color: #fff;
+}
+
+
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+
+/*-------------------------------------------------------------------------------------------------------------*/
+/* 슬라이드바 */
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.container1 {
+	width: 1100px;
+	margin-top: 35px;
+}
+
+.slider {
+	position: relative;
+	width: 1100px;
+	height: 650px;
+	overflow: hidden;
+}
+
+.slider ul {
+	position: absolute;
+	top: 0;
+	width: 3584px;
+	height: 650px;
+}
+
+.slider li {
+	float: left;
+	width: 1100px;
+	height: 650px;
+}
+
+.slider li img {
+	width: 1100px;
+	height: 650px;
+}
+
+.roomSelect {
+	font-size: 22px;
+	font-weight: bold;
+	color: #5d605c;
+}
+
+.container2 {
+	width: 1100px;
+}
+
+.bigInfo {
+	width: 850px;
+	height: 240px;
+}
+
+#bigTitle {
+	width: 1100px;
+    margin: 0px 0px 0px -105px;
+	height: 50px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.h_profile {
+	display: block;
+	width: 1100px;
 	height: 100px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 0px 5px 0px;
+	margin: 30px 0px 0px -1000px;
+}
+#introduce {
+	position:relative;
+	width:850px;
+}
+.introduce_title {
+    position: absolute;
+    width: 1100px;
+    height: 70px;
+    bottom: -100px;
+}
+.introduce_image {
+	position: absolute;
+    width: 1100px;
+    height: 700px;
+    bottom: -850px;
+}
+.introduce_text {
+	position: absolute;
+    width: 1100px;
+    bottom: -1220px;
 }
 
-.hb_rec_6 {
-	display: inline-block;
-	width: 600px;
-	height: 56px;
-	border-radius: 30px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 10px 10px 10px 10px;
+.noticeBtn2Box {
+	position: relative;
+    width: 850px;
+    margin-left: 638px;
+    margin-top: 850px;
+    top: 400px;
 }
-
-.hb_rec_7 {
-
-	display: inline-block;
-	width: 400px;
-	height: 56px;
-	border-radius: 0px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 10px 10px 10px 0px;
-}
-
-.hb_rec_8 {
-	display: inline-block;
+#profile {
+	position: relative;
+	border-radius: 50px;
 	width: 80px;
-	height: 36px;
-	border-radius: 30px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 10px 10px 10px 0px;
+	height: 80px;
 }
 
-.hb_rec_9 {
-	display: inline-block;
-	width: 480px;
-	height: 36px;
-	border-radius: 30px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 10px 10px 10px 0px;
-}
-
-/* <섹션 종류> */
-.hb_section_total {
-	width: 1100px;
-	height: 100%
-}
-
-.hb_section_total_small {
-	width: 800px;
-	height: 100%
-}
-
-.hb_section_total_small_border {
-	border: 1px solid #CCCCCC;
-	border-top: 0px;
-	border-bottom: 0px;
-	width: 1100px;
-	height: 100%
-}
-
-.hb_section_1 {
-	display: inline-block;
-	width: 800px;
-	height: 70px;
-}
-
-.hb_section_2 {
-	display: inline-block;
-	width: 1100px;
-	height: 400px;
-}
-
-.hb_section_3 {
+#hostid {
+	position: absolute;
 	display: inline-block;
 	width: 300px;
-	height: 70px;
-}
-
-.hb_section_4 {
-	display: inline-block;
-	width: 1100px;
-	height: 300px;
-}
-
-.hb_section_5 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 1100px;
-	height: 50px;
-}
-
-.hb_section_6 {
-	padding: 0px 0px;
-	display: inline-block;
-	width: 100%;
-	height: 400px;
-}
-
-.hb_section_7 {
-	display: inline-block;
-	width: 800px;
-	height: 180px;
-	padding: 30px 0px 10px 0px;
-	margin: 0px;
-}
-
-.hb_section_8 {
-	display: inline-block;
-	width: 800px;
-	height: 50px;
-	padding: 30px 0px 10px 0px;
-	margin: 0px;
-}
-
-.hb_section_9 {
-	border: 1px solid #CCCCCC;
-	display: inline-block;
-	width: 800px;
-	height: 480px;
-	padding: 0px 0px 0px 0px;
-	margin: 0px;
-}
-
-.hb_section_10 {
-	border: 1px solid #CCCCCC;
-	position: fixed;
-	bottom: 0;
-	z-index: 5000;
-	background-color: white;
-	border-radius: 30px 30px 0px 0px;
-	width: 1100px;
 	height: 80px;
-	padding: 0px 0px 0px 0px;
-	margin: 0px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #5d605c;
+	margin: 25px 0px 0px -70px;
 }
 
-/* <인라인블럭 왼쪽 고정> */
-.margin_left_0 {
-	float: left;
-	margin-left: 0px;
-}
-/* <인라인블럭 왼쪽 고정> */
-.margin_right_0 {
-	float: right;
-	margin-right: 0px;
+
+#smallTitle {
+	width: 1100px;
+    height: 70px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.hb_table_1 {
-	float: left;
-	display: inline-block;
-	width: 266.6px;
-	height: 300px;
+#thumbnailImg{
+	position:absolute;
+	width: 1100px;
+	height: 750px;
+	top: 200%;
+    left: 10%;
 }
-
-.hb_textbox_1 {
-	display: inline-block;
-	width: 238px;
-	height: 120px;
+#con{	
+	width: 1100px;
+	height: 200px;
+	
 }
-
-#form_width_center {
-	text-align: center;
+#host_type{
+	font-size: 24px;
+    font-weight: bold;
+    margin: 30px 10px 20px -200px;
+    color: #f94b4b;
 }
-
-#h1_left {
-	text-align: left;
-	font-size: 25px;
-}
-
-#h1_left_2 {
-	text-align: left;
-	font-size: 10px;
-	color: #CCCCCC;
-}
-
-#h2_left_1 {
-	text-align: left;
-	font-size: 18px;
-	color: black;
-}
-/* <a 태그 부모 태그 전체 확장> */
-#hb_a_main {
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	margin: 0 auto;
-	border-radius: 20px;
+#cmnImg{
+	width: 100%;
+    height: 800px;
 }
 </style>
+
 </head>
+
 <body>
-<!-- <상위 게시글 사진> -->
-		<section class="hb_section_6">
-
-			
-				<a id="hb_a_main" href="#"><img
-					src="${contextPath }/resources/image/house_1.jpg"
-					style="width: 100%; height: 100%; "> </a>
-
-		</section>
-		<section class="hb_section_total_small_border">
-	<section class="hb_section_total_small">
-
-		
-
-		<section class="hb_section_7">
-		<p id="h1_left_2">대전광역시 유성구><br></p>
-			<h1 id="h1_left">게시글 제목-----------------</h1>
-		</section>
-		<div class="hb_rec_5"><h1><br>숙소 간편 정보</h1></div>
-		
-		
-			<section class="hb_section_8">
-		
-		<h1 id="h2_left_1">소제목-----------------</h1>
-		<br>
-		</section>
-		
-			<section class="hb_section_9">
-		<a id="hb_a_main" href="#"><img
-					src="${contextPath }/resources/image/house_1.jpg"
-					style="width: 100%; height: 100%; "> </a>
-		
-		
-		</section>
-		
-		<section class="hb_section_9">
-		<h1><br><br><br><br><br><br>숙소 상세 정보</h1>
-		</section>
-		
-		
-		
-		<section class="hb_section_7">
-		
-		
-		</section>
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- <여러 게시글 1> -->
-		<section class="hb_section_5">
-			<h1 id="h1_left">작성자의 다른 글</h1>
-		</section>
-		
-		<section class="hb_section_4">
-			<div class="hb_table_1">
-
-				<div class="hb_rec_4 margin_left_0">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_2.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<!-- 	<텍스트 상자> -->
-				<div class="hb_textbox_1 margin_left_0"></div>
-
-			</div>
-			<div class="hb_table_1">
-
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_3.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<div class="hb_textbox_1"></div>
-			</div>
-			<div class="hb_table_1">
-
-
-				<div class="hb_rec_4 margin_right_0">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_4.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-
-				<div class="hb_textbox_1 margin_right_0"></div>
-			</div>
-		</section>
-
-
-
-
-
-
-
-
-	</section>
-	<section class="hb_section_10">
-	<div class="hb_rec_7"></div>
-<div class="hb_rec_6"><div class="hb_rec_9"></div><div class="hb_rec_8"></div></div>
-
-</section>
-	</section>
 	
-	
+<!-- 바디 시작 -->
+				<section class="host_notice">
+				<form id="introduce" >
+					<div class="host-title">
+						<div class="host_contai">
+							<h3>Life Style 게시글</h3>
+						</div>
+					</div>
+					
+					<div class="container1">
+						        <div class="slider">
+						      	  <ul>
+						      	  <c:forEach var="list" items="${imageFileList }">
+						      	  	<li class="active">
+									<img src="${contextPath}/download.do?room_code=${hostCommunityVO.room_code}&fileName=${list.room_imageName}">
+									</li>
+								 </c:forEach>
+				           
+								 </ul>
+								</div>
+				     </div>
+					
+					<div class="container2">
+						<div class="bigInfo">
+							<input type="text"  name="host_type" disabled id="host_type" value="${hostCommunityVO.host_type}" >
+							<input type="text" id="bigTitle" name="bigTitle" disabled value="${hostCommunityVO.bigTitle}"/>
+							<div class="h_profile">
+								<img id="profile" src="https://g-grafolio.pstatic.net/20190525_229/15587582702938v22E_JPEG/20190330-IMG_5851.jpg?type=w896_2" alt="프로필이미지">
+								<p id="hostid">${hostCommunityVO.h_id}</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="container3">
+						<div class="detail">
+							
+								<table class="detail-table">
+									<colgroup>
+						            	<col width="14%"/>
+										<col width="19%"/>
+										<col width="10%"/>
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="th-date">사업장 상호명 </th>
+											<td class="td-date-writer" >
+											<input type="text"  name="hostInfo_name" disabled id="hostInfo_name" value="${hostCommunityVO.hostInfo_name}" >
+											
+											</td>
+											<th scope="col" class="th-writer">주소</th>
+											<td class="td-date-writer" colspan="2">
+											<input type="text"  name="hostInfo_name" disabled id="hostInfo_name" value="${hostCommunityVO.roadAddress}" >
+											
+											
+											</td>
+										</tr>
+										
+										<tr>
+										<th class="th-title">상호명</th>
+										<td class="notice_title">
+										<input type="text"  name="title" disabled id="title" value="${hostCommunityVO.title}" >
+											
+										</td>
+										<th class="th-title">객실타입</th>
+										<td class="notice_title">
+											<input type="text"  name="room_type" disabled id="room_type" value="${hostCommunityVO.room_type}" >
+											
+										</td>
+										<th class="th-title">객실번호</th>
+										<td class="notice_title">
+										<input type="text"  name="room_number" disabled id="room_number" value="${hostCommunityVO.room_number}" >
+										</td>
+									</tr>
+									<tr>
+										
+										<th class="th-title">객실요금</th>
+										<td class="notice_title">
+										<input type="text"  name="room_fee" disabled id="room_fee" value="${hostCommunityVO.room_fee}" >
+											
+										</td>
+										<th class="th-title">입실 시간</th>
+										<td class="notice_title">
+										<input type="text"  name="able_checkIn"  disabled id="able_checkIn" value="${hostCommunityVO.able_checkIn}" >
+											 
+										</td>
+										<th class="th-title">퇴실 시간</th>
+										<td class="notice_title">
+										<input type="text"  name="able_checkOut" disabled  id="able_checkOut" value="${hostCommunityVO.able_checkOut}" >
+										</td>
+									<tr>	
+										<th class="th-title">최소 인원</th>
+										<td class="notice_title">
+										<input type="text"  name="min_number" disabled id="min_number" value="${hostCommunityVO.min_number}" >
+											
+										</td>
+										<th class="th-title">최대 인원</th>
+										<td class="notice_title">
+										<input type="text"  name="max_number" disabled id="max_number" value="${hostCommunityVO.max_number}" >
+											 
+										</td>
+									</tr>
+									</thead>
+								</table>
+									
+						</div>
+					</div>
+					
+					<div class="container4">
+						
+							<div class="introduce">
+								<div class="introduce_title">
+									<textarea id="smallTitle" name="smallTitle" disabled>${hostCommunityVO.smallTitle}</textarea>
+								</div>	
+								<div class="introduce_image">
+									<img id="cmnImg" src="${contextPath}/host/community/download2.do?room_code=${hostCommunityVO.room_code}&fileName=${hostCommunityVO.cmn_image}">
+								</div>	
+								<div class="introduce_text">
+									<textarea name="content" id="con" name="content" disabled>${hostCommunityVO.content}</textarea> 
+								</div>
+							</div>
+					</div>
+					</form>
+					
+					</section>			
+										
+		
 </body>
-
 </html>

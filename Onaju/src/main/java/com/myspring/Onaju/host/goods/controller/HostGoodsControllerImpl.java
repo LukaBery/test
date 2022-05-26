@@ -309,6 +309,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			String value = multipartRequest.getParameter(name);
 			newGoodsMap.put(name, value);
 		}
+		System.out.println("newGoodsMap : " + newGoodsMap);
 
 		HttpSession session = multipartRequest.getSession();
 		int h_code = Integer.parseInt((String) newGoodsMap.get("h_code"));
