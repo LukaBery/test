@@ -1044,11 +1044,11 @@ function addCart(){
 										style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;"
 										src="${contextPath}/profileShow.do?u_id=${item.u_id}&fileName=${item.u_imageName}"onerror="hide(event);"></i>
 
-										<i id="hb_review_user">${ item.u_name }</i> <fmt:parseDate
-											var="creDate" value="${ item.creDate }"
-											pattern="EEE MMM dd HH:mm:ss z yyyy" /> <fmt:formatDate
-											var="creDate_" value="${creDate}" pattern="yyyy/MM/dd" /> <i
-										id="hb_review_date">${creDate_ }</i></a>
+										<i id="hb_review_user">${ item.u_name }</i> 
+										<fmt:setLocale value="en_US" scope="session"/>
+										<fmt:parseDate var="creDate_0" value="${ item.creDate }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+											 <fmt:formatDate var="creDate_" value="${creDate_0}" pattern="yyyy/MM/dd" /> 
+											 <i id="hb_review_date">${creDate_ }</i></a>
 								</div>
 								<div class="goodsInfo-text">
 									<p id="hb_review_user_content">${item.review_content}</p>
