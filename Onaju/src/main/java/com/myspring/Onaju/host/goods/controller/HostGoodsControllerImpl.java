@@ -67,8 +67,12 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 					}
 			}
 			float star_avg = total_star / star_count;
-			mav.addObject("star_avg", star_avg);
+			if(Float.isNaN(star_avg)) {
+				mav.addObject("star_avg", 0);
 
+			}else {
+			mav.addObject("star_avg", star_avg);
+			}
 		}
 		
 		mav.addObject("reviewList", reviewList);
