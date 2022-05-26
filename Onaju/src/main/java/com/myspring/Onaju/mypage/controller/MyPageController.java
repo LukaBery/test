@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public interface MyPageController {
 	public ModelAndView mypageMain(HttpServletRequest request, HttpServletResponse response)  throws Exception ;
 	
-	public ModelAndView myCart(
+	public ModelAndView myCart(@RequestParam Map<String, String> _pageNum,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ResponseEntity modifyMyInfo(@RequestParam("attribute")  String attribute,
 					            @RequestParam("value")  String value,

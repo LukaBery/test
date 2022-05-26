@@ -1,6 +1,7 @@
 package com.myspring.Onaju.board.review.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<ReviewVO> selectReviewById(String u_id) throws Exception{
-	return reviewDAO.selectReviewListById(u_id);
+	public List<ReviewVO> selectReviewById(Map condMap) throws Exception{
+	return reviewDAO.selectReviewListById(condMap);
 	}
 	@Override
-	public List<ReviewVO> selectReviewByRoom(String room_code) throws Exception{
-	return reviewDAO.selectReviewListByRoom(room_code);
+	public List<ReviewVO> selectReviewByRoom(Map condMap) throws Exception{
+	return reviewDAO.selectReviewListByRoom(condMap);
 	}
 
 	@Override

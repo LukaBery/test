@@ -1107,7 +1107,7 @@ function readURL(input) {
 					<div
 						style="width: 20%; height: 138px; border-right: 1px solid #CCCCCC; float: left;">
 						<a href="#"
-							style="width: 80px; margin-top: 10px; height: 80px; border: 2px solid #CCCCCC; border-radius: 70%; display: block;">
+							style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
 							<img id="preview"
 							style="width: 100%; height: 100%; overflow: hidden; z-index: 9999; border-radius: 70%; border: 0px;"
 							onclick="onclick=document.all.u_imageName.click()"

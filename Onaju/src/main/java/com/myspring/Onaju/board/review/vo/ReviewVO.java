@@ -23,6 +23,7 @@ public class ReviewVO {
 	private Date checkOut_date;
 	private String u_name;
 	private String u_imageName;
+	private String pageNum;
 	
 	
 	
@@ -111,6 +112,12 @@ public class ReviewVO {
 	}
 	public void setU_imageName(String u_imageName) {
 		this.u_imageName = u_imageName;
+	}
+	public String getPage_num() {
+		return pageNum;
+	}
+	public void setPage_num(String pageNum) {
+		this.pageNum = pageNum;
 	}
 	
 }

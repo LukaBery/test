@@ -73,7 +73,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 	@Override
 	@RequestMapping(value="/myCart.do" ,method = RequestMethod.GET)
-	public ModelAndView myCart(
+	public ModelAndView myCart(@RequestParam Map<String, String> _pageNum,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		HttpSession session=request.getSession();
 		session=request.getSession();
@@ -82,10 +82,19 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		MemberVO nonmemberVO=(MemberVO)session.getAttribute("nonmemberInfo");
+		String pageNum = _pageNum.get("pageNum");
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		condMap.put("pageNum", pageNum);
+		
+		
 		
 		if(memberVO != null) 
 		{String u_id=memberVO.getU_id();
-			 List<CartVO> myCartList=cartService.listMyCartGoods(u_id); 
+		condMap.put("u_id", u_id);
+			 List<CartVO> myCartList=cartService.listMyCartGoods(condMap); 
 			
 			 mav.addObject("myCartList", myCartList);
 			
@@ -102,6 +111,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	
 	
 		mav.setViewName("forward:/mypage/Mypage2.do");
+		mav.addObject("pageNum", pageNum);
 
 		return mav;
 	}

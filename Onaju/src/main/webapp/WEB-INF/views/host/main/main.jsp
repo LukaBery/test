@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,7 +155,7 @@
 		  오나주 호스트 페이지
 		</div>
 		
-		<div class="box1_1">***호스트님 환영합니다.</div>
+		<div class="box1_1">${hostInfo.h_id} 호스트님 환영합니다.</div>
 			<div class="bigbox1">
 				<div class="box2">
 				  주문관리

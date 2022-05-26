@@ -24,31 +24,65 @@
 		<result property="u_imageName" column="u_imageName" />
 	</resultMap>	
 
-<select id="selectReview" parameterType="String" resultType="reviewVO">
+<select id="selectReview" parameterType="java.util.HashMap" resultType="reviewVO">
 	   <![CDATA[  select * from u_reviewboard where order_code = #{order_code} order by creDate desc
 	   		]]>
 	</select>
-	<select id="selectReviewListByRoom" parameterType="String" resultType="reviewVO">
-	   <![CDATA[  
-
-select U.*, T.u_imageName, T.u_name from u_reviewboard U 
-left join u_member T on T.u_id = U.u_id
-	   where U.room_code = #{room_code}
-	   order by U.creDate desc
+	<select id="selectReviewListByRoom" parameterType="reviewVO"
+	resultType="reviewVO">
+   <![CDATA[  
+	select * from (
+	select @rowNum := @rowNum + 1 as recNum, t.*
+	from (select (@rowNum := 0)) R,
+	(
+	select U.*, T.u_imageName, T.u_name from u_reviewboard U
+	left join u_member T on T.u_id = U.u_id
+	where U.room_code = #{room_code}
+	order by U.creDate desc
+	) t
+	) y
+	where
+	recNum between(#{pageNum}-1)*10+1 and
+	(#{pageNum})*6
 
 	   		]]>
 	</select>
 	
-	<select id="selectReviewListById" parameterType="String" resultType="reviewVO">
-	   <![CDATA[  
+	<select id="selectReviewListById" parameterType="java.util.HashMap" resultType="reviewVO">
+	  
 
-
+	select * from (
+	select @rowNum := @rowNum + 1 as recNum, t.*
+	from (select (@rowNum := 0)) R,
+	(
+	
+<!-- 	if문 넣는 자리
+ -->	
 select U.*, T.room_imageName, O.checkIn_date, O.checkOut_date, F.title from u_reviewboard U 
 left join h_roomimage T on T.room_code = U.room_code and T.room_imageType = 'main_image'
 left join u_order O on U.order_code = O.order_code 
 left join h_room F on U.room_code = F.room_code
 	   where U.u_id = #{u_id}
+	   
+	   
+	   
+
+	   
+	   
+	   
+	   
 	   order by U.creDate desc
+	   
+	   
+	   
+	   
+	   
+	   
+	   ) t
+	) y
+	where
+	recNum between(#{pageNum}-1)*10+1 and
+	(#{pageNum})*6		
     
    
 	   
@@ -59,7 +93,7 @@ left join h_room F on U.room_code = F.room_code
 	   
 
 
-	   		]]>
+	   		
 	</select>
 
   <insert id="insertNewReview"  parameterType="reviewVO">

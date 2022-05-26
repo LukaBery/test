@@ -25,31 +25,33 @@ public class LoginInterceptor extends  HandlerInterceptorAdapter{
 			  HttpSession session = request.getSession(); // login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴 Object obj =
 			  String isLogOn = (String) session.getAttribute("isLogOn");
 			  MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+			  MemberVO nonmemberVO = (MemberVO) session.getAttribute("nonmemberInfo");
 			   
-			  if ( isLogOn == null ){ // 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
+				if (isLogOn == null) { // 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
 
 					PrintWriter printwriter = response.getWriter();
-				
+
 					printwriter.print("<script>alert('로그인이 필요한 서비스입니다.');" + "location.href='"
 							+ request.getContextPath() + "/member/loginForm.do';</script>");
-			 
-			  printwriter.flush(); 
-			  printwriter.close(); 
-			 
-			  return false; // 더이상 컨트롤러 요청으로 가지 않도록false로 반환함 
-			  }else if(memberVO == null) {PrintWriter printwriter = response.getWriter();
-				
-				printwriter.print("<script>alert('로그인이 필요한 서비스입니다.');" + "location.href='"
-						+ request.getContextPath() + "/member/loginForm.do';</script>");
-		 
-		  printwriter.flush(); 
-		  printwriter.close(); 
-			  }else {
-				  return true;
-			  }
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+					printwriter.flush();
+					printwriter.close();
+
+					return false; // 더이상 컨트롤러 요청으로 가지 않도록false로 반환함
+				} else if (memberVO == null) {
+					PrintWriter printwriter = response.getWriter();
+
+					printwriter.print("<script>alert('로그인이 필요한 서비스입니다.');" + "location.href='"
+							+ request.getContextPath() + "/member/loginForm.do';</script>");
+
+					printwriter.flush();
+					printwriter.close();
+				} else {
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		   return true;
 	   } 
 
