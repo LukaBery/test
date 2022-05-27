@@ -503,6 +503,7 @@ function delReview(boardNum){
 
 
 
+
 									</c:otherwise>
 								</c:choose>
 								
