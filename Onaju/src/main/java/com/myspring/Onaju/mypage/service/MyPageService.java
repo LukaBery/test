@@ -9,7 +9,7 @@ import com.myspring.Onaju.order.vo.OrderVO;
 
 
 public interface MyPageService{
-	public List<OrderVO> listMyOrderGoods(String u_id) throws Exception;
+	public List<OrderVO> listMyOrderGoods(Map _dateMap) throws Exception;
 
 	
 	public MemberVO  modifyMyInfo(Map memberMap) throws Exception;

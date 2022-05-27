@@ -18,8 +18,8 @@ public class MyPageDAOImpl implements MyPageDAO {
 	private SqlSession sqlSession;
 
 
-	public List<OrderVO> selectMyOrderGoodsList(String u_id) throws DataAccessException {
-		List<OrderVO> orderGoodsList = (List) sqlSession.selectList("mapper.mypage.selectMyOrderGoodsList", u_id);
+	public List<OrderVO> selectMyOrderGoodsList(Map _dateMap) throws DataAccessException {
+		List<OrderVO> orderGoodsList = (List) sqlSession.selectList("mapper.mypage.selectMyOrderGoodsList", _dateMap);
 		if (orderGoodsList != null) {
 			for (int i = 0; i < orderGoodsList.size(); i++) {
 				OrderVO orderVO = (OrderVO) orderGoodsList.get(i);				

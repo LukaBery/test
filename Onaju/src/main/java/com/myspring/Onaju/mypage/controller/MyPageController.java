@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface MyPageController {
-	public ModelAndView mypageMain(HttpServletRequest request, HttpServletResponse response)  throws Exception ;
+	public ModelAndView mypageMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception ;
 	
 	public ModelAndView myCart(@RequestParam Map<String, String> _pageNum,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception;
