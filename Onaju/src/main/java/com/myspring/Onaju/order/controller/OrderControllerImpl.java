@@ -179,7 +179,10 @@ System.out.println("리스트 추가완료");
 		cartVO.setRoom_code(room_code);	
 		cartVO.setCheckIn_date(checkIn);
 		cartVO.setCheckOut_date(checkout);
-		cartVO.setU_id(memberInfo.getU_id());
+		if(memberInfo != null) {
+			cartVO.setU_id(memberInfo.getU_id());
+		}
+		
 		mav.addObject("orderVO", cartVO);
 		mav.addObject("cart_code", cart_code);
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);

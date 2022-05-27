@@ -313,6 +313,8 @@ hr {
 
 
 </script>
+
+
 </head>
 <body>
 
@@ -320,7 +322,8 @@ hr {
 	
 	
 	
-	
+	<c:choose>
+	<c:when test="${memberInfo != null }">
 	<div style="width:170px; height:1000px; float:left;">
 		<!-- <상위 네비게이션>-->
 		<div class="hb_section_mypagenav margin_left_0">
@@ -348,10 +351,18 @@ hr {
 		</div>
 		
 		</div>
+</c:when>
+<c:otherwise>
+</c:otherwise>
 
+
+
+
+
+</c:choose>
 
 		<section class="hb_section_mypagemain">
-			<div
+			<c:if test="${memberInfo != null }"><div
 				style="width: 100%; height: 140px; border: 1px solid #CCCCCC; border-radius: 12px; float: right;">
 
 				<div
@@ -371,6 +382,7 @@ hr {
 					</div>
 				</div>
 			</div>
+			</c:if>
 
 
 			<div class="hb_section_title">
