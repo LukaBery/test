@@ -38,7 +38,7 @@ public class LoginInterceptor extends  HandlerInterceptorAdapter{
 					printwriter.close();
 
 					return false; // 더이상 컨트롤러 요청으로 가지 않도록false로 반환함
-				} else if (memberVO == null) {
+				} else if (memberVO == null && nonmemberVO == null) {
 					PrintWriter printwriter = response.getWriter();
 
 					printwriter.print("<script>alert('로그인이 필요한 서비스입니다.');" + "location.href='"

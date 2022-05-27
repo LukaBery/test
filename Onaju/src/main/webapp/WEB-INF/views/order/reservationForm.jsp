@@ -44,6 +44,7 @@ hr {
 	width: 500px;
 	height: 100%;
 	float: left;
+	margin-bottom: 30px;
 }
 
 .hb_section_3 {
@@ -682,7 +683,7 @@ font-size:14px;
 			</p>
 
 			<div class="hb_gray_line" style="margin: 10px 0;"></div>
-			<p style="text-align: left; font-size: 8px;">아래 버튼을 선택함으로써, 호스트가
+			<p style="text-align: left; font-size: 8px;margin-bottom:20px;">아래 버튼을 선택함으로써, 호스트가
 				설정한 숙소 이용규칙, 코로나19 방역 수칙 및 게스트 환불 정책에 동의합니다. 호스트가 예약 요청을 수락하면 표시된
 				총액이 결제되는 데 동의합니다.</p>
 			<button id="btbt3"
