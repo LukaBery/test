@@ -44,8 +44,8 @@
 	
 	
 	
-	 <select id="selectMyOrderGoodsList" resultMap="orderResult"  parameterType="String"  >
-	    <![CDATA[
+	 <select id="selectMyOrderGoodsList" resultMap="orderResult"  parameterType="java.util.HashMap"  >
+
 			select U.*, I.h_name, Y.title, G.room_imageName from u_order U, h_host I, h_host_info F, h_room Y, h_roomimage G
 			
             where U.u_id=#{u_id}
@@ -54,8 +54,12 @@
             and Y.room_code = U.room_code
             and G.room_code = U.room_code
             and G.room_imageType= 'main_image'
+     
+                <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
+			         and U.checkIn_date  between #{checkIn_date} and #{checkOut_date}
+			      </if>
             order by creDate desc
-		]]>
+
 	</select>
 	
 	

@@ -28,6 +28,7 @@
 	display: block;
 	overflow: hidden;
 	position: absolute;
+	
 	left: 0;
 	top: -5000px
 }

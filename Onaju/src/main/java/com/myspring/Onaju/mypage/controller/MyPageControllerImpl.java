@@ -1,6 +1,8 @@
 package com.myspring.Onaju.mypage.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +43,12 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private CartService cartService;
 	@Autowired
 	private MemberService memberService;
-	
+
+
 
 	@Override
-	@RequestMapping(value="/mypageMain.do" ,method = RequestMethod.GET)
-	public ModelAndView mypageMain(
+	@RequestMapping(value="/mypageMain.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView mypageMain(@RequestParam Map<String, String> dateMap,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		HttpSession session=request.getSession();
 		session=request.getSession();
@@ -59,13 +62,47 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		else {
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String u_id=memberVO.getU_id();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		String checkIndate = dateMap.get("beginDate");
+		String checkoutdate = dateMap.get("endDate");
+		String period = dateMap.get("period");
+		Map<String, Object> _dateMap = new HashMap();
+		_dateMap.put("u_id", u_id);
+		
+		
+		if(checkIndate != null&& checkIndate != "") {
+			
+			Date checkIn = formatter.parse(checkIndate);
+			_dateMap.put("checkIn_date", checkIn);
+				
+				mav.addObject("beginDate", checkIn);
+		}
+		if(checkoutdate != null  && checkoutdate != "") {
+			Date checkOut = formatter.parse(checkoutdate);
+			_dateMap.put("checkOut_date", checkOut);
+			
+			mav.addObject("endDate", checkOut);
+			
+		}
+		if(period != null && period != "") {
+			String [] tempDate = period.split(",");
+			Date checkIn = formatter.parse(tempDate[0]);
+			Date checkOut = formatter.parse(tempDate[1]);
+			_dateMap.put("checkIn_date",checkIn);
+			_dateMap.put("checkOut_date", checkOut);
+			mav.addObject("beginDate", checkIn);
+			mav.addObject("endDate", checkOut);
+
+			
+		}
 		System.out.println(viewName);
-		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(u_id);
+		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(_dateMap);
 		
 	
 		mav.addObject("myOrderList", myOrderList);
 		System.out.println("myOrderList:"+ myOrderList);
 		}
+		
 		mav.setViewName(viewName);
 
 		return mav;

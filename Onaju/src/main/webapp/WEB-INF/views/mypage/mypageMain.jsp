@@ -268,20 +268,21 @@ hr {
 	border-radius: 9px;
 	background-color: white;
 	opacity: 100%;
-	box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);
-	}
-	
-.draggable {  /* 드래그 가능 */
-  -webkit-user-select:all;
-  -moz-user-select:all;
-  -ms-user-select:all;
-  user-select:all
+	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
 }
-.draggFalse{  /* 드래그 불가능 */
- -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none
+
+.draggable { /* 드래그 가능 */
+	-webkit-user-select: all;
+	-moz-user-select: all;
+	-ms-user-select: all;
+	user-select: all
+}
+
+.draggFalse { /* 드래그 불가능 */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
 }
 
 #btn_mypage_0 {
@@ -297,8 +298,28 @@ hr {
 	font-size: 12px;
 	padding: 6px;
 }
-#btn_mypage_0:hover{
-    box-shadow: 1px 3px 5px rgb(0 0 0 / 18%);
+
+#btn_mypage_0:hover {
+	box-shadow: 1px 3px 5px rgb(0 0 0/ 18%);
+}
+
+.btn_mypage_date_1 {
+	width: 100%;
+    height: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    padding: 3.5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor:pointer;
+    color:black;
+    background-color:white;
+}
+
+.btn_mypage_date_1:hover{
+	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0 / 18%);
+	 color: white;
+   background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195 8 71) 50%, rgb(205 11 56) 10%) !important;
 }
 </style>
 <c:if test='${ empty isLogOn }'>
@@ -377,7 +398,136 @@ function delReview(boardNum){
 	 
 	 
 	 }
+function searchByPriod(period){
+	var formObj=document.createElement("form");
+	var _period = document.createElement("input");
+	 var beginEnd = calcPeriod(period);
+	_period.name="period";
+	_period.value=beginEnd;
+    formObj.appendChild(_period);
+    document.body.appendChild(formObj); 
+   
+    formObj.method="get";
+    formObj.action="${contextPath}/mypage/mypageMain.do";
+    formObj.submit();
+}
 
+function  calcPeriod(search_period){
+	var dt = new Date();
+	var beginYear,endYear;
+	var beginMonth,endMonth;
+	var beginDay,endDay;
+	var beginDate,endDate;
+	
+	endYear = dt.getFullYear();
+	endMonth = dt.getMonth()+1;
+	endDay = dt.getDate();
+	if(search_period=='today'){
+		beginYear=endYear;
+		beginMonth=endMonth;
+		beginDay=endDay;
+	}else if(search_period=='one_week'){
+		beginYear=dt.getFullYear();
+		beginMonth=dt.getMonth()+1;
+		dt.setDate(endDay-7);
+		beginDay=dt.getDate();
+		
+	}else if(search_period=='15_days'){
+		beginYear = dt.getFullYear();
+		beginMonth = dt.getMonth()+1;
+		dt.setDate(endDay-15);
+		beginDay=dt.getDate();
+	}else if(search_period=='one_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-1);
+		beginMonth = dt.getMonth();
+		beginDay = dt.getDate();
+	}else if(search_period=='two_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-2);
+		beginMonth = dt.getMonth();
+		beginDay = dt.getDate();
+	}else if(search_period=='three_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-3);
+		beginMonth = dt.getMonth();
+		beginDay = dt.getDate();
+	}else if(search_period=='four_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-4);
+		beginMonth = dt.getMonth();
+		beginDay = dt.getDate();
+	}else if(search_period=='last_one_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-1);
+		beginMonth = dt.getMonth();
+		beginDay = 01;
+		endDay = 00;
+		endMonth = dt.getMonth()+1;	}
+	else if(search_period=='last_two_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-2);
+		beginMonth = dt.getMonth();
+		beginDay = 01;
+		endDay = 00;
+		endMonth = dt.getMonth()+1;	}
+	else if(search_period=='last_three_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-3);
+		beginMonth = dt.getMonth();
+		beginDay = 01;
+		endDay = 00;
+		endMonth = dt.getMonth()+1;	}
+	else if(search_period=='last_four_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-4);
+		beginMonth = dt.getMonth();
+		beginDay = 01;
+		endDay = 00;
+		endMonth = dt.getMonth()+1;	}
+	else if(search_period=='last_five_month'){
+		beginYear = dt.getFullYear();
+		dt.setMonth(endMonth-5);
+		beginMonth = dt.getMonth();
+		beginDay = 01;
+		endDay = 00;
+		endMonth = dt.getMonth()+1;	}
+	
+	if(endMonth <2){
+		if(endMonth =1){
+			endMonth = 12;
+			endDay = 31;
+			endYear -= 1;
+		}else{
+		endYear -= 1;
+		endMonth += 12;
+		}
+	}
+	if(beginMonth <1){
+		beginYear -= 1;
+		beginMonth +=12;
+	}
+	
+	
+	
+	if(beginMonth <10){
+		beginMonth='0'+beginMonth;
+		if(beginDay<10){
+			beginDay='0'+beginDay;
+		}
+	}
+	if(endMonth <10){
+		endMonth='0'+endMonth;
+		if(endDay<10){
+			endDay='0'+endDay;
+		}
+	}
+	
+	endDate=endYear+'/'+endMonth +'/'+endDay;
+	beginDate=beginYear+'/'+beginMonth +'/'+beginDay;
+	//alert(beginDate+","+endDate);
+	return beginDate+","+endDate;
+}
 </script>
 </head>
 
@@ -445,6 +595,85 @@ function delReview(boardNum){
 			<div class="hb_section_title">
 				<h1 id="h1_left_title">최근 이용 내역</h1>
 			</div>
+			
+			<form action="${contextPath}/mypage/mypageMain.do" method="post">
+			
+			<div style="width:100%; padding:10px;height:50px;display:flex;justify-content:flex-start;flex-wrap:wrap; border:1px solid #CCCCCC;border-radius:12px;margin-bottom:20px;">
+			
+			
+
+					<div style="width: 13%; height: 100%; padding: 5px; font-weight: bolder; color: #5C5C5C;">기간별 조회하기</div>
+					<div style="width: 18%; height: 100%;display:flex;justify-content:flex-start;flex-wrap:wrap;  padding: 0 4px;">
+					
+					<div style="width:33%; height:100%; padding: 0 1px; ">
+					<div class="btn_mypage_date_1" id="one_week"onClick="javascript:searchByPriod('one_week')">1주일</div> </div>
+				    <div style="width:33%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"id="15_days"onClick="javascript:searchByPriod('15_days')">15일</div></div>
+					<div style="width:33%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('one_month')">1개월</div></div>
+					
+					</div>
+					<div style="width: 29%; height: 100%; display:flex;justify-content:flex-start;flex-wrap:wrap; padding: 0 4px;">
+<jsp:useBean id="now" class="java.util.Date" scope="request" />
+<c:set var="sysMonth"><fmt:formatDate value="${now}" pattern="MM" /></c:set>
+
+						<div style="width: 20%; height: 100%; padding: 0 1px;">
+							<div class="btn_mypage_date_1"
+								onClick="javascript:searchByPriod('last_one_month')">
+								<c:out value="${sysMonth -1}" />월
+								
+								</div>
+						</div>
+						<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_two_month')">
+					<c:out value="${sysMonth -2}" />월
+					</div></div>
+					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_three_month')">
+					<c:out value="${sysMonth -3}" />월
+					</div></div>
+					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_four_month')">
+					<c:out value="${sysMonth -4}" />월
+					</div></div>
+					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_five_month')">
+					<c:choose>
+					<c:when test="${(sysMonth-5) > 0 }">
+					<c:out value="${sysMonth -5}" />월
+				    </c:when>
+					<c:otherwise>
+					<c:out value="${17-sysMonth }" />월
+					</c:otherwise>
+					</c:choose>
+					</div></div>
+					
+					
+					
+					
+					
+					
+					</div>
+					<fmt:setLocale value="en_US" scope="session" />
+								<fmt:parseDate var="_beginDate" value="${ beginDate }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+										<fmt:formatDate var="beginDate_0" value="${_beginDate}"
+									pattern="yyyy/MM/dd" />
+									<fmt:parseDate var="_endDate" value="${ endDate }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+										<fmt:formatDate var="endDate_0" value="${_endDate}"
+									pattern="yyyy/MM/dd" />
+					<div style="width: 27%; height: 100%; border:1px solid #CCCCCC;padding: 3.5px;">${beginDate_0 } ~${endDate_0}</div>
+					<div style="width: 13%; height: 100%; border:1px solid #CCCCCC;" ><button type="submit">조회하기</button></div>
+
+
+
+
+
+</div>
+
+</form>
+
 
 
 
@@ -500,6 +729,7 @@ function delReview(boardNum){
 
 										</div>
 									
+
 
 
 
