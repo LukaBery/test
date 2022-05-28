@@ -305,21 +305,38 @@ hr {
 
 .btn_mypage_date_1 {
 	width: 100%;
-    height: 100%;
-    border: 1px solid #CCCCCC;
-    border-radius: 6px;
-    padding: 3.5px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor:pointer;
-    color:black;
-    background-color:white;
+	height: 100%;
+	border: 1px solid #CCCCCC;
+	border-radius: 6px;
+	padding: 3.5px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	color: black;
+	background-color: white;
 }
 
-.btn_mypage_date_1:hover{
-	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0 / 18%);
-	 color: white;
-   background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195 8 71) 50%, rgb(205 11 56) 10%) !important;
+.btn_mypage_date_1:hover, #search_button:hover {
+	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
+	color: white;
+	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
+		50%, rgb(205, 11, 56) 10%) !important;
+}
+
+.btn_clicked {
+width: 100%;
+	height: 100%;
+	border: 1px solid #CCCCCC;
+	border-radius: 6px;
+	padding: 3.5px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+
+	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
+	color: white;
+	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
+		50%, rgb(205, 11, 56) 10%) !important;
 }
 </style>
 <c:if test='${ empty isLogOn }'>
@@ -351,7 +368,19 @@ hr {
 	}
 	</script>
 </c:if>
+<c:if test='${ not empty period_color }'>
 
+	<script>
+	window.onload=function()
+	{
+	  result1();
+	}
+
+	function result1(){
+		  document.getElementById('${period_color}').setAttribute('class','btn_clicked');
+	}
+	</script>
+</c:if>
 <script>
 var bDisplay = false;
 function reviewFormAdd(num){
@@ -401,10 +430,15 @@ function delReview(boardNum){
 function searchByPriod(period){
 	var formObj=document.createElement("form");
 	var _period = document.createElement("input");
+	var period_color = document.createElement("input");
 	 var beginEnd = calcPeriod(period);
+	 period_color.name="period_color";
+	 period_color.value=period;
+
 	_period.name="period";
 	_period.value=beginEnd;
     formObj.appendChild(_period);
+    formObj.appendChild(period_color);
     document.body.appendChild(formObj); 
    
     formObj.method="get";
@@ -523,8 +557,8 @@ function  calcPeriod(search_period){
 		}
 	}
 	
-	endDate=endYear+'/'+endMonth +'/'+endDay;
-	beginDate=beginYear+'/'+beginMonth +'/'+beginDay;
+	endDate=endYear+'-'+endMonth +'-'+endDay;
+	beginDate=beginYear+'-'+beginMonth +'-'+beginDay;
 	//alert(beginDate+","+endDate);
 	return beginDate+","+endDate;
 }
@@ -598,11 +632,11 @@ function  calcPeriod(search_period){
 			
 			<form action="${contextPath}/mypage/mypageMain.do" method="post">
 			
-			<div style="width:100%; padding:10px;height:50px;display:flex;justify-content:flex-start;flex-wrap:wrap; border:1px solid #CCCCCC;border-radius:12px;margin-bottom:20px;">
+			<div style="width:100%; padding:11px 10px;height:50px;display:flex;justify-content:flex-start;flex-wrap:wrap; border:1px solid #CCCCCC;border-radius:12px;margin-bottom:20px;">
 			
 			
-
-					<div style="width: 13%; height: 100%; padding: 5px; font-weight: bolder; color: #5C5C5C;">기간별 조회하기</div>
+<input type="hidden" id="period_color" value="${period_color }">
+					<div style="width: 13%; height: 100%; padding: 3.5px; font-weight: bolder; color: #5C5C5C;">기간별 조회하기</div>
 					<div style="width: 18%; height: 100%;display:flex;justify-content:flex-start;flex-wrap:wrap;  padding: 0 4px;">
 					
 					<div style="width:33%; height:100%; padding: 0 1px; ">
@@ -618,26 +652,26 @@ function  calcPeriod(search_period){
 <c:set var="sysMonth"><fmt:formatDate value="${now}" pattern="MM" /></c:set>
 
 						<div style="width: 20%; height: 100%; padding: 0 1px;">
-							<div class="btn_mypage_date_1"
+							<div class="btn_mypage_date_1" id="last_one_month"
 								onClick="javascript:searchByPriod('last_one_month')">
 								<c:out value="${sysMonth -1}" />월
 								
 								</div>
 						</div>
 						<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_two_month')">
+					<div  class="btn_mypage_date_1" id="last_two_month"onClick="javascript:searchByPriod('last_two_month')">
 					<c:out value="${sysMonth -2}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_three_month')">
+					<div  class="btn_mypage_date_1"id="last_three_month"onClick="javascript:searchByPriod('last_three_month')">
 					<c:out value="${sysMonth -3}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_four_month')">
+					<div  class="btn_mypage_date_1"id="last_four_month"onClick="javascript:searchByPriod('last_four_month')">
 					<c:out value="${sysMonth -4}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('last_five_month')">
+					<div  class="btn_mypage_date_1"id="last_five_month"onClick="javascript:searchByPriod('last_five_month')">
 					<c:choose>
 					<c:when test="${(sysMonth-5) > 0 }">
 					<c:out value="${sysMonth -5}" />월
@@ -658,13 +692,18 @@ function  calcPeriod(search_period){
 								<fmt:parseDate var="_beginDate" value="${ beginDate }"
 									pattern="EEE MMM dd HH:mm:ss z yyyy" />
 										<fmt:formatDate var="beginDate_0" value="${_beginDate}"
-									pattern="yyyy/MM/dd" />
+									pattern="yyyy-MM-dd" />
 									<fmt:parseDate var="_endDate" value="${ endDate }"
 									pattern="EEE MMM dd HH:mm:ss z yyyy" />
 										<fmt:formatDate var="endDate_0" value="${_endDate}"
-									pattern="yyyy/MM/dd" />
-					<div style="width: 27%; height: 100%; border:1px solid #CCCCCC;padding: 3.5px;">${beginDate_0 } ~${endDate_0}</div>
-					<div style="width: 13%; height: 100%; border:1px solid #CCCCCC;" ><button type="submit">조회하기</button></div>
+									pattern="yyyy-MM-dd" /><%-- ${beginDate_0 } ~${endDate_0} --%>
+					<div style="width: 30%; height: 100%; border:1px solid #CCCCCC; border-radius:6px;padding: 3.5px;display:flex;justify-content:flex-start;flex-wrap:wrap; ">
+					<input type="date" name="beginDate" value="${beginDate_0}"style="padding: 0px 0px 0px 10px;font-size:12px;width:45%">
+					<div style="width:10%;height:100%;padding:2px 0;">~</div>
+					<input type="date" name="endDate" value="${endDate_0}"style="padding: 0px 0px 0px 10px;font-size:12px;width:45%">
+					</div>
+					<div style="width: 10%; height: 100%;padding:0 10px; " >
+					<button id="search_button"style="width:100%; height:100%; border-radius:6px;font-size: 12px;border:1px solid #CCCCCC;"type="submit">조회하기</button></div>
 
 
 

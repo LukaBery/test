@@ -47,6 +47,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 
 	@Override
+	@ResponseBody
 	@RequestMapping(value="/mypageMain.do" ,method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mypageMain(@RequestParam Map<String, String> dateMap,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
@@ -62,14 +63,17 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		else {
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String u_id=memberVO.getU_id();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String checkIndate = dateMap.get("beginDate");
 		String checkoutdate = dateMap.get("endDate");
 		String period = dateMap.get("period");
+		String period_color = dateMap.get("period_color");
 		Map<String, Object> _dateMap = new HashMap();
 		_dateMap.put("u_id", u_id);
 		
-		
+		if(period_color != null && period_color != "") {
+			mav.addObject("period_color", period_color);
+		}
 		if(checkIndate != null&& checkIndate != "") {
 			
 			Date checkIn = formatter.parse(checkIndate);
