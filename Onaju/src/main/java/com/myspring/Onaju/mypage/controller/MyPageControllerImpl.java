@@ -68,6 +68,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String checkoutdate = dateMap.get("endDate");
 		String period = dateMap.get("period");
 		String period_color = dateMap.get("period_color");
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
 		Map<String, Object> _dateMap = new HashMap();
 		_dateMap.put("u_id", u_id);
 		
@@ -99,22 +101,46 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 
 			
 		}
-		System.out.println(viewName);
-		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(_dateMap);
-		
+		if(section== null) {
+			section = "1";
+		}
 	
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		_dateMap.put("section",section);
+		_dateMap.put("pageNum",pageNum);
+		System.out.println(viewName);
+		_dateMap.put("search_type", "order");
+
+		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(_dateMap);
+		String cnt_ = myPageService.getCnt(_dateMap);
+		if(Math.floorMod(Integer.parseInt(cnt_),10) == 0) {
+			int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) ;
+			
+			int cnt = Math.floorMod(cnt_1,10);
+			mav.addObject("cnt", cnt);
+		}else {
+int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
+		
+		int cnt = Math.floorMod(cnt_1,10);
+		mav.addObject("cnt", cnt);
+		}
 		mav.addObject("myOrderList", myOrderList);
 		System.out.println("myOrderList:"+ myOrderList);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
 		}
 		
-		mav.setViewName(viewName);
+		mav.setViewName("/mypage/mypageMain");
+		
 
 		return mav;
 	}
 
 	@Override
-	@RequestMapping(value="/myCart.do" ,method = RequestMethod.GET)
-	public ModelAndView myCart(@RequestParam Map<String, String> _pageNum,
+	@RequestMapping(value="/myCart.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView myCart(@RequestParam Map<String, String> dateMap,
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		HttpSession session=request.getSession();
 		session=request.getSession();
@@ -123,22 +149,71 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		MemberVO nonmemberVO=(MemberVO)session.getAttribute("nonmemberInfo");
-		String pageNum = _pageNum.get("pageNum");
+		Map<String, Object> _dateMap = new HashMap();
+	
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String checkIndate = dateMap.get("beginDate");
+		String checkoutdate = dateMap.get("endDate");
+		String period = dateMap.get("period");
+		String period_color = dateMap.get("period_color");
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+	
+		
+		if(period_color != null && period_color != "") {
+			mav.addObject("period_color", period_color);
+		}
+		if(checkIndate != null&& checkIndate != "") {
+			
+			Date checkIn = formatter.parse(checkIndate);
+			_dateMap.put("checkIn_date", checkIn);
+				
+				mav.addObject("beginDate", checkIn);
+		}
+		if(checkoutdate != null  && checkoutdate != "") {
+			Date checkOut = formatter.parse(checkoutdate);
+			_dateMap.put("checkOut_date", checkOut);
+			
+			mav.addObject("endDate", checkOut);
+			
+		}
+		if(period != null && period != "") {
+			String [] tempDate = period.split(",");
+			Date checkIn = formatter.parse(tempDate[0]);
+			Date checkOut = formatter.parse(tempDate[1]);
+			_dateMap.put("checkIn_date",checkIn);
+			_dateMap.put("checkOut_date", checkOut);
+			mav.addObject("beginDate", checkIn);
+			mav.addObject("endDate", checkOut);
+
+			
+		}
+		if(section== null) {
+			section = "1";
+		}
+	
 		if(pageNum== null) {
 			pageNum = "1";
 		}
-		HashMap<String,Object> condMap=new HashMap<String,Object>();
-		condMap.put("pageNum", pageNum);
+		_dateMap.put("section",section);
+		_dateMap.put("pageNum",pageNum);
+		
+		
 		
 		
 		
 		if(memberVO != null) 
 		{String u_id=memberVO.getU_id();
-		condMap.put("u_id", u_id);
-			 List<CartVO> myCartList=cartService.listMyCartGoods(condMap); 
+	
+		_dateMap.put("u_id", u_id);
+		
+		
+		
+			 List<CartVO> myCartList=cartService.listMyCartGoods(_dateMap); 
 			
 			 mav.addObject("myCartList", myCartList);
-			
+		
 			
 		}else if(nonmemberVO != null) {
 			
@@ -148,11 +223,27 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			mav.setViewName("redirect:/main/main.do");
 
 		}
+		_dateMap.put("search_type", "cart");
+		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(_dateMap);
+		String cnt_ = myPageService.getCnt(_dateMap);
 		
+		if(Math.floorMod(Integer.parseInt(cnt_),10) == 0) {
+			int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) ;
+			
+			int cnt = Math.floorMod(cnt_1,10);
+			mav.addObject("cnt", cnt);
+		}else {
+int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
+		
+		int cnt = Math.floorMod(cnt_1,10);
+		mav.addObject("cnt", cnt);
+		}
+		 mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
 	
 	
 		mav.setViewName("forward:/mypage/Mypage2.do");
-		mav.addObject("pageNum", pageNum);
+		
 
 		return mav;
 	}

@@ -338,23 +338,14 @@ width: 100%;
 	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
 		50%, rgb(205, 11, 56) 10%) !important;
 }
+#btn_pageNum{
+width:20px;
+color:black;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
 </style>
-<c:if test='${ empty isLogOn }'>
-
-	<script>
-		window.onload = function() {
-			result();
-		}
-
-		function result() {
-			alert("로그인이 필요한 서비스입니다.");
-			location.href="${contextPath}/main/main.do"	
-		}
-
-		
-	
-	</script>
-</c:if>
 <c:if test='${ not empty message }'>
 
 	<script>
@@ -431,6 +422,7 @@ function searchByPriod(period){
 	var formObj=document.createElement("form");
 	var _period = document.createElement("input");
 	var period_color = document.createElement("input");
+	
 	 var beginEnd = calcPeriod(period);
 	 period_color.name="period_color";
 	 period_color.value=period;
@@ -644,7 +636,7 @@ function  calcPeriod(search_period){
 				    <div style="width:33%; height:100%; padding: 0 1px; ">
 					<div  class="btn_mypage_date_1"id="15_days"onClick="javascript:searchByPriod('15_days')">15일</div></div>
 					<div style="width:33%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"onClick="javascript:searchByPriod('one_month')">1개월</div></div>
+					<div  class="btn_mypage_date_1"id="one_month"onClick="javascript:searchByPriod('one_month')">1개월</div></div>
 					
 					</div>
 					<div style="width: 29%; height: 100%; display:flex;justify-content:flex-start;flex-wrap:wrap; padding: 0 4px;">
@@ -836,6 +828,23 @@ function  calcPeriod(search_period){
 			</c:choose>
 
 </div>
+
+<div style="width:100%;height:2px;border-top:2px solid #CCCCCC;margin:20px 0px;"></div>
+<c:choose>
+ <c:when test="${not empty myOrderList }">	
+   <DIV id="page_wrap">
+		 <c:forEach   var="page" begin="1" end="${cnt }" step="1" >
+		         <c:if test="${section >1 && page==1 }">
+		          <a id="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/mypageMain.do?section=${section-1}&pageNum=${(section-1)*10 +1 }&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp;이전 &nbsp;</a>
+		         </c:if>
+		          <a id="btn_pageNum"href="${contextPath}/mypage/mypageMain.do?section=${section}&pageNum=${page}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">${(section-1)*10 +page } </a>
+		         <c:if test="${page ==10 }">
+		          <a id="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/mypageMain.do?section=${section+1}&pageNum=${section*10+1}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp; 다음</a>
+		         </c:if> 
+	      </c:forEach> 
+	</DIV>	
+ </c:when>
+</c:choose>
 		</section>
 
 
@@ -851,8 +860,6 @@ function  calcPeriod(search_period){
 
 
 
-
-	</section>
 </body>
 
 </html>

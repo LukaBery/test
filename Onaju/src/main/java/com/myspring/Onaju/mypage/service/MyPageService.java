@@ -13,7 +13,7 @@ public interface MyPageService{
 
 	
 	public MemberVO  modifyMyInfo(Map memberMap) throws Exception;
-	
+	public String getCnt(Map _dateMap) throws Exception;
 	public MemberVO myDetailInfo(String u_id) throws Exception;
 	public void removeMember(String u_id) throws Exception;
 	public MemberVO deleteMemberInfo(String u_id) throws Exception;
