@@ -473,6 +473,14 @@ function  calcPeriod(search_period){
 						<strong style="font-size: 14px;">${memberInfo.u_name}</strong>님
 					</div>
 				</div>
+				<a
+						style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
+				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg"></a>	
+				
+				
+				
+				
+				
 			</div>
 
 

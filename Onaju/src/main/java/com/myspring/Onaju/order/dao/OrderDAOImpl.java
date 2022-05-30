@@ -21,7 +21,7 @@ public class OrderDAOImpl implements OrderDAO{
 	
 			
 			sqlSession.insert("mapper.order.insertNewOrder",myOrderList);
-	
+			sqlSession.update("mapper.order.memberGradeMod",myOrderList);
 		
 	}	
 
