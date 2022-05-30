@@ -87,5 +87,23 @@
 									    #{pay_state})
    
 	</insert>
+	
+<update id="memberGradeMod" parameterType="orderVO">
+
+update u_member
+<set>
+<![CDATA[u_grade = (case when ( (
+select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin')<150000) then 'silver'
+ when ( (
+select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin') <=300000) then 'gold' 
+ when ( 300000<(
+select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin')) then 'vip' end)
+]]>
+</set>
+where u_id =  #{u_id};
+
+
+</update>
+	
 
 </mapper>
