@@ -16,45 +16,6 @@
     <meta name="description" content="" />
 
     <style>
-.hb_rec_1 {
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #cccccc;
-}
-
-.hb_rec_2 {
-	display: inline-block;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #cccccc;
-}
-
-.hb_rec_3 {
-	align-items: center;
-	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #cccccc;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
-}
-
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #cccccc;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
-
-}
-
 .hb_rec_12 {
 	display: inline-block;
 	width: 550px;
@@ -79,37 +40,6 @@
 	height: 100%;
 }
 
-.hb_section_1 {
-	display: inline-block;
-	width: 800px;
-	height: 70px;
-}
-
-.hb_section_2 {
-	display: inline-block;
-	width: 1100px;
-	height: 400px;
-}
-
-.hb_section_3 {
-	display: inline-block;
-	width: 300px;
-	height: 70px;
-}
-
-.hb_section_4 {
-	display: inline-block;
-	width: 1100px;
-	height: 300px;
-}
-
-.hb_section_5 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 1100px;
-	height: 50px;
-}
-
 .hb_section_6 {
 	display: inline-block;
 	width: 1100px;
@@ -123,44 +53,7 @@
 	height: 100%;
 }
 
-.margin_left_0 {
-	float: left;
-	margin-left: 0px;
-}
 
-.margin_right_0 {
-	float: right;
-	margin-right: 0px;
-}
-
-.hb_table_1 {
-	display: inline-block;
-	width: 266.6px;
-	height: 300px;
-}
-
-.hb_textbox_1 {
-	display: inline-block;
-	width: 238px;
-	height: 120px;
-}
-
-#form_width_center {
-	text-align: center;
-}
-
-#h1_left {
-	text-align: left;
-	font-size: 25px;
-}
-
-#hb_a_main {
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	margin: 0 auto;
-	border-radius: 20px;
-}
 
 .charge-info {
 	cursor: pointer !important;
@@ -464,6 +357,8 @@
 	background:
 		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+
+
 </style>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
 
@@ -709,13 +604,13 @@
   					</c:when>
   					<c:when test="${!empty hostgoodsMap}" >
   						<c:forEach  var="item" items="${hostgoodsMap.goodsList }" varStatus="membersNum" >
-  						
+  						 	<c:set var="i" value="${i +1 }" />         
           	<div class="lodging-total" style="cursor: pointer;" >           
             	<div class="lodging-box" onclick="location.href='${contextPath}/host/goods/goodsDetail.do?room_code=${item.room_code }';">
               		<div class="lodging-img">
               			<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}" style="width: 100%; height: 100%; border-radius: 10px;">
               		</div>
-              		                            
+              		                  
               		<div class="lodging-info-total">
                 		<div id="hb_textbox_5">
 							<p id="hb_main_p5">${item.roadAddress }</p> 				
@@ -737,8 +632,8 @@
               		</div>
             	</div>          
           		<div style=" display:inline-block;">     	
-          			<input id="toggle-heart" type="checkbox" title="1"/>
-					<label for="toggle-heart" aria-label="like" title="1">❤</label>
+          			<input id="tt_${i}" type="checkbox"class="toggle-heart display_none" title="1"/>
+					<label for="tt_${i}" class="toggle-heart" id="ttl"aria-label="like" title="1">❤</label>
 				</div>          
           	</div>
           	

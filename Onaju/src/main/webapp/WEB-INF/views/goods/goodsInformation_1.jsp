@@ -22,50 +22,8 @@ request.setCharacterEncoding("UTF-8");
 <meta name="description" content="">
 
 <style>
-* {
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-}
 
-.hb_rec_1 {
-	float: left;
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
 
-.hb_rec_2 {
-	display: inline-block;
-	float: right;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_3 {
-	align-items: center;
-	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
-}
-
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
-}
 
 .hb_rec_5 {
 	float: left;
@@ -83,14 +41,6 @@ request.setCharacterEncoding("UTF-8");
 	border-radius: 0px 10px 0px 0px;
 }
 
-.hb_rec_7 {
-	float: left;
-	display: inline-block;
-	width: 275px;
-	height: 200px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
 
 .hb_rec_12 {
 	float: left;
@@ -195,12 +145,6 @@ margin-bottom:15px;
 	height: 100%
 }
 
-.hb_section_1 {
-	display: inline-block;
-	width: 800px;
-	height: 70px;
-}
-
 .hb_section_10 {
 	display: inline-block;
 	width: 800px;
@@ -214,31 +158,6 @@ margin-bottom:15px;
 	height: 400px;
 }
 
-.hb_section_3 {
-	display: inline-block;
-	width: 300px;
-	height: 70px;
-}
-
-.hb_section_4 {
-	display: inline-block;
-	width: 1100px;
-	height: 300px;
-}
-
-.hb_section_5 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 700px;
-	height: 50px;
-}
-
-.hb_section_6 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 400px;
-	height: 50px;
-}
 
 .hb_section_7 {
 	display: inline-block;
@@ -270,27 +189,6 @@ margin-bottom:15px;
 	margin-left: 0px;
 }
 
-.margin_right_0 {
-	float: right;
-	margin-right: 0px;
-}
-
-.hb_table_1 {
-	float: left;
-	display: inline-block;
-	width: 266.6px;
-	height: 300px;
-}
-
-.hb_textbox_1 {
-	display: inline-block;
-	width: 238px;
-	height: 120px;
-}
-
-#form_width_center {
-	text-align: center;
-}
 
 #h1_left {
 	text-align: left;

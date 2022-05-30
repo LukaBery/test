@@ -469,13 +469,40 @@ function  calcPeriod(search_period){
 
 
 					<div
-						style="width: 100%; margin-top: 10px; font-size: 12px; border-radius: 10px; padding: 3px 10px; display: inline-block;">
+						style="width: 100%; margin-top: 10px; font-size: 12px;  padding: 3px 10px; display: inline-block;">
 						<strong style="font-size: 14px;">${memberInfo.u_name}</strong>님
 					</div>
 				</div>
-				<a
-						style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
-				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg"></a>	
+				<div style="display:inline-block;float:left;font-size: 12px; width:20%;height:100%; padding: 10px 20px 0px 20px;">
+				<div
+						style="width: 80px;  height: 80px;  border-radius: 70%; display: inline-block; ">
+						
+						<c:choose>
+						<c:when test="${memberInfo.u_grade.equals('vip') }">
+				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg">
+				
+				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px; color:rgb(238,50,86);">VIP 등급</strong></div>
+				</c:when>
+				
+				
+				<c:when test="${memberInfo.u_grade.equals('gold')}">
+				
+				<img src="${contextPath}/resources/image/icons/user_grade_gold.svg">
+				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px; color:rgb(255,187,5);">GOLD </strong>등급</div>
+				</c:when>
+				
+					<c:when test="${memberInfo.u_grade.equals('silver') }">
+				
+				<img src="${contextPath}/resources/image/icons/user_grade_silver.svg">
+				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px;color:rgb(113,203,211);">SILVER 등급</strong></div>
+				</c:when>
+				
+				</c:choose>
+				
+				
+				
+				</div>	
+				</div>
 				
 				
 				
