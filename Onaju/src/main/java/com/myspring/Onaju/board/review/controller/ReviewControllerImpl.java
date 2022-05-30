@@ -120,7 +120,9 @@ public class ReviewControllerImpl extends BaseController implements ReviewContro
 			_dateMap.put("checkOut_date", checkOut); 
 		
 			
-			mav.addObject("endDate", checkOut);
+	Date checkOut_view = formatter.parse(checkoutdate);
+			
+			mav.addObject("endDate", checkOut_view);
 			
 		}
 		if(period != null && period != "") {
@@ -131,7 +133,9 @@ public class ReviewControllerImpl extends BaseController implements ReviewContro
 			_dateMap.put("checkIn_date",checkIn);
 			_dateMap.put("checkOut_date", checkOut);
 			mav.addObject("beginDate", checkIn);
-			mav.addObject("endDate", checkOut);
+			Date checkOut_view = formatter.parse(tempDate[1]);
+
+			mav.addObject("endDate", checkOut_view);
 
 			
 		}

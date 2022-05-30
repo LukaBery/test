@@ -529,7 +529,7 @@ function  calcPeriod(search_period){
 			<c:forEach  var="item" items="${myReviewList}" varStatus="membersNum" >
 					<c:set var="i" value="${i +1 }"/>
 					
-					<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/modReview.do" method="post">
+					<form name="new_${i }" style="width:100%;" id="new_${i }"action="${contextPath}/board/review/modReview.do" method="post">
 					
 					<div style="width:100%;height:100px;border: 1px solid #CCCCCC; float:left; border-radius:12px;padding:10px;margin:10px 0px;">
 	

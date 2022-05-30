@@ -87,8 +87,9 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			String _checkOut = addDate(checkoutdate, 0,0,1);
 			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkOut_date", checkOut);
+			Date checkOut_view = formatter.parse(checkoutdate);
 			
-			mav.addObject("endDate", checkOut);
+			mav.addObject("endDate", checkOut_view);
 			
 		}
 		if(period != null && period != "") {
@@ -96,10 +97,12 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			Date checkIn = formatter.parse(tempDate[0]);
 			String _checkOut = addDate(tempDate[1], 0,0,1);
 			Date checkOut = formatter.parse(_checkOut);
-			_dateMap.put("checkIn_date",checkIn);
+			_dateMap.put("checkIn_date", checkIn);
 			_dateMap.put("checkOut_date", checkOut);
 			mav.addObject("beginDate", checkIn);
-			mav.addObject("endDate", checkOut);
+			Date checkOut_view = formatter.parse(tempDate[1]);
+
+			mav.addObject("endDate", checkOut_view);
 
 			
 		}
@@ -178,7 +181,9 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkOut_date", checkOut);
 			
-			mav.addObject("endDate", checkOut);
+	Date checkOut_view = formatter.parse(checkoutdate);
+			
+			mav.addObject("endDate", checkOut_view);
 			
 		}
 		if(period != null && period != "") {
@@ -189,7 +194,9 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 			_dateMap.put("checkIn_date",checkIn);
 			_dateMap.put("checkOut_date", checkOut);
 			mav.addObject("beginDate", checkIn);
-			mav.addObject("endDate", checkOut);
+			Date checkOut_view = formatter.parse(tempDate[1]);
+
+			mav.addObject("endDate", checkOut_view);
 
 			
 		}
