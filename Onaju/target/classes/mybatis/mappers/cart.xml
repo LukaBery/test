@@ -47,7 +47,7 @@
             and G.room_code = U.room_code
             and G.room_imageType= 'main_image'
                 <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
-			         and U.checkIn_date  between #{checkIn_date} and #{checkOut_date}
+			         and U.creDate  between #{checkIn_date} and #{checkOut_date}
 			      </if>
             order by creDate desc
 	   ) t
@@ -73,7 +73,7 @@
             and G.room_code = U.room_code
             and G.room_imageType= 'main_image'
                 <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
-			         and U.checkIn_date  between #{checkIn_date} and #{checkOut_date}
+			         and U.creDate  between #{checkIn_date} and #{checkOut_date}
 			      </if>
             order by creDate desc
                

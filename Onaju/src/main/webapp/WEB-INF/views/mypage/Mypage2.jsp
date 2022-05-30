@@ -22,41 +22,8 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <style>
-hr {
-	border: 1px solid #CCCCCC;
-}
 
-.hb_rec_1 {
-	float: left;
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_2 {
-	display: inline-block;
-	float: right;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_3 {
-	align-items: center;
-	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
-}
-
-.hb_rec_3_mypage {
+.hb_nav_btn {
 	text-align: center;
 	display: inline-block;
 	width: 134px;
@@ -68,40 +35,47 @@ hr {
 	float: left;
 }
 
-.hb_rec_3_mypage:hover {
-	text-align: center;
-	display: inline-block;
-	width: 134px;
-	height: 50px;
-	border-radius: 10px;
+.hb_nav_btn:hover {
+	
 	border: 2px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 7px 21px 7px 0px;
-	float: left;
+	
 }
 
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
+.hb_nav_btn_a {
+	padding: 15px;
+	color: black;
+	text-decoration: none;
+	display: block;
+	height: 100%;
+	font-size: 15px;
+	font-weight: 580;
+	margin: 0 auto;
+	border-radius: 9px;
+	background-color: white;
+	opacity: 70%;
 }
+
+hb_nav_btn_a:hover {
+	
+	opacity: 100%;
+	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
+}
+
+.hb_nav_section_1 {
+	display: inline-block;
+	width: 160px;
+	height: 400px;
+	position: sticky;
+	top: 120px;
+}
+
+
 /* <섹션 종류> */
 .hb_section_total {
 	width: 1100px;
 	height: 100%
 }
 
-.hb_section_mypagenav {
-	display: inline-block;
-	width: 160px;
-	height: 500px;
-	position: sticky;
-	top: 120px;
-}
 
 .hb_section_mypagemain {
 	padding: 30px 0px;
@@ -110,49 +84,7 @@ hr {
 	height: 100%;
 }
 
-.hb_section_mypagemain_1 {
-	display: inline-block;
-	width: 920px;
-	height: 170px;
-}
 
-.hb_section_mypagemain_profile {
-	border: 1px solid #CCCCCC;
-	display: inline-block;
-	width: 150px;
-	height: 168px;
-}
-
-.hb_section_1 {
-	display: inline-block;
-	width: 800px;
-	height: 70px;
-}
-
-.hb_section_2 {
-	display: inline-block;
-	width: 1100px;
-	height: 400px;
-}
-
-.hb_section_3 {
-	display: inline-block;
-	width: 300px;
-	height: 70px;
-}
-
-.hb_section_4 {
-	display: inline-block;
-	width: 1100px;
-	height: 300px;
-}
-
-.hb_section_5 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 1100px;
-	height: 50px;
-}
 
 .hb_section_title {
 	padding: 20px 4px 15px 0px;
@@ -167,74 +99,6 @@ hr {
 	border: 0;
 }
 
-.margin_left_1 {
-	width: 750px;
-	height: 168px;
-	text-align: left;
-}
-
-#grade {
-	display: inline-block;
-	width: 150px;
-	height: 33px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-	font-weight: bold;
-	color: white;
-}
-
-#img2 {
-	display: inline-block;
-	float: left;
-	width: 200px;
-	height: 150px;
-}
-
-#btbt2 {
-	background-color: #FC4E82;
-	display: inline-block;
-	width: 50px;
-	height: 25px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-	float: right;
-	font-weight: bold;
-	color: white;
-}
-
-.r1 {
-	text-align: left;
-}
-/* <인라인블럭 왼쪽 고정> */
-.margin_right_0 {
-	float: right;
-	margin-right: 0px;
-}
-
-.hb_table_1 {
-	float: left;
-	display: inline-block;
-	width: 266.6px;
-	height: 300px;
-}
-
-.hb_textbox_1 {
-	display: inline-block;
-	width: 238px;
-	height: 120px;
-}
-
-#form_width_center {
-	text-align: center;
-}
-
-#h1_left {
-	text-align: left;
-	font-size: 25px;
-}
-
 #h1_left_title {
 	color: #5C5C5C;
 	font-weight: 600;
@@ -242,35 +106,6 @@ hr {
 	font-size: 30px;
 }
 /* <a 태그 부모 태그 전체 확장> */
-#hb_a_main {
-	padding: 15px;
-	color: black;
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	font-size: 15px;
-	font-weight: 580;
-	margin: 0 auto;
-	border-radius: 9px;
-	background-color: white;
-	opacity: 70%;
-}
-
-#hb_a_main:hover {
-	padding: 15px;
-	color: black;
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	font-size: 15px;
-	font-weight: 580;
-	margin: 0 auto;
-	border-radius: 9px;
-	background-color: white;
-	opacity: 100%;
-	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
-}
-
 
 
 #btn_mypage_0 {
@@ -327,26 +162,46 @@ width: 100%;
 		50%, rgb(205, 11, 56) 10%) !important;
 }
 
-#btn_pageNum{
+.btn_pageNum{
 width:20px;
 color:black;
     text-decoration: none;
     font-size: 15px;
     font-weight: 600;
 }
+
+.btn_pageNum_clicked{
+width:20px;
+color: rgb(250,100,145);
+
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
 </style>
 
-<c:if test='${ empty isLogOn }'>
+
+<c:if test='${ not empty period_color }'>
 
 	<script>
-		window.onload = function() {
-			result();
-		}
+	window.onload=function()
+	{
+	  result1();
+	}
 
-		function result() {
-			alert("로그인이 필요한 서비스입니다.");
-			location.href="${contextPath}/main/main.do";
-		}
+	function result1(){
+		  document.getElementById('${period_color}').setAttribute('class','btn_clicked');
+	}
+	</script>
+</c:if>
+
+<c:if test='${ not empty pageNum }'>
+
+	<script>
+	window.addEventListener('load', function() {
+		  document.getElementById('page_${pageNum}').setAttribute('class','btn_pageNum_clicked');
+		});
+
 	</script>
 </c:if>
 <script>
@@ -509,26 +364,26 @@ color:black;
 	<c:when test="${memberInfo != null }">
 	<div style="width:170px; height:1000px; float:left;">
 		<!-- <상위 네비게이션>-->
-		<div class="hb_section_mypagenav margin_left_0">
+		<div class="hb_nav_section_1 margin_left_0">
 
-			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
+			<div class="hb_nav_btn">
+				<a class="hb_nav_btn_a" href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
 			</div>
-			<div class="hb_rec_3_mypage"  style="border: 2px solid #CCCCCC;">
-				<a id="hb_a_main"  style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/myCart.do">장바구니</a>
+			<div class="hb_nav_btn"  style="border: 2px solid #CCCCCC;">
+				<a class="hb_nav_btn_a"  style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/myCart.do">장바구니</a>
 			</div>
-			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
+			<div class="hb_nav_btn">
+				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
 			</div>
-			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
+			<div class="hb_nav_btn">
+				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
 			</div>
-			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
+			<div class="hb_nav_btn">
+				<a class="hb_nav_btn_a" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
-			<div class="hb_rec_3_mypage">
-				<a id="hb_a_main" href="${contextPath}/mypage/delMember.do">회원 탈퇴</a>
+			<div class="hb_nav_btn">
+				<a class="hb_nav_btn_a" href="${contextPath}/mypage/delMember.do">회원 탈퇴</a>
 			</div>
 
 		</div>
@@ -574,13 +429,13 @@ color:black;
 			
 			
 						<form action="${contextPath}/mypage/myCart.do" method="post">
-			
+				<input type="hidden" name="section" value="${section }">
+			<input type="hidden" name="pageNum" value="${pageNum }">			
+            <input type="hidden" id="period_color" value="${period_color }">
 			
 			
 <div style="width:100%; padding:11px 10px;height:50px;display:flex;justify-content:flex-start;flex-wrap:wrap; border:1px solid #CCCCCC;border-radius:12px;margin-bottom:20px;">
-			
-			
-<input type="hidden" id="period_color" value="${period_color }">
+
 					<div style="width: 13%; height: 100%; padding: 3.5px; font-weight: bolder; color: #5C5C5C;">기간별 조회하기</div>
 					<div style="width: 18%; height: 100%;display:flex;justify-content:flex-start;flex-wrap:wrap;  padding: 0 4px;">
 					
@@ -737,11 +592,11 @@ color:black;
    <DIV id="page_wrap">
 		 <c:forEach   var="page" begin="1" end="${cnt }" step="1" >
 		         <c:if test="${section >1 && page==1 }">
-		          <a id="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/myCart.do?section=${section-1}&pageNum=${(section-1)*10 +1 }&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp;이전 &nbsp;</a>
+		          <a class="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/myCart.do?section=${section-1}&pageNum=${(section-1)*10 +1 }&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp;이전 &nbsp;</a>
 		         </c:if>
-		          <a id="btn_pageNum" href="${contextPath}/mypage/myCart.do?section=${section}&pageNum=${page}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">${(section-1)*10 +page } </a>
+		          <a class="btn_pageNum" id="page_${page }"href="${contextPath}/mypage/myCart.do?section=${section}&pageNum=${page}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">${(section-1)*10 +page } </a>
 		         <c:if test="${page ==10 }">
-		          <a id="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/myCart.do?section=${section+1}&pageNum=${section*10+1}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp; 다음</a>
+		          <a class="btn_pageNum" style="width:50px;"href="${contextPath}/mypage/myCart.do?section=${section+1}&pageNum=${section*10+1}&period_color=${period_color }&beginDate=${beginDate_0}&endDate=${endDate_0}">&nbsp; 다음</a>
 		         </c:if> 
 	      </c:forEach> 
 	</DIV>	

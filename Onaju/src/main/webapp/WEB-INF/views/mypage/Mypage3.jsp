@@ -350,7 +350,7 @@ $("#emailChk").click(function(){
 .hb_section_mypagenav {
 	display: inline-block;
     width: 160px;
-    height: 500px;
+    height: 400px;
     position: sticky;
     top: 120px;
 }

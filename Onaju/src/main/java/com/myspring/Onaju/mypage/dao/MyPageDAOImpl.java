@@ -48,6 +48,8 @@ public class MyPageDAOImpl implements MyPageDAO {
 			cnt = (String) sqlSession.selectOne("mapper.cart.selectMyCartGoodsList_cnt", _dateMap);
 		}else if(search_type.equals("order")) {
 			cnt = (String) sqlSession.selectOne("mapper.mypage.selectMyOrderGoodsList_cnt", _dateMap);
+		}else if(search_type.equals("myReview")) {
+			cnt = (String) sqlSession.selectOne("mapper.review.selectMyReviewList_cnt", _dateMap);
 		}
 		
 		return cnt;

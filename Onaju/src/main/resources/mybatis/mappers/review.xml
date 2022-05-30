@@ -67,7 +67,9 @@ left join h_room F on U.room_code = F.room_code
 	   
 	   
 
-	   
+	       <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
+			         and U.creDate between #{checkIn_date} and #{checkOut_date}
+			      </if>
 	   
 	   
 	   
@@ -94,6 +96,45 @@ left join h_room F on U.room_code = F.room_code
 
 	   		
 	</select>
+	
+	
+	
+	 <select id="selectMyReviewList_cnt" resultType="String"  parameterType="java.util.HashMap"  >
+
+
+
+
+
+	select COUNT(*) as cnt from
+	(
+
+	select U.*, T.room_imageName, O.checkIn_date, O.checkOut_date, F.title from
+	u_reviewboard U
+	left join h_roomimage T on T.room_code = U.room_code and T.room_imageType =
+	'main_image'
+	left join u_order O on U.order_code = O.order_code
+	left join h_room F on U.room_code = F.room_code
+	where U.u_id = #{u_id}
+
+
+
+
+	<if
+		test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
+		and U.creDate between #{checkIn_date} and #{checkOut_date}
+	</if>
+
+
+
+	order by U.creDate desc
+
+	) R
+    
+   
+	   
+
+	</select>
+	
 
   <insert id="insertNewReview"  parameterType="reviewVO">
   <![CDATA[

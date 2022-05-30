@@ -84,7 +84,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 				mav.addObject("beginDate", checkIn);
 		}
 		if(checkoutdate != null  && checkoutdate != "") {
-			Date checkOut = formatter.parse(checkoutdate);
+			String _checkOut = addDate(checkoutdate, 0,0,1);
+			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkOut_date", checkOut);
 			
 			mav.addObject("endDate", checkOut);
@@ -93,7 +94,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		if(period != null && period != "") {
 			String [] tempDate = period.split(",");
 			Date checkIn = formatter.parse(tempDate[0]);
-			Date checkOut = formatter.parse(tempDate[1]);
+			String _checkOut = addDate(tempDate[1], 0,0,1);
+			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkIn_date",checkIn);
 			_dateMap.put("checkOut_date", checkOut);
 			mav.addObject("beginDate", checkIn);
@@ -132,7 +134,7 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 		mav.addObject("pageNum", pageNum);
 		}
 		
-		mav.setViewName("/mypage/mypageMain");
+		mav.setViewName("forward:/mypage/mypageMain");
 		
 
 		return mav;
@@ -172,7 +174,8 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 				mav.addObject("beginDate", checkIn);
 		}
 		if(checkoutdate != null  && checkoutdate != "") {
-			Date checkOut = formatter.parse(checkoutdate);
+			String _checkOut = addDate(checkoutdate, 0,0,1);
+			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkOut_date", checkOut);
 			
 			mav.addObject("endDate", checkOut);
@@ -181,7 +184,8 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 		if(period != null && period != "") {
 			String [] tempDate = period.split(",");
 			Date checkIn = formatter.parse(tempDate[0]);
-			Date checkOut = formatter.parse(tempDate[1]);
+			String _checkOut = addDate(tempDate[1], 0,0,1);
+			Date checkOut = formatter.parse(_checkOut);
 			_dateMap.put("checkIn_date",checkIn);
 			_dateMap.put("checkOut_date", checkOut);
 			mav.addObject("beginDate", checkIn);
