@@ -40,6 +40,20 @@ public class MyPageDAOImpl implements MyPageDAO {
 		}
 		return orderGoodsList;
 	}
+
+	public String getCnt(Map _dateMap) throws DataAccessException{
+		String cnt = "";
+		String search_type = (String) _dateMap.get("search_type");
+		if(search_type.equals("cart")) {
+			cnt = (String) sqlSession.selectOne("mapper.cart.selectMyCartGoodsList_cnt", _dateMap);
+		}else if(search_type.equals("order")) {
+			cnt = (String) sqlSession.selectOne("mapper.mypage.selectMyOrderGoodsList_cnt", _dateMap);
+		}else if(search_type.equals("myReview")) {
+			cnt = (String) sqlSession.selectOne("mapper.review.selectMyReviewList_cnt", _dateMap);
+		}
+		
+		return cnt;
+	}
 	public void updateMyInfo(Map memberMap) throws DataAccessException {
 		sqlSession.update("mapper.mypage.updateMyInfo", memberMap);
 	}

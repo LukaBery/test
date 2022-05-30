@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.Onaju.board.review.vo.ReviewVO;
 
 public interface ReviewController {
-	public ModelAndView addNewReview(@ModelAttribute("memberVO") ReviewVO reviewVO, HttpServletRequest request,
-			HttpServletResponse response) throws Exception; 
+	public ResponseEntity addNewReview(@ModelAttribute("memberVO") ReviewVO _reviewVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 	public ModelAndView myReviewList(@RequestParam Map<String, String> _pageNum,HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ResponseEntity modReview(@ModelAttribute("reviewVO") ReviewVO reviewVO, HttpServletRequest request,

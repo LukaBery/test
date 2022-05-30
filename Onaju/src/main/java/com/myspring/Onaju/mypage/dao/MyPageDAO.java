@@ -12,7 +12,7 @@ import com.myspring.Onaju.order.vo.OrderVO;
 public interface MyPageDAO {
 	public List<OrderVO> selectMyOrderGoodsList(Map _dateMap) throws DataAccessException;	
 
-
+	public String getCnt(Map _dateMap) throws DataAccessException;
 	public void updateMyInfo(Map memberMap) throws DataAccessException;
 	public MemberVO selectMyDetailInfo(String u_id) throws DataAccessException;
 
