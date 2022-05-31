@@ -94,8 +94,56 @@
 					where R.room_code=I.room_code 
 					and R.h_code=H.h_code
         	        and I.room_imageType='main_image'
-        	                <if test="room_type=='hotel'">
-			                  AND room_type=#{}
+        	                <if test="kitchen=='Y'">
+			                  AND kitchen='Y'
+			                </if>
+	                        <if test="wifi =='Y'">
+			                  AND wifi='Y'
+			                </if>
+			                 <if test="parking =='Y'">
+			                  AND parking='Y'
+			                </if>
+			                 <if test="tv =='Y'">
+			                  AND tv='Y'
+			                </if>
+			                 <if test="refrigerator =='Y'">
+			                  AND refrigerator='Y'
+			                </if>
+			                 <if test="hairdryer =='Y'">
+			                  AND hairdryer='Y'
+			                </if>
+			                 <if test="washer =='Y'">
+			                  AND washer='Y'
+			                </if>
+			                 <if test="pet =='Y'">
+			                  AND pet='Y'
+			                </if>
+			                 <if test="pickup =='Y'">
+			                  AND pickup='Y'
+			                </if>
+			                 <if test="dryer =='Y'">
+			                  AND dryer='Y'
+			                </if>
+			                 <if test="elevator =='Y'">
+			                  AND elevator='Y'
+			                </if>
+			                 <if test="barbecue =='Y'">
+			                  AND barbecue='Y'
+			                </if>
+			                 <if test="pool =='Y'">
+			                  AND pool='Y'
+			                </if>
+			                 <if test="aircon =='Y'">
+			                  AND aircon='Y'
+			                </if>
+			                 <if test="heater =='Y'">
+			                  AND heater='Y'
+			                </if>
+			                 <if test="smoking =='Y'">
+			                  AND smoking='Y'
+			                </if>
+			                 <if test="party_check =='Y'">
+			                  AND party_check='Y'
 			                </if>
 	
 	</select> 

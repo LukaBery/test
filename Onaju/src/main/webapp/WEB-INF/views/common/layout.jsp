@@ -31,7 +31,7 @@ request.setCharacterEncoding("UTF-8");
 <link href="${contextPath}/resources/css/main.css" type="text/css" rel="stylesheet"
 	media="all">
 
-<link href="${contextPath}/resources/css/heart.css?ver=2" type="text/css" rel="stylesheet"
+<link href="${contextPath}/resources/css/heart.css?ver=1" type="text/css" rel="stylesheet"
 	media="all">
 	<link href="${contextPath}/resources/css/icons.css?ver=2" type="text/css" rel="stylesheet"
 	media="all">

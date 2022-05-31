@@ -90,6 +90,7 @@ hr {
 	width: 500px;
 	height: 20%;
 	margin: auto;
+	padding:12px;
 	font-size: 20px;
 	font-weight: bolder;
 	text-align: center;
@@ -562,7 +563,7 @@ font-size:14px;
 		<section class="hb_section_2">
 			<div class="hb_rec_2">
 				<div class="box1">
-					<br>할인정보
+					할인정보
 				</div>
 				<br>
 				<br>
