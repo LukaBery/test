@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -355,7 +356,22 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
-	
-	
+	@Override
+	@RequestMapping(value = "/addLike.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView addLike(@RequestBody Map<String, String> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		String _like_state = (String)map.get("like_state");  // 0 삭제 1 등록
+		String room_code = (String)map.get("room_code");  // 객실 번호
+		String like_yn = (String)map.get("like_yn");  //true or false 기존에 좋아요 유무
 
+
+		
+		
+		HttpSession session = request.getSession();
+		session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	
+	}
 }

@@ -74,7 +74,10 @@
 		<result property="smoking" column="smoking" />
 		<result property="content" column="content" javaType="java.lang.String" jdbcType="CLOB"  />
 		<result property="creDate" column="creDate" />
-		<result property="room_imageName" column="room_imageName" />
+	<result property="room_imageName" column="room_imageName" />
+	<result property="like_state" column="like_state" />
+	<result property="like_id" column="like_id" />
+		
 		
 </resultMap>		
 	<resultMap id="imageResult" type="hostImageFileVO">
@@ -89,11 +92,21 @@
 
 	<!-- 상품리스트 조회 -->
 	<select id="hostGoodsList" resultMap="goodsResult"  parameterType="java.util.Map" >
-	  
-				select R.*, I.room_imageName, H.* from h_room R, h_roomimage I, h_host_info H  
-					where R.room_code=I.room_code 
-					and R.h_code=H.h_code
-        	        and I.room_imageType='main_image'
+
+	select R.*,
+	<if test="u_id!='' and u_id!=null">
+	 S.like_state, S.like_id,
+	        </if>
+	 I.room_imageName, H.* from h_room R
+	
+	<if test="u_id!='' and u_id!=null">
+	left join u_like S on R.room_code = S.room_code and S.u_id = #{u_id}
+			                </if>
+
+	
+	left join h_roomimage I on R.room_code=I.room_code
+	left join h_host_info H on R.h_code=H.h_code
+	where I.room_imageType = 'main_image'
         	                <if test="kitchen=='Y'">
 			                  AND kitchen='Y'
 			                </if>

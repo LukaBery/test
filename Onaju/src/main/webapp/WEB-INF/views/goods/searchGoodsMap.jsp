@@ -358,6 +358,81 @@
 		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
 
+.toggle-heart{
+  position: absolute;
+
+}
+.toggle-heart:checked + label {
+  color: #e2264d;
+  -webkit-filter: none;
+          filter: none;
+  will-change: font-size;
+  -webkit-animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
+          animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
+}
+.toggle-heart:checked + label:before, .toggle-heart:checked + label:after {
+  -webkit-animation: inherit;
+          animation: inherit;
+
+}
+.toggle-heart:checked + label:before {
+  will-change:  border-width, border-color;
+ 
+}
+.toggle-heart:checked + label:after {
+  will-change: opacity, box-shadow;
+ 
+}
+.toggle-heart:focus + label {
+  text-shadow: 0 0 3px rgb(250,100,145),  0 1px 1px white, 0 -1px 1px white,  1px 0 1px white, -1px 0 1px white;
+}
+
+[id='ttl'] {
+  align-self: center;
+  position: relative;
+  color: white;
+   text-shadow: 0 0 3px rgb(250,100,145),  0 1px 1px white, 0 -1px 1px white,  1px 0 1px white, -1px 0 1px white;
+  font-size: 2em;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+[id='ttl']:before, [id='ttl']:after {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  content: '';
+}
+[id='ttl']:before {
+  box-sizing: border-box;
+  margin: -2.25rem;
+  border: solid 2.25rem #e2264d;
+  width: 4.5rem;
+  height: 4.5rem;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+[id='ttl']:after {
+  margin: -0.1875rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  box-shadow: 0.32476rem -3rem 0 -0.1875rem #ff8080, -0.32476rem -2.625rem 0 -0.1875rem #ffed80, 2.54798rem -1.61656rem 0 -0.1875rem #ffed80, 1.84982rem -1.89057rem 0 -0.1875rem #a4ff80, 2.85252rem 0.98418rem 0 -0.1875rem #a4ff80, 2.63145rem 0.2675rem 0 -0.1875rem #80ffc8, 1.00905rem 2.84381rem 0 -0.1875rem #80ffc8, 1.43154rem 2.22414rem 0 -0.1875rem #80c8ff, -1.59425rem 2.562rem 0 -0.1875rem #80c8ff, -0.84635rem 2.50595rem 0 -0.1875rem #a480ff, -2.99705rem 0.35095rem 0 -0.1875rem #a480ff, -2.48692rem 0.90073rem 0 -0.1875rem #ff80ed, -2.14301rem -2.12438rem 0 -0.1875rem #ff80ed, -2.25479rem -1.38275rem 0 -0.1875rem #ff8080;
+}
+
+.display_none{
+	
+	  position: absolute;
+	width:30px;
+	height:30px;
+visibility:hidden;
+	
+} 
 
 </style>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
@@ -372,16 +447,51 @@
 	</script>
   	
   <script>
-
-  $(function() {
-	  $(".heart").on("click", function() {
-	    $(this).toggleClass("is-active");
-	  });
-	});
   
+  
+  function hhl(heart_id){
+	   var _room_code = heart_id;
+	   var _like_state = "";
+	   var like_yn = "like_state_" + heart_id;
+	   var like_Yn = document.getElementById(like_yn).value;
+	  
+		  
+	    if (document.getElementsByName(heart_id)[0].checked == true) {
+           _like_state = "1";
+        }
+		 
+	    if (document.getElementsByName(heart_id)[0].checked == false) {
+	           _like_state = "0";
+        }
+	    var form = {
+				room_code : _room_code,
+				like_state : _like_state,
+				like_yn : like_Yn
+			}
+		 alert(_like_state);
+		 $.ajax({
+				url : "${contextPath}/host/community/addLike.do",
+				data : JSON.stringify(form),
+				dataType : "JSON",
+				type : "post",
+				contentType : "application/json; charset=utf-8;",
+				async : false,
+				
+				success : function(data) {
+					alert("입력하신 이메일 주소에서 발급된 코드를 확인하세요.");
+					
+					
+					
+				},
+				error : function() {
+					alert("네트워크가 불안정합니다. 다시 시도해 주세요.222");
+				}
+			})
+  }
   </script>
   </head>
   <body>
+
     <section class="hb_section_total">
       <section class="hb_section_6">
         <div class="charge-boxline">
@@ -630,11 +740,15 @@
 							<p id="hb_main_p7">${item.room_fee } / 박</p>
 						</div>          
               		</div>
-            	</div>          
+            	</div>    
+            	
+            	<c:if test="${memberInfo !=null }">      
           		<div style=" display:inline-block;">     	
-          			<input id="tt_${i}" type="checkbox"class="toggle-heart display_none" title="1"/>
+          		<input type="hidden" id="like_state_${item.room_code}" value="${item.like_state}">
+          			<input id="tt_${i}" type="checkbox"class="toggle-heart display_none"onClick="hhl(${item.room_code})" name="${item.room_code}"title="1"<c:if test="${item.like_state == true}">checked</c:if>/>
 					<label for="tt_${i}" class="toggle-heart" id="ttl"aria-label="like" title="1">❤</label>
-				</div>          
+				</div>
+				</c:if>          
           	</div>
           	
           				</c:forEach>

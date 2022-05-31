@@ -56,7 +56,8 @@ public class HostGoodsVO {
 	private String room_imageType;
 	private String longitude;
 	private String latitude;
-	
+	private boolean like_state;
+	private String like_id;
 	
 	
 	public HostGoodsVO() {
@@ -126,6 +127,16 @@ public class HostGoodsVO {
 
 	public int getZipcode() {
 		return zipcode;
+	}
+
+
+	public String getLike_id() {
+		return like_id;
+	}
+
+
+	public void setLike_id(String like_id) {
+		this.like_id = like_id;
 	}
 
 
@@ -251,6 +262,16 @@ public class HostGoodsVO {
 
 	public void setAble_checkIn(String able_checkIn) {
 		this.able_checkIn = able_checkIn;
+	}
+
+
+	public boolean isLike_state() {
+		return like_state;
+	}
+
+
+	public void setLike_state(boolean like_state) {
+		this.like_state = like_state;
 	}
 
 

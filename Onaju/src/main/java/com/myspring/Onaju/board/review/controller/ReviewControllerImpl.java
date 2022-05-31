@@ -242,4 +242,5 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
+	
 }
