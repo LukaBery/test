@@ -271,6 +271,29 @@ padding: 30px 0px;
 	opacity: 100%;
 	box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);
 	}
+	
+.mypage_user_info_grade {
+	display: inline-block;
+	float: left;
+	font-size: 12px;
+	width: 20%;
+	height: 100%;
+	padding: 10px 20px 0px 20px;
+}
+
+.mypage_user_info_grade_2 {
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	display: inline-block;
+}
+
+.mypage_user_info_grade_logo {
+	width: 100%;
+	margin-top: 10px;
+	display: inline-block;
+	float: left;
+}
 </style>
 </head>
 <body>
@@ -338,6 +361,37 @@ padding: 30px 0px;
 						<strong style="font-size: 14px;">${memberInfo.u_name}</strong>님
 					</div>
 				</div>
+				
+							<div class="mypage_user_info_grade">
+				<div class="mypage_user_info_grade_2">
+						
+						<c:choose>
+						<c:when test="${memberInfo.u_grade.equals('vip') }">
+				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg">
+				
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(238,50,86);">VIP 등급</strong></div>
+				</c:when>
+				
+				
+				<c:when test="${memberInfo.u_grade.equals('gold')}">
+				
+				<img src="${contextPath}/resources/image/icons/user_grade_gold.svg">
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(255,187,5);">GOLD </strong>등급</div>
+				</c:when>
+				
+					<c:when test="${memberInfo.u_grade.equals('silver') }">
+				
+				<img src="${contextPath}/resources/image/icons/user_grade_silver.svg">
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px;color:rgb(113,203,211);">SILVER 등급</strong></div>
+				</c:when>
+				
+				</c:choose>
+				
+				
+				
+				</div>	
+				</div>
+				
 			</div>
 		
 		<div class="hb_section_title">

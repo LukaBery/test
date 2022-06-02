@@ -24,6 +24,7 @@ import com.myspring.Onaju.cart.vo.CartVO;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.goods.service.HostGoodsService;
 import com.myspring.Onaju.host.goods.vo.HostGoodsVO;
+import com.myspring.Onaju.member.service.MemberService;
 import com.myspring.Onaju.member.vo.MemberVO;
 import com.myspring.Onaju.order.service.OrderService;
 import com.myspring.Onaju.order.vo.OrderVO;
@@ -41,6 +42,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private HostGoodsService hostGoodsService;
 	@Autowired
 	private CartService cartService;
+	@Autowired
+	private MemberService memberService;
 @Autowired
 private CartVO cartVO;
 	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
@@ -254,6 +257,9 @@ System.out.println("리스트 추가완료");
 		System.out.println("애드 메서드 끝 ");
 		
 		cartService.removeCartGoods(cart_code);
+		MemberVO _memberVO = memberService.login(receiverMap);
+		session.removeAttribute("memberInfo");
+		session.setAttribute("memberInfo", _memberVO);
 		mav.addObject("myOrderInfo",receiverMap);
 		mav.addObject("orderVO", orderVO);
 	

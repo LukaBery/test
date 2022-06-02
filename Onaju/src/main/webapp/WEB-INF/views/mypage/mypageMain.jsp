@@ -22,7 +22,6 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <style>
-
 .hb_nav_btn {
 	text-align: center;
 	display: inline-block;
@@ -36,9 +35,7 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .hb_nav_btn:hover {
-	
 	border: 2px solid #CCCCCC;
-	
 }
 
 .hb_nav_btn_a {
@@ -56,7 +53,6 @@ request.setCharacterEncoding("UTF-8");
 }
 
 hb_nav_btn_a:hover {
-	
 	opacity: 100%;
 	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
 }
@@ -70,20 +66,17 @@ hb_nav_btn_a:hover {
 }
 
 /* <섹션 종류> */
-.hb_section_total {  
+.hb_section_total {
 	width: 1100px;
 	height: 100%
 }
 
-
-.hb_section_mypagemain {  
+.hb_section_mypagemain {
 	padding: 30px 0px;
 	display: inline-block;
 	width: 84%;
 	height: 100%;
 }
-
-
 
 .hb_section_title {
 	padding: 20px 4px 15px 0px;
@@ -97,7 +90,6 @@ hb_nav_btn_a:hover {
 	margin-left: 0px;
 	border: 0;
 }
-
 
 #h1_left {
 	text-align: left;
@@ -138,22 +130,22 @@ hb_nav_btn_a:hover {
 	font-size: 12px;
 	padding: 6px;
 }
-#btn_mypage_fin{
 
-    width: 80%;
-    height: 80%;
-    z-index: 10;
-    border: 1px solid #CCCCCC;
-    color: white;
-    font-weight: 560;
-    background-color: rgb(250,100,145);
-    border-radius: 12px;
-    z-index: 9999;
-    font-size: 12px;
-    padding: 6px;
+#btn_mypage_fin {
+	width: 80%;
+	height: 80%;
+	z-index: 10;
+	border: 1px solid #CCCCCC;
+	color: white;
+	font-weight: 560;
+	background-color: rgb(250, 100, 145);
+	border-radius: 12px;
+	z-index: 9999;
+	font-size: 12px;
+	padding: 6px;
 }
 
-#btn_mypage_0:hover, #btn_mypage_fin:hover{
+#btn_mypage_0:hover, #btn_mypage_fin:hover {
 	box-shadow: 1px 3px 5px rgb(0 0 0/ 18%);
 }
 
@@ -178,7 +170,7 @@ hb_nav_btn_a:hover {
 }
 
 .btn_clicked {
-width: 100%;
+	width: 100%;
 	height: 100%;
 	border: 1px solid #CCCCCC;
 	border-radius: 6px;
@@ -186,27 +178,49 @@ width: 100%;
 	font-size: 12px;
 	font-weight: 600;
 	cursor: pointer;
-
 	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
 	color: white;
 	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
 		50%, rgb(205, 11, 56) 10%) !important;
 }
-.btn_pageNum{
-width:20px;
-color:black;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
+
+.btn_pageNum {
+	width: 20px;
+	color: black;
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: 600;
 }
 
-.btn_pageNum_clicked{
-width:20px;
-color: rgb(250,100,145);
+.btn_pageNum_clicked {
+	width: 20px;
+	color: rgb(250, 100, 145);
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: 600;
+}
 
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
+.mypage_user_info_grade {
+	display: inline-block;
+	float: left;
+	font-size: 12px;
+	width: 20%;
+	height: 100%;
+	padding: 10px 20px 0px 20px;
+}
+
+.mypage_user_info_grade_2 {
+	width: 80px;
+	height: 80px;
+	border-radius: 70%;
+	display: inline-block;
+}
+
+.mypage_user_info_grade_logo {
+	width: 100%;
+	margin-top: 10px;
+	display: inline-block;
+	float: left;
 }
 </style>
 <c:if test='${ not empty period_color }'>
@@ -473,28 +487,27 @@ function  calcPeriod(search_period){
 						<strong style="font-size: 14px;">${memberInfo.u_name}</strong>님
 					</div>
 				</div>
-				<div style="display:inline-block;float:left;font-size: 12px; width:20%;height:100%; padding: 10px 20px 0px 20px;">
-				<div
-						style="width: 80px;  height: 80px;  border-radius: 70%; display: inline-block; ">
+				<div class="mypage_user_info_grade">
+				<div class="mypage_user_info_grade_2">
 						
 						<c:choose>
 						<c:when test="${memberInfo.u_grade.equals('vip') }">
 				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg">
 				
-				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px; color:rgb(238,50,86);">VIP 등급</strong></div>
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(238,50,86);">VIP 등급</strong></div>
 				</c:when>
 				
 				
 				<c:when test="${memberInfo.u_grade.equals('gold')}">
 				
 				<img src="${contextPath}/resources/image/icons/user_grade_gold.svg">
-				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px; color:rgb(255,187,5);">GOLD </strong>등급</div>
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(255,187,5);">GOLD </strong>등급</div>
 				</c:when>
 				
 					<c:when test="${memberInfo.u_grade.equals('silver') }">
 				
 				<img src="${contextPath}/resources/image/icons/user_grade_silver.svg">
-				<div style="width:100%; margin-top:10px;display: inline-block;float:left;"><strong style="font-size: 12px;color:rgb(113,203,211);">SILVER 등급</strong></div>
+				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px;color:rgb(113,203,211);">SILVER 등급</strong></div>
 				</c:when>
 				
 				</c:choose>
@@ -554,6 +567,13 @@ function  calcPeriod(search_period){
 										<div style="width: 23%; height: 50%; float: right;">
 											<a class="draggFalse" id="btn_mypage_0"href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
 												취소 / 환불 </a>
+												</div>
+									</c:when>
+									<c:when
+										test="${item.pay_state eq 'refunded' }">
+										<div style="width: 23%; height: 50%; float: right;">
+											<a class="draggFalse" id="btn_mypage_0"href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
+												환불 완료 </a>
 												</div>
 									</c:when>
 									<c:otherwise>

@@ -18,25 +18,27 @@
     <style>
 .hb_rec_12 {
 	display: inline-block;
-	width: 550px;
+	width: 100%;
 	height: 100%;
 	border-radius: 10px;
 }
 
 .hb_rec_13 {
-	float: right;
-	position: sticky;
-	width: 550px;
-	height: 760px;
-	border-radius: 10px;
-	border: 1px solid #cccccc;
-	text-align: center;
-	top: 100px;
-	left: 50%;
+	
+    float: right;
+    position: fixed;
+    width: 60%;
+    height: calc(100% - 100px);
+    border: 1px solid #cccccc;
+    text-align: center;
+    top: 100px;
+    left: 40%;
 }
 
 .hb_section_total {
-	width: 1100px;
+
+float:left;
+	width: 40%;
 	height: 100%;
 }
 
@@ -48,8 +50,9 @@
 }
 
 .hb_section_8 {
+padding-left:20px;
 	display: flex;
-	width: 1100px;
+	width: 100%;
 	height: 100%;
 }
 
@@ -160,7 +163,7 @@
 .lodging-box {
 	overflow: hidden !important;
 	height: 100% !important;
-	width: 500px !important;
+	width: 90% !important;
 	position: relative !important;
 	display: inline-block;
 }
@@ -175,7 +178,7 @@
 }
 
 .lodging-info-total {
-	width: 230px;
+	width: 50%;
 	height: 200px;
 	margin-left: 10px;
 	float: left;
@@ -204,7 +207,7 @@
 
 .lodging-total {
 	float: left;
-	width: 550px;
+	width: 100%;
 	display: inline-block;
 	margin-bottom: 15px;
 	height: 200px;
@@ -262,8 +265,10 @@
 }
 
 #hb_main_p5 {
+white-space:nowrap;
+overflow:hidden;
 	float: left;
-	width: 230px;
+	width: 100%;
 	font-weight: 530;
 	font-size: 13px;
 	text-align: left;
@@ -281,7 +286,7 @@
 
 #hb_main_p6 {
 	float: left;
-	width: 240px;
+	width: 100%;
 	font-weight: 620;
 	font-size: 17px;
 	text-align: left;
@@ -770,9 +775,9 @@ visibility:hidden;
           	       
         </div>
         <div style="height:100%;min-height:1000px; top:10px;">
-        <div class="hb_rec_13" id="map">지도API</div>
+        <div class="hb_rec_13" id="map">지도API <button type="button" onClick="getCurrentPosBtn()">현재 위치 받아오기</button></div>
         </div>
-        <button type="button" onClick="getCurrentPosBtn()">현재 위치 받아오기</button>
+       
      
 	<!-- 카카오맵 API -->
 	<script>
