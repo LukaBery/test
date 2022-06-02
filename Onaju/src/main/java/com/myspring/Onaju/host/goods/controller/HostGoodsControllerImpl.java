@@ -136,8 +136,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		MemberVO mem = (MemberVO) session.getAttribute("memberInfo");
 		if(mem != null ) {
 			searchMap.put("u_id", mem.getU_id());
-			
-			
 		}
 
 		Map<String,List<HostGoodsVO>> hostgoodsMap= hostGoodsService.listGoods(searchMap);

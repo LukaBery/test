@@ -17,5 +17,6 @@ public interface MyPageService{
 	public MemberVO myDetailInfo(String u_id) throws Exception;
 	public void removeMember(String u_id) throws Exception;
 	public MemberVO deleteMemberInfo(String u_id) throws Exception;
+	public List<OrderVO> listMyOrderGoods_fu(Map _dateMap) throws Exception;
 
 }

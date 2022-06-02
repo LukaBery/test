@@ -18,4 +18,5 @@ public interface MyPageDAO {
 
 	public void deleteMember(String u_id) throws DataAccessException;
 	public MemberVO selectdeleteMemberInfo(String u_id) throws DataAccessException;
+	public List<OrderVO> listMyOrderGoods_fu(Map _dateMap) throws DataAccessException;
 }

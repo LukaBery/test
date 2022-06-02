@@ -18,6 +18,6 @@ public interface HostCommunityService {
 	public void addLike(Map likeMap) throws Exception;
 	public void delLike(Map likeMap) throws Exception;
 	public String get_likeId(Map likeMap) throws Exception;
-
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws Exception;
 
 }

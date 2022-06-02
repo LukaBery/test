@@ -84,4 +84,11 @@ public class HostCommunityServiceImpl implements HostCommunityService{
 	public String get_likeId(Map likeMap) throws Exception{
 		return hostCommunityDAO.get_likeId(likeMap);
 	}
+
+	@Override
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws Exception{
+		
+		return hostCommunityDAO.comunityList_best(searchMap);
+	}
+	
 }

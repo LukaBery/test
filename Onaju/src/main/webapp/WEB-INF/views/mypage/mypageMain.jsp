@@ -510,7 +510,92 @@ function  calcPeriod(search_period){
 				
 			</div>
 
+<c:if test="${not empty myOrderList_fu}">
 
+	<div class="hb_section_title">
+				<h1 id="h1_left_title">여행</h1>
+			</div>
+			
+			
+			<div style="width:100%;height:auto;display:flex;width:924px; justify-content:flex-start;flex-wrap:wrap;">
+				<c:forEach var="item" items="${myOrderList_fu}" varStatus="status">
+					<c:set var="i" value="${i +1 }" />
+				
+				
+				
+				
+				
+				
+				
+				<div   style="width:462px; height:100px;margin: 10px 0px;" >
+				
+				
+				<div
+								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
+								onClick="#">
+								<fmt:setLocale value="en_US" scope="session" />
+								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkIn_date" value="${checkIn}"
+									pattern="yyyy년 MM월 dd일" />
+								<fmt:parseDate var="checkOut" value="${ item.checkOut_date }"
+									pattern="EEE MMM dd HH:mm:ss z yyyy" />
+								<fmt:formatDate var="checkOut_date" value="${checkOut}"
+									pattern="yyyy년 MM월 dd일" />
+
+								<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
+									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
+								<div style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+									${ item.title }</div>
+
+								<c:choose>
+									<c:when
+										test="${item.pay_state eq 'fin' }">
+										<div style="width: 23%; height: 50%; float: right;">
+											<a class="draggFalse" id="btn_mypage_0"href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
+												취소 / 환불 </a>
+												</div>
+									</c:when>
+									<c:otherwise>
+										<div style="width: 23%; height: 50%; float: right;">
+											<a class="draggFalse" id="btn_mypage_fin" >
+												환불 예정 </a>
+
+
+
+										</div>
+									</c:otherwise></c:choose>
+										
+									
+
+
+
+
+								<div
+									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									호스트: ${ item.h_name }</div>
+
+								<div
+									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									${checkIn_date } ~ ${checkOut_date }</div>
+
+							</div>
+							
+				
+				
+				
+				
+				
+				
+				
+				</div>
+				</c:forEach>	
+				</div>
+				
+				
+				
+			
+</c:if>
 
 
 			<div class="hb_section_title">
@@ -605,6 +690,7 @@ function  calcPeriod(search_period){
 
 
 <div style="display:flex;width:924px; justify-content:flex-start;flex-wrap:wrap;">
+
 			<c:choose>
 				<c:when test="${empty myOrderList}">
 					<tr height="10">
@@ -617,7 +703,7 @@ function  calcPeriod(search_period){
 				</c:when>
 				<c:when test="${!empty myOrderList}">
 
-					<c:forEach var="item" items="${myOrderList}" varStatus="membersNum">
+					<c:forEach var="item" items="${myOrderList}" varStatus="status">
 					<c:set var="i" value="${i +1 }" />
 						<form name="new_${i }" id="new_${i }" action="${contextPath}/board/review/addReview.do" method="post">
 						<div  id="reviewForm_${i}" style="width:462px; height:100px;margin: 10px 0px;" >

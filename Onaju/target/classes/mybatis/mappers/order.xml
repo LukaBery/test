@@ -104,6 +104,19 @@ where u_id =  #{u_id};
 
 
 </update>
+
+<update id="requestRefund" parameterType="String">
+
+update u_order
+<set>
+<![CDATA[
+pay_state = 'refund'
+]]>
+</set>
+where order_code =  #{order_code};
+
+
+</update>
 	
 
 </mapper>

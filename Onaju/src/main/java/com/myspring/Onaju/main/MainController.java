@@ -1,5 +1,7 @@
 package com.myspring.Onaju.main;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +33,15 @@ public class MainController extends BaseController {
 		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String viewName = (String) request.getAttribute("viewName");
-		String isLogOn = request.getParameter("isLogOn");
-		System.out.println("isLogon은" + isLogOn);
-		mav.addObject("isLogOn", isLogOn);
+
+		Map<String, String> searchMap = new HashMap();
+		searchMap.put("board_type", "best");
+		List<HostCommunityVO> comunityList_best= hostCommunityService.comunityList_best(searchMap);
+		searchMap.put("board_type", "newest");
+		List<HostCommunityVO> comunityList_newest= hostCommunityService.comunityList_best(searchMap);
+	
+		mav.addObject("comunityList_best", comunityList_best);
+		mav.addObject("comunityList_newest", comunityList_newest);
 		mav.setViewName(viewName);
 
 		return mav;

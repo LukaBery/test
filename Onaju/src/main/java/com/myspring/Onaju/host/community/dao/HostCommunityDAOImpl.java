@@ -86,6 +86,13 @@ public class HostCommunityDAOImpl implements HostCommunityDAO {
 	public String get_likeId(Map likeMap) throws DataAccessException{
 		return sqlSession.selectOne("mapper.hostCommunity.get_likeId",likeMap);
 	}
+
+	@Override
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws DataAccessException {
+		List<HostCommunityVO> hostAllCommunityList = (ArrayList) sqlSession.selectList("mapper.hostCommunity.comunityList_best", searchMap);
+		System.out.println("hostAllCommunityList#########"+hostAllCommunityList);
+		return hostAllCommunityList;
+	}
 	
 	
 }
