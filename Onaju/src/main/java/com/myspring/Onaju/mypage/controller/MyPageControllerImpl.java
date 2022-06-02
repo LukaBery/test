@@ -117,7 +117,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		_dateMap.put("pageNum",pageNum);
 		System.out.println(viewName);
 		_dateMap.put("search_type", "order");
-
+		List<OrderVO> myOrderList_fu=myPageService.listMyOrderGoods_fu(_dateMap);
 		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(_dateMap);
 		String cnt_ = myPageService.getCnt(_dateMap);
 		if(Math.floorMod(Integer.parseInt(cnt_),10) == 0) {
@@ -132,6 +132,7 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 		mav.addObject("cnt", cnt);
 		}
 		mav.addObject("myOrderList", myOrderList);
+		mav.addObject("myOrderList_fu", myOrderList_fu);
 		System.out.println("myOrderList:"+ myOrderList);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);

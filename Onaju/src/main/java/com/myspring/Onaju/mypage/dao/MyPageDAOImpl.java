@@ -18,6 +18,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 	private SqlSession sqlSession;
 
 
+	@Override
 	public List<OrderVO> selectMyOrderGoodsList(Map _dateMap) throws DataAccessException {
 		List<OrderVO> orderGoodsList = (List) sqlSession.selectList("mapper.mypage.selectMyOrderGoodsList", _dateMap);
 		if (orderGoodsList != null) {
@@ -40,7 +41,15 @@ public class MyPageDAOImpl implements MyPageDAO {
 		}
 		return orderGoodsList;
 	}
-
+	@Override
+	public List<OrderVO> listMyOrderGoods_fu(Map _dateMap) throws DataAccessException {
+		
+		
+			
+		
+		return (List) sqlSession.selectList("mapper.mypage.listMyOrderGoods_fu", _dateMap);
+	}
+	@Override
 	public String getCnt(Map _dateMap) throws DataAccessException{
 		String cnt = "";
 		String search_type = (String) _dateMap.get("search_type");
@@ -54,20 +63,22 @@ public class MyPageDAOImpl implements MyPageDAO {
 		
 		return cnt;
 	}
+	@Override
 	public void updateMyInfo(Map memberMap) throws DataAccessException {
 		sqlSession.update("mapper.mypage.updateMyInfo", memberMap);
 	}
-
+	@Override
 	public MemberVO selectMyDetailInfo(String u_id) throws DataAccessException {
 		MemberVO memberVO = (MemberVO) sqlSession.selectOne("mapper.mypage.selectMyDetailInfo", u_id);
 		return memberVO;
 
 	}
 
-
+	@Override
 	public void deleteMember(String u_id) throws DataAccessException {
 		sqlSession.delete("mapper.mypage.deleteMember", u_id);
 	}
+	@Override
 	public MemberVO selectdeleteMemberInfo(String u_id) throws DataAccessException{
 		MemberVO memberVO=(MemberVO)sqlSession.selectOne("mapper.mypage.selectdeleteMemberInfo",u_id);
 		return memberVO;

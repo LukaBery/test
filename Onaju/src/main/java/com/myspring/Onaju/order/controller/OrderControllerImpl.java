@@ -246,6 +246,7 @@ System.out.println("리스트 추가완료");
 			orderVO.setPay_type(receiverMap.get("pay_type"));	
 			/* orderVO.setDiscount(Float.parseFloat(receiverMap.get("discount"))); */
 			orderVO.setTotal(Integer.parseInt(receiverMap.get("total")));	
+			orderVO.setPay_state("fin");
 	
 		
 			System.out.println("애드 멤버 메서드 진입");
@@ -257,5 +258,20 @@ System.out.println("리스트 추가완료");
 		mav.addObject("orderVO", orderVO);
 	
 		return receiverMap;
+	}
+
+	@Override
+	@RequestMapping(value="/requestRefund.do", method = RequestMethod.GET)
+	public ModelAndView requestRefund(@RequestParam("order_code") String order_code,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		orderService.requestRefund(order_code);
+		String viewName=(String)request.getAttribute("viewName");
+
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.setViewName("redirect:/mypage/mypageMain.do");
+
+		return mav;
+		
+		
 	}
 }

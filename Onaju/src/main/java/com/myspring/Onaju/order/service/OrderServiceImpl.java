@@ -18,8 +18,15 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderDAO orderDAO;
 
+	@Override
 	public void addNewOrder(OrderVO myOrderList) throws Exception{
 		orderDAO.insertNewOrder(myOrderList);
+		//īƮ���� �ֹ� ��ǰ �����Ѵ�.
+	
+	}	
+	@Override
+	public void requestRefund(String order_code) throws Exception{
+		orderDAO.requestRefund(order_code);
 		//īƮ���� �ֹ� ��ǰ �����Ѵ�.
 	
 	}	

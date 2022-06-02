@@ -13,6 +13,7 @@
 		<result property="content" column="content" />
 		
 		<result property="h_id" column="h_id" />
+		<result property="h_name" column="h_name" />
 		<result property="h_imageName" column="h_imageName" />
 		
 		<result property="h_code" column="h_code" />
@@ -162,7 +163,53 @@
 	      delete from h_community where cmnNum=#{cmnNum}
     	]]>
 	</delete>
-
 	
+	
+	<delete id="delLike" parameterType="java.util.HashMap">
+	    <![CDATA[
+	      delete from 
+	      
+	      u_like where like_id=#{like_id}
+    	]]>
+	</delete>
+	
+	<insert id="addLike" parameterType="java.util.HashMap">
+	    <![CDATA[
+	      insert into 
+	      
+	      u_like ( u_id, room_code, like_state
+	      
+	      )values( #{u_id}, #{room_code}, 1)
+    	]]>
+	</insert>
+
+		
+	<select id="get_likeId" resultType="String"   parameterType="java.util.HashMap"  >
+	    <![CDATA[
+	    		select like_id from  u_like 
+     			where  u_id = #{u_id}
+      			and room_code =  #{room_code}
+		    	
+    	]]>
+	</select>
+	
+	<select id="comunityList_best" resultType="hostCommunityVO"  parameterType="java.util.HashMap"  >
+	    <![CDATA[
+				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code,C.cmn_image, C.bigTitle, C.creDate, T.h_name, T.h_imageName
+				from h_community C inner join h_room R
+				on C.room_code = R.room_code
+                inner join h_host_info I
+				on R.h_code = I.h_code
+                inner join h_host T on T.h_id = R.h_id
+                	]]>
+                 <if test="board_type!='' and board_type!=null and board_type =='best'">
+			        order by hit desc
+			      </if>
+			       <if test="board_type!='' and board_type!=null and board_type == 'newest'">
+			        order by creDate desc
+			      </if>
+				
+	
+	</select>
    
 </mapper>

@@ -2,6 +2,7 @@ package com.myspring.Onaju.host.community.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,28 @@ public class HostCommunityDAOImpl implements HostCommunityDAO {
 	@Override
 	public void deleteHostCommunity(int cmnNum) throws DataAccessException{
 		sqlSession.delete("mapper.hostCommunity.deleteHostCommunity",cmnNum);
+	}
+
+	@Override
+	public void addLike(Map likeMap) throws DataAccessException{
+		sqlSession.insert("mapper.hostCommunity.addLike",likeMap);
+	}
+
+	@Override
+	public void delLike(Map likeMap) throws DataAccessException{
+		sqlSession.delete("mapper.hostCommunity.delLike",likeMap);
+	}
+
+	@Override
+	public String get_likeId(Map likeMap) throws DataAccessException{
+		return sqlSession.selectOne("mapper.hostCommunity.get_likeId",likeMap);
+	}
+
+	@Override
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws DataAccessException {
+		List<HostCommunityVO> hostAllCommunityList = (ArrayList) sqlSession.selectList("mapper.hostCommunity.comunityList_best", searchMap);
+		System.out.println("hostAllCommunityList#########"+hostAllCommunityList);
+		return hostAllCommunityList;
 	}
 	
 	

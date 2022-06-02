@@ -1,19 +1,12 @@
 package com.myspring.Onaju.host.community.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,19 +18,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.community.service.HostCommunityService;
 import com.myspring.Onaju.host.community.vo.HostCommunityVO;
-import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
+import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("hostCommunityController")
 @RequestMapping(value = "/host/community")
@@ -355,7 +349,41 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
+	@Override
+	 @ResponseBody
+	@RequestMapping(value = "/addLike.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public Map<String, String> addLike(@RequestBody Map<String, String> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+		String _like_state = (String)map.get("like_state");  // 0 삭제 1 등록
+		String room_code = (String)map.get("room_code");  // 객실 번호
+		String like_yn = (String) map.get("like_yn"); // true or false 기존에 좋아요 유무
+		String like_id = (String) map.get("like_id"); // true or false 기존에 좋아요 유무
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String u_id = memberVO.getU_id();
+		Map<String, Object> LikeMap = new HashMap();
+		if (like_yn.equals("true")) {
+			LikeMap.put("like_id", like_id);
+			hostCommunityService.delLike(LikeMap);
+			like_yn = "false";
+		} else if (like_yn.equals("false")) {
+			
+			LikeMap.put("u_id", u_id);
+			LikeMap.put("room_code", room_code);
+			like_yn = "true";
+		hostCommunityService.addLike(LikeMap);
+		String _like_id = hostCommunityService.get_likeId(LikeMap);
+		like_id = _like_id;
+		}
+		map.put("room_code", room_code);
+		map.put("like_yn", like_yn);
+		map.put("like_id", like_id);
+		map.put("_like_state", _like_state);
 	
+		return map;
 	
-
+	}
 }

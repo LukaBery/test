@@ -69,4 +69,26 @@ public class HostCommunityServiceImpl implements HostCommunityService{
 	public void deleteHostCommunity(int cmnNum) throws Exception{
 		hostCommunityDAO.deleteHostCommunity(cmnNum);
 	}
+
+	@Override
+	public void addLike(Map likeMap) throws Exception{
+		hostCommunityDAO.addLike(likeMap);
+	}
+
+	@Override
+	public void delLike(Map likeMap) throws Exception{
+		hostCommunityDAO.delLike(likeMap);
+	}
+
+	@Override
+	public String get_likeId(Map likeMap) throws Exception{
+		return hostCommunityDAO.get_likeId(likeMap);
+	}
+
+	@Override
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws Exception{
+		
+		return hostCommunityDAO.comunityList_best(searchMap);
+	}
+	
 }

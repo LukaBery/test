@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,4 +45,6 @@ public interface HostGoodsController {
 	public void addNewHostGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public void  removeHostGoodsImage(@RequestParam("room_code") int room_code,@RequestParam("roomImage_NO") int roomImage_NO, @RequestParam("room_imageName") String room_imageName,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+
 }

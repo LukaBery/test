@@ -1,5 +1,4 @@
-
-.toggle-heart{
+/* .toggle-heart{
   position: absolute;
 
 }
@@ -8,24 +7,21 @@
   -webkit-filter: none;
           filter: none;
   will-change: font-size;
-  -webkit-animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
-          animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+  -webkit-animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
+          animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
 }
 .toggle-heart:checked + label:before, .toggle-heart:checked + label:after {
   -webkit-animation: inherit;
           animation: inherit;
-  -webkit-animation-timing-function: ease-out;
-          animation-timing-function: ease-out;
+
 }
 .toggle-heart:checked + label:before {
-  will-change: transform, border-width, border-color;
-  -webkit-animation-name: bubble;
-          animation-name: bubble;
+  will-change:  border-width, border-color;
+ 
 }
 .toggle-heart:checked + label:after {
   will-change: opacity, box-shadow;
-  -webkit-animation-name: sparkles;
-          animation-name: sparkles;
+ 
 }
 .toggle-heart:focus + label {
   text-shadow: 0 0 3px rgb(250,100,145),  0 1px 1px white, 0 -1px 1px white,  1px 0 1px white, -1px 0 1px white;
@@ -133,4 +129,4 @@
 	height:30px;
 visibility:hidden;
 	
-} 
+}  */

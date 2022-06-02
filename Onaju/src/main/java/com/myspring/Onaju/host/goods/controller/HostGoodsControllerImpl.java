@@ -32,7 +32,7 @@ import com.myspring.Onaju.host.goods.vo.HostGoodsVO;
 import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
-import com.myspring.Onaju.order.vo.OrderVO;
+import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("hostGoodsController")
 @RequestMapping(value = "/host/goods")
@@ -129,10 +129,14 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	public ModelAndView searchGoodsMap(@RequestParam Map<String, String> searchMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		System.out.println("메서드 진입");
 
-		HttpSession session;
+		HttpSession session = request.getSession();
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
 		System.out.println("뷰네임");
+		MemberVO mem = (MemberVO) session.getAttribute("memberInfo");
+		if(mem != null ) {
+			searchMap.put("u_id", mem.getU_id());
+		}
 
 		Map<String,List<HostGoodsVO>> hostgoodsMap= hostGoodsService.listGoods(searchMap);
 		System.out.println("서비스 끝");

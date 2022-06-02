@@ -16,5 +16,10 @@ public interface HostCommunityDAO {
 	public HostCommunityVO modCommunity(int cmnNum) throws DataAccessException;
 	public void deleteHostCommunity(int cmnNum) throws DataAccessException;
 	public void updateHostCommunity(HostCommunityVO hostCommunityVO)throws Exception;
+	public void addLike(Map likeMap) throws DataAccessException;
+	public void delLike(Map likeMap) throws DataAccessException;
+	public String get_likeId(Map likeMap) throws DataAccessException;
+	public List<HostCommunityVO> comunityList_best(Map searchMap) throws DataAccessException ;
+
 	
 }

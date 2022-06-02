@@ -93,7 +93,7 @@
 update u_member
 <set>
 <![CDATA[u_grade = (case when ( (
-select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin')<150000) then 'silver'
+select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin')<150000) then 'silver' 
  when ( (
 select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin') <=300000) then 'gold' 
  when ( 300000<(
@@ -101,6 +101,19 @@ select sum(total) from u_order where u_id = #{u_id} and use_state = 'fin')) then
 ]]>
 </set>
 where u_id =  #{u_id};
+
+
+</update>
+
+<update id="requestRefund" parameterType="String">
+
+update u_order
+<set>
+<![CDATA[
+pay_state = 'refund'
+]]>
+</set>
+where order_code =  #{order_code};
 
 
 </update>
