@@ -33,6 +33,6 @@ public interface HostCommunityController {
 	
 	public ResponseEntity deleteHostCommunity(@RequestParam("cmnNum") int cmnNum, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 
-	public ModelAndView addLike(@RequestBody Map<String, String> map, HttpServletRequest request, HttpServletResponse response) throws Exception ;	
+	public Map<String, String> addLike(@RequestBody Map<String, String> map, HttpServletRequest request, HttpServletResponse response) throws Exception ;	
 	
 }

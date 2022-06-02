@@ -452,8 +452,10 @@ visibility:hidden;
   function hhl(heart_id){
 	   var _room_code = heart_id;
 	   var _like_state = "";
-	   var like_yn = "like_state_" + heart_id;
-	   var like_Yn = document.getElementById(like_yn).value;
+	   var _like_yn = "like_state_" + heart_id;
+	   var _like_id = "like_id_" + heart_id;
+	   var like_Yn = document.getElementById(_like_yn).value;
+	   var like_id = document.getElementById(_like_id).value;
 	  
 		  
 	    if (document.getElementsByName(heart_id)[0].checked == true) {
@@ -464,11 +466,12 @@ visibility:hidden;
 	           _like_state = "0";
         }
 	    var form = {
-				room_code : _room_code,
-				like_state : _like_state,
-				like_yn : like_Yn
+				"room_code" : _room_code,
+				"like_state" : _like_state,
+				"like_yn" : like_Yn,
+				"like_id" : like_id
 			}
-		 alert(_like_state);
+		
 		 $.ajax({
 				url : "${contextPath}/host/community/addLike.do",
 				data : JSON.stringify(form),
@@ -478,12 +481,15 @@ visibility:hidden;
 				async : false,
 				
 				success : function(data) {
-					alert("입력하신 이메일 주소에서 발급된 코드를 확인하세요.");
-					
-					
+				      document.getElementById(_like_yn).setAttribute('value',data["like_yn"]);
+				      document.getElementById(_like_id).setAttribute('value',data["like_id"]);
+ 
+				
+				
 					
 				},
 				error : function() {
+					alert("")
 					alert("네트워크가 불안정합니다. 다시 시도해 주세요.222");
 				}
 			})
@@ -743,7 +749,9 @@ visibility:hidden;
             	</div>    
             	
             	<c:if test="${memberInfo !=null }">      
-          		<div style=" display:inline-block;">     	
+          		<div style=" display:inline-block;">    
+          		<input type="hidden" id="like_id_${item.room_code}" value="${item.like_id}">
+          		 	
           		<input type="hidden" id="like_state_${item.room_code}" value="${item.like_state}">
           			<input id="tt_${i}" type="checkbox"class="toggle-heart display_none"onClick="hhl(${item.room_code})" name="${item.room_code}"title="1"<c:if test="${item.like_state == true}">checked</c:if>/>
 					<label for="tt_${i}" class="toggle-heart" id="ttl"aria-label="like" title="1">❤</label>

@@ -162,7 +162,34 @@
 	      delete from h_community where cmnNum=#{cmnNum}
     	]]>
 	</delete>
-
 	
+	
+	<delete id="delLike" parameterType="java.util.HashMap">
+	    <![CDATA[
+	      delete from 
+	      
+	      u_like where like_id=#{like_id}
+    	]]>
+	</delete>
+	
+	<insert id="addLike" parameterType="java.util.HashMap">
+	    <![CDATA[
+	      insert into 
+	      
+	      u_like ( u_id, room_code, like_state
+	      
+	      )values( #{u_id}, #{room_code}, 1)
+    	]]>
+	</insert>
+
+		
+	<select id="get_likeId" resultType="String"   parameterType="java.util.HashMap"  >
+	    <![CDATA[
+	    		select like_id from  u_like 
+     			where  u_id = #{u_id}
+      			and room_code =  #{room_code}
+		    	
+    	]]>
+	</select>
    
 </mapper>
