@@ -33,7 +33,7 @@
 .asidesize{
  background-color: white;
  width: 300px;
- height: 100vh;
+ height: 1800px;
  float: left;
  box-shadow: 0 1px 3px rgb(224, 224, 224, 0.5);
 }
@@ -55,12 +55,13 @@
 }
 .footersize{
 	width:100%;
+	height:45px;
 	bottom:0;
 
 }
 .Ohnaju-layout{
 	width: 1440px;
-	height: 100vh;
+	height: 1800px;
 	margin: auto;
 }
 </style>

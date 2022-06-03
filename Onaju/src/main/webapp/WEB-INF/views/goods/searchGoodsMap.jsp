@@ -293,25 +293,6 @@ overflow:hidden;
 	color: black;
 }
 
-.heart {
-	width: 100px;
-	height: 100px;
-	background:
-		url("https://cssanimation.rocks/images/posts/steps/heart.png")
-		no-repeat;
-	background-position: 0 0;
-	cursor: pointer;
-	transition: background-position 1s steps(28);
-	transition-duration: 0s; &. is-active { transition-duration : 1s;
-	background-position: -2800px 0;
-}
-
-}
-.heart:active {
-	transition-duration: 1s;
-	background-position: -2800px 0;
-}
-
 .customoverlay {
 	position: relative;
 	bottom: 50px;
@@ -363,82 +344,25 @@ overflow:hidden;
 		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
 
-.toggle-heart{
-  position: absolute;
-
-}
-.toggle-heart:checked + label {
-  color: #e2264d;
-  -webkit-filter: none;
-          filter: none;
-  will-change: font-size;
-  -webkit-animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
-          animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.0);
-}
-.toggle-heart:checked + label:before, .toggle-heart:checked + label:after {
-  -webkit-animation: inherit;
-          animation: inherit;
-
-}
-.toggle-heart:checked + label:before {
-  will-change:  border-width, border-color;
- 
-}
-.toggle-heart:checked + label:after {
-  will-change: opacity, box-shadow;
- 
-}
-.toggle-heart:focus + label {
-  text-shadow: 0 0 3px rgb(250,100,145),  0 1px 1px white, 0 -1px 1px white,  1px 0 1px white, -1px 0 1px white;
-}
-
-[id='ttl'] {
-  align-self: center;
-  position: relative;
-  color: white;
-   text-shadow: 0 0 3px rgb(250,100,145),  0 1px 1px white, 0 -1px 1px white,  1px 0 1px white, -1px 0 1px white;
-  font-size: 2em;
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
-}
-[id='ttl']:before, [id='ttl']:after {
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  content: '';
-}
-[id='ttl']:before {
-  box-sizing: border-box;
-  margin: -2.25rem;
-  border: solid 2.25rem #e2264d;
-  width: 4.5rem;
-  height: 4.5rem;
-  -webkit-transform: scale(0);
-          transform: scale(0);
-}
-[id='ttl']:after {
-  margin: -0.1875rem;
-  width: 0.375rem;
-  height: 0.375rem;
-  box-shadow: 0.32476rem -3rem 0 -0.1875rem #ff8080, -0.32476rem -2.625rem 0 -0.1875rem #ffed80, 2.54798rem -1.61656rem 0 -0.1875rem #ffed80, 1.84982rem -1.89057rem 0 -0.1875rem #a4ff80, 2.85252rem 0.98418rem 0 -0.1875rem #a4ff80, 2.63145rem 0.2675rem 0 -0.1875rem #80ffc8, 1.00905rem 2.84381rem 0 -0.1875rem #80ffc8, 1.43154rem 2.22414rem 0 -0.1875rem #80c8ff, -1.59425rem 2.562rem 0 -0.1875rem #80c8ff, -0.84635rem 2.50595rem 0 -0.1875rem #a480ff, -2.99705rem 0.35095rem 0 -0.1875rem #a480ff, -2.48692rem 0.90073rem 0 -0.1875rem #ff80ed, -2.14301rem -2.12438rem 0 -0.1875rem #ff80ed, -2.25479rem -1.38275rem 0 -0.1875rem #ff8080;
-}
-
-.display_none{
-	
-	  position: absolute;
-	width:30px;
-	height:30px;
-visibility:hidden;
-	
-} 
-
+   #kakao_button{ width: 150px;
+    position: absolute;
+    z-index: 10;
+    border: 1px solid #FD5286;
+    border-radius: 12px;
+    background-color: white;
+    color: #FD5286;
+    font-size: 13px;
+    height: 31px;
+    font-weight: 700;
+    margin-top: 20px;
+    left: 45%;
+    }
+     #kakao_button:hover{
+     background-color: #FD5286;
+        border: 1px solid #FD5286;
+      color:white;
+     
+     }
 </style>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
 
@@ -488,10 +412,6 @@ visibility:hidden;
 				success : function(data) {
 				      document.getElementById(_like_yn).setAttribute('value',data["like_yn"]);
 				      document.getElementById(_like_id).setAttribute('value',data["like_id"]);
- 
-				
-				
-					
 				},
 				error : function() {
 					alert("")
@@ -711,7 +631,8 @@ visibility:hidden;
          	</div>
             
             
-            
+            <input type="hidden" id="search_longitude_map"name="search_longitude" value="${searchKeyword.search_longitude}">
+            <input type="hidden" id="search_latitude_map"name="search_latitude" value="${searchKeyword.search_latitude}">
             <form>
             	<c:choose>
   					<c:when test="${empty hostgoodsMap}" >
@@ -775,8 +696,13 @@ visibility:hidden;
           	       
         </div>
         <div style="height:100%;min-height:1000px; top:10px;">
-        <div class="hb_rec_13" id="map">지도API <button type="button" onClick="getCurrentPosBtn()">현재 위치 받아오기</button></div>
-        </div>
+				<div class="hb_rec_13" id="map">
+					지도API
+					<button type="button"
+						id="kakao_button"
+						onClick="getCurrentPosBtn_1()">현재 위치로 이동</button>
+				</div>
+			</div>
        
      
 	<!-- 카카오맵 API -->
@@ -857,8 +783,18 @@ visibility:hidden;
 
 		function locationLoadSuccess(pos) {
 			// 현재 위치 받아오기
-			var currentPos = new kakao.maps.LatLng(pos.coords.latitude,
-					pos.coords.longitude);
+			
+			var search_longitude = document.getElementById('search_longitude_map').value;
+
+			var search_latitude = document.getElementById('search_latitude_map').value;
+			currentPos = "";
+			if(search_latitude == 0 || search_latitude == null){
+				var currentPos = new kakao.maps.LatLng(pos.coords.latitude,
+						pos.coords.longitude);
+			}else{
+			var currentPos = new kakao.maps.LatLng(search_longitude,
+					search_latitude)
+			}
 
 			// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
 			map.panTo(currentPos);
@@ -881,7 +817,38 @@ visibility:hidden;
 		function getCurrentPosBtn() {
 			navigator.geolocation.getCurrentPosition(locationLoadSuccess,
 					locationLoadError);
+		
 		};
+		function getCurrentPosBtn_1() {
+			navigator.geolocation.getCurrentPosition(locationLoadSuccess_1,
+					locationLoadError);
+		
+		};
+		function locationLoadSuccess_1(pos) {
+			// 현재 위치 받아오기
+			
+			
+		
+				var currentPos = new kakao.maps.LatLng(pos.coords.latitude,
+						pos.coords.longitude);
+		
+
+			// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+			map.panTo(currentPos);
+
+			// 마커 생성
+			var marker = new kakao.maps.Marker({
+				position : currentPos
+			});
+
+			// 기존에 마커가 있다면 제거
+			marker.setMap(null);
+			marker.setMap(map);
+		};
+		
+		
+		
+		
 	</script>
 	
       </section>

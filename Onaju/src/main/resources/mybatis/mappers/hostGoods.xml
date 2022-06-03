@@ -158,6 +158,14 @@
 			                 <if test="party_check =='Y'">
 			                  AND party_check='Y'
 			                </if>
+			                 <if test="checkin !='' and checkin !=null and checkout !='' and checkout != null">
+			                <![CDATA[ and R.room_code not in (select O.room_code from u_order O where  #{checkin} < checkOut_date 
+                            and #{checkout} > checkIn_date group by O.room_code) ]]>
+			                </if>
+			                <if test="search_longitude !='' and search_longitude !=null and search_latitude !='' and search_latitude != null">
+			                
+			                order by abs((H.longitude - #{search_longitude}) * (H.latitude - ${search_latitude}))
+			                </if>
 	
 	</select> 
 	

@@ -96,6 +96,10 @@
 		</beans:property>
 	</beans:bean>
 
+  <!-- 관리자 게시판 이미지 디렉토리 설정(박종설) -->
+	<beans:bean id="adminUploadPath" class="java.lang.String">
+		<beans:constructor-arg value = "C:\\onaju\\admin\\notice\\file" />
+	</beans:bean>
 
     
     <task:annotation-driven scheduler="scheduler"/>

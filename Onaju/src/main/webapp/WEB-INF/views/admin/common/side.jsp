@@ -121,13 +121,13 @@
  		</li>
  		<li class="ohnaju-li"><div><a href="#" class="ohnaju-second-btn"><i style="color:#80FFCC" class="fa-solid fa-folder-closed"></i>&emsp;상품 관리</a></div>
  			<ul class="ohnaju-second-show">
- 				<li class="ohnaju-li"><div><a href="${contextPath }/goods.goodsList.do">상품 등록 관리</a></div></li>
+ 				<li class="ohnaju-li"><div><a href="${contextPath }/admin/goodsList.do">상품 등록 관리</a></div></li>
  				<li class="ohnaju-li"><div><a href="${contextPath }/goods.goodsModify.do">수정 관리</a></div></li>
  			</ul>
  		</li>
  		<li class="ohnaju-li"><div><a href="#" class="ohnaju-third-btn"><i style="color:#FF550D" class="fa-solid fa-cart-shopping"></i>&emsp;주문 관리</a></div>
  			<ul class="ohnaju-third-show">
- 				<li class="ohnaju-li"><div><a href="${contextPath }/order.orderPage.do">주문 상품 관리</a></div></li>
+ 				<li class="ohnaju-li"><div><a href="${contextPath }/admin/orderList.do">주문 상품 관리</a></div></li>
  				<li class="ohnaju-li"><div><a href="${contextPath }/order.orderModify.do">주문 수정 관리</a></div></li>
  			</ul>
  		</li>
@@ -139,7 +139,7 @@
  		</li>
  		<li class="ohnaju-li"><div><a href="#" class="ohnaju-fifth-btn"><i style="color:#4D4D4D" class="fa-solid fa-paste"></i>&emsp;게시판 관리</a></div>
  			<ul class="ohnaju-fifth-show">
- 				<li class="ohnaju-li"><div><a href="${contextPath }/Board.noticeList.do">게시판 관리</a></div></li>
+ 				<li class="ohnaju-li"><div><a href="${contextPath }/admin/noticeList.do">게시판 관리</a></div></li>
  				<li class="ohnaju-li"><div><a href="${contextPath }/Board.enquireBoard.do">1:1 질문 관리</a></div></li>
  			</ul>
  		</li>

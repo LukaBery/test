@@ -237,7 +237,7 @@
   			</tr>
   		</thead>
 		<c:choose>
-  			<c:when test="${empty listAllRoom}" >
+  			<c:when test="${empty roomsList}" >
     			<tr  height="10">
       				<td colspan="11">
         				<p align="center">
@@ -246,9 +246,9 @@
       				</td>  
     			</tr>
   			</c:when>
-  			<c:when test="${!empty listAllRoom}" >
-    			<c:forEach  var="room" items="${listAllRoom }" varStatus="goodsNum" >
-     				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/host.hostDetail.do?h_id=${host.h_id}'">
+  			<c:when test="${!empty roomsList}" >
+    			<c:forEach  var="room" items="${roomsList }" varStatus="goodsNum" >
+     				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/goodsDetail.do?room_code=${room.room_code}'">
 						<td width="5%">${goodsNum.count}</td>
 						<td width="8%">${room.room_status }</td>
 						<td width="8%">${room.h_id }</td>
@@ -263,7 +263,11 @@
     	</c:choose>
 	</table>
 </section>
-
+<div>
+	<c:forEach var="i" begin="1" end="${totalPage }">
+		<a href="${contextPath }/admin/goodsList.do?viewPage=${i}">${i }</a>
+	</c:forEach>
+</div>
 <div class="mem-item5">
 	<div><a class="a1" href="${contextPath}/board.noticeForm.do">상품등록</a></div>
 	<div><input class="a2" type="submit" value="선택삭제"></div>

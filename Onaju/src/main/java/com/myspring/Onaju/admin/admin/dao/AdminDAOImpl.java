@@ -30,7 +30,7 @@ public class AdminDAOImpl implements AdminDAO {
 	// 관리자 모든 직원 수를 구하기 위한 DB 접근 DAO
 	@Override
 	public int selectAllAdminListTotal(AdminVO vo) throws DataAccessException {
-		return (Integer)sqlSession.selectOne("mapper.admin.selectAllAdminTotal", vo);
+		return sqlSession.selectOne("mapper.admin.selectAllAdminTotal", vo);
 	}
 	
 	// 관리자 직원 삭제를 위한 DB 접근 DAO

@@ -364,23 +364,6 @@ function execDaumPostcode() {
             document.getElementById('zipcode').value = data.zonecode;
             document.getElementById("roadAddress").value = roadAddr;
             document.getElementById("numberAddress").value = data.jibunAddress;
-            
-
-            var guideTextBox = document.getElementById("guide");
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if(data.autoRoadAddress) {
-                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                guideTextBox.style.display = 'block';
-
-            } else if(data.autoJibunAddress) {
-                var expJibunAddr = data.autoJibunAddress;
-                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                guideTextBox.style.display = 'block';
-            } else {
-                guideTextBox.innerHTML = '';
-                guideTextBox.style.display = 'none';
-            }
         }
     }).open();
 }
@@ -397,8 +380,9 @@ function checkYn(obj){
 
 // select 성별 불러오기
 $('#u_gender option').each(function() {
-	if($(this).val() == ${memberVO.u_gender}.val())
+	if($(this).val() == "${memberVO.u_gender}"){
 		$(this).attr('selected', true);
+	}
 });
 
 // disabled로 설정된 값 Controller로 보내기

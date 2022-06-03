@@ -1,7 +1,9 @@
 package com.myspring.Onaju.host.goods.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -132,7 +134,22 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HttpSession session = request.getSession();
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
-		System.out.println("뷰네임");
+
+		String checkin = searchMap.get("checkin");
+		String checkout = searchMap.get("checkout");
+		if(checkin != null && checkout != null) {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date checkIn_ = formatter.parse(checkin);
+		Date checkOut_ = formatter.parse(checkout);
+		String checkIn = format.format(checkIn_);
+		String checkOut = format.format(checkOut_);
+		searchMap.put("checkin", checkIn);
+
+		searchMap.put("checkout", checkOut);
+		}
+
 		MemberVO mem = (MemberVO) session.getAttribute("memberInfo");
 		if(mem != null ) {
 			searchMap.put("u_id", mem.getU_id());
@@ -140,7 +157,10 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 
 		Map<String,List<HostGoodsVO>> hostgoodsMap= hostGoodsService.listGoods(searchMap);
 		System.out.println("서비스 끝");
-
+		session.removeAttribute("searchKeyword");
+		searchMap.put("checkin", checkin);
+		searchMap.put("checkout", checkout);
+session.setAttribute("searchKeyword", searchMap);
 		mav.addObject("hostgoodsMap", hostgoodsMap);
 		System.out.println(hostgoodsMap);
 		mav.setViewName(viewName);

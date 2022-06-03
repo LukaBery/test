@@ -10,12 +10,14 @@ import com.myspring.Onaju.host.community.vo.HostCommunityVO;
 public interface HostCommunityDAO {
 	public HostCommunityVO selectCommunityView(int room_code) throws DataAccessException;
 	public List slideView(int room_code) throws DataAccessException;
-	public List<HostCommunityVO> selectCommunityList(String h_id) throws DataAccessException;
+	public List<HostCommunityVO> selectCommunityList(int h_code) throws DataAccessException;
 	public void insertNewCommunity(HostCommunityVO hostCommunityVO) throws DataAccessException;
 	public List<HostCommunityVO> hostAllCommunityList(String h_id) throws DataAccessException;
 	public HostCommunityVO modCommunity(int cmnNum) throws DataAccessException;
 	public void deleteHostCommunity(int cmnNum) throws DataAccessException;
 	public void updateHostCommunity(HostCommunityVO hostCommunityVO)throws Exception;
+	
+	
 	public void addLike(Map likeMap) throws DataAccessException;
 	public void delLike(Map likeMap) throws DataAccessException;
 	public String get_likeId(Map likeMap) throws DataAccessException;

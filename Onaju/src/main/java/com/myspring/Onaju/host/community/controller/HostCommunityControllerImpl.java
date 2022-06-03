@@ -30,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.community.service.HostCommunityService;
 import com.myspring.Onaju.host.community.vo.HostCommunityVO;
+import com.myspring.Onaju.host.goods.service.HostGoodsService;
+import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
 import com.myspring.Onaju.member.vo.MemberVO;
 
@@ -41,6 +43,8 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 	private HostCommunityVO hostCommunityVO;
 	@Autowired
 	private HostCommunityService hostCommunityService;
+	@Autowired
+	private HostGoodsService hostGoodsService;
 
 	/* 커뮤니티 글 등록시 첫번째 사업장 정보 나오는 페이지 */
 	@RequestMapping(value = "/cmnAticleForm1.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -54,32 +58,41 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		System.out.println("hostVO의 VO : " + hostVO);
 		String h_id = hostVO.getH_id();
 		System.out.println("h_id : " + h_id);
-
-		List<HostCommunityVO> hostCommunityList = (List<HostCommunityVO>) hostCommunityService
-				.selectCommunityList(h_id);
-		mav.addObject("hostCommunityList", hostCommunityList);
-		System.out.println("hostCommunityList####### " + hostCommunityList);
+		
+		List<HostInfoVO> hostInfoList=hostGoodsService.hostInfoFormlist(h_id);
+		mav.addObject("hostInfoList", hostInfoList);
 		return mav;
 
 	}
 
-	/* 커뮤니티 글 등록시 두번째 객실번호에 대한 정보 나오는 페이지 */
-	@RequestMapping(value = "/cmnAticleForm2.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView cmnAticleForm2(@RequestParam("room_code") int room_code, HttpServletRequest request,
+	/* 커뮤니티 글 등록시 두번째 정보 나오는 페이지 */
+	@RequestMapping(value = "/cmnAticleForm1_2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView cmnAticleForm2(@RequestParam("h_code") int h_code, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
+		
+		List<HostCommunityVO> hostCommunityList = hostCommunityService.selectCommunityList(h_code);
+		 mav.addObject("hostCommunityList", hostCommunityList);
+		 System.out.println("hostCommunityList####### " + hostCommunityList);
+		 
+
+		return mav;
+	}
+	
+	/* 커뮤니티 두번째 객실상세정보 나오는 페이지 */
+	@RequestMapping(value = "/cmnAticleForm2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView cmnAticledetail(@RequestParam("room_code") int room_code, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		
 		Map goodsMap = hostCommunityService.selectCommunityView(room_code);
 		mav.addObject("goodsMap", goodsMap);
 		System.out.println("goodsMap #####: " + goodsMap);
-		String h_code = (String) request.getAttribute("h_code");
-
-		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
-		System.out.println("hostVO의 VO : " + hostVO);
-		String h_id = hostVO.getH_id();
-		System.out.println("h_id : " + h_id);
-
+		
 		return mav;
 	}
 
@@ -348,6 +361,13 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		}
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
+	}
+
+	@Override
+	public ModelAndView cmnAticleForm1_2(int h_code, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	@Override
 	 @ResponseBody

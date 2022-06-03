@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 (공지사항 등록)</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
 .notice-row{
 	display: flex;
@@ -110,19 +111,24 @@
 </head>
 <body>
 	<div>
-		<form name="noticeForm" method="post" action="${contextPath }/board/addNoticeBoard.do" enctype="multipart/form-data">
+		<form name="noticeForm" method="post" action="${contextPath }/admin/insertNotice.do" enctype="multipart/form-data">
 			<div class="notice-con">
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>제목</div></div>
-					<div class="notice-row-col3"><div><input type="text" name="title" maxlength="100" style="width: 900px;"></div></div>
+					<div class="notice-row-col3"><div><input type="text" name="notice_title" maxlength="100" style="width: 900px;"></div></div>
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>게시여부</div></div>
-					<div class="notice-row-col4"><div><input type="checkbox" value="one">게시&emsp;&emsp;&emsp;<input type="checkbox" value="two">미게시</div></div>
+					<div class="notice-row-col4">
+						<div>
+							<input type="radio" value="Y" name="post_check">게시&emsp;&emsp;&emsp;
+							<input type="radio" value="N" name="post_check">미게시
+						</div>
+					</div>
 					<div class="notice-row-col1"><div>유형</div></div>
 					<div class="notice-row-col4">
 						<div style="margin-left: 20px;">
-							<select name="job">
+							<select name="notice_type">
     							<option value="">유형 선택</option>
     							<option value="양식">양식</option>
     							<option value="안내">안내</option>
@@ -133,17 +139,28 @@
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>공지 상단 노출</div></div>
-					<div class="notice-row-col4"><div><input type="checkbox" value="three">게시&emsp;&emsp;&emsp;<input type="checkbox" value="four">미게시</div></div>
+					<div class="notice-row-col4">
+						<div>
+							<input type="radio" value="Y" name="topView_check" />게시&emsp;&emsp;&emsp;
+							<input type="radio" value="N" name="topView_check" />미게시
+						</div>
+					</div>
 					<div class="notice-row-col1"><div>게시 채널</div></div>
-					<div class="notice-row-col4"><div><input type="checkbox" value="five">전체&emsp;&emsp;&emsp;<input type="checkbox" value="six">사용자&emsp;&emsp;&emsp;<input type="checkbox" value="seven">사업주</div></div>
+					<div class="notice-row-col4">
+						<div>
+							<input type="radio" value="all" name="post_chennel">전체&emsp;&emsp;&emsp;
+							<input type="radio" value="user" name="post_chennel">사용자&emsp;&emsp;&emsp;
+							<input type="radio" value="host" name="post_chennel">사업주
+						</div>
+					</div>
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>게시 기간</div></div>
-					<div class="notice-row-col3"><div><input type="date">&emsp;~&emsp;<input type="date"></div></div>
+					<div class="notice-row-col3"><div><input type="date" name="notice_startDate">&emsp;~&emsp;<input type="date" name="notice_endDate"></div></div>
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>이미지 등록</div></div>
-					<div class="notice-row-col3"><div><input type="file"></div></div>
+					<div class="notice-row-col3"><div><input type="file" name="file" id="file1" onchange="uploadFile()" /></div></div>
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col1"><div>첨부 파일</div></div>
@@ -151,17 +168,43 @@
 				</div>
 				<div class="notice-row">
 					<div class="notice-row-col2"><div>내용</div></div>
-					<div class="notice-row-col5"><div><textarea name="content" rows="10" cols="65" maxlength="4000"></textarea></div></div>
+					<div class="notice-row-col5"><div><textarea name="notice_content" rows="10" cols="65" maxlength="4000" required >내용을 입력하세요.</textarea></div></div>
 				</div>
 				<div>
 					<div class="notice-row-2">
 						<div><input type="submit" value="등록하기"></div>
-						<div><a href="${contextPath }/Board.noticeList.do">취소</a></div>
+						<div><a href="${contextPath }/admin/noticeList.do">취소</a></div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+<script>
 
+//이미지 유효성 검사
+function uploadFile() {
+    var fileVal = $("#file1").val();
+    var maxSize = 1 * 1024 * 1024; // 10MB
+    var fileSize = $("#file1")[0].files[0].size;
+    
+    //이미지 확장자 유효성 검사
+    if( fileVal != "" ){
+        var ext = fileVal.split('.').pop().toLowerCase(); //확장자분리
+        //아래 확장자가 있는지 체크
+        if($.inArray(ext, ['jpg','jpeg','gif','png']) == -1) {
+        	$("#file1").val("");
+          	alert('jpg,gif,jpeg,png 파일만 업로드 할수 있습니다.');
+          return;
+        };
+    };
+    //이미지 크기 유효성 검사
+    if(fileSize > maxSize){
+    	$("#file1").val("");
+        alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다."); 
+        return;
+    };
+    
+ };
+</script>
 </body>
 </html>

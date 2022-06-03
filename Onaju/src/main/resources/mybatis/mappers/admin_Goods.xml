@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.admin.goods">
+	<resultMap id="roomResult" type="adminHostRoomVO">
+		<result property="h_id" column="h_id"/>
+		<result property="h_name" column="h_name"/>
+		<result property="h_phone" column="h_phone"/>
+		<result property="h_email1" column="h_email1"/>
+		<result property="h_email2" column="h_email2"/>
+		<result property="deputy_name" column="deputy_name"/>
+		<result property="deputy_phone" column="deputy_phone"/>
+		<result property="deputy_birth" column="deputy_birth"/>
+		<result property="deputy_department" column="deputy_department"/>
+		<result property="hostInfo_name" column="hostInfo_name"/>
+		<result property="h_code" column="h_code"/>
+		<result property="room_code" column="room_code"/>
+		<result property="h_sellerNum" column="h_sellerNum"/>
+		<result property="h_accountNum" column="h_accountNum"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="roadAddress" column="roadAddress"/>
+		<result property="numberAddress" column="numberAddress"/>
+		<result property="restAddress" column="restAddress"/>
+		<result property="host_type" column="host_type"/>
+		<result property="room_type" column="room_type"/>
+		<result property="room_number" column="room_number"/>
+		<result property="room_fee" column="room_fee"/>
+		<result property="able_checkIn" column="able_checkIn"/>
+		<result property="able_checkOut" column="able_checkOut"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="room_status" column="room_status"/>
+		<result property="min_number" column="min_number"/>
+		<result property="max_number" column="max_number"/>
+		<result property="bed_type" column="bed_type"/>
+		<result property="bed_count" column="bed_count"/>
+		<result property="bath_count" column="bath_count"/>
+		<result property="party_check" column="party_check"/>
+		<result property="kitchen" column="kitchen"/>
+		<result property="wifi" column="wifi"/>
+		<result property="parking" column="parking"/>
+		<result property="tv" column="tv"/>
+		<result property="refrigerator" column="refrigerator"/>
+		<result property="hairdryer" column="hairdryer"/>
+		<result property="washer" column="washer"/>
+		<result property="pet" column="pet"/>
+		<result property="pickup" column="pickup"/>
+		<result property="dryer" column="dryer"/>
+		<result property="elevator" column="elevator"/>
+		<result property="barbecue" column="barbecue"/>
+		<result property="pool" column="pool"/>
+		<result property="aircon" column="aircon"/>
+		<result property="heater" column="heater"/>
+		<result property="smoking" column="smoking"/>
+		<result property="creDate" column="creDate"/>
+		<result property="del_yn" column="del_yn"/>
+		
+	</resultMap>
+	<select id="selectAllRoomList" resultMap="roomResult"   parameterType="adminHostRoomVO"  >
+		 <![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, 
+        H.h_id, 
+        H.h_name, 
+        H.h_phone, 
+        H.h_email1,
+        H.h_email2, 
+        H.deputy_name,
+        H.deputy_phone,
+        H.deputy_birth,
+        H.deputy_department,
+        I.hostInfo_name,
+        I.h_code,
+        R.room_code,
+        I.h_sellerNum,
+        I.h_accountNum,
+        I.zipcode,
+        I.roadAddress,
+        I.numberAddress,
+        I.restAddress,
+        I.host_type,
+        R.room_type,
+        R.room_number,
+        R.room_fee,
+        R.able_checkIn,
+        R.able_checkOut,
+        R.title, 
+        R.content,
+        R.room_status,
+        R.min_number,
+        R.max_number,
+        R.bed_type,
+        R.bed_count,
+        R.bath_count,
+        R.party_check,
+        R.kitchen,
+        R.wifi,
+        R.parking,
+        R.tv,
+        R.refrigerator,
+        R.hairdryer,
+        R.washer,
+        R.pet,
+        R.pickup,
+        R.dryer,
+        R.elevator,
+        R.barbecue,
+        R.pool,
+        R.aircon,
+        R.heater,
+        R.smoking,
+        R.creDate,
+        R.del_yn
+        from h_host H
+        inner join h_host_info I
+        on H.h_id = I.h_id
+        inner join h_room R
+        on I.h_code = R.h_code , (select @rownum := 0)  as rowcolumn order by creDate desc) z 
+		where rn >= #{startNO} and rn <= #{endNO};
+		 ]]>			        
+	</select>
+	
+	<select id="selectAllRoomTotal" resultType="java.lang.Integer">
+   		<![CDATA[
+        SELECT count(*) total FROM h_host H inner join h_host_info I on H.h_id = I.h_id inner join h_room R on I.h_code = R.h_code
+    	]]>
+	</select>
+	<select id="selectOneRoomDetail" resultMap="roomResult" parameterType="String">
+	select  H.h_id, 
+        H.h_name, 
+        H.h_phone, 
+        H.h_email1,
+        H.h_email2, 
+        H.deputy_name,
+        H.deputy_phone,
+        H.deputy_birth,
+        H.deputy_department,
+        I.h_code,
+        R.room_code,
+        I.hostInfo_name,
+        I.h_sellerNum,
+        I.h_accountNum,
+        I.zipcode,
+        I.roadAddress,
+        I.numberAddress,
+        I.restAddress,
+        I.host_type,
+        R.room_type,
+        R.room_number,
+        R.room_fee,
+        R.able_checkIn,
+        R.able_checkOut,
+        R.title, 
+        R.content,
+        R.room_status,
+        R.min_number,
+        R.max_number,
+        R.bed_type,
+        R.bed_count,
+        R.bath_count,
+        R.party_check,
+        R.kitchen,
+        R.wifi,
+        R.parking,
+        R.tv,
+        R.refrigerator,
+        R.hairdryer,
+        R.washer,
+        R.pet,
+        R.pickup,
+        R.dryer,
+        R.elevator,
+        R.barbecue,
+        R.pool,
+        R.aircon,
+        R.heater,
+        R.smoking,
+        R.creDate,
+        R.del_yn
+        from h_host H
+        inner join h_host_info I
+        on H.h_id = I.h_id
+        inner join h_room R
+        on I.h_code = R.h_code
+		where R.room_code = #{room_code};
+	</select>
+</mapper>
