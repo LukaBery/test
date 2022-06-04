@@ -24,114 +24,46 @@
 }
 
 .hb_rec_13 {
-	
-    float: right;
-    position: fixed;
-    width: 60%;
-    height: calc(100% - 100px);
-    border: 1px solid #cccccc;
-    text-align: center;
-    top: 100px;
-    left: 40%;
+	float: right;
+	position: fixed;
+	width: 60%;
+	height: calc(100% - 100px);
+	border: 1px solid #cccccc;
+	text-align: center;
+	top: 100px;
+	left: 40%;
 }
 
 .hb_section_total {
-
-float:left;
+	float: left;
 	width: 40%;
 	height: 100%;
 }
 
 .hb_section_6 {
+	position: fixed;
 	display: inline-block;
-	width: 1100px;
-	height: 60px;
-	margin-top: 10px;
+	width: 40%;
+	height: 50px;
+	padding: 11px 10px;
+	left: 0px;
+	background-color: white;
+	z-index: 10;
+	border-bottom: 2px solid #CCCCCC;
+}
+
+.hb_section_6_back {
+	display: inline-block;
+	width: 100%;
+	height: 50px;
+	float: left;
 }
 
 .hb_section_8 {
-padding-left:20px;
+	padding-left: 20px;
 	display: flex;
 	width: 100%;
 	height: 100%;
-}
-
-
-
-.charge-info {
-	cursor: pointer !important;
-	text-align: center !important;
-	border: 1px solid rgb(221, 221, 221) !important;
-	background-color: rgb(255, 255, 255) !important;
-	outline: none !important;
-	margin: 0px !important;
-	color: rgb(34, 34, 34) !important;
-	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		"Helvetica Neue", sans-serif !important;
-	position: relative !important;
-	transition-property: -ms-transform, -webkit-transform, transform,
-		background-color, border-color !important;
-	transition-duration: 0.15s !important;
-	transition-timing-function: ease-in-out !important;
-	padding: 10px 16px !important;
-	border-radius: 30px !important;
-	font-size: 12px !important;
-	line-height: 16px !important;
-	width: 100% !important;
-}
-
-.charge-info:hover {
-	cursor: pointer !important;
-	text-align: center !important;
-	border: 1px solid rgb(221, 221, 221) !important;
-	background-color: rgb(254, 210, 223) !important;
-	outline: none !important;
-	margin: 0px !important;
-	color: rgb(34, 34, 34) !important;
-	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		"Helvetica Neue", sans-serif !important;
-	position: relative !important;
-	transition-property: -ms-transform, -webkit-transform, transform,
-		background-color, border-color !important;
-	transition-duration: 0.15s !important;
-	transition-timing-function: ease-in-out !important;
-	padding: 10px 16px !important;
-	border-radius: 30px !important;
-	font-size: 12px !important;
-	line-height: 16px !important;
-	width: 100% !important;
-}
-
-.charge-box {
-	display: inline-block !important;
-	white-space: nowrap !important;
-	padding-right: 8px !important;
-	padding-top: 4px !important;
-	padding-bottom: 4px !important;
-}
-
-.charge-text {
-	font-weight: 400 !important;
-	font-size: 11px !important;
-	line-height: 18px !important;
-	display: inline-block !important;
-}
-
-.charge-img {
-	align-self: center !important;
-	margin-left: 9.5px !important;
-	float: right;
-}
-
-.charge-textbox {
-	display: flex !important;
-	place-content: center !important;
-}
-
-.charge-boxline {
-	-webkit-box-align: center !important;
-	display: flex !important;
-	align-items: center !important;
 }
 
 .lodging-box {
@@ -265,8 +197,8 @@ padding-left:20px;
 }
 
 #hb_main_p5 {
-white-space:nowrap;
-overflow:hidden;
+	white-space: nowrap;
+	overflow: hidden;
 	float: left;
 	width: 100%;
 	font-weight: 530;
@@ -344,25 +276,69 @@ overflow:hidden;
 		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
 
-   #kakao_button{ width: 150px;
-    position: absolute;
-    z-index: 10;
-    border: 1px solid #FD5286;
-    border-radius: 12px;
-    background-color: white;
-    color: #FD5286;
-    font-size: 13px;
-    height: 31px;
-    font-weight: 700;
-    margin-top: 20px;
-    left: 45%;
-    }
-     #kakao_button:hover{
-     background-color: #FD5286;
-        border: 1px solid #FD5286;
-      color:white;
-     
-     }
+#kakao_button {
+	width: 150px;
+	position: absolute;
+	z-index: 10;
+	border: 1px solid #FD5286;
+	border-radius: 12px;
+	background-color: white;
+	color: #FD5286;
+	font-size: 13px;
+	height: 31px;
+	font-weight: 700;
+	margin-top: 20px;
+	left: 45%;
+}
+
+#kakao_button:hover {
+	background-color: #FD5286;
+	border: 1px solid #FD5286;
+	color: white;
+}
+
+.filter_btn {
+display:block;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #CCCCCC;
+	border-radius: 10px;
+	padding: 3.5px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	color: black;
+	background-color: white;
+}
+
+.filter_btn:hover {
+	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
+	color: white;
+	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
+		50%, rgb(205, 11, 56) 10%) !important;
+}
+
+.filter_btn_area_1 {
+	height: 100%;
+	padding: 0 1px;
+	margin: 0 0.5%;
+}
+
+.filter_btn_arrow {
+	float: right;
+	display: inline-block;
+	width: 20px;
+	height: 100%;
+	border: 1px solid #CCCCCC;
+}
+.filter_btn:checked +label{
+
+	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
+	color: white;
+	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
+		50%, rgb(205, 11, 56) 10%) !important;
+
+}
 </style>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
 
@@ -419,208 +395,73 @@ overflow:hidden;
 				}
 			})
   }
+
+
+  function showAllFilter(){
+  	
+  	var con = document.getElementById("filter_extend");
+  	var div_0 = document.getElementById("filter_search");
+  	var div_1 = document.getElementById("filter_search_back");
+  	 if(con.style.display=='none'){    
+  		
+  		    con.style.display = 'block';   
+  		div_0.style.height = '150px';  
+  		div_1.style.height = '150px';  
+  		
+  	}else{       
+  		 con.style.display = 'none';   
+  		div_0.style.height = '50px';  
+  		div_1.style.height = '50px';  
+
+  		
+  		 }
+  	
+  }
   </script>
   </head>
   <body>
 
     <section class="hb_section_total">
-      <section class="hb_section_6">
-        <div class="charge-boxline">
-          <div class="charge-box">
-            <button class="charge-info" aria-expanded="false" type="button">
-              <div class="charge-textbox">
-                <span class="charge-text">요금</span>
-                <span class="charge-img">
-                  <svg
-                    viewBox="0 0 32 32"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="presentation"
-                    focusable="false"
-                    style="
-                      display: block;
-                      fill: none;
-                      height: 12px;
-                      width: 12px;
-                      stroke: currentcolor;
-                      stroke-width: 5.33333;
-                      overflow: visible;
-                    "
-                  >
-                  
-                    <g fill="none">
-                      <path
-                        d="m28 12-11.2928932 11.2928932c-.3905243.3905243-1.0236893.3905243-1.4142136 0l-11.2928932-11.2928932"
-                      ></path>
-                    </g>
-                    
-                  </svg>
-                </span>
-              </div>
-            </button>
-          </div>
+    
+    <section id="filter_search_back" class="hb_section_6_back">
+    </section>
+      <section id="filter_search" class="hb_section_6">
+  
+  
+  
+  <div style="width:100%;height:26px;display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;">
+  
+  <div style="width:10%;height:100%;padding:4px 0;	font-size: 12px;font-weight: 600;">숙소 유형 : </div>
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="hotel" class="filter_btn"type="checkbox" style="display:none;"/>
+					<label for="hotel" class="filter_btn">호텔</label>
+ </div>
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="motel" class="filter_btn"type="checkbox" style="display:none;"/>
+					<label for="motel" class="filter_btn">모텔</label>
+ </div>
+<div class="filter_btn_area_1" style="width: 7%;">
+  <input id="pension" class="filter_btn"type="checkbox" style="display:none;"/>
+					<label for="pension" class="filter_btn">펜션</label>
+ </div>
 
-          <div class="charge-boxline">
-            <div class="charge-box">
-              <button class="charge-info" aria-expanded="false" type="button">
-                <div class="charge-textbox">
-                  <span class="charge-text">숙소유형</span>
-                  <span class="charge-img">
-                    <svg
-                      viewBox="0 0 32 32"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      role="presentation"
-                      focusable="false"
-                      style="
-                        display: block;
-                        fill: none;
-                        height: 12px;
-                        width: 12px;
-                        stroke: currentcolor;
-                        stroke-width: 5.33333;
-                        overflow: visible;
-                      "
-                    >
-                     <g fill="none">
-                        <path
-                          d="m28 12-11.2928932 11.2928932c-.3905243.3905243-1.0236893.3905243-1.4142136 0l-11.2928932-11.2928932"
-                        ></path>
-                      </g>
-                    </svg>
-                  </span>
-                  
-                </div>
-              </button>
-              
-            </div>
-
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">무선인터넷</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">주방</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">에어컨</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">세탁기</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">다리미</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">주차공간</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">업무전용공간</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">건조기</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">셀프체크인</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">수영장</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            <div class="charge-boxline">
-              <div class="charge-box">
-                <button class="charge-info" aria-expanded="false" type="button">
-                  <div class="charge-textbox">
-                    <span class="charge-text">필터</span>
-                    <span class="charge-img">
-                      <svg
-                        viewBox="0 0 32 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        role="presentation"
-                        focusable="false"
-                        style="
-                          display: block;
-                          fill: none;
-                          height: 12px;
-                          width: 12px;
-                          stroke: currentcolor;
-                          stroke-width: 5.33333;
-                          overflow: visible;
-                        "
-                      >
-                        <g fill="none">
-                          <path
-                            d="m28 12-11.2928932 11.2928932c-.3905243.3905243-1.0236893.3905243-1.4142136 0l-11.2928932-11.2928932"
-                          ></path>
-                        </g>
-                      </svg>
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최소 금액 : </div>
+    <div class="filter_btn_area_1" style="width: 12%;"><input style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+</div> 
+<div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최대 금액 : </div>
+    <div class="filter_btn_area_1" style="width: 12%;"><input style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+</div>
+  
+  <div class="filter_btn_area_1" style="width: 10%;"><div class="filter_btn">검색하기
+  </div></div>
+  
+  <div class="filter_btn_area_1" style="width: 6%;"><div class="filter_btn"onClick="showAllFilter()">>>
+  </div></div>
+ 
+  </div>
+  <div id="filter_extend"style="display:none; height:100px; width:100%;"></div>
       </section>
 
       <section class="hb_section_8">

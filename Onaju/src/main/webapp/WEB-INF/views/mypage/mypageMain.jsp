@@ -222,6 +222,55 @@ hb_nav_btn_a:hover {
 	display: inline-block;
 	float: left;
 }
+
+.filter_box {
+	width: 100%;
+	padding: 11px 10px;
+	height: 50px;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	border: 1px solid #CCCCCC;
+	border-radius: 12px;
+	margin-bottom: 20px;
+}
+
+.filter_title {
+	width: 13%;
+	height: 100%;
+	padding: 3.5px;
+	font-weight: bolder;
+	color: #5C5C5C;
+}
+
+.filter_btn_box_1 {
+	width: 18%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 0 4px;
+}
+
+.filter_btn_box_2 {
+	width: 29%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 0 4px;
+}
+
+.filter_btn_area_1 {
+	width: 33%;
+	height: 100%;
+	padding: 0 1px;
+}
+.filter_btn_area_2 {
+width: 20%;
+	height: 100%;
+	padding: 0 1px;
+}
 </style>
 <c:if test='${ not empty period_color }'>
 
@@ -627,43 +676,40 @@ function  calcPeriod(search_period){
 			<input type="hidden" name="pageNum" value="${pageNum }">			
             <input type="hidden" id="period_color" value="${period_color }">
 			
-			<div style="width:100%; padding:11px 10px;height:50px;display:flex;justify-content:flex-start;flex-wrap:wrap; border:1px solid #CCCCCC;border-radius:12px;margin-bottom:20px;">
+			<div class="filter_box">
 
-					<div style="width: 13%; height: 100%; padding: 3.5px; font-weight: bolder; color: #5C5C5C;">기간별 조회하기</div>
-					<div style="width: 18%; height: 100%;display:flex;justify-content:flex-start;flex-wrap:wrap;  padding: 0 4px;">
+					<div class="filter_title">기간별 조회하기</div>
+					<div class="filter_btn_box_1">
 					
-					<div style="width:33%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_1" >
 					<div class="btn_mypage_date_1" id="one_week"onClick="javascript:searchByPriod('one_week')">1주일</div> </div>
-				    <div style="width:33%; height:100%; padding: 0 1px; ">
+				    <div class="filter_btn_area_1" >
 					<div  class="btn_mypage_date_1"id="15_days"onClick="javascript:searchByPriod('15_days')">15일</div></div>
-					<div style="width:33%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_1" >
 					<div  class="btn_mypage_date_1"id="one_month"onClick="javascript:searchByPriod('one_month')">1개월</div></div>
 					
 					</div>
-					<div style="width: 29%; height: 100%; display:flex;justify-content:flex-start;flex-wrap:wrap; padding: 0 4px;">
+					<div class="filter_btn_box_2">
 <jsp:useBean id="now" class="java.util.Date" scope="request" />
 <c:set var="sysMonth"><fmt:formatDate value="${now}" pattern="MM" /></c:set>
 
-						<div style="width: 20%; height: 100%; padding: 0 1px;">
-							<div class="btn_mypage_date_1" id="last_one_month"
-								onClick="javascript:searchByPriod('last_one_month')">
-								<c:out value="${sysMonth -1}" />월
-								
-								</div>
-						</div>
-						<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_2">
+					<div class="btn_mypage_date_1" id="last_one_month" onClick="javascript:searchByPriod('last_one_month')">
+					<c:out value="${sysMonth -1}" />월
+					</div></div>
+					<div class="filter_btn_area_2">
 					<div  class="btn_mypage_date_1" id="last_two_month"onClick="javascript:searchByPriod('last_two_month')">
 					<c:out value="${sysMonth -2}" />월
 					</div></div>
-					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_2">
 					<div  class="btn_mypage_date_1"id="last_three_month"onClick="javascript:searchByPriod('last_three_month')">
 					<c:out value="${sysMonth -3}" />월
 					</div></div>
-					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_2">
 					<div  class="btn_mypage_date_1"id="last_four_month"onClick="javascript:searchByPriod('last_four_month')">
 					<c:out value="${sysMonth -4}" />월
 					</div></div>
-					<div style="width:20%; height:100%; padding: 0 1px; ">
+					<div class="filter_btn_area_2">
 					<div  class="btn_mypage_date_1"id="last_five_month"onClick="javascript:searchByPriod('last_five_month')">
 					<c:choose>
 					<c:when test="${(sysMonth-5) > 0 }">
