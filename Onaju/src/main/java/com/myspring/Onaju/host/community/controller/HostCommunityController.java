@@ -18,8 +18,8 @@ import com.myspring.Onaju.host.community.vo.HostCommunityVO;
 
 public interface HostCommunityController {
 	public ModelAndView cmnAticleForm1(HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView cmnAticleForm2(@RequestParam("room_code") int room_code,
-            HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView cmnAticleForm1_2(@RequestParam("h_code") int h_code, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView cmnAticleForm2(@RequestParam("room_code") int room_code, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	public ResponseEntity addNewCommunity(HostCommunityVO hostCommunityVO, MultipartHttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ModelAndView hostAllCommunityList(HttpServletRequest request, HttpServletResponse response) throws Exception;

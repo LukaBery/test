@@ -198,7 +198,7 @@
   				</tr>
   			</thead>
 			<c:choose>
-  				<c:when test="${empty reviewsList}" >
+  				<c:when test="${empty ordersList}" >
     				<tr  height="10">
       					<td colspan="8">
         					<p align="center">
@@ -207,17 +207,17 @@
       					</td>  
     				</tr>
   				</c:when>
-  				<c:when test="${!empty reviewsList}" >
-    				<c:forEach  var="review" items="${reviewsList }" varStatus="reviewNum" >
-     					<tr>
+  				<c:when test="${!empty ordersList}" >
+    				<c:forEach  var="order" items="${ordersList }" varStatus="reviewNum" >
+     					<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/orderDetail.do?order_code=${order.order_code}'">
 							<td width="5%">${reviewNum.count}</td>
-							<td width="5%">${review.member_id }</td>
-							<td width="10%"><fmt:formatDate value="${review.writeDate}" /></td>
-							<td width="10%"><fmt:formatDate value="${review.writeDate}" /></td>
-							<td  width="5%">${review.member_id }</td>   
-							<td  width="5%">${review.member_name }</td>   
-							<td  width="5%">${review.member_phoneNumber }</td>   
-							<td  width="10%">${review.member_lastJoin }</td>   
+							<td width="5%">${order.u_id }</td>
+							<td width="10%">${order.order_code }</td>
+							<td width="10%">${order.room_code }</td>
+							<td  width="5%">${order.hostInfo_name }</td>   
+							<td  width="5%">${order.h_name }</td>   
+							<td  width="5%">${order.room_fee }</td>   
+							<td  width="10%">${order.h_name }</td>   
 						</tr>
     				</c:forEach>
      			</c:when>

@@ -20,7 +20,7 @@ import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("adminMemberController")
 public class AdminMemberControllerImpl implements AdminMemberController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private AdminMemberService adminMemberService;
 	@Autowired

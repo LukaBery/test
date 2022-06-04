@@ -36,8 +36,8 @@ request.setCharacterEncoding("UTF-8");
 	position: relative;
 	padding: 10px 0px;
 	
-	width: auto;
-	margin-top: 20px;
+	width: 140px;
+	margin-top: 25px;
 	height: 40px;
 	border: 1.5px solid #DDDDDD;
 	background-color: white;
@@ -55,8 +55,8 @@ request.setCharacterEncoding("UTF-8");
 	z-index: 5000;
 color:black;
 box-shadow: 0 2px 4px rgba(0,0,0,0.18);
-	width: auto;
-	margin-top: 20px;
+	width: 140px;
+	margin-top: 25px;
 	height: 40px;
 	border-radius: 30px;
 	opacity:100%;
@@ -69,7 +69,7 @@ color:black;
 
 
 #samsun{
-    width: 70%;
+    width: 60%;
     height: 1px;
     border-radius: 20px;
     border: 1px solid black;
@@ -82,7 +82,7 @@ color:black;
 }
 
 .nav-link:hover #samsun, .nav-link:focus #samsun{
-    width: 70%;
+    width: 60%;
     height: 1px;
     
     border-radius: 20px;
@@ -155,19 +155,20 @@ color:black;
 	text-align: center;
 }
 #main_font_i {
-    font-family: inherit;
-    margin: 0px ;
+        font-family: inherit;
+    margin: 0px;
     font-size: 12px;
     font-weight: 550;
     float: left;
-    width: 40%;
+    width: 47%;
     height: 100%;
- 
-    padding: 10px 0px;
+    padding: 10px 0px 10px 5px;
     text-align: left;
 }
 
-</style><script>
+</style>
+    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
+<script>
 
 	function fn_joinform_check() {
 		var people_num = $("#people_num").val();
@@ -191,35 +192,33 @@ color:black;
 
 
 				<td width="100px"
-					style="padding: 13px 0px 0px 0px; margin-left: 10px;" id="main_td"><a
+					style="padding: 18px 0px 0px 0px; margin-left: 10px;" id="main_td"><a
 					id="main_a_life" class="  " href="${contextPath}/main/main.do">&nbsp;<b>LifeStyle</b>
 				</a> <!-- Sidebar Toggle--></td>
-				<td width="100px"
-					style="padding: 15px 0px 0px 0px; margin-left: 10px;" id="main_td"><a
-					id="main_a" class="  " href="${contextPath}/goods/searchGoods.do">숙소
-						예약</a> <!-- Sidebar Toggle--></td>
-				<td width="100px"
-					style="padding: 15px 0px 0px 0px; margin-left: 0px;" id="main_td"><a
-					id="main_a" class="" href="${contextPath}/host/goods/searchGoodsMap.do">내
-						주변&nbsp;</a> <!-- Sidebar Toggle--></td>
+				
+				<td width="150px"
+					style="padding: 20px 0px 0px 0px; margin-left: 0px;" id="main_td"><a
+					id="main_a" class="" href="${contextPath}/host/goods/searchGoodsMap.do">숙소 예약하기&nbsp;</a> <!-- Sidebar Toggle--></td>
 				<!-- Navbar Search-->
 
 				<td width="565px"
-					style="padding: 15px 0px 0px 25px; line-height: 18px;" id="main_td">
-							<form class="form" method="POST"
-								action="${contextPath}/goods/searchGoods.do">
+					style="padding: 18px 10px 0px 10px; line-height: 18px;" id="main_td">
+							<form class="form" name="search_from_map"method="POST" action="${contextPath}/host/goods/searchGoodsMap.do"
+								>
 								<div class="input-group input--large">
-									<label class="label">장소</label> <input class="input--style-1"
-										type="text" placeholder=" 목적지" name="going" autocomplete='off'>
+									<label class="label">장소</label> <input id="keyword"class="input--style-1"
+										type="text" placeholder=" 목적지" name="going" value="${searchKeyword.going }"autocomplete='off'>
+										<input type="hidden" name="search_longitude" id="search_longitude">
+										<input type="hidden" name="search_latitude" id="search_latitude">
 								</div>
 								<div class="input-group input--medium">
 									<label class="label">체크인</label> <input class="input--style-1"
-										type="text" name="checkin" placeholder="      월/일/년"
+										type="text" name="checkin" value="${searchKeyword.checkin }"placeholder="      월/일/년"
 										id="input-start" autocomplete='off'>
 								</div>
 								<div class="input-group input--medium">
 									<label class="label">체크 아웃</label> <input
-										class="input--style-1" type="text" name="checkout"
+										class="input--style-1" type="text" name="checkout"value="${searchKeyword.checkout }"
 										placeholder="      월/일/년" id="input-end" autocomplete='off'>
 								</div>
 								<div class="input-group input--small" style="width: 100px;">
@@ -233,11 +232,11 @@ color:black;
 									</div>
 
 								</div>
-								<button class="btn-submit" type="submit"
+								<button class="btn-submit" type="button" onClick="searchPlaces(); return false"
 									style="margin-top: 5px;">검색</button>
 							</form>
 				</td>
-				<td width="130px"
+				<td width="180px"
 					style="padding: 0px 0px 0px 15px; margin-left: 5px; line-height: 18px;"
 					id="main_td">
 					<!-- Navbar-->
@@ -400,7 +399,51 @@ color:black;
 </section>
 
 
+<script>
+var ps = new kakao.maps.services.Places();  
 
+
+
+function searchPlaces() {
+
+    var keyword = document.getElementById('keyword').value;
+
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch( keyword, placesSearchCB); 
+}
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+function placesSearchCB(data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        var placePosition = new kakao.maps.LatLng(data[1].y, data[1].x)
+        // 페이지 번호를 표출합니다
+       
+    	  document.getElementById('search_longitude').setAttribute('value',data[1].y); 
+      	  document.getElementById('search_latitude').setAttribute('value',data[1].x); 
+
+document.search_from_map.submit();
+    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+
+    } else if (status === kakao.maps.services.Status.ERROR) {
+
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
+
+    }
+}
+
+</script>
 
 
 </html>

@@ -15,7 +15,7 @@
 	<definition name="baseLayout2"
 		template="/WEB-INF/views/common/searchLayout.jsp">
 		<put-attribute name="title" value="레이아웃 페이지" />
-		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/common/searchHeader.jsp" />
 		<put-attribute name="side" value="" /> 
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/common/searchFooter.jsp" />

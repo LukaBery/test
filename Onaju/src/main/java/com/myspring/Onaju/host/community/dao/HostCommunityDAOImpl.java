@@ -17,9 +17,9 @@ public class HostCommunityDAOImpl implements HostCommunityDAO {
 	
 	/* 커뮤니티 글 등록시 첫번째 사업장 정보 나오는 페이지 */ 
 	@Override
-	public List<HostCommunityVO> selectCommunityList(String h_id) throws DataAccessException {
+	public List<HostCommunityVO> selectCommunityList(int h_code) throws DataAccessException {
 			
-		List<HostCommunityVO> hostCommunityList = (ArrayList)sqlSession.selectList("mapper.hostCommunity.selectCommunityList",h_id); 
+		List<HostCommunityVO> hostCommunityList = (ArrayList)sqlSession.selectList("mapper.hostCommunity.selectCommunityList",h_code); 
 		   System.out.println(hostCommunityList);
 		return hostCommunityList;
 	}

@@ -83,29 +83,68 @@
 		 select u_id, u_pw, u_name, u_birth_y, u_birth_m, u_birth_d, u_gender, u_phone, u_email1, u_email2, zipcode, roadAddress, numberAddress, restAddress, u_point, u_grade, proposer, u_imageName, u_imageType, u_agree_1, u_agree_2, u_agree_3, u_service_01, u_service_02, joinDate, del_yn from u_member where u_id = #{u_id}					        
 	</select>
 	
-	<select id="selectMemberUpdate"  parameterType="MemberVO">
-		<![CDATA[
-		update u_member set u_name=#{u_name}, 
-		u_birth_y=#{u_birth_y}, 
-		u_birth_m=#{u_birth_m}, 
-		u_birth_d=#{u_birth_d}, 
-		u_gender=#{u_gender}, 
-		u_phone=#{u_phone}, 
-		u_email1=#{u_email1}, 
-		u_email2=#{u_email2}, 
-		zipcode=#{zipcode}, 
-		roadAddress=#{roadAddress}, 
-		numberAddress=#{numberAddress}, 
-		restAddress=#{restAddress}, 
-		u_point=#{u_point}, 
-		u_grade=#{u_grade}, 
-		proposer=#{proposer}, 
-		u_service_01=#{u_service_01}, 
-		u_service_02=#{u_service_02}, 
-		del_yn=#{del_yn}
+	<update id="selectMemberUpdate"  parameterType="MemberVO">
+		
+		update u_member 
+		<set>
+			<if test="u_name != '' and u_name != null">
+				u_name=#{u_name},	
+			</if>
+			<if test="u_birth_y != '' and u_birth_y != null">  
+				u_birth_y=#{u_birth_y}, 
+			</if>
+			<if test="u_birth_m != '' and u_birth_m != null">
+				u_birth_m=#{u_birth_m},
+			</if>
+			<if test="u_birth_d != '' and u_birth_d != null">
+				u_birth_d=#{u_birth_d}, 
+			</if>
+			<if test="u_gender != '' and u_gender != null">
+				u_gender=#{u_gender}, 
+			</if>
+			<if test="u_phone != '' and u_phone != null">
+				u_phone=#{u_phone},
+			</if>
+			<if test="u_email1 != '' and u_email1 != null">
+				u_email1=#{u_email1}, 
+			</if>
+			<if test="u_email2 != '' and u_email2 != null">
+				u_email2=#{u_email2}, 
+			</if>
+			<if test="zipcode != '' and zipcode != null">
+				zipcode=#{zipcode}, 
+			</if>
+			<if test="roadAddress != '' and roadAddress != null">
+				roadAddress=#{roadAddress}, 
+			</if>
+			<if test="numberAddress != '' and numberAddress != null">
+				numberAddress=#{numberAddress}, 
+			</if>
+			<if test="restAddress != '' and restAddress != null">
+				restAddress=#{restAddress}, 
+			</if>
+			<if test="u_point != '' and u_point != null">
+				u_point=#{u_point}, 
+			</if>
+			<if test="u_grade != '' and u_grade != null">
+				u_grade=#{u_grade},
+			</if>
+			<if test="proposer != '' and proposer != null">
+				proposer=#{proposer},
+			</if>
+			<if test="u_service_01 != '' and u_service_01 != null">
+				u_service_01=#{u_service_01}, 
+			</if>
+			<if test="u_service_02 != '' and u_service_02 != null">
+				u_service_02=#{u_service_02},
+			</if>
+			<if test="del_yn != '' and del_yn != null">
+				del_yn=#{del_yn},
+			</if>
+		</set>
 		where u_id=#{u_id}
-		]]>	
-	</select>
+		
+	</update>
 	
 	<!-- <select id="selectRetireMembers" resultMap="schMemResult">
 		select * from u_member where del_yn = 'Y'

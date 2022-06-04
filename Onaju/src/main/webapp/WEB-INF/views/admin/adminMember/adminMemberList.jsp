@@ -218,13 +218,13 @@
      						<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/memberDetail.do?u_id=${member.u_id}'" >	
 								<td width="6%">${membersNum.count}</td>
 								<td width="8%">${member.u_id }</td>
-								<td width="8%">${member.u_name }</td>
+								<td width="6%">${member.u_name }</td>
 								<td width="10%"><fmt:formatDate value="${member.joinDate}" pattern="yyyy년MM월dd일" /></td>
-								<td  width="8%">${member.u_email1 }${member.u_email2 }</td>   
-								<td  width="8%">${member.u_grade}</td>   
+								<td  width="10%">${member.u_email1 }${member.u_email2 }</td>   
+								<td  width="7%">${member.u_grade}</td>   
 								<td  width="8%">${member.u_phone }</td>   
-								<td  width="8%">${member.roadAddress }</td>   
-								<td  width="8%">${member.del_yn }</td> 	  
+								<td  width="11%">${member.roadAddress }</td>   
+								<td  width="4%">${member.del_yn }</td> 	  
 							</tr>
     				</c:forEach>
 				</c:when>
