@@ -116,7 +116,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 					quickGoodsList.add(hostgoodsVO);
 				}
 			}
-
 		} else {
 			quickGoodsList = new ArrayList<HostGoodsVO>();
 			quickGoodsList.add(hostgoodsVO);
@@ -134,7 +133,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HttpSession session = request.getSession();
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
-
+		// hotel_check, motel_check, pension_check > 체크박스 체크시 on으로 반환 미 체크시 null 값 
 		String checkin = searchMap.get("checkin");
 		String checkout = searchMap.get("checkout");
 		if(checkin != null && checkout != null) {
@@ -155,12 +154,12 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			searchMap.put("u_id", mem.getU_id());
 		}
 
-		Map<String,List<HostGoodsVO>> hostgoodsMap= hostGoodsService.listGoods(searchMap);
+		Map<String, List<HostGoodsVO>> hostgoodsMap = hostGoodsService.listGoods(searchMap);
 		System.out.println("서비스 끝");
 		session.removeAttribute("searchKeyword");
 		searchMap.put("checkin", checkin);
 		searchMap.put("checkout", checkout);
-session.setAttribute("searchKeyword", searchMap);
+		session.setAttribute("searchKeyword", searchMap);
 		mav.addObject("hostgoodsMap", hostgoodsMap);
 		System.out.println(hostgoodsMap);
 		mav.setViewName(viewName);

@@ -313,9 +313,12 @@ display:block;
 
 .filter_btn:hover {
 	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	color: white;
-	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
-		50%, rgb(205, 11, 56) 10%) !important;
+	 -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+	
 }
 
 .filter_btn_area_1 {
@@ -425,6 +428,7 @@ display:block;
     
     <section id="filter_search_back" class="hb_section_6_back">
     </section>
+    <form method="POST" name="search-form"action="${contextPath}/host/goods/searchGoodsMap.do">
       <section id="filter_search" class="hb_section_6">
   
   
@@ -435,35 +439,142 @@ display:block;
   
   <div style="width:10%;height:100%;padding:4px 0;	font-size: 12px;font-weight: 600;">숙소 유형 : </div>
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="hotel" class="filter_btn"type="checkbox" style="display:none;"/>
+  <input id="hotel" class="filter_btn"type="checkbox" name="hotel_check"style="display:none;"/>
 					<label for="hotel" class="filter_btn">호텔</label>
  </div>
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="motel" class="filter_btn"type="checkbox" style="display:none;"/>
+  <input id="motel" class="filter_btn"type="checkbox" name="motel_check"style="display:none;"/>
 					<label for="motel" class="filter_btn">모텔</label>
  </div>
 <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="pension" class="filter_btn"type="checkbox" style="display:none;"/>
+  <input id="pension" class="filter_btn"type="checkbox"name="pension_check" style="display:none;"/>
 					<label for="pension" class="filter_btn">펜션</label>
  </div>
 
   <div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최소 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
 </div> 
 <div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최대 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
 </div>
   
-  <div class="filter_btn_area_1" style="width: 10%;"><div class="filter_btn">검색하기
+  <div class="filter_btn_area_1" style="width: 10%;"><div class="filter_btn" onClick="document.forms['search-form'].submit();">검색하기
   </div></div>
   
   <div class="filter_btn_area_1" style="width: 6%;"><div class="filter_btn"onClick="showAllFilter()">>>
   </div></div>
  
   </div>
-  <div id="filter_extend"style="display:none; height:100px; width:100%;"></div>
-      </section>
+  <div id="filter_extend"style="display:none; height:100px; width:100%;">
+  
+   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;">
+  
+  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">침실 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+</div> 
 
+  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">침대 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+</div> 
+
+  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">욕실 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+</div> 
+
+					
+					
+					
+					
+ </div>
+   
+   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;">
+  
+  <div class="filter_btn_area_1" style="width: 16%;">
+  <input id="hairDryer" class="filter_btn"type="checkbox"name="hairDryer" style="display:none;"/>
+					<label for="hairDryer" class="filter_btn">헤어 드라이어</label></div>
+					
+					
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="wifi" class="filter_btn"type="checkbox"name="wifi" style="display:none;"/>
+					<label for="wifi" class="filter_btn" style="padding:5.5px;">wifi</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 12%;">
+  <input id="parking" class="filter_btn"type="checkbox"name="parking" style="display:none;"/>
+					<label for="parking" class="filter_btn">주차 공간</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="kitchen" class="filter_btn"type="checkbox"name="kitchen" style="display:none;"/>
+					<label for="kitchen" class="filter_btn">부엌</label></div>
+					
+					
+  <div class="filter_btn_area_1" style="width: 12%;">
+  <input id="party_check" class="filter_btn"type="checkbox"name="party_check" style="display:none;"/>
+					<label for="party_check" class="filter_btn">파티 가능</label></div>
+					
+					
+  <div class="filter_btn_area_1" style="width: 5%;">
+  <input id="tv" class="filter_btn"type="checkbox"name="tv" style="display:none;"/>
+					<label for="tv" class="filter_btn" style="padding:5.5px;">tv</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="refrigerator" class="filter_btn"type="checkbox"name="refrigerator" style="display:none;"/>
+					<label for="refrigerator" class="filter_btn">냉장고</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="washer" class="filter_btn"type="checkbox"name="washer" style="display:none;"/>
+					<label for="washer" class="filter_btn">세탁기</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 12%;">
+  <input id="pet" class="filter_btn"type="checkbox"name="pet" style="display:none;"/>
+					<label for="pet" class="filter_btn">애완 동물</label></div>
+		
+  </div>
+   
+   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;">
+	
+				
+  <div class="filter_btn_area_1" style="width: 12%;">
+  <input id="elevator" class="filter_btn"type="checkbox"name="elevator" style="display:none;"/>
+					<label for="elevator" class="filter_btn">엘레베이터</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="barbecue" class="filter_btn"type="checkbox"name="barbecue" style="display:none;"/>
+					<label for="barbecue" class="filter_btn">바비큐</label></div>
+	
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="pool" class="filter_btn"type="checkbox"name="pool" style="display:none;"/>
+					<label for="pool" class="filter_btn">수영장</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="aircon" class="filter_btn"type="checkbox"name="aircon" style="display:none;"/>
+					<label for="aircon" class="filter_btn">에어컨</label></div>
+	
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="smoking" class="filter_btn"type="checkbox"name="smoking" style="display:none;"/>
+					<label for="smoking" class="filter_btn">흡연</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 7%;">
+  <input id="heater" class="filter_btn"type="checkbox"name="heater" style="display:none;"/>
+					<label for="heater" class="filter_btn">난로</label></div>
+					
+	
+	
+	
+	
+	
+	</div>
+  
+  
+  
+  </div>
+      </section>
+</form>
       <section class="hb_section_8">
         <div class="hb_rec_12">
         
