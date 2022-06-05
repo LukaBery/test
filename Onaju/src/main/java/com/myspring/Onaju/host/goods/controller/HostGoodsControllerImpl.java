@@ -136,7 +136,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		// hotel_check, motel_check, pension_check > 체크박스 체크시 on으로 반환 미 체크시 null 값 
 		String checkin = searchMap.get("checkin");
 		String checkout = searchMap.get("checkout");
-		if(checkin != null && checkout != null) {
+		if(checkin != null && checkout != null &&checkin != "" &&checkout != "") {
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 

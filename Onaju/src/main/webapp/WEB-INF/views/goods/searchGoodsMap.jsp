@@ -70,19 +70,18 @@
 	float: left;
 	margin: 0;
 	padding-top: 0;
-	display: flex;
+	
 	-ms-flex-direction: column;
 	flex-direction: column;
 	grid-area: 1/1/2/2;
-	height: 100%;
+
+	overflow: hidden !important;
+	height: 100% !important;
+	width: 90% !important;
+	position: relative !important;
+	display: inline-block;
 }
 
-.lodging-border-top {
-	border-bottom: 1px solid rgb(235, 235, 235) !important;
-	border-bottom-width: var(- -border-rule-border-width, 1px) !important;
-	border-bottom-color: var(- -color-divider, #ebebeb) !important;
-	margin-bottom: 12px;
-}
 
 .lodging-border-bottom {
 	display: inline-block;
@@ -92,13 +91,7 @@
 	margin-bottom: 15px;
 }
 
-.lodging-box {
-	overflow: hidden !important;
-	height: 100% !important;
-	width: 90% !important;
-	position: relative !important;
-	display: inline-block;
-}
+
 
 .lodging-img {
 	width: 250px;
@@ -116,26 +109,8 @@
 	float: left;
 }
 
-.lodging-location {
-	width: 250px;
-	height: 50px;
-}
 
-.lodging-title {
-	width: 250px;
-	height: 50px;
-}
 
-.lodging-info {
-	width: 250px;
-	height: 50px;
-}
-
-.lodging-charge {
-	width: 250px;
-	height: 50px;
-	display: block;
-}
 
 .lodging-total {
 	float: left;
@@ -172,21 +147,6 @@
 	margin-top: 5px;
 }
 
-#hb_main_p1 {
-	float: left;
-	width: 150px;
-	font-weight: 620;
-	font-size: 14px;
-	text-align: left;
-	color: black;
-}
-
-#hb_main_p2 {
-	font-weight: 520;
-	font-size: 14px;
-	text-align: right;
-	color: black;
-}
 
 #hb_main_p7 {
 	width: 280px;
@@ -208,13 +168,6 @@
 	opacity: 80%;
 }
 
-#hb_main_p4 {
-	font-weight: 530;
-	font-size: 14px;
-	text-align: right;
-	color: rgb(77, 79, 80);
-	opacity: 80%;
-}
 
 #hb_main_p6 {
 	float: left;
@@ -226,6 +179,11 @@
 }
 
 .customoverlay {
+-ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 	position: relative;
 	bottom: 50px;
 	border-radius: 6px;
@@ -240,6 +198,7 @@
 }
 
 .customoverlay a {
+
 	display: block;
 	text-decoration: none;
 	color: #111;
@@ -298,7 +257,7 @@
 }
 
 .filter_btn {
-display:block;
+	display: block;
 	width: 100%;
 	height: 100%;
 	border: 1px solid #CCCCCC;
@@ -313,12 +272,11 @@ display:block;
 
 .filter_btn:hover {
 	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	 -ms-user-select: none; 
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-	
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .filter_btn_area_1 {
@@ -334,13 +292,42 @@ display:block;
 	height: 100%;
 	border: 1px solid #CCCCCC;
 }
-.filter_btn:checked +label{
 
+.filter_btn:checked+label, .search_button_0:hover {
 	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
 	color: white;
 	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
 		50%, rgb(205, 11, 56) 10%) !important;
+}
 
+.search_button_0 {
+	color: white;
+	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
+		50%, rgb(205, 11, 56) 10%) !important;
+}
+
+.search_input_text {
+	width: 10%;
+	height: 100%;
+	padding: 4px 0;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.search_input_style_1 {
+	margin-top: 6px;
+	border-bottom: 1px solid #CCCCCC;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.search_box_flex {
+	width: 100%;
+	height: 26px;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
 }
 </style>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
@@ -433,32 +420,30 @@ display:block;
   
   
   
-  <div style="width:100%;height:26px;display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;">
+  <div class="search_box_flex" >
   
-  <div style="width:10%;height:100%;padding:4px 0;	font-size: 12px;font-weight: 600;">숙소 유형 : </div>
+  <div class="search_input_text">숙소 유형 : </div>
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="hotel" class="filter_btn"type="checkbox" name="hotel_check"style="display:none;"/>
+  <input id="hotel" class="filter_btn"type="checkbox" name="hotel_check"style="display:none;"<c:if test="${searchKeyword.hotel_check == 'on'}">checked</c:if>/>
 					<label for="hotel" class="filter_btn">호텔</label>
  </div>
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="motel" class="filter_btn"type="checkbox" name="motel_check"style="display:none;"/>
+  <input id="motel" class="filter_btn"type="checkbox" name="motel_check"style="display:none;"<c:if test="${searchKeyword.motel_check == 'on'}">checked</c:if>/>
 					<label for="motel" class="filter_btn">모텔</label>
  </div>
 <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="pension" class="filter_btn"type="checkbox"name="pension_check" style="display:none;"/>
+  <input id="pension" class="filter_btn"type="checkbox"name="pension_check" style="display:none;"<c:if test="${searchKeyword.pension_check == 'on'}">checked</c:if>/>
 					<label for="pension" class="filter_btn">펜션</label>
  </div>
 
-  <div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최소 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+  <div  class="search_input_text" style="margin-left:1%;">최소 금액 : </div>
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"class="search_input_style_1">
 </div> 
-<div style="width:10%;height:100%;padding:4px 0;	margin-left:1%;font-size: 12px;font-weight: 600;">최대 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+<div  class="search_input_text" style="margin-left:1%;">최대 금액 : </div>
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"class="search_input_style_1">
 </div>
   
-  <div class="filter_btn_area_1" style="width: 10%;"><div class="filter_btn" onClick="document.forms['search-form'].submit();">검색하기
+  <div class="filter_btn_area_1 " style="width: 10%;"><div class="filter_btn search_button_0" onClick="document.forms['search-form'].submit();">검색하기
   </div></div>
   
   <div class="filter_btn_area_1" style="width: 6%;"><div class="filter_btn"onClick="showAllFilter()">>>
@@ -467,20 +452,18 @@ display:block;
   </div>
   <div id="filter_extend"style="display:none; height:100px; width:100%;">
   
-   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;">
+   <div class="search_box_flex" style="margin:10px 0px;">
   
-  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">침실 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+  <div class="search_input_text">침실 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="room_count"class="search_input_style_1">
 </div> 
 
-  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">침대 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+  <div class="search_input_text">침대 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="bed_count"class="search_input_style_1">
 </div> 
 
-  <div style="width:10%;height:100%;padding:4px 0;font-size: 12px;font-weight: 600;">욕실 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="min_price"style="margin-top:6px;border-bottom:1px solid #CCCCCC; text-align:center;font-size: 12px;font-weight: 600;">
+  <div class="search_input_text">욕실 개수 : </div>
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="bath_count"class="search_input_style_1">
 </div> 
 
 					
@@ -489,79 +472,83 @@ display:block;
 					
  </div>
    
-   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;">
+   <div class="search_box_flex" style="margin:10px 0px;">
   
   <div class="filter_btn_area_1" style="width: 16%;">
-  <input id="hairDryer" class="filter_btn"type="checkbox"name="hairDryer" style="display:none;"/>
+  <input id="hairDryer" class="filter_btn"type="checkbox"name="hairDryer" style="display:none;"<c:if test="${searchKeyword.hairDryer == 'on'}">checked</c:if>/>
 					<label for="hairDryer" class="filter_btn">헤어 드라이어</label></div>
 					
 					
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="wifi" class="filter_btn"type="checkbox"name="wifi" style="display:none;"/>
+  <input id="wifi" class="filter_btn"type="checkbox"name="wifi" style="display:none;"<c:if test="${searchKeyword.wifi == 'on'}">checked</c:if>/>
 					<label for="wifi" class="filter_btn" style="padding:5.5px;">wifi</label></div>
 					
   <div class="filter_btn_area_1" style="width: 12%;">
-  <input id="parking" class="filter_btn"type="checkbox"name="parking" style="display:none;"/>
+  <input id="parking" class="filter_btn"type="checkbox"name="parking" style="display:none;"<c:if test="${searchKeyword.parking == 'on'}">checked</c:if>/>
 					<label for="parking" class="filter_btn">주차 공간</label></div>
 					
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="kitchen" class="filter_btn"type="checkbox"name="kitchen" style="display:none;"/>
+  <input id="kitchen" class="filter_btn"type="checkbox"name="kitchen" style="display:none;"<c:if test="${searchKeyword.kitchen == 'on'}">checked</c:if>/>
 					<label for="kitchen" class="filter_btn">부엌</label></div>
 					
 					
   <div class="filter_btn_area_1" style="width: 12%;">
-  <input id="party_check" class="filter_btn"type="checkbox"name="party_check" style="display:none;"/>
+  <input id="party_check" class="filter_btn"type="checkbox"name="party_check" style="display:none;<c:if test="${searchKeyword.party_check == 'on'}">checked</c:if>"/>
 					<label for="party_check" class="filter_btn">파티 가능</label></div>
 					
 					
   <div class="filter_btn_area_1" style="width: 5%;">
-  <input id="tv" class="filter_btn"type="checkbox"name="tv" style="display:none;"/>
+  <input id="tv" class="filter_btn"type="checkbox"name="tv" style="display:none;"<c:if test="${searchKeyword.tv == 'on'}">checked</c:if>/>
 					<label for="tv" class="filter_btn" style="padding:5.5px;">tv</label></div>
 					
   <div class="filter_btn_area_1" style="width: 9%;">
-  <input id="refrigerator" class="filter_btn"type="checkbox"name="refrigerator" style="display:none;"/>
+  <input id="refrigerator" class="filter_btn"type="checkbox"name="refrigerator" style="display:none;"<c:if test="${searchKeyword.refrigerator == 'on'}">checked</c:if>/>
 					<label for="refrigerator" class="filter_btn">냉장고</label></div>
 					
   <div class="filter_btn_area_1" style="width: 9%;">
-  <input id="washer" class="filter_btn"type="checkbox"name="washer" style="display:none;"/>
+  <input id="washer" class="filter_btn"type="checkbox"name="washer" style="display:none;"<c:if test="${searchKeyword.washer == 'on'}">checked</c:if>/>
 					<label for="washer" class="filter_btn">세탁기</label></div>
 					
   <div class="filter_btn_area_1" style="width: 12%;">
-  <input id="pet" class="filter_btn"type="checkbox"name="pet" style="display:none;"/>
+  <input id="pet" class="filter_btn"type="checkbox"name="pet" style="display:none;"<c:if test="${searchKeyword.pet == 'on'}">checked</c:if>/>
 					<label for="pet" class="filter_btn">애완 동물</label></div>
 		
   </div>
    
-   <div style="width:100%; margin:10px 0px;height:26px;display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;">
+   <div class="search_box_flex" style="margin:10px 0px;">
 	
 				
   <div class="filter_btn_area_1" style="width: 12%;">
-  <input id="elevator" class="filter_btn"type="checkbox"name="elevator" style="display:none;"/>
+  <input id="elevator" class="filter_btn"type="checkbox"name="elevator" style="display:none;"<c:if test="${searchKeyword.elevator == 'on'}">checked</c:if>/>
 					<label for="elevator" class="filter_btn">엘레베이터</label></div>
 					
   <div class="filter_btn_area_1" style="width: 9%;">
-  <input id="barbecue" class="filter_btn"type="checkbox"name="barbecue" style="display:none;"/>
+  <input id="barbecue" class="filter_btn"type="checkbox"name="barbecue" style="display:none;"<c:if test="${searchKeyword.barbecue == 'on'}">checked</c:if>/>
 					<label for="barbecue" class="filter_btn">바비큐</label></div>
 	
   <div class="filter_btn_area_1" style="width: 9%;">
-  <input id="pool" class="filter_btn"type="checkbox"name="pool" style="display:none;"/>
+  <input id="pool" class="filter_btn"type="checkbox"name="pool" style="display:none;"<c:if test="${searchKeyword.pool == 'on'}">checked</c:if>/>
 					<label for="pool" class="filter_btn">수영장</label></div>
 					
   <div class="filter_btn_area_1" style="width: 9%;">
-  <input id="aircon" class="filter_btn"type="checkbox"name="aircon" style="display:none;"/>
+  <input id="aircon" class="filter_btn"type="checkbox"name="aircon" style="display:none;"<c:if test="${searchKeyword.aircon == 'on'}">checked</c:if>/>
 					<label for="aircon" class="filter_btn">에어컨</label></div>
 	
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="smoking" class="filter_btn"type="checkbox"name="smoking" style="display:none;"/>
+  <input id="smoking" class="filter_btn"type="checkbox"name="smoking" style="display:none;"<c:if test="${searchKeyword.smoking == 'on'}">checked</c:if>/>
 					<label for="smoking" class="filter_btn">흡연</label></div>
 					
   <div class="filter_btn_area_1" style="width: 7%;">
-  <input id="heater" class="filter_btn"type="checkbox"name="heater" style="display:none;"/>
+  <input id="heater" class="filter_btn"type="checkbox"name="heater" style="display:none;"<c:if test="${searchKeyword.heater == 'on'}">checked</c:if>/>
 					<label for="heater" class="filter_btn">난로</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 12%;">
+  <input id="pickup" class="filter_btn"type="checkbox"name="pickup" style="display:none;"<c:if test="${searchKeyword.pickup == 'on'}">checked</c:if>/>
+					<label for="pickup" class="filter_btn">픽업 가능</label></div>
+					
+  <div class="filter_btn_area_1" style="width: 9%;">
+  <input id="dryer" class="filter_btn"type="checkbox"name="dryer" style="display:none;"<c:if test="${searchKeyword.dryer == 'on'}">checked</c:if>/>
+					<label for="dryer" class="filter_btn">건조기</label></div>
 					
 	
 	
