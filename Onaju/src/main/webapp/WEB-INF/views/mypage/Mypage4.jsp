@@ -15,37 +15,6 @@ request.setCharacterEncoding("UTF-8");
 <meta name="description" content="">
 
 <style>
-
-.hb_rec_1 {
-	float: left;
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_2 {
-	display: inline-block;
-	float: right;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_3 {
-	align-items: center;
-	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
-}
-
 .hb_rec_3_mypage {
 	text-align: center;
 	display: inline-block;
@@ -68,16 +37,6 @@ request.setCharacterEncoding("UTF-8");
 	padding: 0px 0px 0px 0px;
 	margin: 7px 21px 7px 0px;
 	float: left;
-}
-
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
 }
 /* <섹션 종류> */
 .hb_section_total {
