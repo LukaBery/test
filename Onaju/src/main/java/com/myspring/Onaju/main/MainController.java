@@ -39,9 +39,10 @@ public class MainController extends BaseController {
 		List<HostCommunityVO> comunityList_best= hostCommunityService.comunityList_best(searchMap);
 		searchMap.put("board_type", "newest");
 		List<HostCommunityVO> comunityList_newest= hostCommunityService.comunityList_best(searchMap);
-	
+		
 		mav.addObject("comunityList_best", comunityList_best);
 		mav.addObject("comunityList_newest", comunityList_newest);
+	
 		mav.setViewName(viewName);
 
 		return mav;

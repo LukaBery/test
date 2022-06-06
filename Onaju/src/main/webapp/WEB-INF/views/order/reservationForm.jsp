@@ -245,7 +245,7 @@ hr {
 	display: inline-block;
 	float: right;
 	width: 550px;
-	height: 500px;
+	height: auto;
 	border-radius: 12px;
 	border: 1px solid #CCCCCC;
 	padding: 20px;
@@ -539,7 +539,9 @@ font-size:14px;
 	
 	
 	
-	
+	function goBack(){
+		window.history.back();
+	}
 	
 </script>
 <script type="text/javascript"
@@ -553,8 +555,8 @@ font-size:14px;
 		<section class="hb_section_1">
 			<div class="hb_rec_1">
 				<a
-					style="display: inline-block; font-size: 30px; float: left; margin-top: 17px; color: black; opacity: 70%;"
-					href="#">< &nbsp;</a> <b id="te">확인 및 결제 </b>
+					style=" display: inline-block; font-size: 30px; float: left; margin: 17px 20px 0px 0px; color: black; opacity: 70%;"
+					href="#" onClick="goBack();">&lt;</a> <b id="te">확인 및 결제 </b>
 			</div>
 			<br>
 		</section>
@@ -715,30 +717,29 @@ font-size:14px;
 					세부정보</h3>
 				<div class="hb_text_order01">
 					<div id="r2" style="width: 40%; text-align: left;">숙소</div>
-					<input type="text" value="" style="width: 60%; text-align: right;"
-						disabled>
+					<div 
+
+						style="width: 60%; display:inline-block;text-align: right;" ><fmt:formatNumber value="${(order.total+0.0)/(4/3+0.0) }" type="currency" currencySymbol="₩ " /></div>
 				</div>
 
-				<div class="hb_text_order01">
-					<div id="r2" style="width: 40%; text-align: left;">특별가 제안</div>
-					<input type="text" value="W 100,000"
-						style="width: 60%; text-align: right;" disabled>
-				</div>
+				
 				<div class="hb_text_order01">
 					<div id="r2" style="width: 40%; text-align: left;">서비스 수수료</div>
-					<input type="text" value="W 100,000"
-						style="width: 60%; text-align: right;" disabled>
+					<div 
+
+						style="width: 60%; display:inline-block;text-align: right;" ><fmt:formatNumber value="${(order.total+0.0)/(20+0.0) }" type="currency" currencySymbol="₩ " /></div>
 				</div>
 				<div class="hb_text_order01">
 					<div id="r2" style="width: 40%; text-align: left;">숙박세와 수수료</div>
-					<input type="text" value="W 100,000"
-						style="width: 60%; text-align: right;" disabled>
+					<div 
+
+						style="width: 60%; display:inline-block;text-align: right;" ><fmt:formatNumber value="${(order.total+0.0)/(10+0.0) }" type="currency" currencySymbol="₩ " /></div>
 				</div>
-				<div class="hb_text_order01">
+				<div class="hb_text_order01" style="margin-top:20px;display:inline-block; width:100%;">
 					<div id="r2"
 						style="width: 40%; text-align: left; font-weight: 570;">총합계
 					</div>
-					<input type="text" id="total"value="${order.total }"
+					<input type="text" id="total"value="<fmt:formatNumber value="${order.total}" type="currency" currencySymbol="₩ " />"
 						style="width: 60%; text-align: right; font-weight: 570;" disabled>
 				</div>
 
