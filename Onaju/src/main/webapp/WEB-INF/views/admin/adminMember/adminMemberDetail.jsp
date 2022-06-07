@@ -123,6 +123,45 @@
 	background: #ff3333;
 	color: #ffffff;	
 }
+.styled-table{
+	border-collapse: collapse;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
+	width: 100%;
+	table-layout: fixed;
+}
+.styled-table thead tr{
+	background-color: #eeeeee;
+	color: #666666;
+	text-align: left;
+	border: 1px solid #ffffff;
+}
+.styled-table thead tr td{
+	border: 1px solid #ffffff; 
+	font-size: 14px;
+}
+.styled-table th, .styled-table td {
+	padding: 12px 15px;
+}
+.styled-table tbody tr{
+	border-bottom: 1px solid #dddddd;
+	font-size: 13px;
+}
+.styled-table tbody td:hover{
+	background-color: #99CCFF;
+}
+.styled-table tbody td:nth-of-type(even){
+	/* background-color: #f3f3f3; */
+}
+.styled-table tbody td:nth-of-type(even):hover{
+	background-color: #99CCFF;
+}
+.styled-table tbody td:nth-of-type{
+	border-bottom: 2px solid #009879;
+}
+.styled-table tbody td.active-row{
+	font-weight: bold;
+	color: #009879;
+}
 </style>
 </head>
 <body>
@@ -189,8 +228,117 @@
 			</div>		
 		</div>
 		<div class="mem-item1"><div><h2>예약 내역</h2></div></div>
+		<div>
+			<table class="styled-table" style="width: 1140px;">
+				<colgroup>
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+				</colgroup>
+				<thead>
+					<tr>
+						<td>예약 번호</td>
+						<td>예약 숙소명</td>
+						<td>객실 번호</td>
+						<td>숙소 타입</td>
+						<td>예약자 명</td>
+						<td>예약 인원</td>
+						<td>예약 기간</td>
+						<td>결제 금액</td>
+						<td>결제 방식</td>
+						<td>결제 상태</td>
+					</tr>
+				</thead>
+				<c:choose>
+					<c:when test="${empty ordersList}" >
+    					<tr  height="10">
+      						<td colspan="10">
+        						<p align="center">
+        							<b><span style="font-size:9pt;">예약 정보가 없습니다.</span></b>
+        						</p>
+      						</td>  
+    					</tr>
+  					</c:when>
+  					<c:when test="${!empty ordersList}" >
+						<tr>
+							<td>${orderVO.order_code }</td>
+							<td>${orderVO.hostInfo_name }</td>
+							<td>${orderVO.room_number }</td>
+							<td>${orderVO.room_type }</td>
+							<td>${orderVO.U_name }</td>
+							<td>${orderVO.people_count }</td>
+							<td>${orderVO.checkIn_date }</td>
+							<td>${orderVO.total }</td>
+							<td>${orderVO.pay_type }</td>
+							<td>${orderVO.pay_state }</td>
+						</tr>
+					</c:when>
+				</c:choose>
+			</table>
+		</div>
 		<div class="mem-item1"><div><h2>이용 내역</h2></div></div>
-		
+		<div>
+			<table class="styled-table" style="width: 1140px;">
+				<colgroup>
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+				</colgroup>
+				<thead>
+					<tr>
+						<td>예약 번호</td>
+						<td>예약 숙소명</td>
+						<td>객실 번호</td>
+						<td>숙소 타입</td>
+						<td>예약자 명</td>
+						<td>예약 인원</td>
+						<td>예약 기간</td>
+						<td>결제 금액</td>
+						<td>결제 방식</td>
+						<td>결제 상태</td>
+					</tr>
+				</thead>
+				<c:choose>
+					<c:when test="${empty ordersList}" >
+    					<tr  height="10">
+      						<td colspan="10">
+        						<p align="center">
+        							<b><span style="font-size:9pt;">이용 내역이 없습니다.</span></b>
+        						</p>
+      						</td>  
+    					</tr>
+  					</c:when>
+  					<c:when test="${!empty ordersList}" >
+						<tr>
+							<td>${orderVO.order_code }</td>
+							<td>${orderVO.hostInfo_name }</td>
+							<td>${orderVO.room_number }</td>
+							<td>${orderVO.room_type }</td>
+							<td>${orderVO.U_name }</td>
+							<td>${orderVO.people_count }</td>
+							<td>${orderVO.checkIn_date }</td>
+							<td>${orderVO.total }</td>
+							<td>${orderVO.pay_type }</td>
+							<td>${orderVO.pay_state }</td>
+						</tr>
+					</c:when>
+				</c:choose>
+			</table>
+		</div>
 		<div class="mem-item5">
 			<div><a class="a1" href="${contextPath }/admin/memberModify.do?u_id=${memberVO.u_id}">수정하기</a></div>
 			<div><a class="a2" href="${contextPath }/admin/memberList.do">돌아가기</a></div></div>	

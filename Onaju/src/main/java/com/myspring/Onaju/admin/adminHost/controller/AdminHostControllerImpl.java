@@ -80,15 +80,10 @@ public class AdminHostControllerImpl implements AdminHostController {
 			throws Exception {
 		
 		adminHostVO = adminHostService.hostDetail(h_id);
-		
-		String h_birth_y = adminHostVO.getH_birth_y() + "년";
-		String h_birth_m = adminHostVO.getH_birth_m() + "월";
-		String h_birth_d = adminHostVO.getH_birth_d() + "일";
-		String h_birth = h_birth_y+h_birth_m+h_birth_d;
-		
+				
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hostVO",adminHostVO);
-		mav.addObject("h_birth", h_birth);
+
 		return mav;
 	}
 	
@@ -120,9 +115,18 @@ public class AdminHostControllerImpl implements AdminHostController {
 			throws Exception {
 		
 		adminHostInfoVO = adminHostService.hostInfoDetail(h_code);
-
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminHostInfoVO", adminHostInfoVO);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/hostInfoModify.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView hostInfoModifyForm(String h_code) throws Exception {
+		adminHostInfoVO = adminHostService.hostInfoDetail(h_code);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminHostInfoVO", adminHostInfoVO);
+
 		return mav;
 	}
 }

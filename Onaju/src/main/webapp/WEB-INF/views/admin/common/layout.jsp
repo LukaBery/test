@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
  <title>layout</title>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>       
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>       
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <style type="text/css">
 *{
@@ -33,7 +33,7 @@
 .asidesize{
  background-color: white;
  width: 300px;
- height: 100vh;
+ height: 1800px;
  float: left;
  box-shadow: 0 1px 3px rgb(224, 224, 224, 0.5);
 }
@@ -55,12 +55,13 @@
 }
 .footersize{
 	width:100%;
+	height:45px;
 	bottom:0;
 
 }
 .Ohnaju-layout{
 	width: 1440px;
-	height: 100vh;
+	height: 1800px;
 	margin: auto;
 }
 </style>

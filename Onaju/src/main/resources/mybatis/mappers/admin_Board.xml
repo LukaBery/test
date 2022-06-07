@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.admin.board">
+	<resultMap id="noticeResult" type="adminNoticeVO">
+		<result property="notice_title" column="notice_title"/>
+		<result property="notice_content" column="notice_content"/>
+		<result property="notice_type" column="notice_type"/>
+		<result property="notice_startDate" column="notice_startDate"/>
+		<result property="notice_endDate" column="notice_endDate"/>
+		<result property="post_check" column="post_check"/>
+		<result property="post_chennel" column="post_chennel"/>
+		<result property="notice_imageName" column="notice_imageName"/>
+		<result property="notice_imageType" column="notice_imageType"/>
+		<result property="notice_attachFile" column="notice_attachFile"/>
+		<result property="attachType" column="attachType"/>
+		<result property="topView_check" column="topView_check"/>
+		<result property="a_id" column="a_id"/>
+		<result property="notice_code" column="notice_code"/>
+		<result property="writeDate" column="writeDate"/>
+		
+	</resultMap>
+	
+	
+	<!-- 공지사항 리스트 -->
+	<select id="selectAllNoticeList" resultMap="noticeResult"   parameterType="adminNoticeVO"  >
+		 <![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, a_id, notice_title, writeDate, post_chennel, notice_startDate, notice_endDate, notice_type, notice_code 
+        from a_noticeboard, (select @rownum := 0)  as rowcolumn order by writeDate desc) z 
+		where rn >= #{startNO} and rn <= #{endNO};
+		 ]]>			        
+	</select>
+	
+	<select id="selectNoticeDetail" resultType="map" parameterType="String">
+		select  N.notice_title,
+				N.notice_code, 
+				N.a_id, 
+				N.notice_content, 
+				N.notice_type, 
+				N.notice_startDate, 
+				N.notice_endDate, 
+				N.post_check, 
+				N.post_chennel, 
+				N.notice_attachFile, 
+				N.notice_attachType, 
+				N.topView_check, 
+				N.writeDate, 
+				I.img_code, 
+				I.Org_File_Name, 
+				I.Save_file_Name, 
+				I.File_Size 
+		from a_noticeboard N 
+		left outer join a_notice_img I 
+		on N.notice_code = I.notice_code 
+		where N.notice_code = #{notice_code};
+	</select>
+	
+	<select id="selectImgFile" resultType="String" parameterType="map">
+		select save_file_name from a_notice_img where notice_code = #{notice_code} and creID = #{a_id}
+	</select>
+	
+	<insert id="insertNotice" parameterType="adminNoticeVO">	
+		insert into a_noticeboard(a_id, notice_title, notice_content, notice_type, notice_startDate, notice_endDate, post_check, post_chennel, topView_check)
+		values(#{a_id}, #{notice_title}, #{notice_content}, #{notice_type}, #{notice_startDate}, #{notice_endDate}, #{post_check}, #{post_chennel}, #{topView_check})
+		<selectKey keyProperty="notice_code" resultType="int" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+		
+	<insert id="insertImgFile" parameterType="hashMap">
+	<![CDATA[
+	insert into a_notice_Img (notice_code, Org_File_Name, Save_File_Name, File_Size, creID)
+	values(#{notice_code}, #{Org_File_Name}, #{Save_File_Name}, #{File_Size}, #{creID})
+	]]>
+	</insert>
+	
+	<select id="selectAllNoticeTotal" resultType="java.lang.Integer">
+   		
+        SELECT count(*) total FROM a_noticeboard where notice_code > 0
+    	
+        <if test="write_startDate !='' and write_startDate != null">
+        and writeDate >= #{write_startDate}
+        </if>
+        <if test="write_endDate !='' and write_endDate != null"> 
+        <![CDATA[
+        and writeDate <= #{write_endDate} 
+        ]]>
+        </if>
+        <if test="notice_type !='' and notice_type != null">
+        and notice_type = #{notice_type} 
+        </if>
+        <if test="notice_title !='' and notice_title != null">
+        and notice_title = #{notice_title}
+        </if>
+		
+	</select>
+	
+	<select id="selectSearchNotice" resultMap="noticeResult" parameterType="map">
+		<![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, a_id, notice_title, writeDate, post_chennel, notice_startDate, notice_endDate, notice_type, notice_code, post_check 
+        from a_noticeboard, (select @rownum := 0)  as rowcolumn order by writeDate desc) s
+		where rn >= #{startNO} and rn <= #{endNO}
+        ]]>      
+        <if test="write_startDate !='' and write_startDate != null">
+        and writeDate >= #{write_startDate}
+        </if>
+        <if test="write_endDate !='' and write_endDate != null"> 
+        <![CDATA[
+        and writeDate <= #{write_endDate} 
+        ]]>
+        </if>
+        <if test="notice_type != '' and notice_type != null">
+        and notice_type = #{notice_type}
+        </if>
+        <if test="notice_title != '' and notice_title != null">
+        and notice_title like concat('%',#{notice_title},'%')
+        </if>
+	</select>
+	
+	<select id="selectAllEnquireList" resultType="hashmap" parameterType="adminEnquireVO">
+		select 
+			enquire_NO,
+			title,
+			hit_cnt,
+			creDate,
+			u_id,
+			reply_yn,
+			del_yn
+		from
+			a_enquireboard
+		where
+			del_yn = 'N'
+			order by enquire_NO desc
+	</select>
+	<select id="selectEnquireDetail" resultType="hashmap" parameterType="adminEnquireVO">
+		select
+			enquire_NO,
+			title,
+			contents,
+			hit_cnt,
+			u_id,
+			creDate,
+			del_yn
+		from
+			a_enquireboard
+		where
+			enquire_NO = #{enquire_NO}
+	</select>
+	
+	<update id="updateHit">
+		update
+			a_enquireboard
+		set
+			hit_cnt = hit_cnt + 1
+		where
+			enquire_NO = #{enquire_NO}
+	</update>
+	
+	<insert id="insertEnquireReply">
+		insert into a_enquire_reply (enquire_NO, re_contents, a_id) values(#{enquire_NO}, #{re_contents}, #{a_id})
+	</insert>
+	<select id="selectEnquireReplyDetail" resultType="hashmap" parameterType="adminEnquireReplyVO">
+		select
+			enquire_NO,
+			re_contents,
+			date_format(creDate,'%Y-%m-%d %H:%i:%s') as creDate,
+			a_id,
+			del_yn
+		from
+			a_enquire_reply
+		where
+			enquire_NO = #{enquire_NO}
+		order by
+		creDate desc
+	</select>
+	<update id="updateReplyCheck">
+		update
+			a_enquireboard
+		set
+			reply_yn = 'Y'
+		where
+			enquire_NO = #{enquire_NO}
+	</update>
+</mapper>

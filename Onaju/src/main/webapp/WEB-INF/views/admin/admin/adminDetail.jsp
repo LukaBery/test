@@ -22,6 +22,7 @@
 	height: 50px; 
 	display:flex; 
 	align-items: center;
+	border-bottom: 1px solid #000033;
 }
 .mem-item2{
 	border-radius: 5px;
@@ -46,8 +47,7 @@
 	height: 50px;
 	display:flex; 
 	align-items: center;
-	border: 1px solid #E6E6E6; 
-	border-bottom: none;
+	border-bottom: 1px solid #E6E6E6; 
 }
 .mem-item2-chil-3{
 	width: 940px;

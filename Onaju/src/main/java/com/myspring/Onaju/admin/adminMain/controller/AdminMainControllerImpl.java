@@ -64,14 +64,14 @@ import com.myspring.Onaju.admin.adminMain.service.AdminMainService;
 			if(action != null){
 				session.setAttribute("isLogOn", true);
 				session.setAttribute("adminInfo", adminVO);
-				session.setMaxInactiveInterval(300);
+				session.setMaxInactiveInterval(3000);
 				msg = "1";
 				mav.addObject("msg", msg);
 				mav.setViewName(action);
 			}else{
 				session.setAttribute("isLogOn", true);
 				session.setAttribute("adminInfo", adminVO);
-				session.setMaxInactiveInterval(300);
+				session.setMaxInactiveInterval(3000);
 				msg = "3";
 				mav.addObject("msg", msg);
 				mav.setViewName("redirect:/admin/main.do");	
