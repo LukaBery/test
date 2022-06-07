@@ -97,6 +97,7 @@ request.setCharacterEncoding("UTF-8");
 					
 					success : function(data) {
 						alert("주문 완료.");
+						location.href="${contextPath}/mypage/mypageMain.do"
 					},
 					error : function() {
 						alert("네트워크가 불안정합니다. 다시 시도해 주세요.222");
@@ -106,7 +107,7 @@ request.setCharacterEncoding("UTF-8");
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
 			}
-			location.href="${contextPath}/mypage/mypageMain.do"
+			
 
 		});
 	}
