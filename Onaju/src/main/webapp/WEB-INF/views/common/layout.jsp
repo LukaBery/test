@@ -49,6 +49,9 @@ request.setCharacterEncoding("UTF-8");
 <!-- Main CSS-->
 <link href="${contextPath}/resources/css/main.css" type="text/css" rel="stylesheet"
 	media="all">
+	
+<link href="${contextPath}/resources/css/order.css" type="text/css" rel="stylesheet"
+	media="all">
 <script type="text/javascript">
 
 if(!confirm("등록하시겠습니까?")){

@@ -233,7 +233,7 @@ function  calcPeriod(search_period){
 	
 	
 	
-	<div style="width:170px; height:1000px; float:left;">
+	<div class="hb_nav_box1">
 		<!-- <상위 네비게이션>-->
 		<div class="hb_nav_section_1 margin_left_0">
 
@@ -248,7 +248,7 @@ function  calcPeriod(search_period){
 			</div>
 			
 			<div class="hb_nav_btn"style="border: 2px solid #CCCCCC;">
-				<a class="hb_nav_btn_a" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
+				<a class="hb_nav_btn_a hb_nav_shadow" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
 					
 			<div class="hb_nav_btn">
@@ -444,11 +444,11 @@ function  calcPeriod(search_period){
 		<fmt:formatDate var="creDate_" value="${creDate}" pattern="yyyy/MM/dd"/>
 	
 		
-		<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}" style="width:22%; height:100%; float:left;border: 1px solid #CCCCCC;border-radius:12px;">
-		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:14px;font-weight:570;">     ${ item.title }</div>
+		<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}" class="mypage_card_image">
+		<div style="width:77%;"class="mypage_card_title">     ${ item.title }</div>
 				<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:12px;font-weight:540;">리뷰 작성일: ${creDate_ }</div>
 		
-		<div style="width:77%; height:25%; float:left; text-align:left; padding-left:10px;margin-top:5px;font-size:12px;font-weight:540;">이용 기간 : ${checkIn_date } ~ ${checkOut_date }</div>
+		<div style="width:77%;"class="mypage_card_title">이용 기간 : ${checkIn_date } ~ ${checkOut_date }</div>
  
  
  
