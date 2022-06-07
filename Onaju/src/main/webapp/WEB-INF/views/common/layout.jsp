@@ -22,6 +22,8 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <title>오나주</title>
+<link  type="text/css"  href="${contextPath}/resources/css/mypage.css" rel="stylesheet" />
+
 <link type="text/css" 
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />

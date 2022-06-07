@@ -21,184 +21,6 @@ request.setCharacterEncoding("UTF-8");
 <meta name="author" content="Colrolib">
 <meta name="keywords" content="Colrolib Templates">
 
-<style>
-.hb_nav_btn {
-	text-align: center;
-	display: inline-block;
-	width: 134px;
-	height: 50px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 7px 21px 7px 0px;
-	float: left;
-}
-
-.hb_nav_btn:hover {
-	
-	border: 2px solid #CCCCCC;
-	
-}
-
-.hb_nav_btn_a {
-	padding: 15px;
-	color: black;
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	font-size: 15px;
-	font-weight: 580;
-	margin: 0 auto;
-	border-radius: 9px;
-	background-color: white;
-	opacity: 70%;
-}
-
-hb_nav_btn_a:hover {
-	
-	opacity: 100%;
-	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
-}
-
-.hb_nav_section_1 {
-	display: inline-block;
-    width: 160px;
-    height: 400px;
-    position: sticky;
-    top: 120px;
-}
-
-
-/* <섹션 종류> */
-.hb_section_total {
-	width: 1100px;
-	height: 100%
-}
-
-
-
-.hb_section_mypagemain {
-padding: 30px 0px;
-	display: inline-block;
-	width: 84%;
-	height:100%;
-}
-
-
-.hb_section_title {
-	padding: 20px 4px 15px 0px;
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-}
-/* <인라인블럭 왼쪽 고정> */
-.margin_left_0 {
-	float: left;
-	margin-left: 0px;
-	border:0;
-}
-
-#h1_left_title{
-
-	color:  #5C5C5C;
-	font-weight: 600;
-	text-align: left;
-	font-size: 30px;
-}
-	
-#btn_mypage_0 {
-	width: 80%;
-	height: 80%;
-	z-index: 10;
-	border: 1px solid #CCCCCC;
-	color: black;
-	font-weight: 560;
-	background-color: white;
-	border-radius: 12px;
-	z-index: 9999;
-	font-size: 12px;
-	padding: 6px;
-}
-
-#btn_mypage_0:hover {
-	box-shadow: 1px 3px 5px rgb(0 0 0/ 18%);
-}
-
-.btn_mypage_date_1 {
-	width: 100%;
-	height: 100%;
-	border: 1px solid #CCCCCC;
-	border-radius: 6px;
-	padding: 3.5px;
-	font-size: 12px;
-	font-weight: 600;
-	cursor: pointer;
-	color: black;
-	background-color: white;
-}
-
-.btn_mypage_date_1:hover, #search_button:hover {
-	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	color: white;
-	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
-		50%, rgb(205, 11, 56) 10%) !important;
-}
-
-.btn_clicked {
-width: 100%;
-	height: 100%;
-	border: 1px solid #CCCCCC;
-	border-radius: 6px;
-	padding: 3.5px;
-	font-size: 12px;
-	font-weight: 600;
-	cursor: pointer;
-
-	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	color: white;
-	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
-		50%, rgb(205, 11, 56) 10%) !important;
-}
-.btn_pageNum{
-width:20px;
-color:black;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.btn_pageNum_clicked{
-width:20px;
-color: rgb(250,100,145);
-
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.mypage_user_info_grade {
-	display: inline-block;
-	float: left;
-	font-size: 12px;
-	width: 20%;
-	height: 100%;
-	padding: 10px 20px 0px 20px;
-}
-
-.mypage_user_info_grade_2 {
-	width: 80px;
-	height: 80px;
-	border-radius: 70%;
-	display: inline-block;
-}
-
-.mypage_user_info_grade_logo {
-	width: 100%;
-	margin-top: 10px;
-	display: inline-block;
-	float: left;
-}
-</style>
 
 <c:if test='${ not empty period_color }'>
 
@@ -243,7 +65,7 @@ function delReview(boardNum){
 	 
 	 }
 
-function searchByPriod(period){
+function searchByPriod_reviewList(period){
 	var formObj=document.createElement("form");
 	var _period = document.createElement("input");
 	var period_color = document.createElement("input");
@@ -273,20 +95,43 @@ function  calcPeriod(search_period){
 	endYear = dt.getFullYear();
 	endMonth = dt.getMonth()+1;
 	endDay = dt.getDate();
+
 	if(search_period=='today'){
 		beginYear=endYear;
 		beginMonth=endMonth;
 		beginDay=endDay;
 	}else if(search_period=='one_week'){
 		beginYear=dt.getFullYear();
-		beginMonth=dt.getMonth()+1;
-		dt.setDate(endDay-7);
+		
+		if((endDay-7)<1){
+			beginMonth=dt.getMonth();
+			minus_date = Math.abs(endDay-7);
+			real_date = new Date(endYear, beginMonth, 0).getDate();
+			dt.setDate(real_date-minus_date);
+		}
+		else{
+	
+			beginMonth=dt.getMonth()+1;
+			dt.setDate(endDay-7);
+		}
+	
 		beginDay=dt.getDate();
 		
 	}else if(search_period=='15_days'){
 		beginYear = dt.getFullYear();
-		beginMonth = dt.getMonth()+1;
-		dt.setDate(endDay-15);
+		if((endDay-15)<1){
+			beginMonth=dt.getMonth();
+			minus_date = Math.abs(endDay-15);
+			real_date = new Date(endYear, beginMonth, 0).getDate();
+			dt.setDate(real_date-minus_date);
+		}
+		else{
+	
+			beginMonth=dt.getMonth()+1;
+			dt.setDate(endDay-15);
+		}
+	
+		beginDay=dt.getDate();
 		beginDay=dt.getDate();
 	}else if(search_period=='one_month'){
 		beginYear = dt.getFullYear();
@@ -401,9 +246,7 @@ function  calcPeriod(search_period){
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
 			</div>
-			<div class="hb_nav_btn">
-				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
-			</div>
+			
 			<div class="hb_nav_btn"style="border: 2px solid #CCCCCC;">
 				<a class="hb_nav_btn_a" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
@@ -487,11 +330,11 @@ function  calcPeriod(search_period){
 					<div style="width: 18%; height: 100%;display:flex;justify-content:flex-start;flex-wrap:wrap;  padding: 0 4px;">
 					
 					<div style="width:33%; height:100%; padding: 0 1px; ">
-					<div class="btn_mypage_date_1" id="one_week"onClick="javascript:searchByPriod('one_week')">1주일</div> </div>
+					<div class="btn_mypage_date_1" id="one_week"onClick="javascript:searchByPriod_reviewList('one_week')">1주일</div> </div>
 				    <div style="width:33%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"id="15_days"onClick="javascript:searchByPriod('15_days')">15일</div></div>
+					<div  class="btn_mypage_date_1"id="15_days"onClick="javascript:searchByPriod_reviewList('15_days')">15일</div></div>
 					<div style="width:33%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"id="one_month"onClick="javascript:searchByPriod('one_month')">1개월</div></div>
+					<div  class="btn_mypage_date_1"id="one_month"onClick="javascript:searchByPriod_reviewList('one_month')">1개월</div></div>
 					
 					</div>
 					<div style="width: 29%; height: 100%; display:flex;justify-content:flex-start;flex-wrap:wrap; padding: 0 4px;">
@@ -500,25 +343,25 @@ function  calcPeriod(search_period){
 
 						<div style="width: 20%; height: 100%; padding: 0 1px;">
 							<div class="btn_mypage_date_1" id="last_one_month"
-								onClick="javascript:searchByPriod('last_one_month')">
+								onClick="javascript:searchByPriod_reviewList('last_one_month')">
 								<c:out value="${sysMonth -1}" />월
 								
 								</div>
 						</div>
 						<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1" id="last_two_month"onClick="javascript:searchByPriod('last_two_month')">
+					<div  class="btn_mypage_date_1" id="last_two_month"onClick="javascript:searchByPriod_reviewList('last_two_month')">
 					<c:out value="${sysMonth -2}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"id="last_three_month"onClick="javascript:searchByPriod('last_three_month')">
+					<div  class="btn_mypage_date_1"id="last_three_month"onClick="javascript:searchByPriod_reviewList('last_three_month')">
 					<c:out value="${sysMonth -3}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"id="last_four_month"onClick="javascript:searchByPriod('last_four_month')">
+					<div  class="btn_mypage_date_1"id="last_four_month"onClick="javascript:searchByPriod_reviewList('last_four_month')">
 					<c:out value="${sysMonth -4}" />월
 					</div></div>
 					<div style="width:20%; height:100%; padding: 0 1px; ">
-					<div  class="btn_mypage_date_1"id="last_five_month"onClick="javascript:searchByPriod('last_five_month')">
+					<div  class="btn_mypage_date_1"id="last_five_month"onClick="javascript:searchByPriod_reviewList('last_five_month')">
 					<c:choose>
 					<c:when test="${(sysMonth-5) > 0 }">
 					<c:out value="${sysMonth -5}" />월

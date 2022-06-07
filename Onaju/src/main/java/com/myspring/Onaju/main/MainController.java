@@ -58,7 +58,6 @@ public class MainController extends BaseController {
 		
 
 		hostCommunityVO = hostCommunityService.modCommunity(cmnNum);
-		System.out.println("커뮤니티 글 modCommunity :" + hostCommunityVO);
 		mav.addObject("hostCommunityVO", hostCommunityVO);
 		Map goodsMap = hostCommunityService.selectCommunityView(room_code);
 		mav.addObject("goodsMap", goodsMap);

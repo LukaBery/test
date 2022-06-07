@@ -21,257 +21,7 @@ request.setCharacterEncoding("UTF-8");
 <meta name="author" content="Colrolib">
 <meta name="keywords" content="Colrolib Templates">
 
-<style>
-.hb_nav_btn {
-	text-align: center;
-	display: inline-block;
-	width: 134px;
-	height: 50px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 7px 21px 7px 0px;
-	float: left;
-}
 
-.hb_nav_btn:hover {
-	border: 2px solid #CCCCCC;
-}
-
-.hb_nav_btn_a {
-	padding: 15px;
-	color: black;
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	font-size: 15px;
-	font-weight: 580;
-	margin: 0 auto;
-	border-radius: 9px;
-	background-color: white;
-	opacity: 70%;
-}
-
-hb_nav_btn_a:hover {
-	opacity: 100%;
-	box-shadow: 4px 8px 4px rgb(0 0 0/ 18%);
-}
-
-.hb_nav_section_1 {
-	display: inline-block;
-	width: 160px;
-	height: 400px;
-	position: sticky;
-	top: 120px;
-}
-
-/* <섹션 종류> */
-.hb_section_total {
-	width: 1100px;
-	height: 100%
-}
-
-.hb_section_mypagemain {
-	padding: 30px 0px;
-	display: inline-block;
-	width: 84%;
-	height: 100%;
-}
-
-.hb_section_title {
-	padding: 20px 4px 15px 0px;
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-}
-/* <인라인블럭 왼쪽 고정> */
-.margin_left_0 {
-	float: left;
-	margin-left: 0px;
-	border: 0;
-}
-
-#h1_left {
-	text-align: left;
-	font-size: 25px;
-}
-
-#h1_left_title {
-	color: #5C5C5C;
-	font-weight: 600;
-	text-align: left;
-	font-size: 30px;
-}
-
-.draggable { /* 드래그 가능 */
-	-webkit-user-select: all;
-	-moz-user-select: all;
-	-ms-user-select: all;
-	user-select: all
-}
-
-.draggFalse { /* 드래그 불가능 */
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none
-}
-
-#btn_mypage_0 {
-	width: 80%;
-	height: 80%;
-	z-index: 10;
-	border: 1px solid #CCCCCC;
-	color: black;
-	font-weight: 560;
-	background-color: white;
-	border-radius: 12px;
-	z-index: 9999;
-	font-size: 12px;
-	padding: 6px;
-}
-
-#btn_mypage_fin {
-	width: 80%;
-	height: 80%;
-	z-index: 10;
-	border: 1px solid #CCCCCC;
-	color: white;
-	font-weight: 560;
-	background-color: rgb(250, 100, 145);
-	border-radius: 12px;
-	z-index: 9999;
-	font-size: 12px;
-	padding: 6px;
-}
-
-#btn_mypage_0:hover, #btn_mypage_fin:hover {
-	box-shadow: 1px 3px 5px rgb(0 0 0/ 18%);
-}
-
-.btn_mypage_date_1 {
-	width: 100%;
-	height: 100%;
-	border: 1px solid #CCCCCC;
-	border-radius: 6px;
-	padding: 3.5px;
-	font-size: 12px;
-	font-weight: 600;
-	cursor: pointer;
-	color: black;
-	background-color: white;
-}
-
-.btn_mypage_date_1:hover, #search_button:hover {
-	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	color: white;
-	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
-		50%, rgb(205, 11, 56) 10%) !important;
-}
-
-.btn_clicked {
-	width: 100%;
-	height: 100%;
-	border: 1px solid #CCCCCC;
-	border-radius: 6px;
-	padding: 3.5px;
-	font-size: 12px;
-	font-weight: 600;
-	cursor: pointer;
-	box-shadow: inset 1px 1px 0px 0px rgb(0 0 0/ 18%);
-	color: white;
-	background: linear-gradient(to right, rgb(205 11 56) 0%, rgb(195, 8, 71)
-		50%, rgb(205, 11, 56) 10%) !important;
-}
-
-.btn_pageNum {
-	width: 20px;
-	color: black;
-	text-decoration: none;
-	font-size: 15px;
-	font-weight: 600;
-}
-
-.btn_pageNum_clicked {
-	width: 20px;
-	color: rgb(250, 100, 145);
-	text-decoration: none;
-	font-size: 15px;
-	font-weight: 600;
-}
-
-.mypage_user_info_grade {
-	display: inline-block;
-	float: left;
-	font-size: 12px;
-	width: 20%;
-	height: 100%;
-	padding: 10px 20px 0px 20px;
-}
-
-.mypage_user_info_grade_2 {
-	width: 80px;
-	height: 80px;
-	border-radius: 70%;
-	display: inline-block;
-}
-
-.mypage_user_info_grade_logo {
-	width: 100%;
-	margin-top: 10px;
-	display: inline-block;
-	float: left;
-}
-
-.filter_box {
-	width: 100%;
-	padding: 11px 10px;
-	height: 50px;
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	border: 1px solid #CCCCCC;
-	border-radius: 12px;
-	margin-bottom: 20px;
-}
-
-.filter_title {
-	width: 13%;
-	height: 100%;
-	padding: 3.5px;
-	font-weight: bolder;
-	color: #5C5C5C;
-}
-
-.filter_btn_box_1 {
-	width: 18%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	padding: 0 4px;
-}
-
-.filter_btn_box_2 {
-	width: 29%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	padding: 0 4px;
-}
-
-.filter_btn_area_1 {
-	width: 33%;
-	height: 100%;
-	padding: 0 1px;
-}
-.filter_btn_area_2 {
-width: 20%;
-	height: 100%;
-	padding: 0 1px;
-}
-</style>
 <c:if test='${ not empty period_color }'>
 
 	<script>
@@ -377,14 +127,36 @@ function  calcPeriod(search_period){
 		beginDay=endDay;
 	}else if(search_period=='one_week'){
 		beginYear=dt.getFullYear();
-		beginMonth=dt.getMonth()+1;
-		dt.setDate(endDay-7);
+		
+		if((endDay-7)<1){
+			beginMonth=dt.getMonth();
+			minus_date = Math.abs(endDay-7);
+			real_date = new Date(endYear, beginMonth, 0).getDate();
+			dt.setDate(real_date-minus_date);
+		}
+		else{
+	
+			beginMonth=dt.getMonth()+1;
+			dt.setDate(endDay-7);
+		}
+	
 		beginDay=dt.getDate();
 		
 	}else if(search_period=='15_days'){
 		beginYear = dt.getFullYear();
-		beginMonth = dt.getMonth()+1;
-		dt.setDate(endDay-15);
+		if((endDay-15)<1){
+			beginMonth=dt.getMonth();
+			minus_date = Math.abs(endDay-15);
+			real_date = new Date(endYear, beginMonth, 0).getDate();
+			dt.setDate(real_date-minus_date);
+		}
+		else{
+	
+			beginMonth=dt.getMonth()+1;
+			dt.setDate(endDay-15);
+		}
+	
+		beginDay=dt.getDate();
 		beginDay=dt.getDate();
 	}else if(search_period=='one_month'){
 		beginYear = dt.getFullYear();
@@ -500,9 +272,7 @@ function  calcPeriod(search_period){
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
 			</div>
-			<div class="hb_nav_btn">
-				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage4.do">적립금 내역</a>
-			</div>
+			
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/board/review/myReviewList.do">내 리뷰 내역</a>
 			</div>
@@ -833,7 +603,10 @@ function  calcPeriod(search_period){
 								<input type="hidden" name="order_code" value="${item.order_code }">
 								<input type="hidden" name="review_num" value="${item.review_num }">
 								<div 
-								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
+								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  
+								<a id="star1" onClick="setStar(1)" >★</a>
+								
+								★★★☆☆</div>
 								<TEXTAREA name="review_content" 
 								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
 								<c:choose>
