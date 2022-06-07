@@ -440,6 +440,7 @@
 </style>
 </head>
 <body>
+<section style="width:700px;height:900px;">
 	<div class="wrap wd668">
 			<div class="container">
 				<div class="form_txtInput">
@@ -463,5 +464,6 @@
 			
 			</div><!-- content E-->
 		</div> <!-- container E -->
+		</section>
 </body>
 </html>

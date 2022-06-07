@@ -6,9 +6,8 @@
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
-<%-- <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="goods"  value="${goodsMap.goods}"  />
-<c:set var="hostCommunityVO"  value="${hostCommunityVO}"  /> --%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="imageFileList"  value="${goodsMap.imageFileList}"  />
 
 
 <!DOCTYPE html>
@@ -19,50 +18,7 @@
 <script src="http://madalla.kr/js/jquery-1.8.3.min.js"></script>
 
 <script type="text/javascript">
-function fn_modify_community(cmnNum, attribute){
-	var frm_mod_community=document.frm_mod_community;
-	var value="";
-	if(attribute=='bigTitle'){
-		value=frm_mod_community.bigTitle.value;
-	}else if(attribute=='smallTitle'){
-		value=frm_mod_community.smallTitle.value;
-	}else if(attribute=='content'){
-		value=frm_mod_community.content.value;
-	}else if(attribute=='room_code'){
-		for (var i = 0; frm_mod_community.room_code.length; i++) {
-			if (frm_mod_community.room_code[i].selected) {
-				value = frm_mod_community.room_code[i].value;
-				break;
-			}
-		}	
-	}
-	console.log(attribute);
 
-	$.ajax({
-		type : "post",
-		async : false, //false인 경우 동기식으로 처리한다.
-		url : "${contextPath}/host/community/modCmnConfirm.do",
-		processData: false,
-		contentType: false,
-		data : {
-			cmnNum:cmnNum,
-			attribute:attribute,
-			value:value
-		},
-		success : function(data, textStatus) {
-			if(data.trim()=='mod_success'){
-				alert("커뮤니티 글을 수정했습니다.");
-			}else if(data.trim()=='failed'){
-				alert("다시 시도해 주세요.");				
-		},
-		error : function(data, textStatus) {
-			alert("에러가 발생했습니다."+data);
-		},
-		complete : function(data, textStatus) {
-			//alert("작업을완료 했습니다");
-		}
-	}); //end ajax	
-}  
 	
 	
 //사진 미리보기	
@@ -76,26 +32,19 @@ function readURL(input,preview) {
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	  }  
-//사진 수정
-function modifyImageFile(fileId,cmnNum){
-    // alert(fileId);
-	  var form = $('#modify')[0];
-      var formData = new FormData(form);
-      formData.append("cmnImg", $('#'+fileId)[0].files[0]);
-      formData.append("cmnNum", cmnNum);
-      
-      $.ajax({
-        url: '${contextPath}/host/community/modCmnAticleForm.do',
-        processData: false,
-        contentType: false,
-        data: formData,
-        type: 'POST',
-	      success: function(result){
-	         alert("이미지를 수정했습니다!");
-	       }
-      });
-  }
 
+function uploadImgPreview() {
+	let fileInfo = document.getElementById("upImgFile").files[0];
+	let reader = new FileReader();
+
+    reader.onload = function() {
+        document.getElementById("thumbnailImg").src = reader.result;
+    };
+	if( fileInfo ) {
+        reader.readAsDataURL( fileInfo );
+    }
+
+}
 //슬라이드 사진
 $(function () {
     var n = 0;
@@ -126,7 +75,7 @@ table {
 
 section.host_notice {
 	width: 850px;
-	height:2000px; /* 삭제할 것 */ 
+	height:2450px; /* 삭제할 것 */ 
 	padding: 0 auto;
 	margin: 30px 75px 30px 75px;
 }
@@ -194,31 +143,37 @@ section.host_notice {
 
 
 .noticeBtn2 {
-	display: inline-block;
+	position: absolute;
+	right: 880px;
 	padding: 5px 30px;
 	margin: 30px 10px 30px 10px;
 	font-size: 16px;
 	font-weight: 400;
-	background: transparent;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
-	-ms-touch-action: manipulation;
 	touch-action: manipulation;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	border: 1px solid transparent;
 	text-transform: uppercase;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
 	border-radius: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.noticeBtn3 {
+	position: absolute;
+    bottom: -76px;
+	padding: 5px 30px;
+	margin: 30px 10px 30px 10px;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	user-select: none;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	border-radius: 0;
 	transition: all 0.3s;
 }
 
@@ -298,6 +253,7 @@ ul {
 }
 
 #bigTitle {
+	background-color: #E8F0FE;
 	width: 842px;
 	height: 50px;
 	font-size: 25px;
@@ -318,17 +274,18 @@ ul {
     position: absolute;
     width: 850px;
     height: 70px;
-    bottom: 700px;
+    bottom: -100px;
 }
 .introduce_image {
 	position: absolute;
     width: 850px;
-    bottom: 650px;	
+    height: 700px;
+    bottom: -850px;
 }
 .introduce_text {
 	position: absolute;
     width: 850px;
-    top: 170px;
+    bottom: -1220px;
 }
 
 .noticeBtn2Box {
@@ -358,6 +315,7 @@ ul {
 
 
 #smallTitle {
+	background-color: #E8F0FE;
 	width: 842px;
     height: 70px;
     font-size: 20px;
@@ -365,13 +323,11 @@ ul {
 }
 
 #thumbnailImg{
-	position:absolute;
-	width: 700px;
-	height: 750px;
-	top: 200%;
-    left: 10%;
+	width: 850px;
+    height: 750px;
 }
 #content{	
+	background-color: #E8F0FE;
 	width: 850px;
 	height: 200px;
 	
@@ -382,6 +338,10 @@ ul {
     margin: 30px 0px 10px 10px;
     color: #7f9b75;
 }
+#cmnImg{
+	max-width: 100%;
+    height: 800px;
+}
 </style>
 
 </head>
@@ -390,36 +350,29 @@ ul {
 	
 <!-- 바디 시작 -->
 				<section class="host_notice">
-				<form id="modify" action="${contextPath}/host/community/modCmnAticleForm.do?cmnNum=${hostCommunityVO.cmnNum}" method="post" enctype="multipart/form-data">
+				<form id="modify"  action="${contextPath}/host/community/modingCmnAticleForm.do?cmnNum=${hostCommunityVO.cmnNum}&room_code=${hostCommunityVO.room_code}" method="post" enctype="multipart/form-data" >
 					<div class="host-title">
 						<div class="host_contai">
 							<h3>Life Style 글 수정</h3>
 						</div>
 					</div>
 					
-					<%-- <div class="container1">
-				       
-				           
-				          
-						        
+					<div class="container1">
 						        <div class="slider">
 						      	  <ul>
 						      	  <c:forEach var="list" items="${imageFileList }">
 						      	  	<li class="active">
-									<img src="${contextPath}/download.do?room_code=${goods.room_code}&room_imageName=${list.room_imageName}">
+									<img src="${contextPath}/download.do?room_code=${hostCommunityVO.room_code}&fileName=${list.room_imageName}">
 									</li>
 								 </c:forEach>
 				           
 								 </ul>
 								</div>
-				        </div> --%>
- 					
-					
-					
+				        </div>
 					<div class="container2">
 						<div class="bigInfo">
-							<input type="text"  name="host_type" id="host_type" value="${hostCommunityVO.host_type}" >
-							<input type="text" id="bigTitle" name="bigTitle" value="${hostCommunityVO.bigTitle}"/>
+							<input type="text"  name="host_type" disabled id="host_type" value="${hostCommunityVO.host_type}" >
+							<input type="text" id="bigTitle" name="bigTitle"  value="${hostCommunityVO.bigTitle}" />
 							<div class="h_profile">
 								<img id="profile" src="https://g-grafolio.pstatic.net/20190525_229/15587582702938v22E_JPEG/20190330-IMG_5851.jpg?type=w896_2" alt="프로필이미지">
 								<p id="hostid">${hostCommunityVO.h_id}</p>
@@ -440,12 +393,12 @@ ul {
 										<tr>
 											<th class="th-date">사업장 상호명 </th>
 											<td class="td-date-writer" >
-											<input type="text"  name="hostInfo_name" id="hostInfo_name" value="${hostCommunityVO.hostInfo_name}" >
+											<input type="text"  name="hostInfo_name" disabled id="hostInfo_name" value="${hostCommunityVO.hostInfo_name}" >
 											
 											</td>
 											<th scope="col" class="th-writer">주소</th>
 											<td class="td-date-writer" colspan="2">
-											<input type="text"  name="hostInfo_name" id="hostInfo_name" value="${hostCommunityVO.roadAddress}" >
+											<input type="text"  name="hostInfo_name" disabled id="hostInfo_name" value="${hostCommunityVO.roadAddress}" >
 											
 											
 											</td>
@@ -454,44 +407,44 @@ ul {
 										<tr>
 										<th class="th-title">상호명</th>
 										<td class="notice_title">
-										<input type="text"  name="title" id="title" value="${hostCommunityVO.title}" >
+										<input type="text"  name="title" disabled id="title" value="${hostCommunityVO.title}" >
 											
 										</td>
 										<th class="th-title">객실타입</th>
 										<td class="notice_title">
-											<input type="text"  name="room_type" id="room_type" value="${hostCommunityVO.room_type}" >
+											<input type="text"  name="room_type" disabled id="room_type" value="${hostCommunityVO.room_type}" >
 											
 										</td>
 										<th class="th-title">객실번호</th>
 										<td class="notice_title">
-										<input type="text"  name="room_number" id="room_number" value="${hostCommunityVO.room_number}" >
+										<input type="text"  name="room_number" disabled id="room_number" value="${hostCommunityVO.room_number}" >
 										</td>
 									</tr>
 									<tr>
 										
 										<th class="th-title">객실요금</th>
 										<td class="notice_title">
-										<input type="text"  name="room_fee" id="room_fee" value="${hostCommunityVO.room_fee}" >
+										<input type="text"  name="room_fee" disabled id="room_fee" value="${hostCommunityVO.room_fee}" >
 											
 										</td>
 										<th class="th-title">입실 시간</th>
 										<td class="notice_title">
-										<input type="text"  name="able_checkIn" id="able_checkIn" value="${hostCommunityVO.able_checkIn}" >
+										<input type="text"  name="able_checkIn"  disabled id="able_checkIn" value="${hostCommunityVO.able_checkIn}" >
 											 
 										</td>
 										<th class="th-title">퇴실 시간</th>
 										<td class="notice_title">
-										<input type="text"  name="able_checkOut" id="able_checkOut" value="${hostCommunityVO.able_checkOut}" >
+										<input type="text"  name="able_checkOut" disabled  id="able_checkOut" value="${hostCommunityVO.able_checkOut}" >
 										</td>
 									<tr>	
 										<th class="th-title">최소 인원</th>
 										<td class="notice_title">
-										<input type="text"  name="min_number" id="min_number" value="${hostCommunityVO.min_number}" >
+										<input type="text"  name="min_number" disabled id="min_number" value="${hostCommunityVO.min_number}" >
 											
 										</td>
 										<th class="th-title">최대 인원</th>
 										<td class="notice_title">
-										<input type="text"  name="max_number" id="max_number" value="${hostCommunityVO.max_number}" >
+										<input type="text"  name="max_number" disabled id="max_number" value="${hostCommunityVO.max_number}" >
 											 
 										</td>
 									</tr>
@@ -505,24 +458,27 @@ ul {
 						
 							<div class="introduce">
 								<div class="introduce_title">
-									<textarea id="smallTitle" name="smallTitle" value="${hostCommunityVO.smallTitle}"></textarea>
+									<textarea id="smallTitle" name="smallTitle" >${hostCommunityVO.smallTitle}</textarea>
 								</div>	
 								<div class="introduce_image">
-									 <input type="file" id="upImgFile" name="cmnImg"  value="${hostCommunityVO.cmnImg}" onChange="readURL(this,'preview');" accept="image/*">
-									 <img  id="preview" width=700 height=750 src="${contextPath}/download.do?cmnNum=${hostCommunityVO.cmnNum}&cmnImg=${hostCommunityVO.cmnImg}" />
-									 <input  type="button" value="수정"  onClick="modifyImageFile('cmnImg','${hostCommunityVO.cmnNum}')"/>
+									 <input type="file" id="upImgFile" name="cmnImage" onChange="uploadImgPreview();" accept="image/*">
+									 <img id="thumbnailImg" src="${contextPath}/host/community/download2.do?room_code=${hostCommunityVO.room_code}&fileName=${hostCommunityVO.cmn_image}">
 								</div>	
 								<div class="introduce_text">
-									<textarea name="content" id="content" name="content"  value="${hostCommunityVO.content}"></textarea> 
+									<textarea name="content" id="content" name="content" >${hostCommunityVO.content}</textarea> 
 								</div>
-							</div>
-							<div class="noticeBtn2Box">
-								<button type="submit" class="noticeBtn2 btn-dark2" onClick="fn_modify_community(this.form)">수정</button>
-								<a href="${contextPath}/host/community/deleteHostCommunity.do?cmnNum=${hostCommunityVO.cmnNum}"><button type="submit" class="noticeBtn2 btn-dark2">삭제</button></a>
+							
+							
 						</div>
-						
 					</div>
+						<div class="noticeBtn2Box">
+								<button type="submit" class="noticeBtn2 btn-dark2" >수정 완료</button>
+								
+						</div>
 					</form>
+						<div class="noticeBtn2Box">
+						<a href="${contextPath}/host/community/deleteHostCommunity.do?cmnNum=${hostCommunityVO.cmnNum}"><button class="noticeBtn3 btn-dark2">삭제</button></a>
+						</div>
 					</section>			
 										
 		

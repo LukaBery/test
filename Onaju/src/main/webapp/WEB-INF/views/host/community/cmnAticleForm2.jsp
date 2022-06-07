@@ -74,7 +74,7 @@ table {
 
 section.host_notice {
 	width: 850px;
-	height:2000px; /* 삭제할 것 */ 
+	height:2450px; /* 삭제할 것 */ 
 	padding: 0 auto;
 	margin: 30px 75px 30px 75px;
 }
@@ -144,7 +144,7 @@ section.host_notice {
 .noticeBtn2 {
 	display: inline-block;
 	padding: 5px 30px;
-	margin: 30px 10px 30px 10px;
+	margin: 30px 10px 30px 5px;
 	font-size: 16px;
 	font-weight: 400;
 	background: transparent;
@@ -246,6 +246,7 @@ ul {
 }
 
 #bigTitle {
+	background-color: #E8F0FE;
 	width: 842px;
 	height: 50px;
 	font-size: 25px;
@@ -258,7 +259,7 @@ ul {
 	height: 100px;
 	margin: 30px 0px 0px 0px;
 }
-.introduce {
+#introduce {
 	position:relative;
 	width:850px;
 }
@@ -266,17 +267,17 @@ ul {
     position: absolute;
     width: 850px;
     height: 70px;
-    bottom: 700px;
+    bottom: 800px;
 }
 .introduce_image {
 	position: absolute;
     width: 850px;
-    bottom: 650px;	
+    bottom: 750px;	
 }
 .introduce_text {
 	position: absolute;
     width: 850px;
-    top: 170px;
+    bottom: -300px;
 }
 
 .noticeBtn2Box {
@@ -306,6 +307,7 @@ ul {
 
 
 #smallTitle {
+	background-color: #E8F0FE;
 	width: 842px;
     height: 70px;
     font-size: 20px;
@@ -320,6 +322,7 @@ ul {
     left: 10%;
 }
 #content{	
+	background-color: #E8F0FE;
 	width: 850px;
 	height: 200px;
 	
@@ -354,7 +357,7 @@ ul {
 						      	  <ul>
 						      	  <c:forEach var="list" items="${imageFileList }">
 						      	  	<li class="active">
-									<img src="${contextPath}/download.do?room_code=${goods.room_code}&room_imageName=${list.room_imageName}">
+									<img src="${contextPath}/download.do?room_code=${goods.room_code}&fileName=${list.room_imageName}">
 									</li>
 								 </c:forEach>
 				           
@@ -366,7 +369,7 @@ ul {
 					
 					<div class="container2">
 						<div class="bigInfo">
-							<input type="text"  name="host_type" id="host_type" value="${goods.host_type}" >
+							<input type="text"  name="host_type" disabled id="host_type" value="${goods.host_type}" >
 							<input type="text" id="bigTitle" name="bigTitle" placeholder="커뮤니티 제목을 작성해 주세요."/>
 							<div class="h_profile">
 								<img id="profile" src="https://g-grafolio.pstatic.net/20190525_229/15587582702938v22E_JPEG/20190330-IMG_5851.jpg?type=w896_2" alt="프로필이미지">
@@ -388,12 +391,12 @@ ul {
 										<tr>
 											<th class="th-date">사업장 상호명 </th>
 											<td class="td-date-writer" >
-											<input type="text"  name="hostInfo_name" id="hostInfo_name" value="${goods.hostInfo_name}" >
+											<input type="text"  name="hostInfo_name" disabled id="hostInfo_name" value="${goods.hostInfo_name}" >
 											
 											</td>
 											<th scope="col" class="th-writer">주소</th>
 											<td class="td-date-writer" colspan="2">
-											<input type="text"  name="hostInfo_name" id="hostInfo_name" value="${goods.roadAddress}" >
+											<input type="text"  name="hostInfo_name" disabled  id="hostInfo_name" value="${goods.roadAddress}" >
 											
 											
 											</td>
@@ -402,44 +405,44 @@ ul {
 										<tr>
 										<th class="th-title">상호명</th>
 										<td class="notice_title">
-										<input type="text"  name="title" id="title" value="${goods.title}" >
+										<input type="text"  name="title" disabled id="title" value="${goods.title}" >
 											
 										</td>
 										<th class="th-title">객실타입</th>
 										<td class="notice_title">
-											<input type="text"  name="room_type" id="room_type" value="${goods.room_type}" >
+											<input type="text"  name="room_type" disabled id="room_type" value="${goods.room_type}" >
 											
 										</td>
 										<th class="th-title">객실번호</th>
 										<td class="notice_title">
-										<input type="text"  name="room_number" id="room_number" value="${goods.room_number}" >
+										<input type="text"  name="room_number" disabled id="room_number" value="${goods.room_number}" >
 										</td>
 									</tr>
 									<tr>
 										
 										<th class="th-title">객실요금</th>
 										<td class="notice_title">
-										<input type="text"  name="room_fee" id="room_fee" value="${goods.room_fee}" >
+										<input type="text"  name="room_fee" disabled id="room_fee" value="${goods.room_fee}" >
 											
 										</td>
 										<th class="th-title">입실 시간</th>
 										<td class="notice_title">
-										<input type="text"  name="able_checkIn" id="able_checkIn" value="${goods.able_checkIn}" >
+										<input type="text"  name="able_checkIn" disabled  id="able_checkIn" value="${goods.able_checkIn}" >
 											 
 										</td>
 										<th class="th-title">퇴실 시간</th>
 										<td class="notice_title">
-										<input type="text"  name="able_checkOut" id="able_checkOut" value="${goods.able_checkOut}" >
+										<input type="text"  name="able_checkOut" disabled id="able_checkOut" value="${goods.able_checkOut}" >
 										</td>
 									<tr>	
 										<th class="th-title">최소 인원</th>
 										<td class="notice_title">
-										<input type="text"  name="min_number" id="min_number" value="${goods.min_number}" >
+										<input type="text"  name="min_number" disabled id="min_number" value="${goods.min_number}" >
 											
 										</td>
 										<th class="th-title">최대 인원</th>
 										<td class="notice_title">
-										<input type="text"  name="max_number" id="max_number" value="${goods.max_number}" >
+										<input type="text"  name="max_number" disabled id="max_number" value="${goods.max_number}" >
 											 
 										</td>
 									</tr>
@@ -456,7 +459,7 @@ ul {
 									<textarea id="smallTitle" name="smallTitle" placeholder="객실 소제목을 작성해 주세요."></textarea>
 								</div>	
 								<div class="introduce_image">
-									 <input type="file" id="upImgFile" name="cmnImg" onChange="uploadImgPreview();" accept="image/*">
+									 <input type="file" id="upImgFile" name="cmnImage" onChange="uploadImgPreview();" accept="image/*">
 									 <img id="thumbnailImg" src="">
 								</div>	
 								<div class="introduce_text">

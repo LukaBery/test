@@ -207,7 +207,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 				if (action != null && action.equals("/order/orderEachGoods.do")) {
 					System.out.println("액션 진입");
 					mav.setViewName("forward:" + action);
-				} else if (action != null && action.equals("/customerService/qnaForm.do")) {
+				} else if (action != null && action.equals("/cart/addCart.do")) {
 					mav.setViewName("forward:" + action);
 				} else {
 					mav.setViewName("redirect:/main/main.do");

@@ -12,7 +12,7 @@ public class HostCommunityVO {
 	private String cmn_image;
 	private String content;
 	private Date creDate;
-	
+	private String h_name;
 	private String h_id;
 	private String h_imageName;
 	
@@ -60,6 +60,14 @@ public class HostCommunityVO {
 
 	public void setSmallTitle(String smallTitle) {
 		this.smallTitle = smallTitle;
+	}
+
+	public String getH_name() {
+		return h_name;
+	}
+
+	public void setH_name(String h_name) {
+		this.h_name = h_name;
 	}
 
 	public String getCmn_image() {

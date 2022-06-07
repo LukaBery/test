@@ -20,8 +20,16 @@ public class MyPageServiceImpl  implements MyPageService{
 	private MyPageDAO myPageDAO;
 
 
-	public List<OrderVO> listMyOrderGoods(String u_id) throws Exception{
-		return myPageDAO.selectMyOrderGoodsList(u_id);
+	public List<OrderVO> listMyOrderGoods(Map _dateMap) throws Exception{
+		return myPageDAO.selectMyOrderGoodsList(_dateMap);
+	}
+
+	public List<OrderVO> listMyOrderGoods_fu(Map _dateMap) throws Exception{
+		return myPageDAO.listMyOrderGoods_fu(_dateMap);
+	}
+
+	public String getCnt(Map _dateMap) throws Exception{
+		return myPageDAO.getCnt(_dateMap);
 	}
 
 	

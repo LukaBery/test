@@ -34,10 +34,6 @@ public class HostControllerImpl extends BaseController implements HostController
 	private HostService hostService;
 	@Autowired
 	private HostVO hostVO;
-	@Autowired
-	
-	private HostInfoVO hostInfoVO; // �씠�젙�븘 異붽�
-	 
 	@Autowired 
 	private HostGoodsService hostGoodsService; // �씠�젙�븘 異붽�
 	@Autowired
@@ -79,7 +75,7 @@ public class HostControllerImpl extends BaseController implements HostController
 				
 				HttpSession session = request.getSession();
 				session = request.getSession();
-				session.setAttribute("isLogOn", "host");
+				session.setAttribute("isLogOn", true);
 				session.setAttribute("hostInfo", hostVO);
 				
 				String h_id = hostVO.getH_id();
@@ -94,7 +90,7 @@ public class HostControllerImpl extends BaseController implements HostController
 				String action = (String) session.getAttribute("action");
 				System.out.println("action:" + action);
 				if (action != null && action.equals("#")) {
-					System.out.println("�븸�뀡 吏꾩엯");
+					System.out.println("액션 진입");
 					mav.setViewName("forward:" + action);
 				} else if (action != null && action.equals("#")) {
 					mav.setViewName("forward:" + action);
@@ -102,7 +98,7 @@ public class HostControllerImpl extends BaseController implements HostController
 					mav.setViewName("redirect:/host/main.do");
 				}
 			} else {
-				String message = "�씪移섑븯�뒗 �쉶�썝 �젙蹂닿� �뾾�뒿�땲�떎.";
+				String message = "일치하는 회원 정보가 없습니다.";
 
 				mav.addObject("message", message);
 				mav.setViewName("/member/loginForm");
@@ -117,6 +113,7 @@ public class HostControllerImpl extends BaseController implements HostController
 		HttpSession session = request.getSession();
 		session.removeAttribute("isLogOn");
 		session.removeAttribute("hostInfo");
+		session.removeAttribute("h_hostInfo");
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
@@ -138,13 +135,13 @@ public class HostControllerImpl extends BaseController implements HostController
 			_hostVO.setH_pw(h_pw);
 			hostService.addHost(_hostVO);
 			message = "<script>";
-			message += " alert('�쉶�썝媛��엯�쓣 異뺥븯�뱶由쎈땲�떎.');";
+			message += " alert('회원가입을 축하드립니다.');";
 			message += " location.href='" + request.getContextPath() + "/host/h_joinResult.do';";
 			message += " </script>";
 
 		} catch (Exception e) {
 			message = "<script>";
-			message += " alert('�뿉�윭媛� 諛쒖깮�뻽�뒿�땲�떎.');";
+			message += " alert('에러가 발생했습니다.');";
 			message += " location.href='" + request.getContextPath() + "/host/h_joinForm.do';";
 			message += " </script>";
 			e.printStackTrace();
@@ -192,13 +189,13 @@ public class HostControllerImpl extends BaseController implements HostController
 				}
 
 			} else {
-				String message = "�뵒鍮꾨옉 �씪移섑븯吏� �씦�뒿�땲�떎..";
+				String message = "디비랑 일치하지 읺습니다..";
 				mav.addObject("message", message);
 				System.out.println(message);
 				mav.setViewName("/host/h_idFindForm");
 			}
 		} catch (Exception e) {
-			String message = "�듃�씪�씠罹먯튂";
+			String message = "트라이캐치";
 			System.out.println(message);
 			HttpSession session = request.getSession();
 			session = request.getSession();
@@ -233,13 +230,13 @@ public class HostControllerImpl extends BaseController implements HostController
 				mav.setViewName("redirect:/host/h_pwdFind2Form.do");
 
 			} else {
-				String message = "�쉶�썝 �젙蹂닿� �씪移섑븯吏� �씦�뒿�땲�떎..";
+				String message = "회원 정보가 일치하지 읺습니다..";
 				mav.addObject("message", message);
 				System.out.println(message);
 				mav.setViewName("/host/h_pwdFindForm");
 			}
 		} catch (Exception e) {
-			String message = "�듃�씪�씠罹먯튂";
+			String message = "트라이캐치";
 			System.out.println(message);
 			HttpSession session = request.getSession();
 			session = request.getSession();

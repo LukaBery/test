@@ -2,8 +2,10 @@ package com.myspring.Onaju.common.base;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -136,6 +138,19 @@ public abstract class BaseController  {
 		return beginDate+","+endDate;
 	}
 	
-	
+	protected String addDate(String dt, int y, int m, int d) throws Exception  {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		Calendar cal = Calendar.getInstance();
+		Date date = format.parse(dt);
+		cal.setTime(date);
+        cal.add(Calendar.YEAR, y);		//년 더하기
+        cal.add(Calendar.MONTH, m);		//년 더하기
+        cal.add(Calendar.DATE, d);		//년 더하기
+
+		return format.format(cal.getTime());
+
+	}
+
 	
 }

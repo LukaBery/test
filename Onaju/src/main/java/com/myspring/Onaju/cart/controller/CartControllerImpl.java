@@ -50,14 +50,14 @@ public class CartControllerImpl extends BaseController implements CartController
 		
 		if (isLogOn == null) {     // 로그인 정보가 없을 때 로그인 창으로 장바구니 정보 들고감
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 			String checkIndate = receiverMap.get("checkIn_date");
 			Date checkIn = formatter.parse(checkIndate);
 			String checkoutdate = receiverMap.get("checkOut_date");
 			Date checkout = formatter.parse(checkoutdate);
 
 			String room_code = receiverMap.get("room_code");
-			int people_count = Integer.parseInt(receiverMap.get("people_count"));
+			int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 			int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 			int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 			int total = room_fee * checkDate;
@@ -87,14 +87,16 @@ public class CartControllerImpl extends BaseController implements CartController
 				session.removeAttribute("cartVO");
 				session.removeAttribute("action");
 			} else {    // 회원 일시 수행
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 				String checkIndate = receiverMap.get("checkIn_date");
 				Date checkIn = formatter.parse(checkIndate);
 				String checkoutdate = receiverMap.get("checkOut_date");
 				Date checkout = formatter.parse(checkoutdate);
 				System.out.println(checkIn);
 				String room_code = receiverMap.get("room_code");
-				int people_count = Integer.parseInt(receiverMap.get("people_count"));
+				int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
+				
+
 				int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 				int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 				int total = room_fee * checkDate;

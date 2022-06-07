@@ -74,7 +74,10 @@
 		<result property="smoking" column="smoking" />
 		<result property="content" column="content" javaType="java.lang.String" jdbcType="CLOB"  />
 		<result property="creDate" column="creDate" />
-		<result property="room_imageName" column="room_imageName" />
+	<result property="room_imageName" column="room_imageName" />
+	<result property="like_state" column="like_state" />
+	<result property="like_id" column="like_id" />
+		
 		
 </resultMap>		
 	<resultMap id="imageResult" type="hostImageFileVO">
@@ -89,13 +92,139 @@
 
 	<!-- 상품리스트 조회 -->
 	<select id="hostGoodsList" resultMap="goodsResult"  parameterType="java.util.Map" >
-	  
-				select R.*, I.room_imageName, H.* from h_room R, h_roomimage I, h_host_info H  
-					where R.room_code=I.room_code 
-					and R.h_code=H.h_code
-        	        and I.room_imageType='main_image'
-        	                <if test="room_type=='hotel'">
-			                  AND room_type=#{}
+
+	select R.*,
+	<if test="u_id!='' and u_id!=null">
+	 S.like_state, S.like_id,
+	        </if>
+	 I.room_imageName, H.* from h_room R
+	
+	<if test="u_id!='' and u_id!=null">
+	left join u_like S on R.room_code = S.room_code and S.u_id = #{u_id}
+			                </if>
+
+
+	left join h_roomimage I on R.room_code=I.room_code
+	left join h_host_info
+	H on R.h_code=H.h_code
+	where I.room_imageType = 'main_image'
+	<if test="hairDryer =='on'">
+	AND hairdryer='Y'
+</if>
+	<if test="wifi =='on'">
+		AND wifi='Y'
+	</if>
+	<if test="parking =='on'">
+		AND parking='Y'
+	</if>
+
+        	                <if test="kitchen=='on'">
+			                  AND kitchen='Y'
+			                </if>
+	                       <if test="party_check =='on'">
+			                  AND party_check='Y'
+			                </if>
+			    
+			                 <if test="tv =='on'">
+			                  AND tv='Y'
+			                </if>
+			    
+			                 <if test="refrigerator =='on'">
+			                  AND refrigerator='Y'
+			                </if>
+			               
+			               
+			               
+			               
+			                 <if test="washer =='on'">
+			                  AND washer='Y'
+			                </if>
+			                 <if test="pet =='on'">
+			                  AND pet='Y'
+			                </if>
+			                  <if test="elevator =='on'">
+			                  AND elevator='Y'
+			                </if>
+			                
+			                 <if test="barbecue =='on'">
+			                  AND barbecue='Y'
+			                </if>
+			                 <if test="pool =='on'">
+			                  AND pool='Y'
+			                </if>
+			                  <if test="aircon =='on'">
+			                  AND aircon='Y'
+			                </if>
+			                  <if test="smoking =='on'">
+			                  AND smoking='Y'
+			                </if>
+			                 
+			                 <if test="heater =='on'">
+			                  AND heater='Y'
+			                </if>
+			                
+			                
+			                
+			                 <if test="pickup =='on'">
+			                  AND pickup='Y'
+			                </if>
+			                
+			                	
+			                 <if test="dryer =='on'">
+			                  AND dryer='Y'
+			                </if>
+			               
+			              
+			              
+			               
+			                
+			                 <if test="pension_check =='on' and hotel_check ==null and motel_check ==null">
+			                  AND room_type='pension'
+			                </if>
+			                  <if test="pension_check =='on' and hotel_check =='on'  and motel_check ==null">
+			                  AND room_type=('pension' or 'hotel')
+			                </if>
+			                 <if test="pension_check =='on' and hotel_check =='on' and motel_check =='on'">
+			                  AND room_type=('pension' or 'hotel' or 'motel')
+			                </if>
+			                 <if test="pension_check =='on' and motel_check =='on' and hotel_check ==null">
+			                  AND room_type=('pension' or  'motel')
+			                </if>
+			                 <if test="hotel_check =='on'  and pension_check ==null  and motel_check ==null">
+			                  AND room_type='hotel'
+			                </if>
+			                 <if test="hotel_check =='on' and motel_check =='on'  and pension_check ==null">
+			                  AND room_type=('hotel' or 'motel')
+			                </if>
+			                 <if test="motel_check =='on'  and pension_check ==null and hotel_check ==null">
+			                  AND room_type='motel'
+			                </if>
+			   
+			                  <if test="min_price !='' and min_price !=null">
+			                  AND room_fee>= #{min_price}
+			                </if>
+			                
+			                 <if test="max_price !='' and max_price !=null">
+			                  <![CDATA[ AND room_fee <= #{max_price} ]]>
+			                </if>
+			                
+			                 <if test="room_count !='' and room_count !=null">
+			                  AND room_count>= #{room_count}
+			                </if>
+			                
+			                 <if test="bed_count !='' and bed_count !=null">
+			                  AND bed_count>= #{bed_count	}
+			                </if>
+			                  <if test="bath_count !='' and bath_count !=null">
+			                  AND bath_count>= #{bath_count	}
+			                </if>
+			                 <if test="checkin !='' and checkin !=null and checkout !='' and checkout != null">
+			                <![CDATA[ and R.room_code not in (select O.room_code from u_order O where  #{checkin} < checkOut_date 
+                            and #{checkout} > checkIn_date group by O.room_code) ]]>
+			                </if>
+			                <if test="search_longitude !='' and search_longitude !=null and search_latitude !='' and search_latitude != null">
+			                
+			                order by (abs(H.longitude - #{search_longitude}) + abs(H.latitude - ${search_latitude}))
 			                </if>
 	
 	</select> 
@@ -498,6 +627,8 @@
 	  where roomImage_NO=#{roomImage_NO}
 	</delete>
 	
+	
+
 	
    
 </mapper>

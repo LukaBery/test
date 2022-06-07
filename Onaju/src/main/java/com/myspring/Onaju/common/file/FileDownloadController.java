@@ -33,16 +33,15 @@ public class FileDownloadController {
 		FileInputStream in=new FileInputStream(image); 
 		byte[] buffer=new byte[1024*8];
 		while(true){
-			int count=in.read(buffer); //���ۿ� �о���� ���ڰ���
-			if(count==-1)  //������ �������� �����ߴ��� üũ
+			int count=in.read(buffer); 
+			if(count==-1)  
 				break;
 			out.write(buffer,0,count);
 		}
 		in.close();
 		out.close();
 	}
-	
-	
+		
 	@RequestMapping("/thumbnails.do")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
                             	@RequestParam("room_code") String room_code,

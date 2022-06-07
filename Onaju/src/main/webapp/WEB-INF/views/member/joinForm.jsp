@@ -896,6 +896,7 @@ var input_id = document.getElementById("input_id");
 </style>
 </head>
 <body>
+<section style="width:700px;height:900px;">
 	<form name="join_form1" action="${contextPath}/member/addMember.do"
 		method="post">
 		<div class="wrap wd668">
@@ -1109,5 +1110,6 @@ var input_id = document.getElementById("input_id");
 		</div>
 		<!-- container E -->
 	</form>
+	</section>
 </body>
 </html>

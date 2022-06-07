@@ -84,5 +84,5 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 		return sqlSession.update("mapper.admin.board.updateReplyCheck", replyVO);
 	}
 
-	
+  
 }

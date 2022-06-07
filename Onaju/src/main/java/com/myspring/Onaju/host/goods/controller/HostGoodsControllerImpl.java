@@ -1,7 +1,9 @@
 package com.myspring.Onaju.host.goods.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.Onaju.board.review.service.ReviewService;
+import com.myspring.Onaju.board.review.vo.ReviewVO;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.goods.service.HostGoodsService;
 import com.myspring.Onaju.host.goods.vo.HostGoodsVO;
 import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
+import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("hostGoodsController")
 @RequestMapping(value = "/host/goods")
@@ -41,20 +46,55 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	private HostGoodsService hostGoodsService;
 	@Autowired
 	private HostInfoVO hostInfoVO;
+	@Autowired
+	private ReviewService reviewService;
 
+	@Autowired
+	private ReviewVO reviewVO;
+	
 	@RequestMapping(value = "/goodsDetail.do", method = RequestMethod.GET)
-	public ModelAndView goodsDetail(@RequestParam("room_code") String room_code, HttpServletRequest request,
+	public ModelAndView goodsDetail(@RequestParam Map<String, String> _goodsMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String room_code = _goodsMap.get("room_code");
 		System.out.println("룸코드"+room_code);
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
 		ModelAndView mav = new ModelAndView(viewName);
-		/* List<ReviewVO> reviewList = reviewService.listReview(goods_id); */
-		/* mav.addObject("reviewsList",reviewList); */
+		String pageNum = _goodsMap.get("pageNum");
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		HashMap<String,Object> condMap=new HashMap<String,Object>();
+		condMap.put("pageNum", pageNum);
+		condMap.put("room_code", Integer.parseInt(room_code));
+	
+		
+		List<ReviewVO> reviewList = reviewService.selectReviewByRoom(condMap);
+		if(reviewList != null) {
+			float total_star = 0;
+			int star_count= 0;
+			for(int i = 0; i < reviewList.size(); i++) {
+				ReviewVO reviewVO = (ReviewVO) reviewList.get(i);		
+				if(reviewVO.getReview_star() !=null ) {
+					total_star += Float.parseFloat(reviewVO.getReview_star());
+					star_count +=1;
+					}
+			}
+			float star_avg = total_star / star_count;
+			if(Float.isNaN(star_avg)) {
+				mav.addObject("star_avg", 0);
+
+			}else {
+			mav.addObject("star_avg", star_avg);
+			}
+		}
+		
+		mav.addObject("reviewList", reviewList);
+		mav.addObject("pageNum", pageNum);
+
 		mav.addObject("goodsMap", goodsMap);
-		HostGoodsVO hostgoodsVO = (HostGoodsVO) goodsMap.get("goodsVO");
-		System.out.println(goodsMap);
+	
 		return mav;
 	}
 	
@@ -76,7 +116,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 					quickGoodsList.add(hostgoodsVO);
 				}
 			}
-
 		} else {
 			quickGoodsList = new ArrayList<HostGoodsVO>();
 			quickGoodsList.add(hostgoodsVO);
@@ -91,14 +130,36 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	public ModelAndView searchGoodsMap(@RequestParam Map<String, String> searchMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		System.out.println("메서드 진입");
 
-		HttpSession session;
+		HttpSession session = request.getSession();
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
-		System.out.println("뷰네임");
+		// hotel_check, motel_check, pension_check > 체크박스 체크시 on으로 반환 미 체크시 null 값 
+		String checkin = searchMap.get("checkin");
+		String checkout = searchMap.get("checkout");
+		if(checkin != null && checkout != null &&checkin != "" &&checkout != "") {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-		Map<String,List<HostGoodsVO>> hostgoodsMap= hostGoodsService.listGoods(searchMap);
+		Date checkIn_ = formatter.parse(checkin);
+		Date checkOut_ = formatter.parse(checkout);
+		String checkIn = format.format(checkIn_);
+		String checkOut = format.format(checkOut_);
+		searchMap.put("checkin", checkIn);
+
+		searchMap.put("checkout", checkOut);
+		}
+
+		MemberVO mem = (MemberVO) session.getAttribute("memberInfo");
+		if(mem != null ) {
+			searchMap.put("u_id", mem.getU_id());
+		}
+
+		Map<String, List<HostGoodsVO>> hostgoodsMap = hostGoodsService.listGoods(searchMap);
 		System.out.println("서비스 끝");
-
+		session.removeAttribute("searchKeyword");
+		searchMap.put("checkin", checkin);
+		searchMap.put("checkout", checkout);
+		session.setAttribute("searchKeyword", searchMap);
 		mav.addObject("hostgoodsMap", hostgoodsMap);
 		System.out.println(hostgoodsMap);
 		mav.setViewName(viewName);
@@ -240,19 +301,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		
-		/*
-		 * Map hostInfoMap = new HashMap(); Enumeration enu =
-		 * request.getParameterNames(); while (enu.hasMoreElements()) { String name =
-		 * (String) enu.nextElement(); String value = request.getParameter(name);
-		 * hostInfoMap.put(name, value);
-		 * 
-		 * }
-		 */
-		/*
-		 * int _h_code = Integer.parseInt((String) hostInfoMap.get("h_code"));
-		 * System.out.println("컨트롤러의 h_code : " + _h_code);
-		 * System.out.println("컨트롤러의 hostInfoMap : " + hostInfoMap);
-		 */
 		System.out.println("삭제 컨트롤러 들어왔음 응답");
 		System.out.println("삭제 컨트롤러의 h_code : " + h_code);
 		
@@ -322,6 +370,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			String value = multipartRequest.getParameter(name);
 			newGoodsMap.put(name, value);
 		}
+		System.out.println("newGoodsMap : " + newGoodsMap);
 
 		HttpSession session = multipartRequest.getSession();
 		int h_code = Integer.parseInt((String) newGoodsMap.get("h_code"));

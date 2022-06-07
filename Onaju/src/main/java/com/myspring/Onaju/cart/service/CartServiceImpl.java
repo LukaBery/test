@@ -1,6 +1,7 @@
 package com.myspring.Onaju.cart.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class CartServiceImpl implements CartService{
 	private CartDAO cartDAO;
 	
 	@Override
-	public List<CartVO> listMyCartGoods(String u_id) throws Exception{
-		return cartDAO.selectMyCartGoodsList(u_id);
+	public List<CartVO> listMyCartGoods(Map condMap) throws Exception{
+		return cartDAO.selectMyCartGoodsList(condMap);
 	}
 	@Override
 	public void addCart(CartVO cartVO) throws Exception{

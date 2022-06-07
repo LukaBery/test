@@ -39,6 +39,7 @@
 		<result property="deputy_phone" column="deputy_phone"/>
 		<result property="room_number" column="room_number"/>
 		<result property="reservation_state" column="reservation_state"/>
+		<result property="use_state" column="use_state"/>
 	</resultMap>
 	
 	<select id="selectAllOrderList" resultMap="orderResult">
@@ -67,6 +68,7 @@
 			   O.checkOut_date,
 			   O.people_count,
 			   O.reservation_state,
+			   O.use_state,
 			   R.room_fee,
 			   O.pay_type,
 			   O.discount,
@@ -103,7 +105,7 @@
 		update u_order
 		<set>
 			
-			 	reservation_state = '취소'
+			 	pay_state = 'refund_fin'
 			
 		</set>
 		where order_code = #{order_code}

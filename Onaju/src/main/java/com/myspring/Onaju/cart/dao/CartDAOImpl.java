@@ -1,6 +1,7 @@
 package com.myspring.Onaju.cart.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class CartDAOImpl implements CartDAO{
 	
 
 	@Override
-	public List<CartVO> selectMyCartGoodsList(String u_id) throws DataAccessException {
-		List<CartVO> orderGoodsList = (List) sqlSession.selectList("mapper.cart.selectMyCartGoodsList", u_id);
+	public List<CartVO> selectMyCartGoodsList(Map condMap) throws DataAccessException {
+		List<CartVO> orderGoodsList = (List) sqlSession.selectList("mapper.cart.selectMyCartGoodsList", condMap);
 		return orderGoodsList;
 	}
 

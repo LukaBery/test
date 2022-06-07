@@ -24,6 +24,7 @@ import com.myspring.Onaju.cart.vo.CartVO;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.goods.service.HostGoodsService;
 import com.myspring.Onaju.host.goods.vo.HostGoodsVO;
+import com.myspring.Onaju.member.service.MemberService;
 import com.myspring.Onaju.member.vo.MemberVO;
 import com.myspring.Onaju.order.service.OrderService;
 import com.myspring.Onaju.order.vo.OrderVO;
@@ -41,6 +42,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private HostGoodsService hostGoodsService;
 	@Autowired
 	private CartService cartService;
+	@Autowired
+	private MemberService memberService;
 @Autowired
 private CartVO cartVO;
 	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
@@ -61,14 +64,14 @@ private CartVO cartVO;
 
 		if(isLogOn==null){
 		
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 			String checkIndate = receiverMap.get("checkIn_date");
 			Date checkIn = formatter.parse(checkIndate);
 			String checkoutdate = receiverMap.get("checkOut_date");
 			Date checkout = formatter.parse(checkoutdate);
 			
 			String room_code = receiverMap.get("room_code");
-			int people_count = Integer.parseInt(receiverMap.get("people_count"));
+			int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 			int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 			int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 			int total = room_fee * checkDate;
@@ -91,14 +94,14 @@ private CartVO cartVO;
 				session.removeAttribute("orderVO");
 				session.removeAttribute("action");
 			 }else {
-					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 					String checkIndate = receiverMap.get("checkIn_date");
 					Date checkIn = formatter.parse(checkIndate);
 					String checkoutdate = receiverMap.get("checkOut_date");
 					Date checkout = formatter.parse(checkoutdate);
 					System.out.println(checkIn);
 					String room_code = receiverMap.get("room_code");
-					int people_count = Integer.parseInt(receiverMap.get("people_count"));
+					int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 					int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 					int checkDate = Integer.parseInt(receiverMap.get("checkDate"));
 					int total = room_fee * checkDate;
@@ -164,7 +167,7 @@ System.out.println("리스트 추가완료");
 		 Date checkout = formatter.parse(checkoutdate); 
 			String cart_code = receiverMap.get("cart_code");
 		String room_code = receiverMap.get("room_code");
-		int people_count = Integer.parseInt(receiverMap.get("people_count"));
+		int people_count = Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]",""));
 		int room_fee = Integer.parseInt(receiverMap.get("room_fee"));
 		long diff = checkout.getTime() - checkIn.getTime();
         TimeUnit time = TimeUnit.DAYS; 
@@ -179,7 +182,10 @@ System.out.println("리스트 추가완료");
 		cartVO.setRoom_code(room_code);	
 		cartVO.setCheckIn_date(checkIn);
 		cartVO.setCheckOut_date(checkout);
-		cartVO.setU_id(memberInfo.getU_id());
+		if(memberInfo != null) {
+			cartVO.setU_id(memberInfo.getU_id());
+		}
+		
 		mav.addObject("orderVO", cartVO);
 		mav.addObject("cart_code", cart_code);
 		Map goodsMap = hostGoodsService.goodsDetail(room_code);
@@ -234,7 +240,7 @@ System.out.println("리스트 추가완료");
 			 
 			String room_code = orderVO.getRoom_code();
 			System.out.println(room_code);
-			orderVO.setPeople_count(Integer.parseInt(receiverMap.get("people_count")));
+			orderVO.setPeople_count(Integer.parseInt(receiverMap.get("people_count").replaceAll("[^0-9]","")));
 			int people_count = orderVO.getPeople_count();
 			System.out.println(people_count);
 			orderVO.setRoom_fee(Integer.parseInt(receiverMap.get("room_fee")));	
@@ -243,6 +249,7 @@ System.out.println("리스트 추가완료");
 			orderVO.setPay_type(receiverMap.get("pay_type"));	
 			/* orderVO.setDiscount(Float.parseFloat(receiverMap.get("discount"))); */
 			orderVO.setTotal(Integer.parseInt(receiverMap.get("total")));	
+			orderVO.setPay_state("fin");
 	
 		
 			System.out.println("애드 멤버 메서드 진입");
@@ -250,9 +257,27 @@ System.out.println("리스트 추가완료");
 		System.out.println("애드 메서드 끝 ");
 		
 		cartService.removeCartGoods(cart_code);
+		MemberVO _memberVO = memberService.login(receiverMap);
+		session.removeAttribute("memberInfo");
+		session.setAttribute("memberInfo", _memberVO);
 		mav.addObject("myOrderInfo",receiverMap);
 		mav.addObject("orderVO", orderVO);
 	
 		return receiverMap;
+	}
+
+	@Override
+	@RequestMapping(value="/requestRefund.do", method = RequestMethod.GET)
+	public ModelAndView requestRefund(@RequestParam("order_code") String order_code,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		orderService.requestRefund(order_code);
+		String viewName=(String)request.getAttribute("viewName");
+
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.setViewName("redirect:/mypage/mypageMain.do");
+
+		return mav;
+		
+		
 	}
 }

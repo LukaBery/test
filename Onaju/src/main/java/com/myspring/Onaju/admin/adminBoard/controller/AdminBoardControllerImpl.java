@@ -193,8 +193,8 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	@Override
 	@RequestMapping(value = "/admin/searchNotice.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminSearchNoticeList(AdminNoticeVO searchVO) throws Exception {
-		
-		
+	
+    
 		if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
 			String endDate = searchVO.getWrite_endDate();
 		
@@ -206,8 +206,8 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 			searchVO.setWrite_endDate(write_endDate);
 		}
 		
-		
-		int total = adminBoardService.noticeListTotal(searchVO);
+	
+    int total = adminBoardService.noticeListTotal(searchVO);
 		int totalPage = (int) Math.ceil((double)total/10);
 		
 		int viewPage = searchVO.getViewPage();

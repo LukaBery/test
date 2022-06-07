@@ -34,6 +34,11 @@
 			<result property="total" column="total" />
 		<result property="pay_state" column="pay_state" />
 		<result property="creDate" column="creDate" />
+		<result property="review_state" column="review_state" />
+		
+		<result property="review_num" column="review_num" />
+		<result property="review_star" column="review_star" />
+		<result property="review_content" column="review_content" />
 		
 	</resultMap>	
 
@@ -82,5 +87,36 @@
 									    #{pay_state})
    
 	</insert>
+	
+<update id="memberGradeMod" parameterType="orderVO">
+
+update u_member
+<set>
+<![CDATA[u_grade = (case when ( (
+select sum(total) from u_order where u_id = #{u_id} )<150000) then 'silver' 
+ when ( (
+select sum(total) from u_order where u_id = #{u_id} ) <=300000) then 'gold' 
+ when ( 300000<(
+select sum(total) from u_order where u_id = #{u_id} )) then 'vip' end)
+]]>
+</set>
+where u_id =  #{u_id};
+
+
+</update>
+
+<update id="requestRefund" parameterType="String">
+
+update u_order
+<set>
+<![CDATA[
+pay_state = 'refund'
+]]>
+</set>
+where order_code =  #{order_code};
+
+
+</update>
+	
 
 </mapper>

@@ -22,6 +22,8 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <title>오나주</title>
+<link  type="text/css"  href="${contextPath}/resources/css/mypage.css" rel="stylesheet" />
+
 <link type="text/css" 
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
@@ -31,7 +33,7 @@ request.setCharacterEncoding("UTF-8");
 <link href="${contextPath}/resources/css/main.css" type="text/css" rel="stylesheet"
 	media="all">
 
-<link href="${contextPath}/resources/css/heart.css?ver=2" type="text/css" rel="stylesheet"
+<link href="${contextPath}/resources/css/heart.css?ver=1" type="text/css" rel="stylesheet"
 	media="all">
 	<link href="${contextPath}/resources/css/icons.css?ver=2" type="text/css" rel="stylesheet"
 	media="all">
@@ -41,11 +43,14 @@ request.setCharacterEncoding("UTF-8");
 <link href="${contextPath}/resources/vendor/select2/select2.min.css" type="text/css" 
 	rel="stylesheet" media="all">
 <link
-	href="${contextPath}/resources/vendor/datepicker/daterangepicker.css"
+	href="${contextPath}/resources/vendor/datepicker/daterangepicker.css?ver=3"
 	rel="stylesheet" type="text/css"  media="all">
 
 <!-- Main CSS-->
 <link href="${contextPath}/resources/css/main.css" type="text/css" rel="stylesheet"
+	media="all">
+	
+<link href="${contextPath}/resources/css/order.css" type="text/css" rel="stylesheet"
 	media="all">
 <script type="text/javascript">
 
@@ -186,6 +191,7 @@ height:100%;
 
 	<!-- Main JS-->
 	<script src="${contextPath}/resources/js/global.js"></script>
+	<script src="${contextPath}/resources/js/global2.js?ver=1"></script>
 
 
 <!-- Channel Plugin Scripts -->

@@ -1,6 +1,5 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -40,7 +39,7 @@ request.setCharacterEncoding("UTF-8");
 .hb_rec_2 {
 	display: inline-block;
 	float: right;
-	width: 257px;
+	width: 254px;
 	height: 400px;
 	border-radius: 10px;
 	border: 1px solid #CCCCCC;
@@ -121,10 +120,10 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .hb_table_1 {
-	float: left;
-	display: inline-block;
-	width: 23.5%;
-	margin-left: 2%;
+    padding: 15px 15px 15px 0px;
+    float: left;
+    display: inline-block;
+    width: 25%;
 }
 
 .hb_textbox_1 {
@@ -357,7 +356,7 @@ a.control_next {
 	float: left;
 	margin: 0;
 	padding: 0;
-	width: 262px;
+	width: 252px;
 	height: 398px;
 	background: #ccc;
 	text-align: center;
@@ -487,32 +486,7 @@ text-shadow : 1px 1px 3px white;
 <body>
 
 	<section class="hb_section_total">
-		<!-- <상위 네비게이션>-->
-	<%-- 	<section class="hb_section_1 margin_left_0">
-
-			<div class="hb_rec_3 margin_left_0 ">
-				<a id="hb_a_main_nav" href="${contextPath}/board/boardArticle.do"><br>내
-					주변</a>
-			</div>
-			<div class="hb_rec_3 ">
-				<a id="hb_a_main_nav" href="${contextPath}/board/boardArticle.do"><br>베스트
-					글</a>
-			</div>
-			<div class="hb_rec_3">
-				<a id="hb_a_main_nav" href="${contextPath}/board/boardArticle.do"><br>최신
-					글</a>
-			</div>
-			<div class="hb_rec_3">
-				<a id="hb_a_main_nav" href="${contextPath}/board/boardArticle.do"><br>테마별</a>
-			</div>
-			<div class="hb_rec_3 margin_right_0">
-				<a id="hb_a_main_nav" href="${contextPath}/board/boardLogin.do"><br>글쓰기</a>
-			</div>
-
-
-			<!-- <네비게이션 오른쪽 구간> -->
-		</section> --%>
-		<!-- <section class="hb_section_3 margin_right_0"></section> -->
+	
 
 
 		<!-- <메인 게시글 사진 및 베너> -->
@@ -526,45 +500,18 @@ text-shadow : 1px 1px 3px white;
 					<a href="#" class="control_next" onclick="return false">></a> <a
 						href="#" class="control_prev" onclick="return false"><</a>
 					<ul>
-						<li><p id="hb_main_p">제주도 한달살기 어렵지 않아요</p><p id="hb_main_p_1">사용자 이름</p>
-						 <div style=" position:absolute;display:inline-block; top:90%; left:93%; z-index:9999;">     	<input id="toggle-heart" type="checkbox" />
-	<label for="toggle-heart" aria-label="like" >❤</label></div>
+								<c:forEach var="item" items="${comunityList_best}" end="3" varStatus="membersNum">
+					
+						<li><p id="hb_main_p">${item.bigTitle }</p><p id="hb_main_p_1">${item.h_name }</p>
 						<a id="hb_a_main_profile_1"href="#"><img id="hb_main_profile_image_1"
 							src="${contextPath}/resources/image/dog_profile.PNG"></a>
 							<a id="hb_main_text03" href="#">보러가기</a>
 						<a id="hb_a_main"
-							href="${contextPath}/board/boardArticle.do"><img id="hb_mainpage_image"
-								src="${contextPath }/resources/image/house_1.jpg"
+							href="${contextPath}/board/boardArticle.do?cmnNum=${item.cmnNum }&room_code=${item.room_code }"><img id="hb_mainpage_image"
+								src="${contextPath}/host/community/download2.do?room_code=${item.room_code}&fileName=${item.cmn_image}"
 								style="width: 100%; height: 100%; border-radius: 10px; float:left;"></a></li>
-								
-						<li><p id="hb_main_p">제주도 한달살기 어렵지 않아요</p><p id="hb_main_p_1">사용자 이름</p>
-						<a id="hb_a_main_profile_1"href="#"><img id="hb_main_profile_image_1"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-							<a id="hb_main_text03" href="#">보러가기</a>
-							<a id="hb_a_main"
-							href="${contextPath}/board/boardArticle.do"><img
-								src="${contextPath }/resources/image/house_2.png"
-								style="width: 100%; height: 100%; border-radius: 10px;"></a></li>
-								
-						<li><p id="hb_main_p">제주도 한달살기 어렵지 않아요</p><p id="hb_main_p_1">사용자 이름</p>
-						<a id="hb_a_main_profile_1"href="#"><img id="hb_main_profile_image_1"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-							<a id="hb_main_text03" href="#">보러가기</a>
-							<a id="hb_a_main"
-							href="${contextPath}/board/boardArticle.do"><img
-								src="${contextPath }/resources/image/house_3.jpg"
-								style="width: 100%; height: 100%; border-radius: 10px;"></a></li>
-								
-						<li><p id="hb_main_p">제주도 한달살기 어렵지 않아요</p><p id="hb_main_p_1">사용자 이름</p>
-						<a id="hb_a_main_profile_1"href="#"><img id="hb_main_profile_image_1"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
 							
-							<a id="hb_main_text03" href="#">보러가기</a>
-							<a id="hb_a_main"
-							href="${contextPath}/board/boardArticle.do"><img
-								src="${contextPath }/resources/image/house_5.jpg"
-								style="width: 100%; height: 100%; border-radius: 10px;"></a></li>
-
+</c:forEach>
 					</ul>
 				</div>
 				<!-- 
@@ -614,175 +561,76 @@ text-shadow : 1px 1px 3px white;
 		</section>
 
 		<section class="hb_section_5">
-			<h1 id="h1_left">내 주변 스토리</h1>
+			<h1 id="h1_left">베스트 스토리</h1>
 		</section>
 		<!-- <여러 게시글 1> -->
 		<section class="hb_section_4">
 			<!-- hb_table_1 -->
+			
+			
+			
+					<c:forEach var="item" items="${comunityList_best}" begin="4" end="7" varStatus="membersNum">
+				
+						
+		
 			<div class="hb_table_1">
 				<div class="hb_rec_4">
-					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do"><img
-						src="${contextPath }/resources/image/house_2.png"
+					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do?cmnNum=${item.cmnNum }&room_code=${item.room_code }"><img
+						src="${contextPath}/host/community/download2.do?room_code=${item.room_code}&fileName=${item.cmn_image}"
 						style="width: 100%; height: 100%; border-radius: 20px;"></a>
 				</div>
 				<!-- 	<텍스트 상자> -->
 				<div class="hb_textbox_1">
 
 					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..
-						어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..
-						어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..어서오세요 우리집입니다..</a>
+						<a id="hb_a_main_text" href="#">${item.bigTitle }</a>
 					</div>
 					<div id="hb_textbox_3">
 						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
 							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
+							id="hb_main_profile_name" href="#">${item.h_name }</a>
 					</div>
 				</div>
 			</div>
-			<!-- //hb_table_1 -->
-			<div class="hb_table_1">
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_3.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<div class="hb_textbox_1">
-
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-
-				</div>
-			</div>
-			<div class="hb_table_1">
-				<div class="hb_rec_4 ">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_4.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<div class="hb_textbox_1">
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-				</div>
-			</div>
-			<div class="hb_table_1">
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_4.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<div class="hb_textbox_1">
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-				</div>
-			</div>
+			
+			
+			</c:forEach>
+			
+			
 		</section>
 
-
-
-		<section class="hb_section_5">
-			<h1 id="h1_left">베스트 리뷰</h1>
+	<section class="hb_section_5">
+			<h1 id="h1_left">최신 스토리</h1>
 		</section>
 
 		<section class="hb_section_4">
+			<c:forEach var="item" items="${comunityList_newest}" begin="4" varStatus="membersNum">
+				
+						
+		
 			<div class="hb_table_1">
-
 				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_2.png"
+					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do?cmnNum=${item.cmnNum }&room_code=${item.room_code }"><img
+						src="${contextPath}/host/community/download2.do?room_code=${item.room_code}&fileName=${item.cmn_image}"
 						style="width: 100%; height: 100%; border-radius: 20px;"></a>
 				</div>
 				<!-- 	<텍스트 상자> -->
 				<div class="hb_textbox_1">
 
-
 					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
+						<a id="hb_a_main_text" href="#">${item.bigTitle }</a>
 					</div>
 					<div id="hb_textbox_3">
 						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
 							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-				</div>
-
-			</div>
-			<div class="hb_table_1">
-
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_3.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-				<div class="hb_textbox_1">
-
-
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
+							id="hb_main_profile_name" href="#">${item.h_name }</a>
 					</div>
 				</div>
 			</div>
-			<div class="hb_table_1">
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_4.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-
-				<div class="hb_textbox_1">
-
-
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-				</div>
-			</div>
-			<div class="hb_table_1">
-				<div class="hb_rec_4">
-					<a id="hb_a_main" href="#"><img
-						src="${contextPath }/resources/image/house_4.png"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
-				</div>
-
-				<div class="hb_textbox_1">
-					<div id="hb_textbox_2">
-						<a id="hb_a_main_text" href="#">어서오세요 우리집입니다..</a>
-					</div>
-					<div id="hb_textbox_3">
-						<a id="hb_a_main_profile" href="#"><img id="hb_main_profile_image"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a> <a
-							id="hb_main_profile_name" href="#">사용자 이름 </a>
-					</div>
-				</div>
-			</div>
+			
+			
+			</c:forEach>
+			
 		</section>
 
 

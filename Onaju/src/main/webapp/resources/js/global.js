@@ -49,6 +49,7 @@
                     var newVal = oldValue - 1;
                 }
                 qtyInput.val(refineString(newVal));
+           
             });
         });
     
@@ -62,3 +63,5 @@
     }
 
 })(jQuery);
+
+

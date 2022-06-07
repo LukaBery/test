@@ -188,23 +188,6 @@ var input_id = document.getElementById("input_id");
 <style>
 @charset "utf-8";
 
-/* * {
-	margin: 0;
-	padding: 0;
-	
-} */
-.red_txt {
-	color: #ee7272;
-}
-
-.blind {
-	display: block;
-	overflow: hidden;
-	position: absolute;
-	left: 0;
-	top: -5000px
-}
-
 .wrap {
 	max-width: 1100px;
 	margin: 0 auto;
@@ -675,6 +658,8 @@ var input_id = document.getElementById("input_id");
 </style>
 </head>
 <body>
+<section style="width:700px;height:900px;">
+
 	<form name="idFind_form" action="${contextPath}/member/idFind.do"
 		method="post">
 		<div class="wrap wd668">
@@ -744,5 +729,6 @@ var input_id = document.getElementById("input_id");
 		</div>
 		<!--  form_box E  -->
 	</form>
+	</section>
 </body>
 </html>

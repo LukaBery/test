@@ -31,8 +31,14 @@
 	</resultMap>	
 
 
-	 <select id="selectMyCartGoodsList" resultMap="cartResult"  parameterType="String"  >
-	    <![CDATA[
+	 <select id="selectMyCartGoodsList" resultMap="cartResult"  parameterType="java.util.HashMap"  >
+	 select * from (
+	select @rowNum := @rowNum + 1 as recNum, t.*
+	from (select (@rowNum := 0)) R,
+	(
+	
+<!-- 	if문 넣는 자리
+ -->	
 			select U.*, I.h_name, Y.title, G.room_imageName from u_cart U, h_host I, h_host_info F, h_room Y, h_roomimage G
             where U.u_id=#{u_id}
             and F.h_code=U.h_code
@@ -40,9 +46,44 @@
             and Y.room_code = U.room_code
             and G.room_code = U.room_code
             and G.room_imageType= 'main_image'
+                <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
+			         and U.creDate  between #{checkIn_date} and #{checkOut_date}
+			      </if>
             order by creDate desc
-		]]>
+	   ) t
+	) y
+	where
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10		
 	</select>
+	
+	
+	 <select id="selectMyCartGoodsList_cnt" resultType="String"  parameterType="java.util.HashMap"  >
+
+
+
+
+
+	select COUNT(*) as cnt from 
+	(
+	select U.*, I.h_name, Y.title, G.room_imageName from u_cart U, h_host I, h_host_info F, h_room Y, h_roomimage G
+            where U.u_id=#{u_id}
+            and F.h_code=U.h_code
+            and F.h_id= I.h_id
+            and Y.room_code = U.room_code
+            and G.room_code = U.room_code
+            and G.room_imageType= 'main_image'
+                <if test="checkIn_date!='' and checkIn_date!=null and checkOut_date!='' and checkOut_date!=null">
+			         and U.creDate  between #{checkIn_date} and #{checkOut_date}
+			      </if>
+            order by creDate desc
+               
+	   ) R
+    
+   
+	   
+
+	</select>
+	
 	
   <insert id="insertNewCart"  parameterType="cartVO">
   <![CDATA[

@@ -17,25 +17,34 @@ public class OrderDAOImpl implements OrderDAO{
 	private SqlSession sqlSession;
 	
 
+	@Override
 	public void insertNewOrder(OrderVO myOrderList) throws DataAccessException{
 	
 			
 			sqlSession.insert("mapper.order.insertNewOrder",myOrderList);
-	
+			sqlSession.update("mapper.order.memberGradeMod",myOrderList);
 		
 	}	
-
+	@Override
+	public void requestRefund(String order_code) throws DataAccessException{
+		
+		
+		
+		sqlSession.update("mapper.order.requestRefund",order_code);
+	
+}	
+	@Override
 	public void removeGoodsFromCart(OrderVO orderVO)throws DataAccessException{
 		sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);
 	}
-	
+	@Override
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException{
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO =(OrderVO)myOrderList.get(i);
 			sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);		
 		}
 	}	
-
+	
 	private String selectOrderID() throws DataAccessException{
 		return sqlSession.selectOne("mapper.order.selectOrderID");
 		

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <%
 request.setCharacterEncoding("UTF-8");
 %>
@@ -19,50 +22,8 @@ request.setCharacterEncoding("UTF-8");
 <meta name="description" content="">
 
 <style>
-* {
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-}
 
-.hb_rec_1 {
-	float: left;
-	display: inline-block;
-	width: 800px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
 
-.hb_rec_2 {
-	display: inline-block;
-	float: right;
-	width: 250px;
-	height: 400px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
-
-.hb_rec_3 {
-	align-items: center;
-	text-align: center;
-	display: inline-block;
-	width: 122px;
-	height: 60px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 21px 0px 21px;
-}
-
-.hb_rec_4 {
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	border-radius: 20px;
-	border: 1px solid #CCCCCC;
-	padding: 0px;
-	margin: 5px 10px 5px 10px;
-}
 
 .hb_rec_5 {
 	float: left;
@@ -80,14 +41,6 @@ request.setCharacterEncoding("UTF-8");
 	border-radius: 0px 10px 0px 0px;
 }
 
-.hb_rec_7 {
-	float: left;
-	display: inline-block;
-	width: 275px;
-	height: 200px;
-	border-radius: 10px;
-	border: 1px solid #CCCCCC;
-}
 
 .hb_rec_12 {
 	float: left;
@@ -115,11 +68,13 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .hb_rec_10 {
+margin-bottom:15px;
 	float: left;
 	display: inline-block;
 	width: 100%;
 	height: 300px;
 	border-radius: 10px;
+	border:2px solid #CCCCCC;
 }
 
 .hb_rec_11 {
@@ -181,19 +136,13 @@ request.setCharacterEncoding("UTF-8");
 	float: left;
 	display: inline-block;
 	width: 650px;
-	min-height: 200px;
+	min-height: 100px;
 	text-align: center;
 }
 
 .hb_section_total {
 	width: 1100px;
 	height: 100%
-}
-
-.hb_section_1 {
-	display: inline-block;
-	width: 800px;
-	height: 70px;
 }
 
 .hb_section_10 {
@@ -209,31 +158,6 @@ request.setCharacterEncoding("UTF-8");
 	height: 400px;
 }
 
-.hb_section_3 {
-	display: inline-block;
-	width: 300px;
-	height: 70px;
-}
-
-.hb_section_4 {
-	display: inline-block;
-	width: 1100px;
-	height: 300px;
-}
-
-.hb_section_5 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 700px;
-	height: 50px;
-}
-
-.hb_section_6 {
-	padding: 8px 4px;
-	display: inline-block;
-	width: 400px;
-	height: 50px;
-}
 
 .hb_section_7 {
 	display: inline-block;
@@ -244,7 +168,7 @@ request.setCharacterEncoding("UTF-8");
 .hb_section_goodsinfo {
 	display: inline-block;
 	width: 1100px;
-	height: 940px;
+	min-height: 300px;
 }
 
 .hb_section_goodsinfo_title {
@@ -265,27 +189,6 @@ request.setCharacterEncoding("UTF-8");
 	margin-left: 0px;
 }
 
-.margin_right_0 {
-	float: right;
-	margin-right: 0px;
-}
-
-.hb_table_1 {
-	float: left;
-	display: inline-block;
-	width: 266.6px;
-	height: 300px;
-}
-
-.hb_textbox_1 {
-	display: inline-block;
-	width: 238px;
-	height: 120px;
-}
-
-#form_width_center {
-	text-align: center;
-}
 
 #h1_left {
 	text-align: left;
@@ -352,17 +255,16 @@ request.setCharacterEncoding("UTF-8");
 .goodsInfo-profile {
 	float: left;
 	display: inline-block;
-	width: 550px;
-	height: 62px;
+	width: 100%;
+	height: 40%;
 	margin-right: 0px;
-	margin-top: 10px;
-}
+	}
 
 .goodsInfo-text {
 	float: left;
 	display: inline-block;
-	width: 550px;
-	height: 128px;
+	width: 100%;
+	height: 60%;
 	word-break: break-all;
 	padding: 20px 60px 20px 0px;
 	margin-right: 0px;
@@ -515,8 +417,8 @@ request.setCharacterEncoding("UTF-8");
 #hb_a_main_profile_2 {
 	text-decoration: none;
 	display: inline-block;
-	width: 60px;
-	height: 60px;
+	width: 100%;
+	height: 100%;
 	font-size: 15px;
 	font-weight: 600;
 	color: black;
@@ -545,15 +447,10 @@ request.setCharacterEncoding("UTF-8");
 	color: black;
 }
 
-#hb_main_profile_image_2 {
-	width: 60px;
-	height: 60px;
-	border-radius: 70%;
-	overflow: hidden;
-}
+
 
 #hb_review_user {
-	width: 480px;
+	width: 80%;
 	text-align: left;
 	font-size: 16px;
 	font-weight: 570;
@@ -564,20 +461,20 @@ request.setCharacterEncoding("UTF-8");
 
 #hb_review_user_content {
 	text-align: left;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 540;
 	float: left;
 	color: black;
 }
 
 #hb_review_date {
-	width: 470px;
+	width: 80%;
 	text-align: left;
 	font-size: 14px;
 	font-weight: 520;
 	float: left;
 	color: #CCCCCC;
-	margin: 3px 0px 0px 12px;
+	margin: 10px 0px 0px 12px;
 }
 
 #hb_goods_review_a {
@@ -628,15 +525,16 @@ request.setCharacterEncoding("UTF-8");
 
 .hb_section_review_1 {
 	display: inline-block;
-	width: 1100px;
-	height: 600px;
+	width: 100%;
+	height: auto;
 }
 
 .hb_section_review_2 {
-	display: inline-block;
-	width: 550px;
-	height: 200px;
-	float: left;
+    display: inline-block;
+    width: 550px;
+    height: 200px;
+    float: left;
+    padding: 10px 30px 10px 10px;
 }
 
 .goods_text_01 {
@@ -696,17 +594,17 @@ request.setCharacterEncoding("UTF-8");
 }
 
 </style>
-<script>
 
+<script>
 function fn_check(){
-	var checkIn = document.getElementById("checkIn_date").value;
-	var checkOut = document.getElementById("checkOut_date").value;
+	var checkIn = document.getElementById("checkIn_date_goods").value;
+	var checkOut = document.getElementById("checkOut_date_goods").value;
 	
    var checkIn_date = dateFormat(checkIn);
    var checkOut_date = dateFormat(checkOut);
 
    var difference= Math.abs(checkOut_date-checkIn_date);
-   days = difference/(1000 * 3600 * 24)
+   days = difference/(1000 * 3600 * 24);
    
    let x = document.getElementsByClassName("days_1")[0];
    var check = document.getElementById("checkDate");
@@ -729,8 +627,8 @@ function dateFormat(dt){
 
 	var yyyyMMdd = String(dt);
     var sYear = yyyyMMdd.substring(0,4);
-    var sMonth = yyyyMMdd.substring(5,7);
     var sDate = yyyyMMdd.substring(8,10);
+    var sMonth = yyyyMMdd.substring(5,7);
 
    
     ddate =  new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
@@ -738,8 +636,8 @@ function dateFormat(dt){
 }
 
 function reservation(){
-	var checkIn_date = document.getElementById('checkIn_date').value;
-	var checkOut_date = document.getElementById('checkOut_date').value;
+	var checkIn_date = document.getElementById('checkIn_date_goods').value;
+	var checkOut_date = document.getElementById('checkOut_date_goods').value;
 	var people_count = document.getElementById('people_count').value;
 	if (checkIn_date == '') {
 		alert("체크인 날짜를 선택해주세요");
@@ -761,8 +659,8 @@ function reservation(){
 }
 function addCart(){
 
-	var checkIn_date = document.getElementById('checkIn_date').value;
-	var checkOut_date = document.getElementById('checkOut_date').value;
+	var checkIn_date = document.getElementById('checkIn_date_goods').value;
+	var checkOut_date = document.getElementById('checkOut_date_goods').value;
 	var people_count = document.getElementById('people_count').value;
 	if (checkIn_date == '') {
 		alert("체크인 날짜를 선택해주세요");
@@ -802,7 +700,7 @@ function addCart(){
 			<br>
 			<p style="text-align: left; margin-left: 5px; opacity: 80%;">${goods.roadAddress }</p>
 			<h1 id="h2_left">${goods.title }</h1>
-			
+			<input type="hidden" name="longitude" id="longitude" value="${goods.longitude }"><input type="hidden" name="latitude" id="latitude" value="${goods.latitude }">
 
 		</section>
 		<!-- 사진 이미지 섹션 -->
@@ -846,10 +744,10 @@ function addCart(){
 						 <input type="hidden" name="h_name" value="${goods.h_name }">
 						 <input type="hidden" name="h_code" value="${goods.h_code }">
 						<div class="seller-profile">
-							<a id="hb_a_main_profile_2" href="#"><img
-								id="hb_main_profile_image_2"
-								src="${contextPath}/resources/image/dog_profile.PNG"></a>
-						</div>
+								<a id="hb_a_main_profile_2" href="#"><img
+									style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;:"
+									src="${contextPath}/resources/image/dog_profile.PNG"></a>
+							</div>
 						<div id="seller_text_box_2">최대 인원 ${goods.max_number }명 침실
 							${goods.bed_count }개 단독 사용 욕실 ${goods.bath_count}개</div>
 
@@ -875,10 +773,11 @@ function addCart(){
 					</div>
 					<hr style="width: 100%" style="margin:10px 0;">
 					<br>
-					<div class="hb_rec_10">
-						<a id="hb_a_main" href="#"><img
-							src="${contextPath }/resources/image/house_1.jpg"
-							style="width: 100%; height: 100%; border-radius: 10px;"> </a>
+					<div class="hb_rec_9">
+							<div class="seller2">숙소 위치</div>
+						</div>
+					<div class="hb_rec_10" id="map">
+						
 					</div>
 					<br>
 
@@ -889,46 +788,72 @@ function addCart(){
 							<div class="seller2">숙소 편의 시설</div>
 						</div>
 						<div>
-							<div>
+								<div
+									style="width: 100%; height: 100%; padding: 20px 0px; display: inline-block;">
 
-								<c:if test="${not empty goods.kitchen }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_kitchen.png">
-									<h4 id="icon_text_01">&emsp;주방</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.wifi }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_wifi.png">
-									<h4 id="icon_text_01">&emsp;무선 인터넷</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.parking }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_parking.png">
-									<h4 id="icon_text_01">&emsp;주차 공간</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.tv }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_tv.png">
-									<h4 id="icon_text_01">&emsp;tv</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.refrigerator }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_refrigerator.png">
-									<h4 id="icon_text_01">&emsp;냉장고</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.hairdryer }">
+									<c:if test="${ goods.kitchen == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_kitchen.png">
+											<h4 id="icon_text_01">&emsp;주방</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.wifi == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_wifi.png">
+											<h4 id="icon_text_01">&emsp;무선 인터넷</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.parking  == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_parking.png">
+											<h4 id="icon_text_01">&emsp;주차 공간</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.tv == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_tv.png">
+											<h4 id="icon_text_01">&emsp;tv</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.refrigerator == 'Y'  }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_refrigerator.png">
+											<h4 id="icon_text_01">&emsp;냉장고</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.hairdryer  == 'Y' }">
 
-								<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_hairdryer.png">
-									<h4 id="icon_text_01">&emsp;헤어드라이어</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.washer}">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_washer.png">
-									<h4 id="icon_text_01">&emsp;세탁기</h4></div>
-								</c:if>
-								<c:if test="${not empty goods.pet }">
-									<div class="hb_rec_11"><img id="icon_onaju"src="${contextPath }/resources/image/icons/icon_pet.png">
-									<h4 id="icon_text_01">&emsp;애완동물</h4></div>
-								</c:if>
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_hairdryer.png">
+											<h4 id="icon_text_01">&emsp;헤어드라이어</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.washer == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_washer.png">
+											<h4 id="icon_text_01">&emsp;세탁기</h4>
+										</div>
+									</c:if>
+									<c:if test="${goods.pet  == 'Y' }">
+										<div class="hb_rec_11">
+											<img id="icon_onaju"
+												src="${contextPath }/resources/image/icons/icon_pet.png">
+											<h4 id="icon_text_01">&emsp;애완동물</h4>
+										</div>
+									</c:if>
 
-							</div>
+								</div>
+								<div style="height:80px;width:100%;display:inline-block;">
 							<button type="button" id="hb_goods_review_a"
 								style="float: left;">편의시설 25개 모두 보기</button>
-						</div>
+						</div></div>
 					</div>
 				</div>
 </div>
@@ -954,18 +879,27 @@ function addCart(){
 							<div class="hb_rec_16"
 								style="float: left; border-right: 1px solid #CCCCCC;">
 								<h6 style="font-size:12px; width:100%;">체크인</h6>
-								<input type=text style="text-align:center; margin-top:3px;" value="${cartVO.checkIn_date }"name="checkIn_date" id="checkIn_date" placeholder="yyyy-dd-mm"/>
+								<input type=text style="text-align:center; margin-top:3px;" value="${cartVO.checkIn_date }"autocomplete='off'name="checkIn_date" id="checkIn_date_goods" onchange="fn_check()"placeholder="yyyy-dd-mm"/>
 								</div>
 							<div class="hb_rec_16" style="float: right;">
 							<h6 style="font-size:12px; width:100%;">체크아웃</h6>
-								<input type="text" style="text-align:center; margin-top:3px;" name="checkOut_date" id="checkOut_date"placeholder="yyyy-dd-mm" onchange="fn_check()"/>
+								<input type="text" style="text-align:center; margin-top:3px;" name="checkOut_date" autocomplete='off'id="checkOut_date_goods"placeholder="yyyy-dd-mm" />
 					
 							</div>
 
 							<div class="hb_rec_18" style="float: left;">
-							<h6 style="font-size:12px; width:100%;">인원</h6>
-								<input type="text" style="text-align:center; margin-top:3px; width:40%;" name="people_count" id="people_count" placeholder="00"/>명
+							<h6 style="font-size:12px; width:30%;display:inline-block;float:left;">인원</h6>
+								<div class="input-group-icon js-number-input"
+									style="width: 30%; height: 100%; display: inline-block; padding: 10px;"
+									autocomplete='off'>
+									<div class="icon-con "
+										style="display: inline-block; position: absolute; right: 100px; top: 58%;text-align: center;">
+										<span class="plus">+</span> <span class="minus">-</span>
+									</div>
+									<input class="input--style-1 quantity1" type="text"
+										id="people_count" style="font-size:18px;margin-top:3px;"name="people_count" value="1 명" autocomplete='off'>
 								</div>
+							</div>
 
 						</div>
 						<button class="product-purchasing"type="button"
@@ -976,160 +910,113 @@ function addCart(){
 
 				</div>
 		</section>
+			</form>
 		<section class="hb_section_goodsinfo">
 			<hr style="width: 100%; margin-bottom: 15px;">
 			<div class="hb_section_goodsinfo_title">
 
 				<img src="${contextPath }/resources/image/redstar.png"
 					style="width: 20px; height: 20p; display: inline-block; float: left; margin: 8px 8px 0px 0px;">
-				<p id="h1_left">4.90 후기 11개</p>
+				<p id="h1_left"> ${star_avg} 후기 ${fn:length(reviewList)}개</p>
 
 			</div>
 
-			<div class="hb_section_review_0"></div>
+			
 
 			<div class="hb_section_review_1">
+			
+					<c:forEach var="item" items="${reviewList}" varStatus="membersNum">
+						<c:set var="i" value="${i +1 }" />
+						
+						
+					
+						<form name="new_${i }" id="new_${i }"action="${contextPath}/board/review/addReview.do" method="post">
 
-				<div class="hb_section_review_2">
 
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
+						<div class="hb_section_review_2">
+							<div
+								style="width: 100%; height: 100%; display: inline-block; padding: 10px;border: 1px solid #CCCCCC;
+    border-radius: 20px;">
+								<div class="goodsInfo-profile">
+									<a id="hb_a_main_profile_2" href="#"> <i style="width: 60px; height: 60px; border-radius: 70%;float: left; border:1px solid #CCCCCC;"><img
+										style="width: 60px; height: 60px; border-radius: 70%; overflow: hidden; float: left;"
+										src="${contextPath}/profileShow.do?u_id=${item.u_id}&fileName=${item.u_imageName}"onerror="hide(event);"></i>
 
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
+										<i id="hb_review_user">${ item.u_name }</i> 
+										<fmt:setLocale value="en_US" scope="session"/>
+										<fmt:parseDate var="creDate_0" value="${ item.creDate }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+											 <fmt:formatDate var="creDate_" value="${creDate_0}" pattern="yyyy/MM/dd" /> 
+											 <i id="hb_review_date">${creDate_ }</i></a>
+								</div>
+								<div class="goodsInfo-text">
+									<p id="hb_review_user_content">${item.review_content}</p>
+								</div>
+							</div>
 						</div>
-					</div>
-
-
-
-				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
+					</form>
+					</c:forEach>
 
 
 
 
 				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-
-				<div class="hb_section_review_2">
-
-					<div class="goodsInfo-profile">
-						<a id="hb_a_main_profile_2" href="#"><img
-							id="hb_main_profile_image_2"
-							src="${contextPath}/resources/image/dog_profile.PNG"></a>
-
-						<p id="hb_review_user">사용자 이름</p>
-						<p id="hb_review_date">2022년 10월</p>
-						<div class="goodsInfo-text">
-							<p id="hb_review_user_content">Everything I needed for a
-								comfortable stay in Dalat :) Highly recommended for price and
-								location.</p>
-						</div>
-					</div>
-
-
-
-				</div>
-
-
-
-
-
-
-			</div>
 
 		<div class="hb_section_goodsinfo_plus">
-				<a id="hb_goods_review_a" href='#'>후기 13개 모두보기</a>
+				<a id="hb_goods_review_a" href='#'>후기 ${fn:length(reviewList)}개 모두보기</a>
 			</div>
 	
 		</section>
 
-		<section class="hb_section_goodsinfo">
-			<hr style="width: 100%; margin-bottom: 15px;">
-
-
-		</section>
-		</form>
+		
 	</section>
 
 
 </body>
+
+    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
+
+<script>
+var longitude =  document.getElementById('longitude').value;
+var latitude =  document.getElementById('latitude').value;
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(longitude, latitude), // 지도의 중심좌표
+    level: 2 // 지도의 확대 레벨
+};  
+var markerPosition  = new kakao.maps.LatLng(longitude, latitude); 
+
+var marker = new kakao.maps.Marker({
+	  
+	    position: markerPosition,
+	    text: '숙소 위치'
+	});
+
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+marker.setMap(map);
+var infowindow = new kakao.maps.InfoWindow({
+    content: '<div style="width:150px;text-align:center;padding:6px 0;">숙소 위치</div>'
+});
+infowindow.open(map, marker);
+//주소-좌표 변환 객체를 생성합니다
+
+//지도 타입 변경 컨트롤을 생성한다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도에 확대 축소 컨트롤을 생성한다
+var zoomControl = new kakao.maps.ZoomControl();
+
+// 지도의 우측에 확대 축소 컨트롤을 추가한다
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//주소로 좌표를 검색합니다
+
+
+
+
+</script>
 </html>

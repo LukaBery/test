@@ -379,7 +379,7 @@ ul{list-style:none;}
 										<td class="td-date-writer" colspan="3"><input type="text"  name="title" id="title" placeholder="객실에 대한 간략한 소개글" ></td>
 									</tr>
 									<tr>
-										<th class="th-date">개실 타입</th>
+										<th class="th-date">객실 타입</th>
 										<td class="td-date-writer"><input type="text" name="room_type" id="#"></td>
 										<th class="th-date">객실 번호</th>
 										<td class="td-date-writer"><input type="number" name="room_number" id="#" placeholder="숫자를 입력해주세요."></td>

@@ -23,6 +23,7 @@ public class AdminOrderVO {
 	private String pay_state;
 	private String creDate;
 	private String reservation_state;
+	private String use_state;
 	//주문자 정보
 	private String u_name;
 	private String u_point;
@@ -55,6 +56,12 @@ public class AdminOrderVO {
 	}
 	public void setReservation_state(String reservation_state) {
 		this.reservation_state = reservation_state;
+  }
+	public String getUse_state() {
+		return use_state;
+	}
+	public void setUse_state(String use_state) {
+		this.use_state = use_state;
 	}
 	public String getOrder_code() {
 		return order_code;

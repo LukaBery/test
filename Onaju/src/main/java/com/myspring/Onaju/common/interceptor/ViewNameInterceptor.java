@@ -2,6 +2,8 @@ package com.myspring.Onaju.common.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -11,8 +13,7 @@ public class ViewNameInterceptor extends  HandlerInterceptorAdapter{
 		   try {
 			String viewName = getViewName(request);
 			request.setAttribute("viewName", viewName);
-			System.out.println("viewName : "+viewName); 
-			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

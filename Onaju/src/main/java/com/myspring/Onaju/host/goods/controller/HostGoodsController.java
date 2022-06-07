@@ -13,8 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 
+
+
 public interface HostGoodsController {
-	public ModelAndView goodsDetail(@RequestParam("room_code") String room_code, HttpServletRequest request, HttpServletResponse response) throws Exception;	
+	public ModelAndView goodsDetail(@RequestParam Map<String, String> _goodsMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 	public ModelAndView searchGoodsMap(@RequestParam Map<String, String> searchMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	
@@ -42,4 +45,6 @@ public interface HostGoodsController {
 	public void addNewHostGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public void  removeHostGoodsImage(@RequestParam("room_code") int room_code,@RequestParam("roomImage_NO") int roomImage_NO, @RequestParam("room_imageName") String room_imageName,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+
 }
