@@ -120,8 +120,14 @@
 			</div>			
 		</div>
 		<div class="notice-box3">
-			<div><img alt="이미지" src="${contextPath}/admin/imgFile.do?creID=${noticeMap.a_id}&notice_code=${noticeMap.notice_code}" height="400" width="300"></div>
-			
+			<c:choose>
+				<c:when test="${empty noticeMap.img_code }">
+					<div></div>
+				</c:when>
+				<c:when test="${!empty noticeMap.img_code }">
+					<div><img alt="이미지" src="${contextPath}/admin/imgFile.do?creID=${noticeMap.a_id}&notice_code=${noticeMap.notice_code}" height="400" width="300"></div>
+				</c:when>
+			</c:choose>
 			<div class="notice-box4"><div>${noticeMap.notice_content }</div></div>
 		</div>
 		<div class="notice-box5">

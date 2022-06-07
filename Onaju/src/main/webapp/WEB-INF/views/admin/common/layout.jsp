@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
  <title>layout</title>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>       
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>       
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <style type="text/css">
 *{

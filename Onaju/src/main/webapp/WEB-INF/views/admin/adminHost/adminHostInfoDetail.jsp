@@ -195,7 +195,7 @@
 		</div>
 				
 		<div class="mem-item5">
-			<div><a class="a1" href="${contextPath }/admin/hostModify.do?h_id=${hostVO.h_id}">수정하기</a></div>
+			<div><a class="a1" href="${contextPath }/admin/hostInfoModify.do?h_code=${adminHostInfoVO.h_code}">수정하기</a></div>
 			<div><a class="a2" href="${contextPath }/admin/hostInfoList.do?">돌아가기</a></div>
 		</div>	
 	</section>

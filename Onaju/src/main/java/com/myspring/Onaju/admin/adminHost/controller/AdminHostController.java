@@ -16,4 +16,5 @@ public interface AdminHostController {
 	public ModelAndView hostModifyForm(@RequestParam("h_id") String u_id) throws Exception;
 	public ModelAndView hostInfoList(AdminHostInfoVO vo) throws Exception;
 	public ModelAndView hostInfoDetail(String h_code) throws Exception;
+	public ModelAndView hostInfoModifyForm(String h_code) throws Exception;
 }

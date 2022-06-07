@@ -38,6 +38,7 @@
 		<result property="deputy_name" column="deputy_name"/>
 		<result property="deputy_phone" column="deputy_phone"/>
 		<result property="room_number" column="room_number"/>
+		<result property="reservation_state" column="reservation_state"/>
 		<result property="use_state" column="use_state"/>
 	</resultMap>
 	
@@ -66,6 +67,7 @@
 			   O.checkIn_date,
 			   O.checkOut_date,
 			   O.people_count,
+			   O.reservation_state,
 			   O.use_state,
 			   R.room_fee,
 			   O.pay_type,
