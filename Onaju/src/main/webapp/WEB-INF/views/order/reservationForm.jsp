@@ -108,138 +108,7 @@ hr {
 	font-weight: bold;
 }
 
-.hb_rec_3 {
-	display: inline-block;
-	float: right;
-	width: 500px;
-	height: 400px;
-}
 
-.box3 {
-	box-sizing: border-box;
-	outline: none;
-	list-style: none;
-	width: 500px;
-	height: 150px;
-}
-
-.box4 {
-	box-sizing: border-box;
-	outline: none;
-	list-style: none;
-	width: 500px;
-	height: 150px;
-}
-
-.search_box {
-	width: 490px;
-	/*전체검색테두리*/
-	border: 1px solid;
-	border-color: #cfd0d4;
-	background: #fff;
-	border-radius: 5px;
-	height: 35px;
-	display: flex;
-	padding: 10px;
-}
-
-.search_field {
-	/*검색창부분*/
-	width: 300px;
-	height: 100%;
-	position: relative;
-	border-style: none;
-}
-
-.search_field .input {
-	width: 100%;
-	height: 100%;
-	border: 0px;
-	font-size: 14px;
-	text-align: center;
-	padding: auto;
-	color: #6f768d;
-	border-style: none;
-}
-
-.search_field .input2 {
-	position: relative;
-	width: 100px;
-	height: 35px;
-	border: 0px;
-	font-size: 14px;
-	text-align: center;
-	padding: auto;
-	color: white;
-	border-style: none;
-	border-radius: 0.25em;
-	font-weight: bold;
-	bottom: 210%;
-	left: 60%;
-	padding: auto;
-}
-
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-	color: #9fa3b1;
-}
-
-::-moz-placeholder { /* Firefox 19+ */
-	color: #9fa3b1;
-}
-
-:-ms-input-placeholder { /* IE 10+ */
-	color: #9fa3b1;
-}
-
-#btbt2 {
-	width: 490px;
-	height: 35px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-}
-
-#sns1 {
-	display: inline-block;
-	width: 160px;
-	height: 35px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-	color: black;
-	background-color: #FFEA0F;
-}
-
-#sns2 {
-	display: inline-block;
-	width: 160px;
-	height: 35px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-	color: black;
-	border: 1px solid blue;
-}
-
-#sns3 {
-	display: inline-block;
-	width: 160px;
-	height: 35px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-	color: white;
-	background-color: #1EC800;
-}
-
-#login {
-	display: inline-block;
-	width: 490px;
-	height: 35px;
-	border: 0;
-	outline: 0;
-	border-radius: 5px;
-}
 
 .hb_rec_4 {
 	display: inline-block;
@@ -268,12 +137,6 @@ hr {
 	max-height: 82px;
 }
 
-.hb_rec_5 {
-	display: inline-block;
-	float: right;
-	width: 500px;
-	height: 400px;
-}
 /*결제수단 드롭다운1*/
 select {
 	/* Reset Select */
@@ -316,36 +179,6 @@ select::-ms-expand {
 	transition: 0.25s all ease;
 	pointer-events: none;
 }
-/* Transition */
-.select:hover::after {
-	color: #f39c12;
-}
-
-.select2 {
-	position: relative;
-	display: flex;
-	width: 100px;
-	height: 35px;
-	border-radius: 0.25em;
-	overflow: hidden;
-	right: 10px;
-	bottom: 11px;
-}
-/* Arrow */
-.select2::after {
-	content: "\25BC";
-	position: absolute;
-	top: 15%;
-	right: 10%;
-	padding: auto;
-	transition: 0.25s all ease;
-	pointer-events: none;
-}
-/* Transition */
-.select2:hover::after {
-	color: #f39c12;
-}
-
 /*a링크 효과*/
 #cou a:link {
 	font-weight: bold;
