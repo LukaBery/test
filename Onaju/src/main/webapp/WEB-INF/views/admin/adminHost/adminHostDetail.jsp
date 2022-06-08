@@ -118,6 +118,18 @@
 	line-height:50px; 
 	text-align:center; 
 	border-radius: 5px; 
+	border: 1px solid #666666; 
+	text-decoration: none;
+	background: #ffffff;
+	color: #666666;	
+}
+
+#deleteHost{
+	display:block; 
+	width:150px; 
+	line-height:50px; 
+	text-align:center; 
+	border-radius: 5px; 
 	border: none; 
 	text-decoration: none;
 	background: #ff3333;
@@ -247,8 +259,31 @@
 		</c:choose> --%>
 		<div class="mem-item5">
 			<div><a class="a1" href="${contextPath }/admin/hostModify.do?h_id=${hostVO.h_id}">수정하기</a></div>
+			<div><button type="button" id="deleteHost">탈퇴하기</button></div>
+			<input type="hidden" id="h_id" value="${hostVO.h_id }">
 			<div><a class="a2" href="${contextPath }/admin/hostList.do?">돌아가기</a></div>
 		</div>	
 	</section>
+<script type="text/javascript">
+$(document).ready(function fn_deleteHost(){
+	$("#deleteHost").click(function(){
+	var _id = document.getElementById("h_id").value;
+	$.ajax({		
+		url: '${contextPath}/admin/deleteHost.do',
+		data: {"h_id" : _id},
+		dataType : 'text',
+		type:'get',
+		async : false,
+		success: function(data){
+				alert("탈퇴 처리를 완료하였습니다.");
+				location.href="${contextPath}/admin/hostList.do";	
+		},
+		error:function(data){
+			alert("탈퇴 처리가 완료되지 않았습니다.");
+		}
+	})
+	})
+})
+</script>
 </body>
 </html>

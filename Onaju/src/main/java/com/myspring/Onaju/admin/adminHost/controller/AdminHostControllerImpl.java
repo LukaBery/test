@@ -1,6 +1,7 @@
 package com.myspring.Onaju.admin.adminHost.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.admin.adminHost.service.AdminHostService;
@@ -19,7 +23,7 @@ import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.member.controller.MemberControllerImpl;
 
-@Controller("adminHostController")
+@RestController("adminHostController")
 public class AdminHostControllerImpl implements AdminHostController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 	@Autowired
@@ -128,5 +132,19 @@ public class AdminHostControllerImpl implements AdminHostController {
 		mav.addObject("adminHostInfoVO", adminHostInfoVO);
 
 		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "/admin/updateHost.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity<String> updateHost(AdminHostVO hostVO) {
+		int update_host = adminHostService.updateHost(hostVO);
+		return update_host == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/deleteHost.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public void deleteHost(String h_id) {
+		System.out.println("aaa :"+ h_id);
+		adminHostService.deleteHost(h_id);
 	}
 }
