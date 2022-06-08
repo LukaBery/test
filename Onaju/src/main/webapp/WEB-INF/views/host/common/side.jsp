@@ -115,34 +115,30 @@ request.setCharacterEncoding("UTF-8");
  		<li class="ohnaju-li">
  			<a href="#" class="ohnaju-first-btn"><i style="color:#edbc40" class="fa-solid fa-solid fa-users"></i>&emsp;마이 페이지</a>
  				<ul class="ohnaju-first-show">
- 					<li class="ohnaju-li"><a href="${contextPath }/host/mypage/mypage.do">호스트 정보 수정</a></li>
+ 					<li class="ohnaju-li"><a href="${contextPath }/host/mypage/hostMypageDetail.do">호스트 정보 수정</a></li>
  					<li class="ohnaju-li"><a href="${contextPath }/host/goods/hostInfoList.do">사업장 목록</a></li>
  					<li class="ohnaju-li"><a href="${contextPath }/host/goods/hostInfoForm.do">사업장 등록</a></li>
- 					
+ 					<li class="ohnaju-li"><a href="${contextPath }/host/mypage/dropOut.do">호스트 탈퇴</a></li>
  			   </ul>
  		</li>
  		<li class="ohnaju-li">
  			<a href="#" class="ohnaju-second-btn"><i style="color:#edbc40" class="fa-solid fa-cart-shopping"></i>&emsp;주문 관리</a>
  				<ul class="ohnaju-second-show">
- 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/reList.do">예약 정보 목록</a></li>
- 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/reSearchDetail.do">예약 정보 검색</a></li>
- 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/reDelete.do">취소 및 환불</a></li>
+ 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/hostReservationList.do">예약 정보 목록</a></li>
+ 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/approveReservationList.do">승인 목록</a></li>
+ 					<li class="ohnaju-li"><a href="${contextPath }/host/reservation/cancelReservationList.do">취소 및 환불 목록</a></li>
  			   </ul>
  		</li>
  		<li class="ohnaju-li"><a href="#"  class="ohnaju-third-btn"><i style="color:#edbc40"  class="fa-solid fa-hotel"></i>&emsp;상품 관리</a>
  			<ul class="ohnaju-third-show">
  				<li class="ohnaju-li"><a href="${contextPath }/host/goods/hostGoodsList.do">상품 목록</a></li>
  				<li class="ohnaju-li"><a href="${contextPath }/host/goods/addNewGoodsForm.do">상품 등록</a></li>
- 				<li class="ohnaju-li"><a href="${contextPath }/host/goods/gInsert.do">기존 상품 등록</a></li>
- 				<li class="ohnaju-li"><a href="${contextPath }/host/goods/gUpdate.do">기존 상품 수정</a></li>
- 				<li class="ohnaju-li"><a href="${contextPath }/host/goods/gDelete.do">기존 상품 삭제</a></li>
- 				<li class="ohnaju-li"><a href="${contextPath }/host/goods/gON_OFF.do">기존 숙박 ON/OFF</a></li>
- 				
  			</ul>
  		</li>
  		<li class="ohnaju-li"><a href="#" class="ohnaju-fourth-btn"><i style="color:#edbc40" class="fa-solid fa-credit-card"></i>&emsp;정산 페이지</a>
  			<ul class="ohnaju-fourth-show">
- 				<li class="ohnaju-li"><a href="${contextPath }/host/money/mList.do">매출 관리</a></li>
+ 				
+ 				<li class="ohnaju-li"><a href="${contextPath }/host/money/hostSalesAllList.do">매출 내역</a></li>
  				<li class="ohnaju-li"><a href="${contextPath }/host/money/mCalculate.do">정산 페이지</a></li>
  			</ul>
  		</li> 		
@@ -150,7 +146,6 @@ request.setCharacterEncoding("UTF-8");
  			<ul class="ohnaju-fifth-show">
  				<li class="ohnaju-li"><a href="${contextPath }/host/community/hostAllCommunityList.do">Life Style 목록</a></li>
  				<li class="ohnaju-li"><a href="${contextPath }/host/community/cmnAticleForm1.do">Life Style 글 등록</a></li>
- 				<li class="ohnaju-li"><a href="${contextPath }/host/community/dropOut.do">임시</a></li>
  			</ul>
  		</li> 	
  		<li class="ohnaju-li"><a href="#" class="ohnaju-sixth-btn"><i style="color:#edbc40" class="fa-solid fa-building-user"></i>&emsp;고객 관리</a>

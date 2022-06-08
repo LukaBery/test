@@ -35,6 +35,7 @@ import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
 import com.myspring.Onaju.member.vo.MemberVO;
 
+
 @Controller("hostCommunityController")
 @RequestMapping(value = "/host/community")
 public class HostCommunityControllerImpl extends BaseController implements HostCommunityController {
@@ -369,6 +370,9 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
 	@Override
 	 @ResponseBody
 	@RequestMapping(value = "/addLike.do", method = { RequestMethod.GET, RequestMethod.POST })
