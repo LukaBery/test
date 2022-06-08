@@ -261,7 +261,7 @@
 <script type="text/javascript">
 // 날짜 기간 설정 (Jquery datepicker 이용)
 $( function() {
-    var dateFormat = "yyyy-MM-dd";
+    var dateFormat = "yy-MM-dd";
       from = $( "#startDate" )
         .datepicker({
           defaultDate: "+1W",

@@ -1,8 +1,12 @@
 package com.myspring.Onaju.admin.adminHost.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,4 +21,6 @@ public interface AdminHostController {
 	public ModelAndView hostInfoList(AdminHostInfoVO vo) throws Exception;
 	public ModelAndView hostInfoDetail(String h_code) throws Exception;
 	public ModelAndView hostInfoModifyForm(String h_code) throws Exception;
+	public ResponseEntity<String> updateHost(AdminHostVO hostVO);
+	public void deleteHost(String h_id);
 }

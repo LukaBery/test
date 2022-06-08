@@ -119,4 +119,7 @@
 		 		on I.h_id = H.h_id 
 		 		where I.h_code = #{h_code}					        
 	</select>
+	<delete id="selectDeleteHost" parameterType="String">
+		delete from h_host where h_id = #{h_id}
+	</delete>
 </mapper>

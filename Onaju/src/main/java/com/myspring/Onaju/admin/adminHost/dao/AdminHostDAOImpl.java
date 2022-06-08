@@ -45,5 +45,14 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	public List<AdminHostInfoVO> selectAllHostInfoList(AdminHostInfoVO vo) throws DataAccessException {
 		return sqlSession.selectList("mapper.admin.host.selectAllHostInfoList", vo);
 	}
+	
+	@Override
+	public int selectUpdateHost(AdminHostVO hostVO) {
+		return sqlSession.update("mapper.admin.host.selectUpdateHost", hostVO);
+	}
 
+	@Override
+	public int selectDeleteHost(String h_id) {
+		return sqlSession.delete("mapper.admin.host.selectDeleteHost", h_id);
+	}
 }
