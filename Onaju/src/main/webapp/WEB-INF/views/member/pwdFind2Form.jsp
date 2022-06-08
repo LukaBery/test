@@ -533,6 +533,8 @@ function fn_pwdfindform2_check() {
 </style>
 </head>
 <body>
+<section style="width:1100px;height:900px;">
+
 	<form name="pwdFind2_form" action="${contextPath}/member/pwdFindResult.do" method="post">
 	<div class="wrap wd668">
 			<div class="container">
@@ -568,5 +570,7 @@ function fn_pwdfindform2_check() {
 			</div><!-- content E-->
 		</div> <!-- container E -->
 		</form>
+</section>
 </body>
+
 </html>

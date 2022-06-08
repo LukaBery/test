@@ -14,4 +14,5 @@ public interface OrderDAO {
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException;
 	public void removeGoodsFromCart(OrderVO orderVO)throws DataAccessException;
 	public void requestRefund(String order_code) throws DataAccessException;
+	public List<OrderVO> reservationList(String room_code) throws DataAccessException;
 }

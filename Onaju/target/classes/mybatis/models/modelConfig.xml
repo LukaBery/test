@@ -21,11 +21,13 @@
 		<typeAlias type="com.myspring.Onaju.admin.adminHost.vo.AdminHostVO" alias="adminHostVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO" alias="adminHostInfoVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO" alias="adminNoticeVO" />
+    <typeAlias type="com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO" alias="adminEnquireVO" />
+		<typeAlias type="com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO" alias="adminEnquireReplyVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminGoods.vo.AdminHostRoomVO" alias="adminHostRoomVO" />
 		<typeAlias type="com.myspring.Onaju.admin.adminOrder.vo.AdminOrderVO" alias="adminOrderVO" />
 		
-		
 		<typeAlias type="com.myspring.Onaju.board.review.vo.ReviewVO" alias="reviewVO" />
+
 		
 	</typeAliases>
 </configuration>

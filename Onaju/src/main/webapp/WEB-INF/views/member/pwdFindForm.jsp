@@ -675,6 +675,8 @@ var SetTime = 180;
 </style>
 </head>
 <body>
+<section style="width:1100px;height:900px;">
+
 	<form name="pwdFind_form" action="${contextPath}/member/pwdFind.do" method="post">
 	<div class="wrap wd668">
 			<div class="container">
@@ -741,5 +743,6 @@ var SetTime = 180;
 			</div><!-- content E-->
 		</div> <!-- container E -->
 	</form>
+	</section>
 </body>
 </html>

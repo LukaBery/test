@@ -2,12 +2,17 @@
     'use strict';
     /*==================================================================
         [ Daterangepicker ]*/
-    
-    
+    var date = new Date();
+var currentMonth = date.getMonth();
+var currentDate = date.getDate();
+var currentYear = date.getFullYear();
+    var _reservation_count = document.getElementById('reservation_count').value;
+
     try {
     
 		$('#checkIn_date_goods').daterangepicker({
 			locale: {
+				format: 'DD.MM.YYYY',
 				"separator": " ~ ",                     // 시작일시와 종료일시 구분자
 			
 				"applyLabel": "확인",                    // 확인 버튼 텍스트
@@ -15,7 +20,30 @@
 				"daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
 				"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
 			},
+			  minDate: new Date(currentYear, currentMonth, currentDate),
             ranges: true,
+          
+    isInvalidDate: function(date) {
+
+	 if(_reservation_count != 0 && _reservation_count != null){
+	var reservation_count = Number(_reservation_count);
+	
+	for(var i =1; i<=reservation_count; i++){
+	
+		var checkIn = document.getElementById('checkIn'+i).value;
+		var checkOut = document.getElementById('checkOut'+i).value;
+		if(date.format('YYYY-MM-DD') >= checkIn && date.format('YYYY-MM-DD') <= checkOut)
+		{
+			return true;
+		}
+		
+	}
+	return false;
+}
+	 
+   
+    }      
+    ,
             autoApply: true,
             applyButtonClasses: false,
 			autoUpdateInput: false,

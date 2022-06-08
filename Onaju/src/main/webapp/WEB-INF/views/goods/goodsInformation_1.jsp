@@ -970,7 +970,18 @@ function addCart(){
 		
 	</section>
 
+<c:forEach var="item" items="${reservationList}" varStatus="membersNum">
+<c:set var="y" value="${y +1 }" />
+<fmt:setLocale value="en_US" scope="session"/>
+										<fmt:parseDate var="checkIn_date" value="${ item.checkIn_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+											 <fmt:formatDate var="checkIn" value="${checkIn_date}" pattern="yyyy-MM-dd" /> 
+											 <fmt:parseDate var="checkOut_date" value="${ item.checkOut_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
+											 <fmt:formatDate var="checkOut" value="${checkOut_date}" pattern="yyyy-MM-dd" /> 
+<input type="text" id="checkIn${y}"value="${checkIn}">
+<input type="text" id="checkOut${y}"value="${checkOut}">
 
+</c:forEach>
+<input type="text" id="reservation_count"value="${reservationList.size() }">
 </body>
 
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>

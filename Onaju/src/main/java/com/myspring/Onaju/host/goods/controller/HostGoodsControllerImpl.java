@@ -35,6 +35,8 @@ import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.host.vo.HostVO;
 import com.myspring.Onaju.member.vo.MemberVO;
+import com.myspring.Onaju.order.service.OrderService;
+import com.myspring.Onaju.order.vo.OrderVO;
 
 @Controller("hostGoodsController")
 @RequestMapping(value = "/host/goods")
@@ -48,6 +50,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	private HostInfoVO hostInfoVO;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private OrderService orderService;
 
 	@Autowired
 	private ReviewVO reviewVO;
@@ -89,7 +93,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			mav.addObject("star_avg", star_avg);
 			}
 		}
-		
+		List<OrderVO> reservationList = orderService.reservationList(room_code);
+		mav.addObject("reservationList", reservationList);
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("pageNum", pageNum);
 

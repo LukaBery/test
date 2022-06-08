@@ -263,8 +263,9 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="hb_text_order02" >
 					<div id="r3">총합계</div>
-					<input type="text" id="total"value="<fmt:formatNumber value="${order.total}" type="currency" currencySymbol="₩ " />"
+					<input type="text" id="total_view"value="<fmt:formatNumber value="${order.total}" type="currency" currencySymbol="₩ " />"
 						class="order_goods_price" style="font-weight:570;" disabled>
+						<input type="hidden" id="total" value="${order.total}">
 				</div>
 			</div>
 		</section>
