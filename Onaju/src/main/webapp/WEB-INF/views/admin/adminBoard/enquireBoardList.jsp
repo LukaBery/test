@@ -12,6 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
 .noticeBoard-row{
 	display: flex;
@@ -118,6 +122,7 @@
 	border-collapse: collapse;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
 	width: 100%;
+	
 }
 .styled-table thead tr{
 	background-color: #000033;
@@ -157,107 +162,219 @@
 </style>
 </head>
 <body>
-<section style="display: inline-block; float: left;">
-<div class="container-fluid px-4" style="margin: 15px 0px 15px 0px;">
-<article><h3 class="mt-4"><strong>1:1질문 관리</strong></h3></article>
-</div>
-<article>
-
-<div>
-<form>
-	
-	<%-- 날짜 조건 검색 --%>	
-	<div class="noticeBoard-row">
-		<div class="noticeBoard-row-col1"><div>일자</div></div>
-		<div class="noticeBoard-row-col3"><div>&emsp;시작 날짜&emsp;<input type="date">&emsp; 종료 날짜&emsp;<input type="date">&emsp; <button>어제</button><button>오늘</button><button>1개월</button><button>사용안함</button></div></div>
+<section>
+	<div class="container-fluid px-4" style="margin: 15px 0px 15px 0px;">
+		<article><h3 class="mt-4"><strong>1:1 질문 관리</strong></h3></article>
 	</div>
-	
-	<div class="noticeBoard-row">
-		
-		<%-- 게시여부 선택박스 --%>
-		<div class="noticeBoard-row-col1"><div>게시여부</div></div>
-		<div class="noticeBoard-row-col2">
-			<div>
-				<select>
-					<option value="">게시 여부</option>
-					<option value="게시">게시</option>
-					<option value="미게시">미게시</option>
-				</select>
+	<article>
+		<form name="searchMap" action="${contextPath }/admin/searchNotice.do" method="post">	
+			<div class="noticeBoard-row">
+				<div class="noticeBoard-row-col1"><div>일자</div></div>
+				<div class="noticeBoard-row-col3">
+				<div>
+				&emsp;시작 날짜&emsp;<input class="datepicker" id="startDate" name="write_startDate" autocomplete=off>&emsp;
+				종료 날짜&emsp;<input class="datepicker" id="endDate" name="write_endDate" autocomplete=off>&emsp; 
+			
+				<button type="button" id="settingDate1" value="yesterday">어제</button>
+				<button type="button" id="settingDate2" value="today">오늘</button>
+				<button type="button" id="settingDate3" value="month">1개월</button>
+				<button type="button" id="settingDate4" value="reset">사용안함</button>
+				</div></div>
 			</div>
+			<div class="noticeBoard-row">
+				<div class="noticeBoard-row-col1"><div>답변 여부</div></div>
+				<div class="noticeBoard-row-col2">
+					<div>
+						<select name="notice_type">
+							<option value="">답변 여부</option>
+							<option value="답변">답변</option>
+							<option value="미답변">미답변</option>
+						</select>
+					</div>
+				</div>
+				<div class="noticeBoard-row-col1"><div>검색</div></div>
+				<div class="noticeBoard-row-col2"><div><input type="search" name="notice_title"></div></div>
+			</div>
+			<div class="noticeBoard-row-3">
+				<div><input type="submit" value="조회" onclick="searchNotice()"></div>
+			</div>
+		</form>
+	
+		<div align="right">
+			<div>드롭다운박스</div>
 		</div>
-		
-		<%-- 검색 입력 박스  --%>
-		<div class="noticeBoard-row-col1"><div>검색</div></div>
-		<div class="noticeBoard-row-col2"><div><input type="search"></div></div>
-	</div>
-	
-	<%-- 조회 submit 박스 --%>
-	<div class="noticeBoard-row-3">
-		<div><input type="submit" value="조회"></div>
-	</div>
-</form>
-	
-	<%-- 10, 20개 선택 출력 --%>
-	<div align="right">
-		<div>드롭다운박스</div>
-	</div>
-</div>
-</article>
-<form>
+	</article>
+</section>
+<section>
 	<table class="styled-table">
-	
-		<%-- 테이블 헤드 --%>
-  		<thead>
-  			<tr>
-     			<td >체크박스</td>
-     			<td >게시물 번호</td>  
-     			<td >등록일시</td>            
-     			<td >제목</td>
-     			<td >유형</td>
-     			<td >게시여부</td>
-     			<td >상단노출 여부</td>
-     			<td >등록자</td>	
+		<colgroup>
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:34%">
+			<col style="width:10%">
+			<col style="width:16%">
+			<col style="width:10%">
+		</colgroup>
+		<thead>
+ 			<tr>
+				<td >번호</td>
+				<td >답변 여부</td>
+     			<td >질문 번호</td>  
+     			<td >제목</td>            
+     			<td >작성자</td>
+     			<td >작성일</td>
+     			<td >조회수</td>			
   			</tr>
-  		</thead>
-  		
+		</thead>
 		<c:choose>
-		
-			<%-- 반환값이 비어있을때 출력값 --%>
-  			<c:when test="${empty reviewsList}" >
+  			<c:when test="${empty enquireList}" >
     			<tr  height="10">
-      				<td colspan="9">
-        				<p align="center">
-        					<b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
+      				<td colspan="7">
+         				<p align="center">
+            				<b><span style="font-size:9pt;">조회된 결과가 없습니다.</span></b>
         				</p>
       				</td>  
     			</tr>
   			</c:when>
-  			
-  			 <%-- 반환값이 존재할때 출력값 --%>
-  			<c:when test="${!empty reviewsList}" >
-    			<c:forEach  var="review" items="${reviewsList }" varStatus="reviewNum" >
-     				<tr>
-						<td width="5%">${reviewNum.count}</td>
-						<td width="5%">${review.member_id }</td>
-						<td width="10%"><fmt:formatDate value="${review.writeDate}" /></td>
-						<td width="10%"><fmt:formatDate value="${review.writeDate}" /></td>
-						<td  width="5%">${review.member_id }</td>   
-						<td  width="5%">${review.member_name }</td>   
-						<td  width="10%">${review.member_phoneNumber }</td>   
-						<td  width="10%">${review.member_lastJoin }</td>   			  
+  			<c:when test="${!empty enquireList}" >
+    			<c:forEach  var="enquire" items="${enquireList }" varStatus="reviewNum" >
+     				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/enquireDetail.do?enquire_NO=${enquire.enquire_NO}'">
+						<td>${reviewNum.count}</td>
+						<td>${enquire.reply_yn}</td>
+						<td>${enquire.enquire_NO }</td>
+						<td>${enquire.title }</td>
+						<td>${enquire.u_id }</td>
+						<td>${enquire.creDate }</td>   
+						<td>${enquire.hit_cnt }</td>      								  
 					</tr>
     			</c:forEach>
-     		</c:when>
-     		
-     		
+     		</c:when>  		
     	</c:choose>
-	</table>
-</form>
+    </table>
 </section>
+<div>
+		<c:forEach var="i" begin="1" end="${totalPage }">
+			<a href="${contextPath }/admin/noticeList.do?viewPage=${i}">${i }</a>
+		</c:forEach>
+	</div>
+
+<div class="noticeBoard-row-2">
+	<div><a class="a1" href="${contextPath}/admin/noticeForm.do">글쓰기</a></div>
+	<div><input class="a2" type="submit" value="선택삭제"></div>
+</div>
+
+<script type="text/javascript">
+// 날짜 기간 설정 (Jquery datepicker 이용)
+$( function() {
+    var dateFormat = "yyyy-MM-dd";
+      from = $( "#startDate" )
+        .datepicker({
+          defaultDate: "+1W",
+          changeMonth: true,
+          numberOfMonths: 1,
+          maxDate : "+0M +0D",
+          format:"yyyy-MM-dd"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#endDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        maxDate : "+0M +0D",
+        format:"yyyy-MM-dd"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+});
+
+// 기간이 설정된 버튼 클릭 시 datepicker에 값을 넣는 방식
+$(function(){
+	var setdate1 = $("#settingDate1").val();
+	var setdate2 = $("#settingDate2").val();
+	var setdate3 = $("#settingDate3").val();
+	var setdate4 = $("#settingDate4").val();
+	
+	$.datepicker.regional['ko'] = {
+	        closeText: '닫기',
+	        prevText: '이전달',
+	        nextText: '다음달',
+	        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+	        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+	        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+	        '7월','8월','9월','10월','11월','12월'],
+	        dayNames: ['일','월','화','수','목','금','토'],
+	        dayNamesShort: ['일','월','화','수','목','금','토'],
+	        dayNamesMin: ['일','월','화','수','목','금','토'],
+	        weekHeader: 'Wk',
+	        dateFormat: 'yy-mm-dd',
+	        firstDay: 0,
+	        isRTL: false,
+	        showMonthAfterYear: true,
+	        yearSuffix: '',
+	        changeMonth: true,
+	        changeYear: true,
+	        showButtonPanel: true,
+	        yearRange: 'c-99:c+99',
+	};
+	$.datepicker.setDefaults($.datepicker.regional['ko']);
+	
+	var from = $("#startDate").datepicker();
+	var to = $("#endDate").datepicker();
+	$("#settingDate1").click(function(){
+		
+		switch(setdate1){
+		case "yesterday" :
+			from = $("#startDate").datepicker("setDate", "-1D");
+			to = $("#endDate").datepicker("setDate", "-1D");
+		break
+		}
+	});
+	$("#settingDate2").click(function(){
+		
+		switch(setdate2){
+		case "today" :
+			 
+			from = $("#startDate").datepicker("setDate", "today");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate3").click(function(){
+		
+		switch(setdate3){
+		case "month" :
+			from = $("#startDate").datepicker("setDate", "-1M");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate4").click(function(){
+		
+		switch(setdate4){
+		case "reset" :
+			from = $("#startDate").datepicker("setDate", null);
+			to = $("#endDate").datepicker("setDate", null);
+		break
+		}
+	});
+});
 
 
-<section>
-
-</section>
+</script>
 </body>
 </html>

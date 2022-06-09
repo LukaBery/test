@@ -255,7 +255,7 @@ ChannelIO('boot', {
 		</h1>
 		<ul class="host_menu">
 			<li>
-				<a href="${contextPath}/host/main.do">
+				<a href="${contextPath}/host/h_login.do">
 				<i class="fas fa-user fa-fw"></i>
 					<c:choose>
 						<c:when test="${isLogOn==true and not empty hostInfo }">

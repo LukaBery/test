@@ -238,7 +238,7 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>아이디</div></div>
 				<div class="mem-item2-chil-2"><div>${hostVO.h_id }</div></div>
 				<div class="mem-item2-chil-1"><div>원정생성일</div></div>
-				<div class="mem-item2-chil-2"><div><fmt:formatDate value="${hostVO.joinDate }" pattern="yyyy년 MM월 dd일"/></div></div>
+				<div class="mem-item2-chil-2"><div>${hostVO.joinDate }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자명</div></div>
@@ -281,7 +281,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div class="mem-item2-chil-4"><div>승인 완료일</div></div>
-				<div class="mem-item2-chil-5"><div><fmt:formatDate value="${hostVO.joinDate }" pattern="yyyy년 MM월 dd일"/></div></div>
+				<div class="mem-item2-chil-5"><div>${hostVO.joinDate }</div></div>
 			</div>		
 		</div>
 		<div class="mem-item1"><div><h3>대리인 상세 정보 수정</h3></div></div>
@@ -301,7 +301,7 @@ $(document).ready(function(){
 		</div>
 		<div class="mem-item5">
 			<div><a class="a1" href="#">수정완료</a></div>
-			<div><a class="a2" href="${contextPath }/host.hostDetail.do?h_id=${hostVO.h_id}">돌아가기</a></div>
+			<div><a class="a2" href="${contextPath }/admin/hostDetail.do?h_id=${hostVO.h_id}">돌아가기</a></div>
 		</div>	
 	</section>
 </body>

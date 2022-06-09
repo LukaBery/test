@@ -45,4 +45,14 @@ public class AdminHostServiceImpl implements AdminHostService {
 	public int hostInfoListTotal(AdminHostInfoVO vo) throws Exception {
 		return adminHostDAO.selectAllHostInfoListTotal(vo);
 	}
+	
+	@Override
+	public int updateHost(AdminHostVO hostVO) {
+		return adminHostDAO.selectUpdateHost(hostVO);
+	}
+
+	@Override
+	public int deleteHost(String h_id) {
+		return adminHostDAO.selectDeleteHost(h_id);
+	}
 }

@@ -42,6 +42,17 @@
 		
 	</resultMap>	
 
+
+<select id="reservationList" resultType="orderVO"  parameterType="String"  >
+	    <![CDATA[
+				select * from u_order  where room_code=#{room_code} 
+				and checkOut_date >= sysdate()
+		]]>
+	</select>
+	
+	
+	
+	
 	<insert id="insertNewOrder" parameterType="orderVO"  >
 	    <selectKey resultType="int" keyProperty="order_seq_num" order="BEFORE">
 	    	select max(order_seq_num)+1 from u_order

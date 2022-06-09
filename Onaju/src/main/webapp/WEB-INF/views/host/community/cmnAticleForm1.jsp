@@ -6,7 +6,7 @@
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
-<c:set var="list"  value="${hostCommunityList}"  />
+<c:set var="hostInfoList"  value="${hostInfoList}"  />
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
 <html>
@@ -14,20 +14,7 @@
 <meta charset="UTF-8">
 <title>상품 등록</title>
 
-<c:if test='${not empty message }'>
-<script>
 
-
-window.onload=function()
-{
-  result();
-}
-
-function result(){
-	alert("${message}");
-}
-</script>
-</c:if>
 <script type="text/javascript">
 
 	
@@ -35,15 +22,22 @@ function result(){
 
 <style>
 
+*{
+	margin:0; padding:0;
+	font-size:15px; 
+}
+
+/* 테이블쪽 디자인 */
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
+} 
 
 section.host_notice {
 	width : 850px;
 	padding: 0 auto;
-	margin-left: 50px;
+	height: 1500px;
+	margin: 0px 0px 0px 70px;
 }
 
 .page-title {
@@ -55,52 +49,16 @@ section.host_notice {
 	color: #7f9b75;
 	font-weight: 570;
 	text-align: center;
-}
-
-#noticeBoard-search .noticeSearch-window {
-	padding: 15px 0;
-	background-color: #f9f7f9;
-}
-
-#noticeBoard-search .noticeSearch-window .noticeSearch-wrap {
-	position: relative;
-	/*   padding-right: 124px; */
-	margin: 0 auto;
-	width: 80%;
-	max-width: 564px;
-}
-
-#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input {
-	height: 28px;
-	width: 100%;
-	font-size: 14px;
-	padding: 7px 14px;
-	border: 1px solid #cbdea6;
-}
-
-#noticeBoard-search .noticeSearch-window .noticeSearch-wrap input:focus {
-	border-color: #333;
-	outline: 0;
-	border-width: 1px;
-}
-
-#noticeBoard-search .noticeSearch-window .noticeSearch-wrap .noticeBtn {
-	position: absolute;
-	right: -30px;
-	top: 0;
-	bottom: 0;
-	width: 108px;
-	padding: 0;
-	font-size: 16px;
+	margin: 50px 0 50px 0;
 }
 
 .board-table {
 	color:#403e3f;
 	font-size: 14px;
 	width: 100%;
-	border-top: 1px solid #cbdea6;;
-	border-bottom: 1px solid #cbdea6;;
-	
+	border-top: 1px solid #cbdea6;
+	border-bottom: 1px solid #cbdea6;
+	margin: 115px 0px 0px 0px;
 }
 
 .board-table a {
@@ -115,63 +73,77 @@ section.host_notice {
 	text-decoration: underline;
 }
 
-.roomSelect {
-	border: 1px solid #7f9b75;
-    font-size: 15px;
-    height: 28px;
-    padding: 1px;
-    width: 250px;
-    text-align: center;
-    margin: 0px 0px 0px 350px;
-
-}
-
-.search_button{
-	font-size: 10pt;
-    color: #666;
-    text-decoration: none;
-    display: inline-block;
-    
-    width: 150px;
-    height: 25px;
-    border: 1px solid #cfcfcf;
-    background: #dedede;
-    color: #626262;
-    text-align: center;
-   
-   
-}
-
 .board-table th {
 	text-align: center;
 
 }
 
-.td-date-writer{
-	text-align: center;
-}
-
 .board-table .th-num {
 	
-	width: 100px;
+	/* width: 100px; */
 	text-align: center;
 }
 
-.board-table .th-date {
-	width: 200px;
+
+
+.board-table th, .board-table td {
+	padding: 5px 0 5px 5px;
+	border : 1px solid #cbdea6;
 }
 
-.board-table th, .board-table td {	
-	padding: 10px 0;
+.board-table tbody td {
 	border-top: 1px solid #cbdea6;
+	text-align: center;
 }
 
-.th-content{
-	min-height: 250px;
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #cbdea6;
+	text-align: left;
 }
 
-.th-image{
-	min-height: 80px;
+.board-table tbody th p {
+	display: none;
+}
+
+.noticeBtn {
+	display: inline-block;
+	padding: 0 30px;
+	font-size: 15px;
+	font-weight: 400;
+	background: transparent;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-dark {
+	background: #7f9b75;
+	color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+	background: #cbdea6;
+	border-color: #cbdea6;
+	color: #fff;
 }
 
 .noticeBtn2 {
@@ -182,7 +154,7 @@ section.host_notice {
 .noticeBtn2 {
 	display: inline-block;
 	padding: 5px 30px;
-	margin:30px 0px 0px 730px;
+	margin: 30px 0 30px 650px;
 	font-size: 16px;
 	font-weight: 400;
 	background: transparent;
@@ -219,11 +191,6 @@ section.host_notice {
 	color: #fff;
 }
 
-.noticeBtn2Box {
-	width:850px;
-	margin-left: 600px;
-}
-
 .clearfix:after {
 	content: '';
 	display: block;
@@ -231,8 +198,8 @@ section.host_notice {
 }
 
 .host_contai {
-	width: 850px;
-	margin: 50px 0px 50px 0px;
+	width: 750px;
+	margin: 0 auto;
 }
 
 .blind {
@@ -242,12 +209,6 @@ section.host_notice {
 	margin: -1px;
 	width: 1px;
 	height: 1px;
-}
-
-.file_input{
-	margin: 5px;
-    font-size: 13px;
-    
 }
 
 /* 테이블쪽 디자인 */
@@ -359,7 +320,7 @@ ul{list-style:none;}
 <body>
 
 <section class="host_notice">
-<form name="addNewGoods" action="${contextPath}/host/community/cmnAticleForm2.do" method="post" >
+<form name="addNewGoods" action="${contextPath}/host/community/cmnAticleForm1_2.do" method="post" >
 					<div class="host-title">
 						<div class="host_contai">
 							<h3>Life Style 사업장 정보 등록</h3>
@@ -375,39 +336,14 @@ ul{list-style:none;}
 									<col width="auto"/>
 								</colgroup>
 									<thead>
-									<tr>
-										<th class="th-date">객실 일련번호</th>
-											<td class="td-date-writer" >
-												<select class="roomSelect" name="room_code">
-													
-														<c:forEach var="list" items="${hostCommunityList}"> 
-															<option class="roomOption"  value="${list.room_code}">${list.room_code}
-															
-													</option>
-												     </c:forEach> 
-												</select>
-											</td>
-									</tr>
-									<tr>
-										<th class="th-date">객실 번호</th>
-											<td class="td-date-writer" >
-												<select class="roomSelect" name="room_number">
-													
-														<c:forEach var="list" items="${hostCommunityList}"> 
-															<option class="roomOption"  value="${list.room_number}">${list.room_number}
-															
-													</option>
-												     </c:forEach> 
-												</select>
-											</td>
-									</tr>
+									
 									
 										<tr>
 											<th class="th-date">사업장 일련번호</th>
 											<td class="td-date-writer" >
 												<select class="roomSelect" name="h_code">
 													
-														<c:forEach var="list" items="${hostCommunityList}"> 
+														<c:forEach var="list" items="${hostInfoList}"> 
 															<option class="roomOption"  value="${list.h_code}">${list.h_code}
 															
 													</option>
@@ -422,7 +358,7 @@ ul{list-style:none;}
 											<td class="td-date-writer" >
 												<select class="roomSelect" > <!-- name="hostInfo_name" -->
 													
-														<c:forEach var="list" items="${hostCommunityList }">
+														<c:forEach var="list" items="${hostInfoList }">
 															<option class="roomOption" value="${list.hostInfo_name}">${list.hostInfo_name}
 													</option>
 												    </c:forEach>
@@ -430,36 +366,13 @@ ul{list-style:none;}
 											</td>
 										</tr>
 										
-										<tr>
-											<th class="th-date">도로명 주소</th>
-											<td class="td-date-writer" >
-												<select class="roomSelect" > <!-- name="roadAddress" -->
-													
-														<c:forEach var="list" items="${hostCommunityList}">
-															<option class="roomOption"  value="${list.roadAddress}">${list.roadAddress}
-													</option>
-												    </c:forEach>
-												</select>
-											</td>
-											
-										</tr>
 										
-										<tr>
-											<th class="th-date">사업장 타입</th>
-											<td class="td-date-writer">
-												<select class="roomSelect" > <!-- name="host_type" -->
-													
-														<c:forEach var="list" items="${hostCommunityList}">
-															<option class="roomOption"  value="${list.host_type}">${list.host_type}
-													</option>
-												    </c:forEach>
-												</select>											
-											</td>
-										</tr>
+										
 									</thead>
 							</table>	
 								<div class="noticeBtn2Box">
-									<button type="submit" class="noticeBtn2 btn-dark2">등록</button>
+									
+									<button type="submit" class="noticeBtn2 btn-dark2">다음</button>
 								</div>
 			</form>
 </section>

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,14 +19,19 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.admin.admin.vo.AdminVO;
 import com.myspring.Onaju.admin.adminBoard.service.AdminBoardService;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
 
 /*
@@ -36,7 +40,7 @@ import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
  * 최종 작성일 : 2022-05-24
  * 관리자 게시판 관리(공지사항, 1대1 문의)
  */
-@Controller("adminBoardController")
+@RestController("adminBoardController")
 public class AdminBoardControllerImpl implements AdminBoardController {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -45,6 +49,8 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	private AdminBoardService adminBoardService;
 	@Autowired
 	private AdminVO adminVO;
+	@Autowired
+	private AdminEnquireVO enquireVO;
 	
 	@Resource(name="adminUploadPath")
 	String adminUploadPath;
@@ -187,21 +193,21 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	@Override
 	@RequestMapping(value = "/admin/searchNotice.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminSearchNoticeList(AdminNoticeVO searchVO) throws Exception {
+	
+    
+		if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
+			String endDate = searchVO.getWrite_endDate();
 		
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
+			String write_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
+	
+			searchVO.setWrite_endDate(write_endDate);
+		}
 		
-			if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
-				String endDate = searchVO.getWrite_endDate();
-		
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				Date date = format.parse(endDate);
-				Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
-				String write_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
-		
-				searchVO.setWrite_endDate(write_endDate);
-			}
-		
-		
-		int total = adminBoardService.noticeListTotal(searchVO);
+	
+    int total = adminBoardService.noticeListTotal(searchVO);
 		int totalPage = (int) Math.ceil((double)total/10);
 		
 		int viewPage = searchVO.getViewPage();
@@ -219,5 +225,43 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 		mav.addObject("total", total);
 		mav.addObject("totalPage", totalPage);
 		return mav; 
-	}	
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/enquireBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView enquireBoardList(AdminEnquireVO enquireVO) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> enquireList = adminBoardService.enquireBoardList(enquireVO);
+		mav.addObject("enquireList", enquireList);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/enquireDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView enquireBoardDetail(AdminEnquireVO enquireVO) throws Exception {
+		
+		adminBoardService.updateHit(enquireVO);
+		
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> enquireDetail = adminBoardService.enquireBoardDetail(enquireVO);
+		
+		mav.addObject("enquireDetail", enquireDetail);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "admin/newReply.do", method = RequestMethod.POST)
+	public ResponseEntity<String> insertEnquireReply(@ModelAttribute("replyVO") AdminEnquireReplyVO replyVO, HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession();
+		adminVO = (AdminVO)session.getAttribute("adminInfo");
+		replyVO.setA_id(adminVO.getA_id());
+		int insertReply = adminBoardService.insertEnquireReply(replyVO);
+		return insertReply == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(value = "/admin/enquireReplyList.do", method = {RequestMethod.GET, RequestMethod.POST} )
+	public ResponseEntity<List<Map<String, Object>>> ajaxcommentList(AdminEnquireReplyVO replyVO){
+		List<Map<String, Object>> replysList = adminBoardService.enquireReplyDetail(replyVO);
+		return new ResponseEntity<>(replysList, HttpStatus.OK);
+	}
 }

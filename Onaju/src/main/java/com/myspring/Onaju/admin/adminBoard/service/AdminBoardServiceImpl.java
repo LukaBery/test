@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myspring.Onaju.admin.adminBoard.dao.AdminBoardDAO;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
 
 @Service("adminBoardService")
@@ -50,7 +52,36 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 		return adminBoardDAO.selectSearchNotice(searchVO);
 	}
 
+	@Override
+	public List<Map<String, Object>> enquireBoardList(AdminEnquireVO enquireVO) {
+		return adminBoardDAO.selectAllEnquireList(enquireVO);
+	}
+
+	@Override
+	public List<Map<String, Object>> enquireBoardDetail(AdminEnquireVO enquireVO) {
+		return adminBoardDAO.selectEnquireDetail(enquireVO);
+	}
+
+	@Override
+	public void updateHit(AdminEnquireVO enquireVO) {
+		adminBoardDAO.updateHit(enquireVO);
+		
+	}
 	
+	@Override
+	public int insertEnquireReply(AdminEnquireReplyVO replyVO) {
+		return adminBoardDAO.insertEnquireReply(replyVO);
+	}
+
+	@Override
+	public List<Map<String, Object>> enquireReplyDetail(AdminEnquireReplyVO replyVO) {
+		return adminBoardDAO.selectEnquireReplyDetail(replyVO);
+	}
+
+	@Override
+	public int updateReplyCheck(AdminEnquireReplyVO replyVO) {
+		return adminBoardDAO.updateReplyCheck(replyVO);
+	}
 
 	
 

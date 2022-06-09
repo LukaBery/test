@@ -52,54 +52,35 @@ function reviewFormAdd(num){
 	var con = document.getElementById("reviewForm_0_"+num);
 	var div_0 = document.getElementById("reviewForm_"+num);
 	 if(con.style.display=='none'){    
-		
 		    con.style.display = 'block';   
 		div_0.style.height = '220px';  
-		
 	}else{       
 		 con.style.display = 'none';   
-		div_0.style.height = '100px';  
-		
-		 }
-	
+		div_0.style.height = '100px';  	
+		 }	
 }
 
 function newReview(boardNum){
-	
-	
-	
 	 document.getElementById(boardNum).submit();
-	 
-	 
 	 }
 
 function modReview(boardNum){
-	
-	
-	  document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/modReview.do'); 
+	 document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/modReview.do'); 
 	 document.getElementById(boardNum).submit();
-	 
-	 
 	 }
 
 function delReview(boardNum){
-	
-	
 	  document.getElementById(boardNum).setAttribute('action','${contextPath}/board/review/delReview.do'); 
-
 	 document.getElementById(boardNum).submit();
-	 
-	 
 	 }
+	 
 function searchByPriod(period){
 	var formObj=document.createElement("form");
 	var _period = document.createElement("input");
 	var period_color = document.createElement("input");
-	
-	 var beginEnd = calcPeriod(period);
+	var beginEnd = calcPeriod(period);
 	 period_color.name="period_color";
 	 period_color.value=period;
-
 	_period.name="period";
 	_period.value=beginEnd;
     formObj.appendChild(_period);
@@ -228,9 +209,6 @@ function  calcPeriod(search_period){
 		beginYear -= 1;
 		beginMonth +=12;
 	}
-	
-	
-	
 	if(beginMonth <10){
 		beginMonth='0'+beginMonth;
 		if(beginDay<10){
@@ -253,18 +231,13 @@ function  calcPeriod(search_period){
 </head>
 
 <body>
-
 	<section class="hb_section_total">
 	
-	
-	
-	
-	<div style="width:170px; height:1000px; float:left;">
+	    <div class="hb_nav_box1">
 		<!-- <상위 네비게이션>-->
-		<div class="hb_nav_section_1 margin_left_0">
-
+		  <div class="hb_nav_section_1 margin_left_0">
 			<div class="hb_nav_btn" style="border: 2px solid #CCCCCC;">
-				<a class="hb_nav_btn_a"  style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
+				<a class="hb_nav_btn_a hb_nav_shadow"  href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
 			</div>
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/myCart.do">장바구니</a>
@@ -280,90 +253,61 @@ function  calcPeriod(search_period){
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/delMember.do">회원 탈퇴</a>
 			</div>
-
+		  </div>
 		</div>
-		
-		</div>
-
 
 		<section class="hb_section_mypagemain">
-			<div
-				style="width: 100%; height: 140px; border: 1px solid #CCCCCC; border-radius: 12px; float: right;">
-
-				<div
-					style="width: 20%; border-right: 1px solid #CCCCCC; height: 138px; float: left;">
-					<a
-						style="width: 80px; margin-top: 10px; height: 80px;  border-radius: 70%; display: block;">
-						<img
-						style="width: 100%; height: 100%; overflow: hidden; z-index: 9999; border-radius: 70%; border: 0px;"
-						src="${contextPath}/profileShow.do?u_id=${memberInfo.u_id}&fileName=${memberInfo.u_imageName}">
-
+		
+			<div class="mypage_member_profile_box">
+				<div class="mypage_profile_center_line">
+					<a class="mypage_profile_image_a">
+						<img class="mypage_profile_image"src="${contextPath}/profileShow.do?u_id=${memberInfo.u_id}&fileName=${memberInfo.u_imageName}">
 					</a><input type="hidden" name="u_id" value="${memberInfo.u_id }">
-
-
-					<div
-						style="width: 100%; margin-top: 10px; font-size: 12px;  padding: 3px 10px; display: inline-block;">
+					<div class="mypage_profile_nameBox">
 						<strong style="font-size: 14px;">${memberInfo.u_name}</strong>님
 					</div>
 				</div>
 				<div class="mypage_user_info_grade">
-				<div class="mypage_user_info_grade_2">
-						
+					<div class="mypage_user_info_grade_2">
 						<c:choose>
-						<c:when test="${memberInfo.u_grade.equals('vip') }">
-				<img src="${contextPath}/resources/image/icons/user_grade_vip.svg">
-				
-				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(238,50,86);">VIP 등급</strong></div>
-				</c:when>
-				
-				
-				<c:when test="${memberInfo.u_grade.equals('gold')}">
-				
-				<img src="${contextPath}/resources/image/icons/user_grade_gold.svg">
-				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px; color:rgb(255,187,5);">GOLD </strong>등급</div>
-				</c:when>
-				
-					<c:when test="${memberInfo.u_grade.equals('silver') }">
-				
-				<img src="${contextPath}/resources/image/icons/user_grade_silver.svg">
-				<div class="mypage_user_info_grade_logo"><strong style="font-size: 12px;color:rgb(113,203,211);">SILVER 등급</strong></div>
-				</c:when>
-				
-				</c:choose>
-				
-				
-				
-				</div>	
+							<c:when test="${memberInfo.u_grade.equals('vip') }">
+								<img src="${contextPath}/resources/image/icons/user_grade_vip.svg">
+
+								<div class="mypage_user_info_grade_logo">
+									<strong style="font-size: 12px; color: rgb(238, 50, 86);">VIP 등급</strong>
+								</div>
+							</c:when>
+							<c:when test="${memberInfo.u_grade.equals('gold')}">
+								<img src="${contextPath}/resources/image/icons/user_grade_gold.svg">
+								<div class="mypage_user_info_grade_logo">
+									<strong style="font-size: 12px; color: rgb(255, 187, 5);">GOLD 등급</strong>
+								</div>
+							</c:when>
+							<c:when test="${memberInfo.u_grade.equals('silver') }">
+								<img src="${contextPath}/resources/image/icons/user_grade_silver.svg">
+								<div class="mypage_user_info_grade_logo">
+									<strong style="font-size: 12px; color: rgb(113, 203, 211);">SILVER 등급</strong>
+								</div>
+							</c:when>
+						</c:choose>
+					</div>
 				</div>
-				
-				
-				
-				
-				
 			</div>
 
 <c:if test="${not empty myOrderList_fu}">
+				<div class="hb_section_title">
+					<h1 id="h1_left_title">여행</h1>
+				</div>
 
-	<div class="hb_section_title">
-				<h1 id="h1_left_title">여행</h1>
-			</div>
-			
-			
-			<div style="width:100%;height:auto;display:flex;width:924px; justify-content:flex-start;flex-wrap:wrap;">
-				<c:forEach var="item" items="${myOrderList_fu}" varStatus="status">
-					<c:set var="i" value="${i +1 }" />
-				
-				
-				
-				
-				
-				
-				
-				<div   style="width:462px; height:100px;margin: 10px 0px;" >
-				
-				
-				<div
-								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
+
+				<div class="mypage_travel_boxTotal">
+					<c:forEach var="item" items="${myOrderList_fu}" varStatus="status">
+						<c:set var="i" value="${i +1 }" />
+
+						<div class="mypage_card_box">
+
+
+							<div class="mypage_card"
 								onClick="#">
 								<fmt:setLocale value="en_US" scope="session" />
 								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
@@ -376,65 +320,44 @@ function  calcPeriod(search_period){
 									pattern="yyyy년 MM월 dd일" />
 
 								<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
-									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
-								<div style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+									class="mypage_card_image">
+								<div class="mypage_card_title">
 									${ item.title }</div>
 
 								<c:choose>
-									<c:when
-										test="${item.pay_state eq 'fin' }">
+									<c:when test="${item.pay_state eq 'fin' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											<a class="draggFalse" id="btn_mypage_0"href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
+											<a class="draggFalse" id="btn_mypage_0"
+												href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
 												취소 / 환불 </a>
-												</div>
+										</div>
 									</c:when>
-									<c:when
-										test="${item.pay_state eq 'refunded' }">
+									<c:when test="${item.pay_state eq 'refunded' }">
 										<div style="width: 23%; height: 50%; float: right;">
-											<a class="draggFalse" id="btn_mypage_0"href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
+											<a class="draggFalse" id="btn_mypage_0"
+												href="${contextPath }/order/requestRefund.do?order_code=${item.order_code}">
 												환불 완료 </a>
-												</div>
+										</div>
 									</c:when>
 									<c:otherwise>
 										<div style="width: 23%; height: 50%; float: right;">
-											<a class="draggFalse" id="btn_mypage_fin" >
-												환불 예정 </a>
-
-
-
+											<a class="draggFalse" id="btn_mypage_fin"> 환불 예정 </a>
 										</div>
-									</c:otherwise></c:choose>
-										
-									
-
-
-
-
-								<div
-									style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+									</c:otherwise>
+								</c:choose>
+		<div style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
 									호스트: ${ item.h_name }</div>
-
-								<div
-									style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
+								<div style="width: 77%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 540;">
 									${checkIn_date } ~ ${checkOut_date }</div>
-
 							</div>
-							
-				
-				
-				
-				
-				
-				
-				
+						</div>
+					</c:forEach>
 				</div>
-				</c:forEach>	
-				</div>
-				
-				
-				
-			
-</c:if>
+
+
+
+
+			</c:if>
 
 
 			<div class="hb_section_title">
@@ -542,9 +465,9 @@ function  calcPeriod(search_period){
 					<c:forEach var="item" items="${myOrderList}" varStatus="status">
 					<c:set var="i" value="${i +1 }" />
 						<form name="new_${i }" id="new_${i }" action="${contextPath}/board/review/addReview.do" method="post">
-						<div  id="reviewForm_${i}" style="width:462px; height:100px;margin: 10px 0px;" >
+						<div  id="reviewForm_${i}" class="mypage_card_box" >
 							<div
-								style="width: 97%; height: 100px; border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; cursor: pointer; "
+								class="mypage_card"
 								onClick="#">
 								<fmt:setLocale value="en_US" scope="session" />
 								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }"
@@ -557,8 +480,8 @@ function  calcPeriod(search_period){
 									pattern="yyyy년 MM월 dd일" />
 
 								<img src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
-									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; border-radius: 12px;">
-								<div style="width: 50%; height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;">
+								class="mypage_card_image">
+								<div class="mypage_card_title">
 									${ item.title }</div>
 
 								<c:choose>

@@ -181,8 +181,8 @@
 				<div class="mem-item2-chil-5"><div>${orderVO.total }</div></div>
 			</div>
 			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-4"><div>이용 상태</div></div>
-				<div class="mem-item2-chil-5"><div>${orderVO.use_state }</div></div>
+				<div class="mem-item2-chil-4"><div>주문 상태</div></div>
+				<div class="mem-item2-chil-5"><div>${orderVO.reservation_state }</div></div>
 				<div class="mem-item2-chil-4"><div>숙소 이용 정보</div></div>
 				<div class="mem-item2-chil-5"><div>이용전</div></div>
 			</div>
@@ -283,7 +283,7 @@ $('.a1').click(function(){
 		type: 'post',
 		data:{"order_code": order_code},
 		success:function(data = 1){
-			alert("취소 완료되었습니다.");
+			alert("취소 완료");
 		},
 		error:function(data, textstatus){
 			alert("에러 발생");

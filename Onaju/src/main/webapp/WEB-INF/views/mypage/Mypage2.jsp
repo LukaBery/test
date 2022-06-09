@@ -227,7 +227,7 @@ request.setCharacterEncoding("UTF-8");
 	
 	<c:choose>
 	<c:when test="${memberInfo != null }">
-	<div style="width:170px; height:1000px; float:left;">
+	<div class="hb_nav_box1">
 		<!-- <상위 네비게이션>-->
 		<div class="hb_nav_section_1 margin_left_0">
 
@@ -235,7 +235,7 @@ request.setCharacterEncoding("UTF-8");
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
 			</div>
 			<div class="hb_nav_btn"  style="border: 2px solid #CCCCCC;">
-				<a class="hb_nav_btn_a"  style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/myCart.do">장바구니</a>
+				<a class="hb_nav_btn_a hb_nav_shadow" href="${contextPath}/mypage/myCart.do">장바구니</a>
 			</div>
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
@@ -423,11 +423,10 @@ request.setCharacterEncoding("UTF-8");
 
 					<c:forEach var="item" items="${myCartList}" varStatus="membersNum">
 						<c:set var="i" value="${i +1 }" />
-						<form name="cartPay_${i}" id="cartPay_${i}" style="width:462px; height:100px;margin: 10px 0px;"
+						<form name="cartPay_${i}" id="cartPay_${i}" class="mypage_card_box"
 							action="${contextPath}/order/orderCartGoods.do" method="post">
 
-							<div style="width: 97%; height: 100px; z-index:1;border: 1px solid #CCCCCC; border-radius: 12px; padding: 10px; "
-								>
+							<div class="mypage_card">
 								<fmt:setLocale value="en_US" scope="session" />
 								<fmt:parseDate var="checkIn" value="${ item.checkIn_date }" pattern="EEE MMM dd HH:mm:ss z yyyy" />
 								<fmt:formatDate var="checkIn_date" value="${checkIn}" pattern="yyyy년 MM월 dd일" />
@@ -442,10 +441,9 @@ request.setCharacterEncoding("UTF-8");
 									<input type="hidden" name="checkOut_date" value="${ item.checkOut_date }"> 
 									<input type="hidden" name="h_code" value="${ item.h_code }"> <img
 									src="${contextPath}/thumbnails.do?room_code=${item.room_code}&fileName=${item.room_imageName}"
-									style="width: 22%; height: 100%; float: left; border: 1px solid #CCCCCC; cursor:pointer;border-radius: 12px;"
+									class="mypage_card_image"
 									onClick="location.href='${contextPath}/host/goods/goodsDetail.do?room_code=${ item.room_code}'" >
-								<div
-									style="width: 50%; cursor:pointer;height: 25%; float: left; text-align: left; padding-left: 10px; margin-top: 5px; font-size: 14px; font-weight: 570;"
+								<div class="mypage_card_title"
 									onClick="location.href='${contextPath}/host/goods/goodsDetail.do?room_code=${ item.room_code}'" >
 									${ item.title }</div>
 									<div style="width: 23%; height: 50%; float: right;"><a id="btn_mypage_0" onClick="cartPay('cartPay_' +${i})" href="#">주문하기</a></div>

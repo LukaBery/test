@@ -324,18 +324,18 @@ function readURL(input) {
 	
 	
 	
-	<div style="width:170px; height:1000px; float:left;">
+	<div class="hb_nav_box1">
 		<!-- <상위 네비게이션>-->
 		<div class="hb_nav_section_1 margin_left_0">
 
-			<div class="hb_nav_btn" style="border: 2px solid #CCCCCC;">
+			<div class="hb_nav_btn" >
 				<a class="hb_nav_btn_a"  href="${contextPath}/mypage/mypageMain.do">이용내역조회</a>
 			</div>
 			<div class="hb_nav_btn">
 				<a class="hb_nav_btn_a" href="${contextPath}/mypage/myCart.do">장바구니</a>
 			</div>
-			<div class="hb_nav_btn">
-				<a class="hb_nav_btn_a" style="box-shadow: 4px 8px 4px rgb(0 0 0 / 18%);"href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
+			<div class="hb_nav_btn"style="border: 2px solid #CCCCCC;">
+				<a class="hb_nav_btn_a hb_nav_shadow" href="${contextPath}/mypage/Mypage3.do">회원정보수정</a>
 			</div>
 			
 			<div class="hb_nav_btn">

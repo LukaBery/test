@@ -140,7 +140,7 @@
  		<li class="ohnaju-li"><div><a href="#" class="ohnaju-fifth-btn"><i style="color:#4D4D4D" class="fa-solid fa-paste"></i>&emsp;게시판 관리</a></div>
  			<ul class="ohnaju-fifth-show">
  				<li class="ohnaju-li"><div><a href="${contextPath }/admin/noticeList.do">게시판 관리</a></div></li>
- 				<li class="ohnaju-li"><div><a href="${contextPath }/Board.enquireBoard.do">1:1 질문 관리</a></div></li>
+ 				<li class="ohnaju-li"><div><a href="${contextPath }/admin/enquireBoard.do">1:1 질문 관리</a></div></li>
  			</ul>
  		</li>
  		<li class="ohnaju-li"><div><a href="#" class="ohnaju-sixth-btn"><i style="color:#999900" class="fa-solid fa-palette"></i>&emsp;디자인 관리</a></div>

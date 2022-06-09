@@ -118,7 +118,7 @@
   .daterangepicker th.month {
     width: auto; }
   .daterangepicker td.disabled, .daterangepicker option.disabled {
-    color: #999;
+    color: red;
     cursor: not-allowed;
     text-decoration: line-through; }
   .daterangepicker select.monthselect, .daterangepicker select.yearselect {

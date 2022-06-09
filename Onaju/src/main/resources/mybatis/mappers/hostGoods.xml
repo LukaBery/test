@@ -200,8 +200,8 @@
 			                  AND room_type='motel'
 			                </if>
 			   
-			                  <if test="min_price !='' and min_price !=null">
-			                  AND room_fee>= #{min_price}
+			                  <if test="min_price !=null">
+			                    <![CDATA[  AND room_fee >= #{min_price}]]>
 			                </if>
 			                
 			                 <if test="max_price !='' and max_price !=null">
@@ -209,14 +209,14 @@
 			                </if>
 			                
 			                 <if test="room_count !='' and room_count !=null">
-			                  AND room_count>= #{room_count}
+			                  <![CDATA[ AND room_count>= #{room_count}]]>
 			                </if>
 			                
 			                 <if test="bed_count !='' and bed_count !=null">
-			                  AND bed_count>= #{bed_count	}
+			                  <![CDATA[ AND bed_count>= #{bed_count}]]>
 			                </if>
 			                  <if test="bath_count !='' and bath_count !=null">
-			                  AND bath_count>= #{bath_count	}
+			                  <![CDATA[ AND bath_count>= #{bath_count}]]>
 			                </if>
 			                 <if test="checkin !='' and checkin !=null and checkout !='' and checkout != null">
 			                <![CDATA[ and R.room_code not in (select O.room_code from u_order O where  #{checkin} < checkOut_date 

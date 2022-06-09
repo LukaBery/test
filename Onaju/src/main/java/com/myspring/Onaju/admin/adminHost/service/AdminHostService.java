@@ -15,4 +15,6 @@ public interface AdminHostService {
 	public List<AdminHostInfoVO> listAllHostInfo(AdminHostInfoVO vo) throws DataAccessException;	
 	public AdminHostInfoVO hostInfoDetail(String h_code) throws Exception;
 	public int hostInfoListTotal(AdminHostInfoVO vo) throws Exception;
+	public int updateHost (AdminHostVO hostVO);
+	public int deleteHost (String h_id);
 }

@@ -22,6 +22,7 @@
 		
 	</resultMap>
 	
+
 	<!-- 공지사항 리스트 -->
 	<select id="selectAllNoticeList" resultMap="noticeResult"   parameterType="adminNoticeVO"  >
 		 <![CDATA[
@@ -50,7 +51,10 @@
 				I.Org_File_Name, 
 				I.Save_file_Name, 
 				I.File_Size 
-		from a_noticeboard N left outer join a_notice_img I on N.notice_code = I.notice_code where N.notice_code = #{notice_code};
+		from a_noticeboard N 
+		left outer join a_notice_img I 
+		on N.notice_code = I.notice_code 
+		where N.notice_code = #{notice_code};
 	</select>
 	
 	<select id="selectImgFile" resultType="String" parameterType="map">
@@ -116,4 +120,68 @@
         </if>
 	</select>
 	
+	<select id="selectAllEnquireList" resultType="hashmap" parameterType="adminEnquireVO">
+		select 
+			enquire_NO,
+			title,
+			hit_cnt,
+			creDate,
+			u_id,
+			reply_yn,
+			del_yn
+		from
+			a_enquireboard
+		where
+			del_yn = 'N'
+			order by enquire_NO desc
+	</select>
+	<select id="selectEnquireDetail" resultType="hashmap" parameterType="adminEnquireVO">
+		select
+			enquire_NO,
+			title,
+			contents,
+			hit_cnt,
+			u_id,
+			creDate,
+			del_yn
+		from
+			a_enquireboard
+		where
+			enquire_NO = #{enquire_NO}
+	</select>
+	
+	<update id="updateHit">
+		update
+			a_enquireboard
+		set
+			hit_cnt = hit_cnt + 1
+		where
+			enquire_NO = #{enquire_NO}
+	</update>
+	
+	<insert id="insertEnquireReply">
+		insert into a_enquire_reply (enquire_NO, re_contents, a_id) values(#{enquire_NO}, #{re_contents}, #{a_id})
+	</insert>
+	<select id="selectEnquireReplyDetail" resultType="hashmap" parameterType="adminEnquireReplyVO">
+		select
+			enquire_NO,
+			re_contents,
+			date_format(creDate,'%Y-%m-%d %H:%i:%s') as creDate,
+			a_id,
+			del_yn
+		from
+			a_enquire_reply
+		where
+			enquire_NO = #{enquire_NO}
+		order by
+		creDate desc
+	</select>
+	<update id="updateReplyCheck">
+		update
+			a_enquireboard
+		set
+			reply_yn = 'Y'
+		where
+			enquire_NO = #{enquire_NO}
+	</update>
 </mapper>

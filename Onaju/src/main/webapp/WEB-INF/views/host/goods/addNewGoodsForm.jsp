@@ -14,6 +14,45 @@
 <meta charset="UTF-8">
 <title>상품 등록</title>
 
+<script>
+
+function hostFn(){
+	var h_code = $("#h_code").val();
+ 
+	$.ajax({
+		type : "get",
+		async : false, //false인 경우 동기식으로 처리한다.
+		url : "${contextPath}/host/goods/hostInfoChange.do",
+		data : {h_code : h_code},
+		success : function(data) {
+			console.log(data); // 출력됨
+			hostInfoVO = data.hostInfoVO; 
+			_hostInfo_name = hostInfoVO.hostInfo_name;
+			_zipcode = hostInfoVO.zipcode;
+			_roadAddress = hostInfoVO.roadAddress;
+			_numberAddress = hostInfoVO.numberAddress;
+			_restAddress = hostInfoVO.restAddress;
+			_host_type = hostInfoVO.host_type;
+			document.getElementById("hostInfo_name").innerHTML=_hostInfo_name;
+			document.getElementById("zipcode").innerHTML=_zipcode;
+			document.getElementById("roadAddress").innerHTML=_roadAddress;
+			document.getElementById("numberAddress").innerHTML=_numberAddress;
+			document.getElementById("restAddress").innerHTML=_restAddress;
+			document.getElementById("host_type").innerHTML=_host_type;			
+			
+		},
+		error : function(data) {
+			alert("에러가 발생했습니다."+data);
+		},
+		complete : function(data) {
+			//alert("작업을완료 했습니다");
+			
+		}
+	}); //end ajax	
+}
+
+</script>
+
 <c:if test='${not empty message }'>
 <script>
 
@@ -54,6 +93,9 @@ function fn_addFile(){
 	}		
 	
 </script>
+
+
+
 
 <style>
 
@@ -379,7 +421,7 @@ ul{list-style:none;}
 										<td class="td-date-writer" colspan="3"><input type="text"  name="title" id="title" placeholder="객실에 대한 간략한 소개글" ></td>
 									</tr>
 									<tr>
-										<th class="th-date">객실 타입</th>
+										<th class="th-date">개실 타입</th>
 										<td class="td-date-writer"><input type="text" name="room_type" id="#"></td>
 										<th class="th-date">객실 번호</th>
 										<td class="td-date-writer"><input type="number" name="room_number" id="#" placeholder="숫자를 입력해주세요."></td>
@@ -404,95 +446,56 @@ ul{list-style:none;}
 											</select>	
 										</td>
 									</tr>
-								</thead>
-							</table>
-							<table class="board-table">
-								<colgroup>
-					            	<col width="25%"/>
-									<col width="auto"/>
-								</colgroup>
-								<thead>
 									<tr>
 										<th class="th-date">사업장 일련번호</th>
-										<td class="td-date-writer" >
-											<select class="roomSelect" id="roomSelect1" name="h_code">
+										<td class="td-date-writer" colspan="">
+											<select class="roomSelect" id="h_code" name="h_code" onchange="hostFn()">
 												<c:forEach var="list" items="${hostInfoFormList }"> 
 													<option class="roomOption"  value="${list.h_code}">${list.h_code}	
 													</option>
-											     </c:forEach> 
+											   </c:forEach>
 											</select>
 										</td> 
+										<th class="th-date">사업장 타입</th>
+										<td class="td-date-writer">
+											<p id="host_type"></p>									
+										</td>
 									</tr>
 									<tr>
 										<th class="th-date">사업장 상호명</th>
-										<td class="td-date-writer" >
-											<select class="roomSelect" >
-												<c:forEach var="list" items="${hostInfoFormList }">
-													<option class="roomOption" value="${list.hostInfo_name}">${list.hostInfo_name}
-													</option>
-											    </c:forEach>
-											</select>
+										<td class="td-date-writer" colspan="3">
+											<p id="hostInfo_name"></p>
 										</td>
 									</tr>
 									<tr>
 										<th class="th-date">우편 번호</th>
-										<td class="td-date-writer" >
-											<select class="roomSelect" > 
-												<c:forEach var="list" items="${hostInfoFormList}">
-													<option class="roomOption" value="${list.zipcode}">${list.zipcode}
-													</option>
-											    </c:forEach>
-											</select>
+										<td class="td-date-writer" colspan="3">
+											<p id="zipcode"></p>
 										</td>
 									</tr>
 									<tr>
 										<th class="th-date">도로명 주소</th>
-										<td class="td-date-writer" >
-											<select class="roomSelect" >
-												<c:forEach var="list" items="${hostInfoFormList}">
-													<option class="roomOption"  value="${list.roadAddress}">${list.roadAddress}
-													</option>
-											    </c:forEach>
-											</select>
+										<td class="td-date-writer" colspan="3">
+											<p id="roadAddress"></p>
 										</td>
 									</tr>
 									<tr>
 										<th class="th-date">지번 주소</th>
-										<td class="td-date-writer" >${h_hostInfoVO.numberAddress}
-											<select class="roomSelect" > 
-												<c:forEach var="list" items="${hostInfoFormList}">
-													<option class="roomOption"  value="${list.numberAddress}">${list.numberAddress}
-													</option>
-											    </c:forEach>
-											</select>
+										<td class="td-date-writer" colspan="3">
+											<p id="numberAddress"></p>
 										</td>
 									</tr>
 									<tr>
 										<th class="th-date">나머지 주소</th>
-										<td class="td-date-writer">
-											<select class="roomSelect" >
-												<c:forEach var="list" items="${hostInfoFormList}">
-													<option class="roomOption"  value="${list.restAddress}">${list.restAddress}
-													</option>
-											    </c:forEach>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<th class="th-date">사업장 타입</th>
-										<td class="td-date-writer">
-											<select class="roomSelect" > 
-												<c:forEach var="list" items="${hostInfoFormList}">
-													<option class="roomOption"  value="${list.host_type}">${list.host_type}
-													</option>
-											    </c:forEach>
-											</select>											
+										<td class="td-date-writer" colspan="3">
+											<p id="restAddress"></p>
 										</td>
 									</tr>
 								</thead>
-							</table>	
+							</table>
+								
 							<div class="noticeBtn2Box">
-								<button type="submit" class="noticeBtn2 btn-dark2" onClick="fn_add_new_goods(this.form)">등록</button>
+								<button type="button" class="noticeBtn2 btn-dark2" onClick="">등록</button>
 							</div>
 						</div>
 				</li>
@@ -666,7 +669,7 @@ ul{list-style:none;}
 							</thead>					
 						</table>
 						<div class="noticeBtn2Box">
-							<button type="submit" class="noticeBtn2 btn-dark2" onClick="fn_add_new_goods(this.form)">등록</button>
+							<button type="button" class="noticeBtn2 btn-dark2" onClick="">등록</button>
 						</div>
 					</div> 
 				</li>

@@ -437,7 +437,7 @@
  </div>
 
   <div  class="search_input_text" style="margin-left:1%;">최소 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"class="search_input_style_1">
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"class="search_input_style_1" value="${searchKeyword.min_price}">
 </div> 
 <div  class="search_input_text" style="margin-left:1%;">최대 금액 : </div>
     <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"class="search_input_style_1">

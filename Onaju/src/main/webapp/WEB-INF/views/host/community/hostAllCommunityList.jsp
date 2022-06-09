@@ -256,6 +256,59 @@ section.host_notice {
 .newCmn{
 margin:0px 0px 0px 0px;
 }
+
+#page_wrap {
+	margin: 10px auto 50px;
+	padding: 0px;
+	width: 400px;
+}
+
+ul#page_control {
+	list-style: none;
+	padding: 0px;
+	font-size: 11px;
+}
+
+ul#page_control li {
+	padding: 0px 5px;
+	float: left;
+	color:#7f9b75;
+}
+
+ul#page_control li a {
+	padding: 2px 5px;
+	border: 1px solid rgb(204, 204, 204);
+	border-radius:3px;
+	border-image: none;
+	display: block;
+	color:#7f9b75;
+}
+
+ul#page_control li a:hover {
+	border: 1px solid #edbc40;
+	border-image: none;
+	color: #edbc40;
+}
+
+ul#page_control li a.no_border {
+	border: currentColor;
+	border-image: none;
+	padding-top: 3px;
+	color: #7f9b75;
+}
+
+.active {
+	color: rgb(255, 0, 0);
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+ul #page_control li .page_contrl_active {
+	background: rgb(255, 255, 255);
+	border: 1px solid #edbc40;
+	border-image: none;
+	color: #edbc40;
+}
 </style>
 </head>
 
@@ -315,6 +368,23 @@ margin:0px 0px 0px 0px;
 								</c:choose>
 							</tbody>
 						</table>
+						<div id="page_wrap">
+							<ul id="page_control">
+								<li><a class="no_border" href="#">Prev</a></li>
+								<c:set var="page_num" value="0" />
+								<c:forEach var="count" begin="1" end="10" step="1">
+									<c:choose>
+										<c:when test="${count==1 }">
+											<li><a class="page_contrl_active" href="#">${count+page_num*10 }</a></li>
+										</c:when>
+										<c:otherwise>
+											<li><a href="#">${count+page_num*10 }</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<li><a class="no_border" href="#">Next</a></li>
+							</ul>
+						</div>
 							<div>
 								<a id="newCmn" href="${contextPath}/host/community/cmnAticleForm1.do"><button type="submit" class="noticeBtn2 btn-dark2">새 글쓰기</button></a>
 							</div>

@@ -20,7 +20,7 @@
 		}
 
 		
-	</script>
+</script>
 <script type="text/javascript">
 	function execDaumPostcode() {
 		new daum.Postcode(
@@ -66,6 +66,7 @@
 				}).open();
 	}
 </script>
+
 
 
 <style>
@@ -313,71 +314,72 @@ section.host_notice {
 					<div id="host_notice-list">
 						<div class="host_contai">
 							<table class="board-table">
-										<colgroup>
-							            	<col width="25%"/>
-											<col width="25%"/>
-											<col width="25%"/>
-											<col width="25%"/>
-									</colgroup>
+								<colgroup>
+						            	<col width="25%"/>
+										<col width="25%"/>
+										<col width="25%"/>
+										<col width="25%"/>
+								</colgroup>
 								<thead>
-										<tr>
-											<th class="th-title">사업장 상호명</th>
-											<td class="notice_title" colspan="3"><input type="text" name="hostInfo_name" id="#"></td>
-										</tr>
-										<tr>
-											<th class="th-title">사업장 타입</th>
-											<td class="notice_title">
-												<select	class="roomSelect" name="host_type" id="#">
-													<option class="roomOption" selected>선택</option>
-													<option class="roomOption" value="호텔">호텔</option>
-													<option class="roomOption" value="모텔">모텔</option>
-													<option class="roomOption" value="펜션">펜션</option>
-													<option class="roomOption" value="숙박">숙박</option>
-												</select></td>
-											<th class="th-title">방 개수</th>
-											<td class="notice_title"><input type="text" name="room_count" id="#"></td>
-										</tr>
-										<tr>
-											<th class="th-title">사업자 등록번호</th>
-											<td class="notice_title" colspan="2"><input type="text" name="h_sellerNum" id="h_sellerNum"></td>
-											<td class="notice_title" ><input type="button" class="search_button" value="등록번호 확인" onclick="f()"></td>
-										</tr>
-										<tr>
-											<th class="th-title">계좌번호</th>
-											<td class="notice_title" colspan="2"><input type="text" name="h_accountNum" id="h_accountNum"></td>
-											<td class="notice_title" ><input type="button" class="search_button" value="계좌번호 확인" onclick="f()"></td>
-										</tr>
-										
-														</thead>
-															</table>
-										<div style="width:60%;height:100%; float:left; display:inline-block;">
-										
-										<div id="Info_tr">
-											<div style="width:30%;height:25px;display:inline-block;">우편 번호</div>
-											<div style="width:38%;height:20px;display:inline-block;margin-top:5px;"><input type="text" id="zipcode" name="zipcode" style="font-size:14px;" disabled></div>
-											<div style="width:30%;height:25px;display:inline-block;" ><input type="button" class="search_button" value="우편번호 검색" onclick="execDaumPostcode()"></div>
-										</div>
-										<div id="Info_tr">
-											<div style="width:30%;height:25px;display:inline-block;">도로명 주소</div>
-											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="roadAddress" id="roadAddress" style="font-size:14px;"disabled
-											><input type="hidden" name="longitude" id="longitude"><input type="hidden" name="latitude" id="latitude"></div>
-											
-										</div>
-										<div id="Info_tr">
-											<div style="width:30%;height:25px;display:inline-block;">지번 주소</div>
-											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="numberAddress" id="numberAddress" style="font-size:14px;"disabled></div>
-										</div>
-										<div id="Info_tr">
-											<div style="width:30%;height:25px;display:inline-block;">나머지 주소</div>
-											<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="restAddress" id="restAddress"style="font-size:14px;"></div>
-										</div>
-										
-										</div>
-											<div class="hb_rec_13" id="map">지도API</div>
-										
-										
-										
-						
+									<tr>
+										<th class="th-title">사업장 상호명</th>
+										<td class="notice_title" colspan="3"><input type="text" name="hostInfo_name" id="#"></td>
+									</tr>
+									<tr>
+										<th class="th-title">사업장 타입</th>
+										<td class="notice_title">
+											<select	class="roomSelect" name="host_type" id="#">
+												<option class="roomOption" selected>선택</option>
+												<option class="roomOption" value="호텔">호텔</option>
+												<option class="roomOption" value="모텔">모텔</option>
+												<option class="roomOption" value="펜션">펜션</option>
+												<option class="roomOption" value="숙박">숙박</option>
+											</select></td>
+										<th class="th-title">방 개수</th>
+										<td class="notice_title"><input type="text" name="room_count" id="#"></td>
+									</tr>
+									<tr>
+										<th class="th-title">사업자 등록번호</th>
+										<td class="notice_title" colspan="2">
+											<input type="text" name="" id="sellerNum">
+											<input type="hidden" name="h_sellerNum"  id="h_sellerNum" /> 
+										</td>
+										<td class="notice_title" >
+											<input type="button" class="search_button" id="h_sellerNumch" value="등록번호 확인" onclick="h_sellerNumCheck()">
+										</td>
+									</tr>
+									<tr>
+										<th class="th-title">계좌번호</th>
+										<td class="notice_title" colspan="2"><input type="text" name="h_accountNum" id="h_accountNum">
+										</td>
+										<td class="notice_title" >
+											<input type="button" class="search_button" value="계좌번호 확인" onclick="f()">
+										</td>
+									</tr>
+								</thead>
+								</table>
+								<div style="width:60%;height:100%; float:left; display:inline-block;">
+								<div id="Info_tr">
+									<div style="width:30%;height:25px;display:inline-block;">우편 번호</div>
+									<div style="width:38%;height:20px;display:inline-block;margin-top:5px;"><input type="text" id="zipcode" name="zipcode" style="font-size:14px;" disabled></div>
+									<div style="width:30%;height:25px;display:inline-block;" ><input type="button" class="search_button" value="우편번호 검색" onclick="execDaumPostcode()"></div>
+								</div>
+								<div id="Info_tr">
+									<div style="width:30%;height:25px;display:inline-block;">도로명 주소</div>
+									<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="roadAddress" id="roadAddress" style="font-size:14px;"disabled
+									><input type="hidden" name="longitude" id="longitude"><input type="hidden" name="latitude" id="latitude"></div>
+									
+								</div>
+								<div id="Info_tr">
+									<div style="width:30%;height:25px;display:inline-block;">지번 주소</div>
+									<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="numberAddress" id="numberAddress" style="font-size:14px;"disabled></div>
+								</div>
+								<div id="Info_tr">
+									<div style="width:30%;height:25px;display:inline-block;">나머지 주소</div>
+									<div style="width:68%;height:20px;display:inline-block;margin-top:5px;"><input type="text" name="restAddress" id="restAddress"style="font-size:14px;"></div>
+								</div>
+								</div>
+								<div class="hb_rec_13" id="map">지도API</div>			
 						</div> 
 					</div>
 					<div class="noticeBtn2Box">
@@ -386,7 +388,6 @@ section.host_notice {
 					</div>		
 				</form>
 		</section>
-	
 </body>
     	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e6e34573e04bd152c20de74d0647457&libraries=services,clusterer"></script>
 
@@ -485,5 +486,52 @@ function getCurrentPosBtn() {
 };
 
 
+</script>
+<script type="text/javascript">
+	
+	function h_sellerNumCheck() {
+		
+		if (sellerNum.value == "") {
+			alert("사업자등록번호를 입력하세요.");
+			sellerNum.focus();
+			return false;
+		}
+		
+		var h_sellerNum = $("#sellerNum").val();
+		console.log(h_sellerNum); //삭제 해도 됨
+		
+		var data = {
+			    "b_no": [h_sellerNum] // 사업자번호 "xxxxxxx" 로 조회 시,
+			   }; 
+			   
+			$.ajax({
+			  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=m0zx%2F%2FY%2BDSPQUNE32DxF3BNpij0cZStqPAKXzov8MO6aGGgaDqEUge0myZpY7hwyJfKf9LUfDlssT3BEedT7Jg%3D%3D",  // serviceKey 값을 xxxxxx에 입력
+			  type: "POST",
+			  data: JSON.stringify(data), // json 을 string으로 변환하여 전송
+			  dataType: "JSON",
+			  contentType: "application/json",
+			  accept: "application/json",
+			  success: function(result) {
+				      console.log(result);
+				      _b_no = result["data"]["0"].b_no;
+				      _tax_type = result["data"]["0"].tax_type;  
+			     if (_tax_type == '국세청에 등록되지 않은 사업자등록번호입니다.') {
+			    	 alert("등록되지 않은 사업자등록번호입니다.");
+					}
+			     else {
+			    	 alert("사용 가능한 사업자 등록번호입니다.");
+			    	 $('#h_sellerNumch').prop("disabled", true);
+					 $('#sellerNum').prop("disabled", true);
+					 $('#h_sellerNum').val(_b_no);
+			     }		      
+			  },
+			  error: function(result) {
+			      console.log(result.responseText); //responseText의 에러메세지 확인
+			      alert("에러가 발생했습니다.");
+			  }
+			});
+		
+	}
+		
 </script>
 </html>

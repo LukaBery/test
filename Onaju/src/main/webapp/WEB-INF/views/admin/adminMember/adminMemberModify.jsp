@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <style type="text/css">
 
 .mem-item1{

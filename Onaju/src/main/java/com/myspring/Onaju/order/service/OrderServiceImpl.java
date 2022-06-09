@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.order.dao.OrderDAO;
 import com.myspring.Onaju.order.vo.OrderVO;
 
@@ -30,6 +31,10 @@ public class OrderServiceImpl implements OrderService{
 		//īƮ���� �ֹ� ��ǰ �����Ѵ�.
 	
 	}	
+	@Override
+	public List<OrderVO> reservationList(String room_code) throws Exception{
+		return orderDAO.reservationList(room_code);	
+	}
 	
 
 }

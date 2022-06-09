@@ -13,7 +13,6 @@
 		<result property="content" column="content" />
 		
 		<result property="h_id" column="h_id" />
-		<result property="h_name" column="h_name" />
 		<result property="h_imageName" column="h_imageName" />
 		
 		<result property="h_code" column="h_code" />
@@ -68,7 +67,7 @@
      		on R.h_id = H.h_id
 			inner join h_host_info I
         	on R.h_code = I.h_code
-  			where R.h_id = #{h_id}
+  			where R.h_code = #{h_code}
      
      ]]>
 	</select>
@@ -163,8 +162,7 @@
 	      delete from h_community where cmnNum=#{cmnNum}
     	]]>
 	</delete>
-	
-	
+
 	<delete id="delLike" parameterType="java.util.HashMap">
 	    <![CDATA[
 	      delete from 
