@@ -83,7 +83,7 @@
 		 select u_id, u_pw, u_name, u_birth_y, u_birth_m, u_birth_d, u_gender, u_phone, u_email1, u_email2, zipcode, roadAddress, numberAddress, restAddress, u_point, u_grade, proposer, u_imageName, u_imageType, u_agree_1, u_agree_2, u_agree_3, u_service_01, u_service_02, joinDate, del_yn from u_member where u_id = #{u_id}					        
 	</select>
 	
-	<update id="selectMemberUpdate"  parameterType="MemberVO">
+	<update id="selectMemberUpdate">
 		
 		update u_member 
 		<set>
@@ -135,8 +135,14 @@
 			<if test="u_service_01 != '' and u_service_01 != null">
 				u_service_01=#{u_service_01}, 
 			</if>
+			<if test="u_service_01 == '' or u_service_01 == null">
+				u_service_01='N',
+			</if>
 			<if test="u_service_02 != '' and u_service_02 != null">
 				u_service_02=#{u_service_02},
+			</if>
+			<if test="u_service_02 == '' or u_service_02 == null">
+				u_service_02='N',
 			</if>
 			<if test="del_yn != '' and del_yn != null">
 				del_yn=#{del_yn},
