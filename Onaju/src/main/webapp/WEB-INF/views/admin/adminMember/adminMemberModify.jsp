@@ -234,17 +234,45 @@ $(document).ready(function(){
 	    	$(this).attr("selected","selected"); // attr적용안될경우 prop
 	    }	    
 	});
-	$("#u_service_01").each(function(){
-		if($(this).val()== "Y" || $(this).val()== "y"){
-			$(this).prop("checked","checked"); // attr적용안될경우 prop
-		}	    
-	});
-	$("#u_service_02").each(function(){
-		if($(this).val()== "Y" || $(this).val()== "y"){
-		    $(this).attr("checked","checked"); // attr적용안될경우 prop
-		}	    
-	});
+	
 });
+</script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	var check_yn = "${memberVO.u_service_01}";
+
+	if(check_yn == "Y"){
+
+		$('#u_service_01').prop("checked", true);
+
+	}else{
+
+		$('#u_service_01').attr("checked", false);
+
+		}	
+
+});
+
+ 
+
+$(document).ready(function(){
+
+	var check_yn = "${memberVO.u_service_02}";
+
+	if(check_yn == "Y"){
+
+		$('#u_service_02').prop("checked", true);
+
+	}else{
+
+		$('#u_service_02').attr("checked", false);
+
+	}	
+
+}); 
+
 </script>
 </head>
 <body>
@@ -317,8 +345,8 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>이벤트 수신여부</div></div>
 				<div class="mem-item2-chil-2">
 					<div>
-						이벤트 수신:<input type="checkbox" size="10" name="u_service_01" id="u_service_01" value="${memberVO.u_service_01 }" onchange="checkYn(this);" />
-						이벤트 수신:<input type="checkbox" size="10" name="u_service_02" id="u_service_02" value="${memberVO.u_service_02 }" onchange="checkYn(this);" />
+						이벤트 수신:<input type="checkbox" size="10" name="u_service_01" id="u_service_01" onchange="checkYn1(this)"  />
+						이벤트 수신:<input type="checkbox" size="10" name="u_service_02" id="u_service_02" onchange="checkYn2(this)" />
 					</div>
 				</div>
 			</div>
@@ -368,15 +396,43 @@ function execDaumPostcode() {
     }).open();
 }
 
-// 수신여부 변경 자바스크립트
-function checkYn(obj){
+
+
+//체크 값 변경 (체크시:Y 해제시:null)
+function checkYn1(obj){
 	var checked = obj.checked;
-	if(checked){
-		obj.value = "Y";
-	}else{
-		obj.value = "N";
+	if(checked == true){
+		$(this).prop("checked", true);
+		$("#u_service_01").val("Y");	
+	
+	}else if(checked == false){
+		$(this).prop("checked", false);
+		$("#u_service_01").val("N");
 	}
 };
+function checkYn2(obj){
+	var checked = obj.checked;
+	if(checked == true){
+		$(this).prop("checked", true);
+		$("#u_service_02").val("Y");
+		
+	}else if(checked == false){
+		$(this).prop("checked", false);
+		$("#u_service_02").val("N");
+	}
+};  
+
+//체크 박스 선택 안했을때 값 유지
+if($("#u_service_01").is(':not(:checked)')){
+	$("#u_service_01").prop("value","${memberVO.u_service_01}");
+	$("#u_service_01").val("${memberVO.u_service_01}");
+};
+if($("#u_service_02").is(':not(:checked)')){
+	$("#u_service_02").prop("value","${memberVO.u_service_02}");
+	$("#u_service_02").val("${memberVO.u_service_02}");
+};
+
+
 
 // select 성별 불러오기
 $('#u_gender option').each(function() {
@@ -392,8 +448,9 @@ function toEnabled() {
 	$("input[name=zipcode]").attr("disabled", false);
 	$("input[name=u_grade]").attr("disabled", false);
 	$("input[name=u_point]").attr("disabled", false);
-	$("input[name=joinDate]").attr("disabled", false);
+	$("input[name=joinDate]").attr("disabled", false);	
 }
 </script>
+
 </body>
 </html>
