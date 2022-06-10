@@ -915,6 +915,8 @@ var SetTime = 180;
 </style>
 </head>
 <body>
+<section style="height:100%;width:700px">
+
 	<form name="join_form1" action="${contextPath}/host/addHost.do"
 		method="post">
 		<div class="wrap wd668">
@@ -1120,5 +1122,7 @@ var SetTime = 180;
 		</div>
 		<!-- container E -->
 	</form>
+</section>
 </body>
+
 </html>
