@@ -205,18 +205,18 @@
 			                </if>
 			                
 			                 <if test="max_price !='' and max_price !=null">
-			                  <![CDATA[ AND room_fee <= #{max_price} ]]>
+			                  <![CDATA[ AND R.room_fee <= #{max_price} ]]>
 			                </if>
 			                
 			                 <if test="room_count !='' and room_count !=null">
-			                  <![CDATA[ AND room_count>= #{room_count}]]>
+			                  <![CDATA[ AND R.room_count>= #{room_count}]]>
 			                </if>
 			                
 			                 <if test="bed_count !='' and bed_count !=null">
-			                  <![CDATA[ AND bed_count>= #{bed_count}]]>
+			                  <![CDATA[ AND R.bed_count>= #{bed_count}]]>
 			                </if>
 			                  <if test="bath_count !='' and bath_count !=null">
-			                  <![CDATA[ AND bath_count>= #{bath_count}]]>
+			                  <![CDATA[ AND R.bath_count>= #{bath_count}]]>
 			                </if>
 			                 <if test="checkin !='' and checkin !=null and checkout !='' and checkout != null">
 			                <![CDATA[ and R.room_code not in (select O.room_code from u_order O where  #{checkin} < checkOut_date 
@@ -242,7 +242,6 @@
 				and R.h_id = T.h_id 
 		]]>
 	</select>
-	
 	
 	
 	
@@ -301,9 +300,6 @@
 	  where h_code=#{h_code}
 	</delete>
 	
-	
-
-	<!-- 상품등록시 불러오는 호스트 정보-->
    <select id="selectHostInfoList" resultMap="hostInfo"   parameterType="String"  >
 	    <![CDATA[
 		    select * from h_host_info
@@ -311,8 +307,6 @@
     	]]>
 	</select>
 	
-
-	<!-- 상품목록 검색 -->
 	<select id="selectGoodsList" resultMap="goodsResult"  parameterType="String"  >
 	    <![CDATA[
 	    		select R.h_code, H.hostInfo_name, R.room_code, R.title, R.room_fee, R.room_type, R.room_number, R.room_status
@@ -350,14 +344,7 @@
 	       
     	]]>
 	</select>
-	
-	
-	<!-- 호스트 사업자 등록-->	
 	<insert id="insertNewHostInfo"  parameterType="HostInfoVO">
-	  <!-- <selectKey resultType="int" keyProperty="h_code" order="BEFORE"> 
-	 
-			SELECT  MAX(h_code)+1 FROM h_host_info
-		 </selectKey>   -->
 	  <![CDATA[
 	    	insert into h_host_info(
 				 					h_id,
@@ -391,7 +378,13 @@
 	                                      
 	   ]]>      
   </insert>
-	<!-- 상품 등록(한거)-->	
+  <select id="hostInfoChange" resultType="hostInfoVO"   parameterType="String"  >
+	    <![CDATA[
+		    	select * from h_host_info
+            where h_code = #{h_code}     
+	       
+    	]]>
+	</select>
 	<insert id="insertNewGoods" parameterType="java.util.Map"  >
 	 <selectKey resultType="int" keyProperty="room_code" order="BEFORE">
 			SELECT MAX(room_code) +1 FROM h_room 
@@ -474,9 +467,6 @@
    		]]>
 	</insert>
 	<insert id="insertGoodsImageFile" parameterType="hostImageFileVO"   >
-		<!-- <selectKey resultType="int" keyProperty="roomImage_NO" order="BEFORE">
-	    	SELECT MAX(roomImage_NO)+1 FROM h_roomImage
-	    </selectKey> -->
 	    <![CDATA[
 		   insert into h_roomImage(
 		   							
@@ -605,9 +595,6 @@
 	</update>
 	
 	<insert id="insertHostGoodsImageFile" parameterType="hostImageFileVO"   >
-		<!-- <selectKey resultType="int" keyProperty="image_id" order="BEFORE">
-	    	SELECT MAX(image_id)+1 FROM t_goods_detail_image 
-	    </selectKey> -->
 	    <![CDATA[
 		   insert into h_roomImage (room_code,
 		                            room_imageName,
@@ -626,9 +613,8 @@
 	  delete from h_roomImage
 	  where roomImage_NO=#{roomImage_NO}
 	</delete>
-	
-	
 
+	
 	
    
 </mapper>

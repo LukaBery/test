@@ -2,7 +2,6 @@ package com.myspring.Onaju.host.goods.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -103,32 +103,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		return mav;
 	}
 	
-	private void addGoodsInQuick(String room_code, HostGoodsVO hostgoodsVO, HttpSession session) {
-		boolean already_existed = false;
-		List<HostGoodsVO> quickGoodsList; // �ֱ� �� ��ǰ ���� ArrayList
-		quickGoodsList = (ArrayList<HostGoodsVO>) session.getAttribute("quickGoodsList");
-
-		if (quickGoodsList != null) {
-			if (quickGoodsList.size() < 4) { // �̸��� ��ǰ ����Ʈ�� ��ǰ������ ���� ������ ���
-				for (int i = 0; i < quickGoodsList.size(); i++) {
-					HostGoodsVO _goodsBean = (HostGoodsVO) quickGoodsList.get(i);
-					if (room_code.equals(_goodsBean.getRoom_code())) {
-						already_existed = true;
-						break;
-					}
-				}
-				if (already_existed == false) {
-					quickGoodsList.add(hostgoodsVO);
-				}
-			}
-		} else {
-			quickGoodsList = new ArrayList<HostGoodsVO>();
-			quickGoodsList.add(hostgoodsVO);
-
-		}
-		session.setAttribute("quickGoodsList", quickGoodsList);
-		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
-	}
 	
 	@Override
 	@RequestMapping(value= "/searchGoodsMap.do" ,method={RequestMethod.POST,RequestMethod.GET})
@@ -174,7 +148,14 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 
 	/* 이정아 작성 */
 	
-	//사업장 등록 관련//
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	@RequestMapping(value = "/addHostInfo.do", method = RequestMethod.POST)
 	public ResponseEntity addHostInfo(@ModelAttribute("hostInfoVO") HostInfoVO hostInfoVO, HttpServletRequest request,
@@ -239,15 +220,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
-		
-		HostVO hostVO = (HostVO) session.getAttribute("hostInfo"); //삭제 가능할 수도 
-		System.out.println("hostVO의 VO : " + hostVO); //삭제 가능할 수도 
-		String _h_id = hostVO.getH_id(); //삭제 가능할 수도 
-		System.out.println("_h_id : " + _h_id); //삭제 가능할 수도 
-		
-		
-		
+		HttpSession session = request.getSession();	
 		hostInfoVO = hostGoodsService.hostInfoDetail(h_code);
 		System.out.println("첫번째 hostInfoVO :" + hostInfoVO);
 		mav.addObject("hostInfoVO",hostInfoVO);
@@ -260,15 +233,13 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	public ResponseEntity modifyHostInfo( @RequestParam("h_code") String h_code, 
 			                     HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
-		request.setCharacterEncoding("utf-8");
-		
+		request.setCharacterEncoding("utf-8");	
 		Map hostInfoMap = new HashMap();
 		Enumeration enu = request.getParameterNames();
 		while (enu.hasMoreElements()) {
 			String name = (String) enu.nextElement();
 			String value = request.getParameter(name);
-			hostInfoMap.put(name, value);
-			
+			hostInfoMap.put(name, value);		
 		}
 		
 		int _h_code = Integer.parseInt((String) hostInfoMap.get("h_code"));
@@ -295,8 +266,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	    	e.printStackTrace();
 	    }
 	    resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-	    return resEntity;	
-		
+	    return resEntity;			
 	}
 	
 	
@@ -305,9 +275,6 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			                     HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
-		
-		System.out.println("삭제 컨트롤러 들어왔음 응답");
-		System.out.println("삭제 컨트롤러의 h_code : " + h_code);
 		
 		String message = null;
 		ResponseEntity resEntity = null;
@@ -329,14 +296,9 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	    	e.printStackTrace();
 	    }
 	    resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-	    return resEntity;	
-		
+	    return resEntity;			
 	}
-	
-	
-	
-	
-	
+
 	/* 상품 관련 */ 
 	/* 등록시 화면 */
 	@RequestMapping(value = "/addNewGoodsForm.do", method = { RequestMethod.POST, RequestMethod.GET })
@@ -348,14 +310,26 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		System.out.println("hostVO의 VO : " + hostVO);
 		String _h_id = hostVO.getH_id();
-		System.out.println("_h_id : " + _h_id);	
-		
+		System.out.println("_h_id : " + _h_id);			
 		
 		List<HostInfoVO> hostInfoFormList = hostGoodsService.hostInfoFormlist(_h_id);			
 		mav.addObject("hostInfoFormList", hostInfoFormList); 
-		return mav;
+		return mav;			
+	}
+	
+	@RequestMapping(value = "/hostInfoChange.do", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Map<String, String>  hostInfoChange(@RequestParam("h_code") int h_code, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		
-		
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		String _h_code = request.getParameter("h_code");
+		System.out.println("선택 컨트롤러의  h_code : " + _h_code);
+		System.out.println("대답바람");
+		Map hostinfoMap = new HashMap();
+		hostinfoMap = hostGoodsService.hostInfoChange(h_code);
+		System.out.println("최종 hostinfoMap : " + hostinfoMap);
+		return hostinfoMap;
 	}
 	
 	/* 등록 */

@@ -19,12 +19,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
+import com.myspring.Onaju.host.vo.HostVO;
 import com.myspring.Onaju.member.vo.MemberVO;
 
 public abstract class BaseController  {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\onaju\\host_room_image";
 	private static final String CURR_IMAGE_REPO_PATH_MEMBER = "C:\\onaju\\member_profile";
-	
+	private static final String CURR_IMAGE_REPO_PATH_HOST = "C:\\onaju\\host_profile";
 	protected List<HostImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<HostImageFileVO> fileList= new ArrayList<HostImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -87,7 +88,40 @@ public abstract class BaseController  {
 			e.printStackTrace();
 		}
 	}
+
+	protected List<HostVO> hostProfileupload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List<HostVO> fileList= new ArrayList<HostVO>();
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		while(fileNames.hasNext()){
+			HostVO imageFileVO =new HostVO();
+			String fileName = fileNames.next();
+		
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			String originalFileName = mFile.getOriginalFilename();
+			imageFileVO.setH_imageName(originalFileName);
+			fileList.add(imageFileVO);
+			
+			File file = new File(CURR_IMAGE_REPO_PATH_HOST +"\\"+ fileName);
+			if(mFile.getSize()!=0){ //File Null Check
+				if(! file.exists()){ //��λ� ������ �������� ���� ���
+					if(file.getParentFile().mkdirs()){ //��ο� �ش��ϴ� ���丮���� ����
+							file.createNewFile(); //���� ���� ����
+					}
+				}
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH_HOST +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
+			}
+		}
+		return fileList;
+	}
 	
+	protected void deleteFileHostProFile(String fileName, String h_id) {
+		File file =new File(CURR_IMAGE_REPO_PATH_HOST + "\\"+h_id + "\\" + fileName);
+		try{
+			file.delete();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping(value="/*.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	protected  ModelAndView viewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {

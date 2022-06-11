@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,7 @@ public interface HostGoodsController {
 	/* 이정아 작성 */
 	
 	
+
 	/* 사업장 관련 */
 	public ResponseEntity  addHostInfo(@ModelAttribute("hostInfoVO") HostInfoVO h_hostInfoVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView hostInfoList(HttpServletRequest request, HttpServletResponse response)  throws Exception ;
@@ -34,6 +36,8 @@ public interface HostGoodsController {
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	/* 상품 관련 */
 	public ModelAndView addNewGoodsForm (HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public @ResponseBody Map<String, String>  hostInfoChange(@RequestParam("h_code") int h_code, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 	public ModelAndView addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	

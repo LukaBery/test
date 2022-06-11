@@ -19,6 +19,9 @@ public interface HostGoodsDAO {
 	
 	/* 이정아 작성 */ 
 	/* 사업자등록 */
+
+	/* 이정아 작성 */ 
+	/* 사업자등록 */
 	public List<HostInfoVO> hostLogin(String h_id) throws DataAccessException;
 	public void insertNewHostInfo(HostInfoVO hostInfoVO) throws DataAccessException;
 	public List<HostInfoVO> hostInfoFormlist(String _h_id) throws DataAccessException;
@@ -27,6 +30,7 @@ public interface HostGoodsDAO {
 	public void deleteHostInfo(int h_code) throws DataAccessException;
 	
 	/* 상품관련 */
+	public HostInfoVO hostInfoChange(int h_code) throws DataAccessException;
 	public int insertNewGoods(Map newGoodsMap) throws DataAccessException;
 	public void insertGoodsImageFile(List fileList)  throws DataAccessException;
 	public List<HostGoodsVO> selectGoodsList(String h_id) throws DataAccessException;

@@ -48,6 +48,7 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 	/* 이정아 작성 */
 	/* 사업자 관련 */ 
 
+
 	@Override
 	public List<HostInfoVO> hostLogin(String h_id) throws DataAccessException{
 		
@@ -86,8 +87,12 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 		sqlSession.delete("mapper.hostGoods.deleteHostInfo",h_code);
 	}
 
-
-	/* 상품 관련 */ /* 등록 */
+	@Override
+	public HostInfoVO hostInfoChange(int h_code) throws DataAccessException {
+		HostInfoVO hostInfoVO = new HostInfoVO();
+		hostInfoVO = (HostInfoVO)sqlSession.selectOne("mapper.hostGoods.hostInfoChange", h_code);
+		return hostInfoVO;
+	}
 	@Override
 	 public int insertNewGoods(Map newGoodsMap) throws DataAccessException {
 		  sqlSession.insert("mapper.hostGoods.insertNewGoods",newGoodsMap);
@@ -101,13 +106,10 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 			sqlSession.insert("mapper.hostGoods.insertGoodsImageFile", HostImageFileVO);
 		}
 	}
-	/* 목록 */
 	@Override
 	public List<HostGoodsVO> selectGoodsList(String h_id) throws DataAccessException {
 		List<HostGoodsVO> hostGoodsList = (List) sqlSession.selectList("mapper.hostGoods.selectGoodsList", h_id);return hostGoodsList;
 	}
-	
-	/* 수정 목록*/ 
 	
 	@Override
 	public HostGoodsVO selectHostGoodsDetail(int room_code) throws DataAccessException{
@@ -122,8 +124,6 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 		imageList = (List)sqlSession.selectList("mapper.hostGoods.selectHostGoodsImageFileList",room_code);
 		return imageList;
 	}
-	
-	/* 수정 상세 */
 	
 	@Override
 	public void updateHostGoodsInfo(Map goodsMap) throws DataAccessException {
@@ -152,7 +152,6 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 	public void deleteHostGoodsImage(int roomImage_NO) throws DataAccessException{
 		sqlSession.delete("mapper.hostGoods.deleteHostGoodsImage",roomImage_NO);
 	}
-	
 
 	
 	

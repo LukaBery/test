@@ -440,7 +440,7 @@
     <div class="filter_btn_area_1" style="width: 12%;"><input name="min_price"class="search_input_style_1" value="${searchKeyword.min_price}">
 </div> 
 <div  class="search_input_text" style="margin-left:1%;">최대 금액 : </div>
-    <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"class="search_input_style_1">
+    <div class="filter_btn_area_1" style="width: 12%;"><input name="max_price"class="search_input_style_1"value="${searchKeyword.max_price}">
 </div>
   
   <div class="filter_btn_area_1 " style="width: 10%;"><div class="filter_btn search_button_0" onClick="document.forms['search-form'].submit();">검색하기
@@ -455,15 +455,15 @@
    <div class="search_box_flex" style="margin:10px 0px;">
   
   <div class="search_input_text">침실 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="room_count"class="search_input_style_1">
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="room_count"class="search_input_style_1" value="${searchKeyword.room_count}">
 </div> 
 
   <div class="search_input_text">침대 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="bed_count"class="search_input_style_1">
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="bed_count"class="search_input_style_1"value="${searchKeyword.bed_count}">
 </div> 
 
   <div class="search_input_text">욕실 개수 : </div>
-    <div class="filter_btn_area_1" style="width: 5%;"><input name="bath_count"class="search_input_style_1">
+    <div class="filter_btn_area_1" style="width: 5%;"><input name="bath_count"class="search_input_style_1"value="${searchKeyword.bath_count}">
 </div> 
 
 					

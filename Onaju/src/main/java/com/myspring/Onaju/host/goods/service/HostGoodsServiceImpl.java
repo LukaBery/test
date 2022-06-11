@@ -78,8 +78,14 @@ public class HostGoodsServiceImpl implements HostGoodsService{
 		goodsDAO.deleteHostInfo(h_code);
 	}
 	
-
-	/* 상품 관련 */ /* 등록 */
+	@Override
+	public Map hostInfoChange(int h_code) throws Exception {
+		Map hostInfoMap = new HashMap();
+		HostInfoVO hostInfoVO = goodsDAO.hostInfoChange(h_code);
+		hostInfoMap.put("hostInfoVO", hostInfoVO);
+		
+		return hostInfoMap;
+	}
 	@Override
 	public int addNewGoods(Map newGoodsMap) throws Exception {
 		int room_code = goodsDAO.insertNewGoods(newGoodsMap);
@@ -98,12 +104,10 @@ public class HostGoodsServiceImpl implements HostGoodsService{
 		
 		goodsDAO.insertGoodsImageFile(imageFileList);
 	}	
-	/* 목록 */
 	@Override
 	public List<HostGoodsVO> selectGoodsList(String _h_id) throws Exception{
 		return goodsDAO.selectGoodsList(_h_id);
 	}
-	/* 수정 목록 */
 	@Override
 	public Map hostGoodsDetail(int room_code) throws Exception {
 		Map goodsMap = new HashMap();
@@ -119,8 +123,7 @@ public class HostGoodsServiceImpl implements HostGoodsService{
 		List imageList = goodsDAO.selectHostGoodsImageFileList(room_code);
 		return imageList;
 	}
-	
-	/* 수정 상세 */
+
 	@Override
 	public void modiHostGoodsInfo(Map goodsMap) throws Exception{
 		System.out.println("서비스의 goodsMap : " + goodsMap);
