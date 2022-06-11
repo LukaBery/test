@@ -16,6 +16,7 @@
       	<result property="h_phone" column="h_phone" />
       	<result property="h_email1" column="h_email1" />
       	<result property="h_email2" column="h_email2" />
+      	<result property="h_sellerNum" column="h_sellerNum" />
       	<result property="zipcode" column="zipcode" />
       	<result property="roadAddress" column="roadAddress" />
       	<result property="numberAddress" column="numberAddress" />
@@ -64,16 +65,28 @@
 	<select id="selectAllHostList" resultMap="hostResult"   parameterType="adminHostVO"  >
 		 <![CDATA[
 		 select * from 
-        (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_phone, del_yn, roadAddress 
+        (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_phone, del_yn, roadAddress, h_email1, h_email2, h_sellerNum 
         from h_host, (select @rownum := 0)  as rowcolumn order by joinDate desc) z 
 		where rn >= #{startNO} and rn <= #{endNO};
 		 ]]>						        
 	</select>
 	
 	<select id="selectAllHostTotal" resultType="java.lang.Integer">
-   		<![CDATA[
-        SELECT count(*) total FROM h_host
-    	]]>
+        SELECT count(*) total FROM h_host where h_name != '0'
+            <if test="join_startDate !='' and join_startDate != null">
+        		and joinDate >= #{join_startDate}
+        	</if>
+        	<if test="join_endDate !='' and join_endDate != null"> 
+        	<![CDATA[
+        		and joinDate <= #{join_endDate} 
+        	]]>
+        	</if>
+        	<if test="del_yn !='' and del_yn != null">
+        		and del_yn = #{del_yn} 
+        	</if>
+        	<if test="h_id !='' and h_id != null">
+        		and h_id = #{h_id}
+        	</if>
 	</select>
 	
 	<select id="selectHostDetail" resultMap="hostResult"   parameterType="String"  >
@@ -87,8 +100,20 @@
 	<select id="selectAllHostInfoList" resultMap="hostInfoResult"   parameterType="adminHostInfoVO"  >
 		 <![CDATA[
 		 select * from 
-        (select @rownum := @rownum + 1 as rn, I.h_id, H.h_name, I.hostInfo_name, I.creDate, I.h_sellerNum, I.host_type, I.del_yn, I.roadAddress, I.h_code
-        from h_host_Info I inner join h_host H on I.h_id = H.h_id , (select @rownum := 0)  as rowcolumn order by I.creDate desc) z 
+        (select @rownum := @rownum + 1 as rn, 
+        		I.h_id, 
+        		H.h_name, 
+        		I.hostInfo_name, 
+        		I.creDate, 
+        		I.h_sellerNum, 
+        		I.host_type, 
+        		I.del_yn, 
+        		I.roadAddress, 
+        		I.h_code
+        from h_host_Info I 
+        inner join h_host H 
+        on I.h_id = H.h_id , 
+        (select @rownum := 0)  as rowcolumn order by I.creDate desc) z 
 		where rn >= #{startNO} and rn <= #{endNO};
 		 ]]>						        
 	</select>
@@ -122,4 +147,33 @@
 	<delete id="selectDeleteHost" parameterType="String">
 		delete from h_host where h_id = #{h_id}
 	</delete>
+	
+	<select id="selectSearchHost" resultMap="hostResult" parameterType="adminHostVO">
+	<![CDATA[
+		 select * from 
+		 (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_email1, h_email2, h_phone, h_sellerNum, roadAddress, del_yn
+         from h_host, (select @rownum := 0)  as rowcolumn order by joinDate desc) s
+		 where rn >= #{startNO} and rn <= #{endNO}
+	]]>      
+        <if test="join_startDate !='' and join_startDate != null">
+        	and joinDate >= #{join_startDate}
+        </if>
+        <if test="join_endDate !='' and join_endDate != null"> 
+        <![CDATA[
+        	and joinDate <= #{join_endDate} 
+        ]]>
+        </if>
+        <if test="del_yn != '' and del_yn != null">
+        	and del_yn = #{del_yn}
+        </if>
+        <if test="h_id != '' and h_id != null">
+        	and h_id like concat('%',#{h_id},'%')
+        </if>
+		<if test="h_name != '' and h_name != null">
+        	and h_name like concat('%',#{h_name},'%')
+        </if>
+        <if test="h_sellerNum != '' and h_sellerNum != null">
+        	and h_sellerNum like concat('%',#{h_sellerNum},'%')
+        </if>
+	</select>
 </mapper>

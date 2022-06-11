@@ -122,7 +122,7 @@
 	border-collapse: collapse;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
 	width: 100%;
-	
+	table-layout: fixed;
 }
 .styled-table thead tr{
 	background-color: #000033;
@@ -131,6 +131,15 @@
 }
 .styled-table thead tr td{
 	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.styled-table tr td{
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .styled-table th, .styled-table td {
 	padding: 12px 15px;
@@ -197,7 +206,7 @@
 				<div class="noticeBoard-row-col2"><div><input type="search" name="notice_title"></div></div>
 			</div>
 			<div class="noticeBoard-row-3">
-				<div><input type="submit" value="조회" onclick="searchNotice()"></div>
+				<div><input type="submit" value="조회" ></div>
 			</div>
 		</form>
 	
@@ -208,6 +217,16 @@
 </section>
 <section>
 	<table class="styled-table">
+		<colgroup>
+			<col style="width:8%">
+			<col style="width:10%">
+			<col style="width:14%">
+			<col style="width:14%">
+			<col style="width:20%">
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:14%">
+		</colgroup>
 		<thead>
  			<tr>
 				<td >체크박스</td>
@@ -233,14 +252,14 @@
   			<c:when test="${!empty noticeList}" >
     			<c:forEach  var="notice" items="${noticeList }" varStatus="reviewNum" >
      				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/noticeDetail.do?notice_code=${notice.notice_code}'">
-						<td width="5%">${reviewNum.count}</td>
-						<td width="5%">${notice.a_id }</td>
-						<td width="7%">${notice.notice_startDate }</td>
-						<td width="7%">${notice.notice_endDate }</td>
-						<td width="15%">${notice.notice_title }</td>   
-						<td width="5%">${notice.notice_type }</td>   
-						<td width="5%">${notice.post_chennel }</td>   
-						<td width="8%">${notice.writeDate }</td>   								  
+						<td>${reviewNum.count}</td>
+						<td>${notice.a_id }</td>
+						<td>${notice.notice_startDate }</td>
+						<td>${notice.notice_endDate }</td>
+						<td>${notice.notice_title }</td>   
+						<td>${notice.notice_type }</td>   
+						<td>${notice.post_chennel }</td>   
+						<td>${notice.writeDate }</td>   								  
 					</tr>
     			</c:forEach>
      		</c:when>  		
@@ -258,17 +277,39 @@
 	<div><input class="a2" type="submit" value="선택삭제"></div>
 </div>
 
-<script type="text/javascript">
-// 날짜 기간 설정 (Jquery datepicker 이용)
+<script>
+$.datepicker.regional['ko'] = {
+	      closeText: '닫기',
+	      prevText: '이전달',
+	      nextText: '다음달',
+	      monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+	      '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+	      monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+	      '7월','8월','9월','10월','11월','12월'],
+	      dayNames: ['일','월','화','수','목','금','토'],
+	      dayNamesShort: ['일','월','화','수','목','금','토'],
+	      dayNamesMin: ['일','월','화','수','목','금','토'],
+	      weekHeader: 'Wk',
+	      dateFormat: 'yy-mm-dd',
+	      firstDay: 0,
+	      isRTL: false,
+	      showMonthAfterYear: true,
+	      yearSuffix: '',
+	      changeMonth: true,
+	      changeYear: true,
+	      showButtonPanel: true,
+	      yearRange: 'c-99:c+99',
+};
+$.datepicker.setDefaults($.datepicker.regional['ko']);
+
 $( function() {
-    var dateFormat = "yy-MM-dd";
+    var dateFormat = "yy-mm-dd",
       from = $( "#startDate" )
         .datepicker({
-          defaultDate: "+1W",
+          defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 1,
-          maxDate : "+0M +0D",
-          format:"yyyy-MM-dd"
+          maxDate: "+0M +0D"
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
@@ -277,8 +318,7 @@ $( function() {
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 1,
-        maxDate : "+0M +0D",
-        format:"yyyy-MM-dd"
+        maxDate: "+0M +0D"
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
@@ -295,41 +335,15 @@ $( function() {
       return date;
     }
 });
-
-// 기간이 설정된 버튼 클릭 시 datepicker에 값을 넣는 방식
+</script>
+<script type="text/javascript">
 $(function(){
 	var setdate1 = $("#settingDate1").val();
 	var setdate2 = $("#settingDate2").val();
 	var setdate3 = $("#settingDate3").val();
 	var setdate4 = $("#settingDate4").val();
 	
-	$.datepicker.regional['ko'] = {
-	        closeText: '닫기',
-	        prevText: '이전달',
-	        nextText: '다음달',
-	        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
-	        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
-	        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
-	        '7월','8월','9월','10월','11월','12월'],
-	        dayNames: ['일','월','화','수','목','금','토'],
-	        dayNamesShort: ['일','월','화','수','목','금','토'],
-	        dayNamesMin: ['일','월','화','수','목','금','토'],
-	        weekHeader: 'Wk',
-	        dateFormat: 'yy-mm-dd',
-	        firstDay: 0,
-	        isRTL: false,
-	        showMonthAfterYear: true,
-	        yearSuffix: '',
-	        changeMonth: true,
-	        changeYear: true,
-	        showButtonPanel: true,
-	        yearRange: 'c-99:c+99',
-	};
-	$.datepicker.setDefaults($.datepicker.regional['ko']);
-	
-	var from = $("#startDate").datepicker();
-	var to = $("#endDate").datepicker();
-	$("#settingDate1").click(function(){
+$("#settingDate1").click(function(){
 		
 		switch(setdate1){
 		case "yesterday" :
@@ -367,8 +381,6 @@ $(function(){
 		}
 	});
 });
-
-
 </script>
 </body>
 </html>

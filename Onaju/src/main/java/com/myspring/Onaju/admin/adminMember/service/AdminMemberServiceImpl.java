@@ -34,4 +34,9 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	public int memberUpdate(MemberVO vo) throws Exception {
 		return adminMemberDAO.memberUpdate(vo);
 	}
+
+	@Override
+	public List<MemberVO> searchMember(MemberVO searchVO) {
+		return adminMemberDAO.selectSearchMember(searchVO);
+	}
 }

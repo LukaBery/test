@@ -6,12 +6,13 @@ import java.util.Map;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 
 public interface AdminBoardDAO {
-	public List<AdminNoticeVO> selectAllNoticeList(AdminNoticeVO noticeVO);
+	public List<Map<String,Object>> selectAllNoticeList(Criteria cri);
 	public Map<String, Object> selectNoticeDetail(String notice_code);
 	public String selectImgFile(Map<String, Object> imgInfoMap);
-	public int selectAllNoticeListTotal(AdminNoticeVO noticeVO);
+	public int selectAllNoticeListTotal();
 	public int insertNotice(AdminNoticeVO noticeVO);
 	public int insertImgFile(Map<String, Object> imgFile);
 	public List<AdminNoticeVO> selectSearchNotice(AdminNoticeVO searchVO);

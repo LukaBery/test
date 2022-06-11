@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 
 @Repository("adminBoardDAO")
 public class AdminBoardDAOImpl implements AdminBoardDAO {
@@ -18,8 +19,8 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<AdminNoticeVO> selectAllNoticeList(AdminNoticeVO noticeVO) {
-		return sqlSession.selectList("mapper.admin.board.selectAllNoticeList", noticeVO);
+	public List<Map<String,Object>> selectAllNoticeList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.board.selectAllNoticeList", cri);
 	}
 	
 	@Override
@@ -33,8 +34,8 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 	}
 	
 	@Override
-	public int selectAllNoticeListTotal(AdminNoticeVO noticeVO) {
-		return sqlSession.selectOne("mapper.admin.board.selectAllNoticeTotal", noticeVO);
+	public int selectAllNoticeListTotal() {
+		return sqlSession.selectOne("mapper.admin.board.selectAllNoticeTotal");
 	}
 	
 	@Override

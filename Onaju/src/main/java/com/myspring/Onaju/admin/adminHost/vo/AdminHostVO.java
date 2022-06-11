@@ -35,10 +35,27 @@ public class AdminHostVO {
 	private String del_yn;
 	private String salt;
 	
+	private String join_startDate;
+	private String join_endDate;
+	
 	private int viewPage = 1;
 	private int startNO = 1;
 	private int endNO = 10;
 	
+	
+	
+	public String getJoin_startDate() {
+		return join_startDate;
+	}
+	public void setJoin_startDate(String join_startDate) {
+		this.join_startDate = join_startDate;
+	}
+	public String getJoin_endDate() {
+		return join_endDate;
+	}
+	public void setJoin_endDate(String join_endDate) {
+		this.join_endDate = join_endDate;
+	}
 	public int getViewPage() {
 		return viewPage;
 	}

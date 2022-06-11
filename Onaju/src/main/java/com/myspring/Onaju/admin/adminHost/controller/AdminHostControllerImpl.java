@@ -1,11 +1,13 @@
 package com.myspring.Onaju.admin.adminHost.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -146,5 +147,39 @@ public class AdminHostControllerImpl implements AdminHostController {
 	public void deleteHost(String h_id) {
 		System.out.println("aaa :"+ h_id);
 		adminHostService.deleteHost(h_id);
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/hostSearch.do", method = RequestMethod.GET)
+	public ModelAndView hostSearch(AdminHostVO searchVO) throws Exception {
+		if(searchVO.getJoin_endDate() != null && searchVO.getJoin_endDate() != "") {
+			String endDate = searchVO.getJoin_endDate();
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
+			String join_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
+	
+			searchVO.setJoin_endDate(join_endDate);	
+		}
+		
+		int total = adminHostService.hostListTotal(searchVO);
+		int totalPage = (int) Math.ceil((double)total/10);
+		
+		int viewPage = searchVO.getViewPage();
+		int startNO = (viewPage - 1) * 10 + 1;
+		int endNO = startNO + (10 - 1);
+		
+		searchVO.setStartNO(startNO);
+		searchVO.setEndNO(endNO);
+		
+		List<AdminHostVO> searchHostList =  adminHostService.searchHost(searchVO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/admin/hostList");
+		mav.addObject("hostList", searchHostList);
+		mav.addObject("total", total);
+		mav.addObject("totalPage", totalPage);
+		return mav; 
 	}
 }

@@ -10,6 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
 .host-search-1{
 	display: flex;
@@ -88,6 +90,7 @@
 	border-collapse: collapse;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
 	width: 100%;
+	table-layout: fixed;
 }
 .styled-table thead tr{
 	background-color: #000033;
@@ -96,6 +99,15 @@
 }
 .styled-table thead tr td{
 	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.styled-table tr td{
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .styled-table th, .styled-table td {
 	padding: 12px 15px;
@@ -159,28 +171,31 @@
 <article>
 
 <div>
-	<form>
+	<form name="searchVO" action="${contextPath }/admin/hostSearch.do" method="get">
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>가입일자</div></div>
-			<div class="host-row-col2"><div>시작날짜 <input type="date"> 종료날짜 <input type="date"> <button>어제</button><button>오늘</button><button>1개월</button><button>사용안함</button></div></div>
+			<div class="host-row-col2">
+			<div>
+			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="startDate" name="join_startDate" autocomplete=off>&emsp;
+				<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
+			
+				<button type="button" id="settingDate1" value="yesterday">어제</button>
+				<button type="button" id="settingDate2" value="today">오늘</button>
+				<button type="button" id="settingDate3" value="month">1개월</button>
+				<button type="button" id="settingDate4" value="reset">사용안함</button>
+			</div></div>
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>상태</div></div>
-			<div class="host-row-col3"><div><select><option value="">상태</option><option value="가입완료">가입완료</option><option value="회원탈퇴">회원탈퇴</option></select></div></div>
-			<div class="host-row-col1"><div>가맹점명</div></div>
-			<div class="host-row-col3"><div><input type="text" name="hostInfo_name"></div></div>
+			<div class="host-row-col3"><div><select name="del_yn"><option value="">상태</option><option value="N">가입완료</option><option value="Y">회원탈퇴</option></select></div></div>
+			<div class="host-row-col1"><div>사업자등록번호</div></div>
+			<div class="host-row-col3"><div><input type="text" name="h_sellerNum"></div></div>
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>아이디</div></div>
-			<div class="host-row-col3"><div><input type="text" name="h_id"></div></div>
+			<div class="host-row-col4"><div><input type="text" name="h_id"></div></div>
 			<div class="host-row-col1"><div>대표자명</div></div>
-			<div class="host-row-col3"><div><input type="text" name="h_name"></div></div>
-		</div>
-		<div class="host-search-1">
-			<div class="host-row-col1"><div>지역</div></div>
-			<div class="host-row-col4"><div><input type="text" name="roadAddress"></div></div>
-			<div class="host-row-col1"><div>사업자등록번호</div></div>
-			<div class="host-row-col4"><div><input type="text" name="h_sellerNum"></div></div>
+			<div class="host-row-col4"><div><input type="text" name="h_name"></div></div>
 		</div>
 		<div class="memberList-row2">
 			<div><button type="submit">조회</button></div>
@@ -192,48 +207,59 @@
 </div>
 </article>
 	<table class="styled-table" >
+		<colgroup>
+			<col style="width:5%">
+			<col style="width:15%">
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:12%">
+			<col style="width:15%">
+			<col style="width:12%">
+			<col style="width:14%">
+			<col style="width:7%">
+		</colgroup>
 		<thead>
   			<tr>
-    			<td >NO</td>
-    			<td >상태</td>  
-     			<td >원정생성일</td>            
-     			<td >승인 날짜</td>
-     			<td >가맹점명</td>
-     			<td >ID</td>
-     			<td >대표자명</td>
-     			<td >사업자번호</td>
-     			<td >지역</td>
-     			<td >승인여부</td>
+    			<td>NO</td>  
+     			<td>원정생성일</td>            
+     			<td>ID</td>
+     			<td>대표자명</td>
+     			<td>전화번호</td>
+     			<td>이메일</td>
+     			<td>사업자번호</td>
+     			<td>지역</td>
+     			<td>상태</td>
   			</tr>
   		</thead>
-	<c:choose>
-  	<c:when test="${empty hostList}" >
-    	<tr  height="10">
-    		<td colspan="11">
-    			<p align="center">
-        			<b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
-        		</p>
-      		</td>  
-    	</tr>
-  	</c:when>
-  	<c:when test="${!empty hostList}" >
-    	<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
-    		<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do?h_id=${host.h_id}'" >
-				<td width="5%">${hostNum.count}</td>
-				<td width="5%">${host.del_yn}</td>
-				<td width="10%"><fmt:formatDate value="" pattern="yyyy년MM월dd일" /></td>
-				<td width="10%"><fmt:formatDate value="" pattern="yyyy년MM월dd일" /></td>
-				<td width="8%">${host.h_name}</td>
-				<td width="8%">${host.h_id }</td>   
-				<td width="8%">${host.h_name }</td>   
-				<td width="8%">${host.h_phone}</td>   
-				<td width="9%">${host.roadAddress }</td>   
-				<td width="7%">${host.del_yn}</td>    
-			</tr>
-    	</c:forEach>
-     </c:when>
-    </c:choose>
-</table>
+		<c:choose>
+  			<c:when test="${empty hostList}" >
+  				<tbody>
+    				<tr  height="10">
+    					<td colspan="9">
+    						<p align="center">
+        						<b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
+        					</p>
+      					</td>  
+    				</tr>
+    			</tbody>
+  			</c:when>
+  			<c:when test="${!empty hostList}" >
+    			<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
+    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do?h_id=${host.h_id}'" >
+						<td>${hostNum.count}</td>
+						<td>${host.joinDate }</td>
+						<td>${host.h_id}</td>
+						<td>${host.h_name }</td>   
+						<td>${host.h_phone }</td>   
+						<td>${host.h_email1}@${host.h_email2}</td>   
+						<td>${host.h_sellerNum}</td>   
+						<td>${host.roadAddress }</td>   
+						<td>${host.del_yn}</td>    
+					</tr>
+    			</c:forEach>
+    		 </c:when>
+   		 </c:choose>
+	</table>
 
 
 
@@ -244,5 +270,111 @@
 		</c:forEach>
 	</div>
 </section>
+
+<script>
+$.datepicker.regional['ko'] = {
+	      closeText: '닫기',
+	      prevText: '이전달',
+	      nextText: '다음달',
+	      monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+	      '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+	      monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+	      '7월','8월','9월','10월','11월','12월'],
+	      dayNames: ['일','월','화','수','목','금','토'],
+	      dayNamesShort: ['일','월','화','수','목','금','토'],
+	      dayNamesMin: ['일','월','화','수','목','금','토'],
+	      weekHeader: 'Wk',
+	      dateFormat: 'yy-mm-dd',
+	      firstDay: 0,
+	      isRTL: false,
+	      showMonthAfterYear: true,
+	      yearSuffix: '',
+	      changeMonth: true,
+	      changeYear: true,
+	      showButtonPanel: true,
+	      yearRange: 'c-99:c+99',
+};
+$.datepicker.setDefaults($.datepicker.regional['ko']);
+
+$( function() {
+    var dateFormat = "yy-mm-dd",
+      from = $( "#startDate" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 1,
+          maxDate: "+0M +0D"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#endDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        maxDate: "+0M +0D"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	var setdate1 = $("#settingDate1").val();
+	var setdate2 = $("#settingDate2").val();
+	var setdate3 = $("#settingDate3").val();
+	var setdate4 = $("#settingDate4").val();
+	
+$("#settingDate1").click(function(){
+		
+		switch(setdate1){
+		case "yesterday" :
+			from = $("#startDate").datepicker("setDate", "-1D");
+			to = $("#endDate").datepicker("setDate", "-1D");
+		break
+		}
+	});
+	$("#settingDate2").click(function(){
+		
+		switch(setdate2){
+		case "today" :
+			 
+			from = $("#startDate").datepicker("setDate", "today");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate3").click(function(){
+		
+		switch(setdate3){
+		case "month" :
+			from = $("#startDate").datepicker("setDate", "-1M");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate4").click(function(){
+		
+		switch(setdate4){
+		case "reset" :
+			from = $("#startDate").datepicker("setDate", null);
+			to = $("#endDate").datepicker("setDate", null);
+		break
+		}
+	});
+});
+</script>
 </body>
 </html>

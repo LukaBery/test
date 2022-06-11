@@ -12,9 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 
 public interface AdminBoardController {
-	public ModelAndView adminNoticeList(AdminNoticeVO noticeVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView adminNoticeList(Criteria cri) throws Exception;
 	public ModelAndView adminNoticeDetail(String notice_code) throws Exception;
 	public void imgFile(String a_id, String notice_code, HttpServletResponse response) throws Exception;
 	public ModelAndView adminNoticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
