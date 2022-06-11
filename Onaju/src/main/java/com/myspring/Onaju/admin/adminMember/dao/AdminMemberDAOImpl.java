@@ -33,5 +33,10 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	public int memberUpdate(MemberVO vo) throws DataAccessException {
 		return sqlSession.update("mapper.admin.member.selectMemberUpdate", vo);
 	}
+
+	@Override
+	public List<MemberVO> selectSearchMember(MemberVO searchVO) {
+		return sqlSession.selectList("mapper.admin.member.selectSearchMember", searchVO);
+	}
 	
 }

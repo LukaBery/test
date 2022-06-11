@@ -33,6 +33,8 @@ import com.myspring.Onaju.admin.adminBoard.service.AdminBoardService;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 
 /*
  * 5조 오나주 웹 개발 프로젝트(그린컴퓨터아트학원)
@@ -57,23 +59,16 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	
 	@Override
 	@RequestMapping(value = "/admin/noticeList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminNoticeList(AdminNoticeVO noticeVO, HttpServletRequest request, HttpServletResponse response) throws Exception {		
-		int total = adminBoardService.noticeListTotal(noticeVO);
-		int totalPage = (int) Math.ceil((double)total/10);
-		
-		int viewPage = noticeVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
-		
-		noticeVO.setStartNO(startNO);
-		noticeVO.setEndNO(endNO);
-		
-		
-		List<AdminNoticeVO> noticeList = adminBoardService.noticeList(noticeVO);
+	public ModelAndView adminNoticeList(Criteria cri) throws Exception {		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminBoardService.noticeListTotal());
+		
+		List<Map<String, Object>> noticeList = adminBoardService.noticeList(cri);
 		mav.addObject("noticeList", noticeList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav; 
 	}
 	
@@ -207,8 +202,8 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 		}
 		
 	
-    int total = adminBoardService.noticeListTotal(searchVO);
-		int totalPage = (int) Math.ceil((double)total/10);
+		/* int total = adminBoardService.noticeListTotal(searchVO); */
+		/* int totalPage = (int) Math.ceil((double)total/10); */
 		
 		int viewPage = searchVO.getViewPage();
 		int startNO = (viewPage - 1) * 10 + 1;
@@ -222,8 +217,9 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/noticeList");
 		mav.addObject("noticeList", searchNoticeList);
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
+		/*
+		 * mav.addObject("total", total); mav.addObject("totalPage", totalPage);
+		 */
 		return mav; 
 	}
 

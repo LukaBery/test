@@ -40,7 +40,25 @@ public class MemberVO {
 	private int startNO = 1;
 	private int endNO = 10;
 	
+
+	private String write_startDate;
+	private String write_endDate;
 	
+	
+	
+	
+	public String getWrite_startDate() {
+		return write_startDate;
+	}
+	public void setWrite_startDate(String write_startDate) {
+		this.write_startDate = write_startDate;
+	}
+	public String getWrite_endDate() {
+		return write_endDate;
+	}
+	public void setWrite_endDate(String write_endDate) {
+		this.write_endDate = write_endDate;
+	}
 	public int getViewPage() {
 		return viewPage;
 	}

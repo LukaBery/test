@@ -1,10 +1,13 @@
 package com.myspring.Onaju.admin.adminMember.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.myspring.Onaju.admin.adminMember.service.AdminMemberService;
-import com.myspring.Onaju.member.controller.MemberControllerImpl;
 import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("adminMemberController")
@@ -31,8 +33,6 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	public ModelAndView listMembers(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//String viewName = getViewName(request);
 		String viewName = (String)request.getAttribute("viewName");
-		logger.info("viewName: "+ viewName);
-		logger.debug("viewName: "+ viewName);
 		int total = adminMemberService.memberListTotal(vo);
 		//(double)12/10 -> ceil 1.2 -> Integer(2.0) ->2
 		int totalPage = (int) Math.ceil((double)total/10);
@@ -87,5 +87,41 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 			System.out.println("변경실패");
 		}
 		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/admin/searchMember.do", method = RequestMethod.POST)
+	public ModelAndView searchMember(MemberVO searchVO) throws Exception {
+		
+		if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
+			String endDate = searchVO.getWrite_endDate();
+		
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
+			String write_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
+	
+			searchVO.setWrite_endDate(write_endDate);
+		}
+		
+		int total = adminMemberService.memberListTotal(searchVO);
+		int totalPage = (int) Math.ceil((double)total/10);
+		
+		int viewPage = searchVO.getViewPage();
+		int startNO = (viewPage - 1) * 10 + 1;
+		int endNO = startNO + (10 - 1);
+		
+		searchVO.setStartNO(startNO);
+		searchVO.setEndNO(endNO);
+		
+		List<MemberVO> searchMemberList =  adminMemberService.searchMember(searchVO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/admin/memberList");
+		mav.addObject("membersList", searchMemberList);
+		mav.addObject("total", total);
+		mav.addObject("totalPage", totalPage);
+		return mav; 
+		
 	}
 }

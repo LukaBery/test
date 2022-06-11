@@ -24,13 +24,12 @@
 	
 
 	<!-- 공지사항 리스트 -->
-	<select id="selectAllNoticeList" resultMap="noticeResult"   parameterType="adminNoticeVO"  >
-		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, a_id, notice_title, writeDate, post_chennel, notice_startDate, notice_endDate, notice_type, notice_code 
-        from a_noticeboard, (select @rownum := 0)  as rowcolumn order by writeDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
-		 ]]>			        
+	<select id="selectAllNoticeList" resultType="hashmap"   parameterType="hashmap"  >
+		select *
+		from a_noticeboard
+		where del_yn = 'N'
+		order by writeDate desc
+		limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="selectNoticeDetail" resultType="map" parameterType="String">
@@ -78,7 +77,7 @@
 	
 	<select id="selectAllNoticeTotal" resultType="java.lang.Integer">
    		
-        SELECT count(*) total FROM a_noticeboard where notice_code > 0
+        SELECT count(*) FROM a_noticeboard where notice_code > 0
     	
         <if test="write_startDate !='' and write_startDate != null">
         and writeDate >= #{write_startDate}

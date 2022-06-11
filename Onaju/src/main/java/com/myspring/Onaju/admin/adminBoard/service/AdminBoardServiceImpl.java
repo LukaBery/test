@@ -10,6 +10,7 @@ import com.myspring.Onaju.admin.adminBoard.dao.AdminBoardDAO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminNoticeVO;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 
 @Service("adminBoardService")
 public class AdminBoardServiceImpl implements AdminBoardService {
@@ -18,8 +19,8 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 	private AdminBoardDAO adminBoardDAO;
 	
 	@Override
-	public List<AdminNoticeVO> noticeList(AdminNoticeVO noticeVO) throws Exception {
-		return  adminBoardDAO.selectAllNoticeList(noticeVO);
+	public List<Map<String,Object>> noticeList(Criteria cri) throws Exception {
+		return  adminBoardDAO.selectAllNoticeList(cri);
 	}
 	
 	@Override
@@ -33,8 +34,8 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 	}
 	
 	@Override
-	public int noticeListTotal(AdminNoticeVO noticeVO) throws Exception {
-		return adminBoardDAO.selectAllNoticeListTotal(noticeVO);
+	public int noticeListTotal() throws Exception {
+		return adminBoardDAO.selectAllNoticeListTotal();
 	}
 	
 	@Override

@@ -11,4 +11,5 @@ public interface AdminMemberService {
 	public int memberListTotal(MemberVO vo) throws Exception;
 	public MemberVO memberDetail(String u_id) throws Exception;
 	public int memberUpdate(MemberVO vo) throws Exception;
+	public List<MemberVO> searchMember(MemberVO searchVO);
 }
