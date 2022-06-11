@@ -55,4 +55,9 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	public int selectDeleteHost(String h_id) {
 		return sqlSession.delete("mapper.admin.host.selectDeleteHost", h_id);
 	}
+
+	@Override
+	public List<AdminHostVO> selectSearchHost(AdminHostVO searchVO) {
+		return sqlSession.selectList("mapper.admin.host.selectSearchHost", searchVO);
+	}
 }

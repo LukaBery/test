@@ -55,4 +55,9 @@ public class AdminHostServiceImpl implements AdminHostService {
 	public int deleteHost(String h_id) {
 		return adminHostDAO.selectDeleteHost(h_id);
 	}
+
+	@Override
+	public List<AdminHostVO> searchHost(AdminHostVO searchVO) {
+		return adminHostDAO.selectSearchHost(searchVO);
+	}
 }

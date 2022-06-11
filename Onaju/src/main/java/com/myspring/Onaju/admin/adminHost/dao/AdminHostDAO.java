@@ -18,4 +18,5 @@ public interface AdminHostDAO {
 	public AdminHostInfoVO selectHostInfoDetail(String h_id) throws DataAccessException;
 	public int selectUpdateHost(AdminHostVO hostVO);
 	public int selectDeleteHost(String h_id);
+	public List<AdminHostVO> selectSearchHost(AdminHostVO searchVO);
 }

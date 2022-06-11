@@ -74,16 +74,61 @@
 	</select>
 	
 	<select id="selectAllMemberTotal" resultType="java.lang.Integer">
-   		<![CDATA[
-        SELECT count(*) total FROM u_member
-    	]]>
+  
+		SELECT count(*) total FROM u_member where u_name != null
+    		
+    		<if test="write_startDate !='' and write_startDate != null">
+        		and joinDate >= #{write_startDate}
+        	</if>
+        	
+        	<if test="write_endDate !='' and write_endDate != null"> 
+        	<![CDATA[
+        		and joinDate <= #{write_endDate} 
+        	]]>
+        	</if>
+        	
+        	<if test="del_yn !='' and del_yn != null">
+        		and del_yn = #{del_yn} 
+        	</if>
+        	
+        	<if test="u_id !='' and u_id != null">
+        		and u_id = #{u_id}
+        	</if>
 	</select>
 	
 	<select id="selectMemberDetail" resultMap="memberResult"   parameterType="MemberVO"  >
-		 select u_id, u_pw, u_name, u_birth_y, u_birth_m, u_birth_d, u_gender, u_phone, u_email1, u_email2, zipcode, roadAddress, numberAddress, restAddress, u_point, u_grade, proposer, u_imageName, u_imageType, u_agree_1, u_agree_2, u_agree_3, u_service_01, u_service_02, joinDate, del_yn from u_member where u_id = #{u_id}					        
+		 select 
+		 	u_id, 
+		 	u_pw, 
+		 	u_name, 
+		 	u_birth_y, 
+		 	u_birth_m, 
+		 	u_birth_d, 
+		 	u_gender, 
+		 	u_phone, 
+		 	u_email1, 
+		 	u_email2, 
+		 	zipcode, 
+		 	roadAddress, 
+		 	numberAddress, 
+		 	restAddress, 
+		 	u_point, 
+		 	u_grade, 
+		 	proposer, 
+		 	u_imageName, 
+		 	u_imageType, 
+		 	u_agree_1, 
+		 	u_agree_2, 
+		 	u_agree_3, 
+		 	u_service_01, 
+		 	u_service_02, 
+		 	joinDate, 
+		 	del_yn 
+		 from u_member 
+		 where u_id = #{u_id}					        
 	</select>
 	
-	<update id="selectMemberUpdate"  parameterType="MemberVO">
+	<update id="selectMemberUpdate">
 		
 		update u_member 
 		<set>
@@ -135,8 +180,14 @@
 			<if test="u_service_01 != '' and u_service_01 != null">
 				u_service_01=#{u_service_01}, 
 			</if>
+			<if test="u_service_01 == '' or u_service_01 == null">
+				u_service_01='N',
+			</if>
 			<if test="u_service_02 != '' and u_service_02 != null">
 				u_service_02=#{u_service_02},
+			</if>
+			<if test="u_service_02 == '' or u_service_02 == null">
+				u_service_02='N',
 			</if>
 			<if test="del_yn != '' and del_yn != null">
 				del_yn=#{del_yn},
@@ -145,6 +196,29 @@
 		where u_id=#{u_id}
 		
 	</update>
+	
+	<select id="selectSearchMember" resultMap="memberResult" parameterType="memberVO">
+		<![CDATA[
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, u_id, u_name, joinDate, u_email1, u_email2, u_grade, u_phone, roadAddress, del_yn
+        from u_member, (select @rownum := 0)  as rowcolumn order by joinDate desc) s
+		where rn >= #{startNO} and rn <= #{endNO}
+        ]]>      
+        <if test="write_startDate !='' and write_startDate != null">
+        and joinDate >= #{write_startDate}
+        </if>
+        <if test="write_endDate !='' and write_endDate != null"> 
+        <![CDATA[
+        and joinDate <= #{write_endDate} 
+        ]]>
+        </if>
+        <if test="del_yn != '' and del_yn != null">
+        and del_yn = #{del_yn}
+        </if>
+        <if test="u_id != '' and u_id != null">
+        and u_id like concat('%',#{u_id},'%')
+        </if>
+	</select>
 	
 	<!-- <select id="selectRetireMembers" resultMap="schMemResult">
 		select * from u_member where del_yn = 'Y'

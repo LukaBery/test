@@ -17,4 +17,5 @@ public interface AdminHostService {
 	public int hostInfoListTotal(AdminHostInfoVO vo) throws Exception;
 	public int updateHost (AdminHostVO hostVO);
 	public int deleteHost (String h_id);
+	public List<AdminHostVO> searchHost(AdminHostVO searchVO);
 }
