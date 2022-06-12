@@ -1,12 +1,14 @@
 package com.myspring.Onaju.admin.adminHost.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
 
@@ -17,13 +19,13 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<AdminHostVO> selectAllHostList(AdminHostVO vo) throws DataAccessException {
-		return sqlSession.selectList("mapper.admin.host.selectAllHostList", vo);	
+	public List<Map<String, Object>> selectAllHostList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.host.selectAllHostList", cri);	
 	}
 
 	@Override
-	public int selectAllHostListTotal(AdminHostVO vo) throws DataAccessException {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal", vo);
+	public int selectAllHostListTotal() {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
 	}
 
 	@Override
@@ -37,13 +39,13 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public int selectAllHostInfoListTotal(AdminHostInfoVO vo) throws DataAccessException {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal", vo);
+	public int selectAllHostInfoListTotal() {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
 	}
 
 	@Override
-	public List<AdminHostInfoVO> selectAllHostInfoList(AdminHostInfoVO vo) throws DataAccessException {
-		return sqlSession.selectList("mapper.admin.host.selectAllHostInfoList", vo);
+	public List<Map<String, Object>> selectAllHostInfoList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.host.selectAllHostInfoList", cri);
 	}
 	
 	@Override

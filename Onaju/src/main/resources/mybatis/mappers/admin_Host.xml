@@ -62,12 +62,13 @@
       	<result property="deputy_birth" column="deputy_birth" />
 	</resultMap>
 	
-	<select id="selectAllHostList" resultMap="hostResult"   parameterType="adminHostVO"  >
+	<select id="selectAllHostList" resultType="hashmap"   parameterType="hashmap"  >
 		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_phone, del_yn, roadAddress, h_email1, h_email2, h_sellerNum 
-        from h_host, (select @rownum := 0)  as rowcolumn order by joinDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
+		 select *
+		 from h_host
+		 where h_id != ''
+		 order by joinDate desc
+		 limit #{pageStart}, #{perPageNum}
 		 ]]>						        
 	</select>
 	
@@ -97,24 +98,29 @@
 		 select * from h_host_info where h_id = #{h_id}					        
 	</select>
 	
-	<select id="selectAllHostInfoList" resultMap="hostInfoResult"   parameterType="adminHostInfoVO"  >
+	<select id="selectAllHostInfoList" resultType="hashmap"   parameterType="hashmap"  >
 		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, 
-        		I.h_id, 
-        		H.h_name, 
-        		I.hostInfo_name, 
-        		I.creDate, 
-        		I.h_sellerNum, 
-        		I.host_type, 
-        		I.del_yn, 
-        		I.roadAddress, 
-        		I.h_code
-        from h_host_Info I 
-        inner join h_host H 
-        on I.h_id = H.h_id , 
-        (select @rownum := 0)  as rowcolumn order by I.creDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
+		 select 
+		 		H.h_id, 
+		 		H.h_name, 
+		 		I.hostInfo_name, 
+		 		I.creDate, 
+		 		I.h_sellerNum, 
+		 		I.host_type, 
+		 		I.del_yn, 
+		 		I.roadAddress, 
+		 		I.h_code
+		 from 
+		 		h_host_Info I
+		 inner 
+		 		join h_host H
+		 on 
+		 		I.h_id = H.h_id
+		 where 
+		 		H.h_id != ''
+		 order by 
+		 		I.creDate desc
+		 limit #{pageStart}, #{perPageNum}
 		 ]]>						        
 	</select>
 	<select id="selectHostInfoDetail" resultMap="hostInfoResult"   parameterType="String"  >

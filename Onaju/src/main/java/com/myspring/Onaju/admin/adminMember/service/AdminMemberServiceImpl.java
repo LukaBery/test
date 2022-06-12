@@ -1,11 +1,13 @@
 package com.myspring.Onaju.admin.adminMember.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminMember.dao.AdminMemberDAO;
 import com.myspring.Onaju.member.vo.MemberVO;
 
@@ -15,15 +17,20 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	private AdminMemberDAO adminMemberDAO;
 	
 	@Override
-	public List<MemberVO> listMembers(MemberVO vo) throws DataAccessException {
-		return adminMemberDAO.selectAllMemberList(vo);
+	public List<Map<String, Object>> listMembers(Criteria cri) {
+		return adminMemberDAO.selectAllMemberList(cri);
 	}
 
 	@Override
-	public int memberListTotal(MemberVO vo) throws Exception {
-		return adminMemberDAO.selectAllMemberListTotal(vo);
+	public int memberListTotal() throws Exception {
+		return adminMemberDAO.selectAllMemberListTotal();
 	}
-
+	
+	@Override
+	public int memberListTotal(Map<String, Object> searchMap) {
+		return adminMemberDAO.selectAllMemberListTotal(searchMap);
+	}
+	
 	@Override
 	public MemberVO memberDetail(String u_id) throws Exception {
 		return adminMemberDAO.selectMemberDetail(u_id);
@@ -36,7 +43,9 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	}
 
 	@Override
-	public List<MemberVO> searchMember(MemberVO searchVO) {
-		return adminMemberDAO.selectSearchMember(searchVO);
+	public List<Map<String, Object>> searchMember(Map<String, Object> searchMap) {
+		return adminMemberDAO.selectSearchMember(searchMap);
 	}
+
+	
 }

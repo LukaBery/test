@@ -3,6 +3,7 @@ package com.myspring.Onaju.admin.adminHost.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 import com.myspring.Onaju.admin.adminHost.service.AdminHostService;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
@@ -39,22 +42,18 @@ public class AdminHostControllerImpl implements AdminHostController {
 	
 	@Override
 	@RequestMapping(value="/admin/hostList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostList(AdminHostVO vo) throws Exception {
+	public ModelAndView hostList(Criteria cri) {
 		
-		int total = adminHostService.hostListTotal(vo);
-		//(double)12/10 -> ceil 1.2 -> Integer(2.0) ->2
-		int totalPage = (int) Math.ceil((double)total/10);
-		int viewPage = vo.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);	
-		vo.setStartNO(startNO);
-		vo.setEndNO(endNO);	
-		
-		List<AdminHostVO> hostList = adminHostService.listAllHost(vo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminHostService.hostListTotal());
+		
+		List<Map<String, Object>> hostList = adminHostService.listAllHost(cri);
+		
 		mav.addObject("hostList", hostList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 	
@@ -95,22 +94,18 @@ public class AdminHostControllerImpl implements AdminHostController {
 	
 	@Override
 	@RequestMapping(value="/admin/hostInfoList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostInfoList(AdminHostInfoVO infoVO) throws Exception {
+	public ModelAndView hostInfoList(Criteria cri) {
 		
-		int total = adminHostService.hostInfoListTotal(infoVO);
-		//(double)12/10 -> ceil 1.2 -> Integer(2.0) ->2
-		int totalPage = (int) Math.ceil((double)total/10);
-		int viewPage = infoVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);	
-		infoVO.setStartNO(startNO);
-		infoVO.setEndNO(endNO);	
-		
-		List<AdminHostInfoVO> hostInfoList = adminHostService.listAllHostInfo(infoVO);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminHostService.hostInfoListTotal());
+		
+		List<Map<String, Object>> hostInfoList = adminHostService.listAllHostInfo(cri);
+		
 		mav.addObject("hostInfoList", hostInfoList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 	
@@ -163,23 +158,16 @@ public class AdminHostControllerImpl implements AdminHostController {
 			searchVO.setJoin_endDate(join_endDate);	
 		}
 		
-		int total = adminHostService.hostListTotal(searchVO);
-		int totalPage = (int) Math.ceil((double)total/10);
 		
-		int viewPage = searchVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
 		
-		searchVO.setStartNO(startNO);
-		searchVO.setEndNO(endNO);
+		
 		
 		List<AdminHostVO> searchHostList =  adminHostService.searchHost(searchVO);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/hostList");
 		mav.addObject("hostList", searchHostList);
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
+	
 		return mav; 
 	}
 }
