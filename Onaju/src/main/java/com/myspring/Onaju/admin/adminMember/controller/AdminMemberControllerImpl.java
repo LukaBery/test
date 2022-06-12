@@ -3,6 +3,7 @@ package com.myspring.Onaju.admin.adminMember.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 import com.myspring.Onaju.admin.adminMember.service.AdminMemberService;
 import com.myspring.Onaju.member.vo.MemberVO;
 
@@ -30,26 +34,18 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	
 	@Override
 	@RequestMapping(value="/admin/memberList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listMembers(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//String viewName = getViewName(request);
-		String viewName = (String)request.getAttribute("viewName");
-		int total = adminMemberService.memberListTotal(vo);
-		//(double)12/10 -> ceil 1.2 -> Integer(2.0) ->2
-		int totalPage = (int) Math.ceil((double)total/10);
+	public ModelAndView listMembers(Criteria cri) throws Exception {
 		
-		int viewPage = vo.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
+		ModelAndView mav = new ModelAndView();
 		
-		vo.setStartNO(startNO);
-		vo.setEndNO(endNO);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminMemberService.memberListTotal());
 		
+		List<Map<String, Object>> membersList = adminMemberService.listMembers(cri);
 		
-		List<MemberVO> membersList = adminMemberService.listMembers(vo);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
 		mav.addObject("membersList", membersList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 
@@ -90,38 +86,33 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 	}
 
 	@Override
-	@RequestMapping(value = "/admin/searchMember.do", method = RequestMethod.POST)
-	public ModelAndView searchMember(MemberVO searchVO) throws Exception {
-		
-		if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
-			String endDate = searchVO.getWrite_endDate();
+	@RequestMapping(value = "/admin/searchMember.do", method = RequestMethod.GET)
+	public ModelAndView searchMember(@RequestParam Map<String, Object> searchMap, Criteria cri) throws Exception {
+
+		if(searchMap.get("write_endDate") != null && searchMap.get("write_endDate") != "") {
+			String endDate = (String)searchMap.get("write_endDate");
 		
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = format.parse(endDate);
 			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
 			String write_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
 	
-			searchVO.setWrite_endDate(write_endDate);
+			searchMap.put("write_endDate", write_endDate);
 		}
 		
-		int total = adminMemberService.memberListTotal(searchVO);
-		int totalPage = (int) Math.ceil((double)total/10);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminMemberService.memberListTotal(searchMap));
 		
-		int viewPage = searchVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
+		searchMap.put("pageStart", cri.getPageStart());
+		searchMap.put("perPageNum", cri.getPerPageNum());
 		
-		searchVO.setStartNO(startNO);
-		searchVO.setEndNO(endNO);
-		
-		List<MemberVO> searchMemberList =  adminMemberService.searchMember(searchVO);
+		List<Map<String, Object>> searchMemberList =  adminMemberService.searchMember(searchMap);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/memberList");
 		mav.addObject("membersList", searchMemberList);
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
-		return mav; 
-		
+		mav.addObject("pageMaker", pageMaker);
+		return mav;	
 	}
 }

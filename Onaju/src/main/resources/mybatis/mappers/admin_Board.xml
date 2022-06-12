@@ -27,7 +27,7 @@
 	<select id="selectAllNoticeList" resultType="hashmap"   parameterType="hashmap"  >
 		select *
 		from a_noticeboard
-		where del_yn = 'N'
+		where notice_code > 0
 		order by writeDate desc
 		limit #{pageStart}, #{perPageNum}
 	</select>

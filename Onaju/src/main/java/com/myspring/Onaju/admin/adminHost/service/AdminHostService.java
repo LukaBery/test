@@ -1,20 +1,20 @@
 package com.myspring.Onaju.admin.adminHost.service;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
 
 public interface AdminHostService {
-	public List<AdminHostVO> listAllHost(AdminHostVO vo) throws DataAccessException;
+	public List<Map<String, Object>> listAllHost(Criteria cri);
 	public AdminHostVO hostDetail(String h_id) throws Exception;
-	public int hostListTotal(AdminHostVO vo) throws Exception;
+	public int hostListTotal();
 	
-	public List<AdminHostInfoVO> listAllHostInfo(AdminHostInfoVO vo) throws DataAccessException;	
+	public List<Map<String, Object>> listAllHostInfo(Criteria cri);	
 	public AdminHostInfoVO hostInfoDetail(String h_code) throws Exception;
-	public int hostInfoListTotal(AdminHostInfoVO vo) throws Exception;
+	public int hostInfoListTotal();
 	public int updateHost (AdminHostVO hostVO);
 	public int deleteHost (String h_id);
 	public List<AdminHostVO> searchHost(AdminHostVO searchVO);
