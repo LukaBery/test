@@ -217,6 +217,7 @@ System.out.println("리스트 추가완료");
 			
 			String u_id=memberVO.getU_id();
 			orderVO.setU_id(u_id);
+			receiverMap.put("u_id", u_id);
 		
 		
 		}

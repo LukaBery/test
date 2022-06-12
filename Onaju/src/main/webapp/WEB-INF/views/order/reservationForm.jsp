@@ -87,6 +87,7 @@ request.setCharacterEncoding("UTF-8");
 					"cart_code" : _cart_code
 					
 					}
+				
 				$.ajax({
 					url : "${contextPath}/order/payToOrderGoods.do",
 					data : JSON.stringify(form, ['room_code', 'checkIn_date', 'checkOut_date', 'people_count', 'room_fee', 'pay_type', 'total','h_code', 'order_name', 'order_phone','order_email1', 'order_email2', 'cart_code']),
@@ -96,8 +97,10 @@ request.setCharacterEncoding("UTF-8");
 					async : false,
 					
 					success : function(data) {
+					
 						alert("주문 완료.");
-						location.href="${contextPath}/mypage/mypageMain.do"
+						location.href="${contextPath}/mypage/mypageMain.do";
+						
 					},
 					error : function() {
 						alert("네트워크가 불안정합니다. 다시 시도해 주세요.222");

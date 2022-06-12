@@ -75,7 +75,7 @@ public class HostControllerImpl extends BaseController implements HostController
 				
 				HttpSession session = request.getSession();
 				session = request.getSession();
-				session.setAttribute("isLogOn", true);
+				session.setAttribute("isLogOn", "host");
 				session.setAttribute("hostInfo", hostVO);
 				
 				String h_id = hostVO.getH_id();
