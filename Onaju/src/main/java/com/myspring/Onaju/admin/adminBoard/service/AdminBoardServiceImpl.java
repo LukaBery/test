@@ -34,7 +34,7 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 	}
 	
 	@Override
-	public int noticeListTotal() throws Exception {
+	public int noticeListTotal() {
 		return adminBoardDAO.selectAllNoticeListTotal();
 	}
 	
@@ -49,25 +49,44 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 	}
 
 	@Override
-	public List<AdminNoticeVO> searchNotice(AdminNoticeVO searchVO) throws Exception {
-		return adminBoardDAO.selectSearchNotice(searchVO);
+	public List<Map<String, Object>> searchNotice(Map<String, Object> searchMap) {
+		return adminBoardDAO.selectSearchNotice(searchMap);
 	}
 
+	
+	
+	
+	
+	
 	@Override
-	public List<Map<String, Object>> enquireBoardList(AdminEnquireVO enquireVO) {
-		return adminBoardDAO.selectAllEnquireList(enquireVO);
+	public List<Map<String, Object>> enquireBoardList(Criteria cri) {
+		return adminBoardDAO.selectAllEnquireList(cri);
 	}
 
 	@Override
 	public List<Map<String, Object>> enquireBoardDetail(AdminEnquireVO enquireVO) {
 		return adminBoardDAO.selectEnquireDetail(enquireVO);
 	}
+	
+	@Override
+	public int enquireListTotal() {
+		return adminBoardDAO.selectAllEnquireListTotal();
+	}
+
+	@Override
+	public int enquireListTotal(Map<String, Object> searchMap) {
+		return adminBoardDAO.selectAllEnquireListTotal(searchMap);
+	}
 
 	@Override
 	public void updateHit(AdminEnquireVO enquireVO) {
-		adminBoardDAO.updateHit(enquireVO);
-		
+		adminBoardDAO.updateHit(enquireVO);	
 	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public int insertEnquireReply(AdminEnquireReplyVO replyVO) {
@@ -83,6 +102,14 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 	public int updateReplyCheck(AdminEnquireReplyVO replyVO) {
 		return adminBoardDAO.updateReplyCheck(replyVO);
 	}
+
+	@Override
+	public int noticeListTotal(Map<String, Object> searchMap) {
+		return adminBoardDAO.selectAllNoticeListTotal(searchMap);
+	}
+
+
+
 
 	
 

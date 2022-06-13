@@ -12,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
 .host-search-1{
 	display: flex;
@@ -90,6 +92,7 @@
 	border-collapse: collapse;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
 	width: 100%;
+	table-layout: fixed;
 }
 .styled-table thead tr{
 	background-color: #000033;
@@ -98,6 +101,15 @@
 }
 .styled-table thead tr td{
 	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.styled-table tr td{
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .styled-table th, .styled-table td {
 	padding: 12px 15px;
@@ -224,6 +236,16 @@
 
 <section>
 	<table class="styled-table">
+		<colgroup>
+			<col style="width:5%">
+			<col style="width:5%">
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:20%">
+			<col style="width:15%">
+			<col style="width:20%">
+			<col style="width:15%">
+		</colgroup>
 		<thead>
   			<tr>
      			<td >NO</td>
@@ -233,7 +255,7 @@
      			<td >가맹점명</td>
      			<td >사업자등록번호</td>
      			<td >지역</td>
-     			<td >해지 유무</td>     					
+     			<td >등록 날짜</td>     					
   			</tr>
   		</thead>
 		<c:choose>
@@ -249,14 +271,14 @@
   			<c:when test="${!empty roomsList}" >
     			<c:forEach  var="room" items="${roomsList }" varStatus="goodsNum" >
      				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/goodsDetail.do?room_code=${room.room_code}'">
-						<td width="5%">${goodsNum.count}</td>
+						<td width="5%">${room.room_code}</td>
 						<td width="8%">${room.room_status }</td>
 						<td width="8%">${room.h_id }</td>
 						<td width="8%">${room.h_name }</td>
 						<td  width="8%">${room.hostInfo_name }</td>   
 						<td  width="11%">${room.h_sellerNum }</td>   
 						<td  width="8%">${room.roadAddress }</td>   
-						<td  width="8%">${room.del_yn }</td>     
+						<td  width="8%">${room.creDate }</td>     
 					</tr>
     			</c:forEach>
      		</c:when>
@@ -264,14 +286,132 @@
 	</table>
 </section>
 <div>
-	<c:forEach var="i" begin="1" end="${totalPage }">
-		<a href="${contextPath }/admin/goodsList.do?viewPage=${i}">${i }</a>
-	</c:forEach>
+	<div style="display: flex; justify-content: center;">
+			<c:if test="${pageMaker.prev }">
+				<div>
+					<a href="${contextPath }/admin/goodsList.do?page=${pageMaker.startPage - 1}">앞으로</a>
+				</div>
+			</c:if>
+			<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
+					<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/goodsList.do?page=${pageNum}">${pageNum }</a>
+				</div>
+			</c:forEach>
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+				<div>
+					<a href="${contextPath }/admin/goodsList.do?page=${pageMaker.endPage + 1}">뒤로</a>
+				</div>
+			</c:if>
+		</div>
 </div>
 <div class="mem-item5">
 	<div><a class="a1" href="${contextPath}/board.noticeForm.do">상품등록</a></div>
 	<div><input class="a2" type="submit" value="선택삭제"></div>
 </div>
+<script>
+$.datepicker.regional['ko'] = {
+	      closeText: '닫기',
+	      prevText: '이전달',
+	      nextText: '다음달',
+	      monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+	      '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+	      monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+	      '7월','8월','9월','10월','11월','12월'],
+	      dayNames: ['일','월','화','수','목','금','토'],
+	      dayNamesShort: ['일','월','화','수','목','금','토'],
+	      dayNamesMin: ['일','월','화','수','목','금','토'],
+	      weekHeader: 'Wk',
+	      dateFormat: 'yy-mm-dd',
+	      firstDay: 0,
+	      isRTL: false,
+	      showMonthAfterYear: true,
+	      yearSuffix: '',
+	      changeMonth: true,
+	      changeYear: true,
+	      showButtonPanel: true,
+	      yearRange: 'c-99:c+99',
+};
+$.datepicker.setDefaults($.datepicker.regional['ko']);
 
+$( function() {
+    var dateFormat = "yy-mm-dd",
+      from = $( "#startDate" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 1,
+          maxDate: "+0M +0D"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#endDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        maxDate: "+0M +0D"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	var setdate1 = $("#settingDate1").val();
+	var setdate2 = $("#settingDate2").val();
+	var setdate3 = $("#settingDate3").val();
+	var setdate4 = $("#settingDate4").val();
+	
+$("#settingDate1").click(function(){
+		
+		switch(setdate1){
+		case "yesterday" :
+			from = $("#startDate").datepicker("setDate", "-1D");
+			to = $("#endDate").datepicker("setDate", "-1D");
+		break
+		}
+	});
+	$("#settingDate2").click(function(){
+		
+		switch(setdate2){
+		case "today" :
+			 
+			from = $("#startDate").datepicker("setDate", "today");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate3").click(function(){
+		
+		switch(setdate3){
+		case "month" :
+			from = $("#startDate").datepicker("setDate", "-1M");
+			to = $("#endDate").datepicker("setDate", "today");
+		break
+		}
+	});
+	$("#settingDate4").click(function(){
+		
+		switch(setdate4){
+		case "reset" :
+			from = $("#startDate").datepicker("setDate", null);
+			to = $("#endDate").datepicker("setDate", null);
+		break
+		}
+	});
+});
+</script>
 </body>
 </html>

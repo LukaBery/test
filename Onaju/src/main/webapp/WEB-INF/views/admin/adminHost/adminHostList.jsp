@@ -177,12 +177,12 @@
 			<div class="host-row-col2">
 			<div>
 			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="startDate" name="join_startDate" autocomplete=off>&emsp;
-				<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
+			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
 			
-				<button type="button" id="settingDate1" value="yesterday">어제</button>
-				<button type="button" id="settingDate2" value="today">오늘</button>
-				<button type="button" id="settingDate3" value="month">1개월</button>
-				<button type="button" id="settingDate4" value="reset">사용안함</button>
+			<button type="button" id="settingDate1" value="yesterday">어제</button>
+			<button type="button" id="settingDate2" value="today">오늘</button>
+			<button type="button" id="settingDate3" value="month">1개월</button>
+			<button type="button" id="settingDate4" value="reset">사용안함</button>
 			</div></div>
 		</div>
 		<div class="host-search-1">
