@@ -36,4 +36,9 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 		return adminOrderDAO.selectOrderListTotal();
 	}
 
+	@Override
+	public int orderListTotal(Map<String, Object> searchMap) {
+		return adminOrderDAO.selectOrderListTotal(searchMap);
+	}
+
 }

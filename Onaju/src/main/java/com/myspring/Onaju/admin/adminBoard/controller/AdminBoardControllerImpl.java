@@ -52,8 +52,6 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	private AdminBoardService adminBoardService;
 	@Autowired
 	private AdminVO adminVO;
-	@Autowired
-	private AdminEnquireVO enquireVO;
 	
 	@Resource(name="adminUploadPath")
 	String adminUploadPath;
@@ -214,9 +212,7 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/noticeList");
 		mav.addObject("noticeList", searchNoticeList);
-		/*
-		 * mav.addObject("total", total); mav.addObject("totalPage", totalPage);
-		 */
+		mav.addObject("pageMaker", pageMaker);
 		return mav; 
 	}
 

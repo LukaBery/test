@@ -36,4 +36,10 @@ public class AdminOrderDAOImpl implements AdminOrderDAO {
 		return sqlSession.selectOne("mapper.admin.order.selectOrderListTotal");
 	}
 
+	@Override
+	public int selectOrderListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.order.selectOrderListTotal", searchMap);
+	}
+	
+
 }

@@ -37,12 +37,7 @@ public class AdminHostVO {
 	
 	private String join_startDate;
 	private String join_endDate;
-	
-	private int viewPage = 1;
-	private int startNO = 1;
-	private int endNO = 10;
-	
-	
+		
 	
 	public String getJoin_startDate() {
 		return join_startDate;
@@ -56,25 +51,7 @@ public class AdminHostVO {
 	public void setJoin_endDate(String join_endDate) {
 		this.join_endDate = join_endDate;
 	}
-	public int getViewPage() {
-		return viewPage;
-	}
-	public void setViewPage(int viewPage) {
-		this.viewPage = viewPage;
-	}
-	public int getStartNO() {
-		return startNO;
-	}
-	public void setStartNO(int startNO) {
-		this.startNO = startNO;
-	}
-	public int getEndNO() {
-		return endNO;
-	}
-	public void setEndNO(int endNO) {
-		this.endNO = endNO;
-	}
-	
+
 	public String getH_id() {
 		return h_id;
 	}
