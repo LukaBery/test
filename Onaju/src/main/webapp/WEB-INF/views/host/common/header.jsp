@@ -248,17 +248,17 @@ ChannelIO('boot', {
 <section id="main_fixed">
 	<div align="center" id="">
 		<h1 class="host_title">
-			<a href="${contextPath}/host/main.do">
+			<a href="${contextPath}/host/main/main.do">
 				<img src="${contextPath}/resources/image/onajulogo.png" width="80px" height="57px" style="margin-top: 5px;">
 			</a>
 			<b>호스트 페이지</b>
 		</h1>
 		<ul class="host_menu">
 			<li>
-				<a href="${contextPath}/host/h_login.do">
+				<a href="${contextPath}/host/mypage/hostMypageDetail.do">
 				<i class="fas fa-user fa-fw"></i>
 					<c:choose>
-						<c:when test="${isLogOn==true and not empty hostInfo }">
+						<c:when test="${not empty isLogOn and not empty hostInfo }">
 							<i id="main_font_i" class=" fa-fw">${hostInfo.h_id}</i>
 						</c:when>
 					<c:otherwise>

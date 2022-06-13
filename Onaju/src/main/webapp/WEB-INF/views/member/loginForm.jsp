@@ -398,6 +398,7 @@ color:rgb(252, 78, 130);
 #h1_order_r{
 color:#7F9B75;
 }
+
 #naverIdLogin_loginButton{
 	width:200px;
 	height:40px;
@@ -405,8 +406,10 @@ color:#7F9B75;
     float: right;
 }
 </style>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!-- 네아로 SDK -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 아이디 저장 기능(쿠키 사용) -->
 <script>
 	window.onload = function() {
@@ -544,13 +547,7 @@ function checkBox(checked){
 		}
 		document.nonmember_frm.submit();
 	}
-	
-	
-
-
 </script>
-<!-- 네아로 SDK -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <body>
 <section class="hb_section_total">
@@ -606,13 +603,14 @@ function checkBox(checked){
 					<a 	id="hb_order_submit_1" 
 						
 						href="${contextPath}/member/joinForm.do">회원가입</a>
+								<!-- 네이버 로그인 버튼 -->
 						
 					<!-- 네이버 로그인 버튼 -->
 					<div id=naverIdLogin ></div>
 
-
 					<!-- 카카오 로그인 버튼 -->
-					<a class="hb_order_sns" style="background-color: rgb(255, 234, 15); color: rgb(60, 30, 30); margin: 0px 0px 0px 0px; display: inline-block; float: left;"
+					<a class="hb_order_sns"
+						style="background-color: rgb(255, 234, 15); color: rgb(60, 30, 30); float: right; margin: 0px 7px 0px 0px;"
 						href="https://kauth.kakao.com/oauth/authorize?client_id=2520c8e17541628f34b1475ac21d1840&redirect_uri=http://localhost:8080/Onaju/member/kakaoLogin&response_type=code">
 						카카오 로그인</a>
 
@@ -663,14 +661,13 @@ function checkBox(checked){
 		</section>
 
 </body>
-
 <!-- 네이버 아이디 로그인 -->
 <script type="text/javascript">
 	var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "cwdVeGhLyV8ZpeAvjTHM",
   			// 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
-			callbackUrl: "http://localhost:8080/mytest04/member/callBack",
+			callbackUrl: "http://localhost:8080/Onaju/member/callBack",
   			// 본인의 callBack url로 수정하세요.
 			isPopup: false,
 			loginButton: {color: "green", type: 3, height: 40} 

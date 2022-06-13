@@ -37,7 +37,7 @@ public interface MemberController {
 	public String callBack() throws Exception;
 	public String naverSave(String n_email1, String n_email2, String n_name, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-
+	public String naverLogout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	
 	

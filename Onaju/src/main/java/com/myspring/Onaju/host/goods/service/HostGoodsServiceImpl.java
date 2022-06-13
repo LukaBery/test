@@ -58,14 +58,8 @@ public class HostGoodsServiceImpl implements HostGoodsService{
 	public void addHostInfo(HostInfoVO hostInfoVO) throws Exception{
 		goodsDAO.insertNewHostInfo(hostInfoVO);
 	}	
-	@Override
-	public int hostInfoListTotal(HostInfoVO hostInfo) throws Exception {	
-		return goodsDAO.selectAllhostInfoListTotal(hostInfo);
-	}
-	
-	@Override
-	public List<HostInfoVO> hostInfoFormlist(HostInfoVO hostInfoVO) throws Exception{
-		return goodsDAO.hostInfoFormlist(hostInfoVO);
+	public List<HostInfoVO> hostInfoFormlist(String _h_id) throws Exception{
+		return goodsDAO.hostInfoFormlist(_h_id);
 	}
 	@Override
 	public HostInfoVO hostInfoDetail(int h_code) throws Exception {
@@ -149,14 +143,6 @@ public class HostGoodsServiceImpl implements HostGoodsService{
 	public void removeHostGoodsImage(int roomImage_NO) throws Exception{
 		goodsDAO.deleteHostGoodsImage(roomImage_NO);
 	}
-	@Override
-	public void deleteHostGoodsAllImage(int room_code) throws Exception {
-		goodsDAO.deleteHostGoodsAllImage(room_code);
-		
-	}
-	@Override
-	public void deleteHostGoods(int room_code) throws Exception {
-		goodsDAO.deleteHostGoods(room_code);
-	}
+	
 
 }

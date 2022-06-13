@@ -3,6 +3,7 @@ package com.myspring.Onaju.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.myspring.Onaju.common.aes256.AES256Util;
 import com.myspring.Onaju.common.aes256.SHA256Util;
@@ -449,6 +451,7 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 	@Override
 	@RequestMapping(value="callBack", method=RequestMethod.GET)
 	public String callBack(){
+		System.out.println();
 		return "member/callBack";
 	}
 	
@@ -486,4 +489,16 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 		return result;
 	    
 		}
+	
+	@Override
+	@RequestMapping(value = "/naverLogout", method=RequestMethod.GET)
+	public String naverLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("access_token");
+		session.removeAttribute("userInfo");
+		
+		return "redirect:/main/main.do";
+	}
 }

@@ -24,8 +24,7 @@ public interface HostGoodsDAO {
 	/* 사업자등록 */
 	public List<HostInfoVO> hostLogin(String h_id) throws DataAccessException;
 	public void insertNewHostInfo(HostInfoVO hostInfoVO) throws DataAccessException;
-	public int selectAllhostInfoListTotal(HostInfoVO hostInfo) throws DataAccessException;
-	public List<HostInfoVO> hostInfoFormlist(HostInfoVO hostInfoVO) throws DataAccessException;
+	public List<HostInfoVO> hostInfoFormlist(String _h_id) throws DataAccessException;
 	public HostInfoVO hostInfoDetail(int h_code) throws DataAccessException;
 	public void updateHostInfo(Map hostInfoMap) throws DataAccessException;
 	public void deleteHostInfo(int h_code) throws DataAccessException;
@@ -41,7 +40,5 @@ public interface HostGoodsDAO {
 	public void updateHostGoodsImage(List<HostImageFileVO> imageFileList) throws DataAccessException;
 	public void insertHostGoodsImageFile(List fileList)  throws DataAccessException;
 	public void deleteHostGoodsImage(int roomImage_NO) throws DataAccessException;
-	public void deleteHostGoodsAllImage(int room_code) throws DataAccessException;
-	public void deleteHostGoods(int room_code) throws DataAccessException;
 		
 }

@@ -23,6 +23,8 @@ import com.myspring.Onaju.common.aes256.SHA256Util;
 import com.myspring.Onaju.common.base.BaseController;
 import com.myspring.Onaju.host.goods.service.HostGoodsService;
 import com.myspring.Onaju.host.goods.vo.HostInfoVO;
+import com.myspring.Onaju.host.reservation.service.ReservationService;
+import com.myspring.Onaju.host.reservation.vo.ReservationVO;
 import com.myspring.Onaju.host.service.HostService;
 import com.myspring.Onaju.host.vo.HostVO;
 
@@ -38,20 +40,47 @@ public class HostControllerImpl extends BaseController implements HostController
 	private HostGoodsService hostGoodsService; // �씠�젙�븘 異붽�
 	@Autowired
 	AES256Util aes;
-
+	@Autowired
+	private ReservationService reservationService;
 	
-	@RequestMapping(value = "/host/main.do", method = { RequestMethod.POST, RequestMethod.GET })
+	
+	@RequestMapping(value = "/main/main.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session;
+		
+		HttpSession session = request.getSession();
 		ModelAndView mav = new ModelAndView();
 		String viewName = (String) request.getAttribute("viewName");
 		String isLogOn = request.getParameter("isLogOn");
 		System.out.println("isLogon" + isLogOn);
+		
+		
+		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
+		System.out.println("hostVO의 VO : " + hostVO);
+		session.setAttribute("hostInfo", hostVO);
+		String h_id = hostVO.getH_id();
+		System.out.println("hostVO의 h_id : " + h_id);
+
+		List<ReservationVO> hostReservationList = reservationService.hostReservationList(h_id);
+		
+		mav.addObject("hostReservationList", hostReservationList);
+		System.out.println("hostReservationList####### " + hostReservationList);		
 		mav.addObject("isLogOn", isLogOn);
 		mav.setViewName(viewName);
 
 		return mav;
 	}
+
+	/*
+	 * @RequestMapping(value = "/host/main.do", method = { RequestMethod.POST,
+	 * RequestMethod.GET }) public ModelAndView main(HttpServletRequest request,
+	 * HttpServletResponse response) throws Exception { HttpSession session;
+	 * ModelAndView mav = new ModelAndView(); String viewName = (String)
+	 * request.getAttribute("viewName"); String isLogOn =
+	 * request.getParameter("isLogOn"); System.out.println("isLogon" + isLogOn);
+	 * mav.addObject("isLogOn", isLogOn); mav.setViewName(viewName);
+	 * 
+	 * return mav; }
+	 */
 	
 	@Override
 	@RequestMapping(value = "/h_login.do", method = RequestMethod.POST)
@@ -75,7 +104,7 @@ public class HostControllerImpl extends BaseController implements HostController
 				
 				HttpSession session = request.getSession();
 				session = request.getSession();
-				session.setAttribute("isLogOn", "host");
+				session.setAttribute("isLogOn", true);
 				session.setAttribute("hostInfo", hostVO);
 				
 				String h_id = hostVO.getH_id();
@@ -95,7 +124,7 @@ public class HostControllerImpl extends BaseController implements HostController
 				} else if (action != null && action.equals("#")) {
 					mav.setViewName("forward:" + action);
 				} else {
-					mav.setViewName("redirect:/host/main.do");
+					mav.setViewName("redirect:/host/main/main.do");
 				}
 			} else {
 				String message = "일치하는 회원 정보가 없습니다.";

@@ -39,9 +39,7 @@
 }
 
 .wrap.wd668 {
-	max-width: 1100px;
-	margin-top:50px;
-	margin-left: 400px;
+	max-width: 628px;
 }
 
 .wrap.wd668.line {

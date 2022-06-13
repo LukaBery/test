@@ -28,7 +28,7 @@ public interface HostGoodsController {
 
 	/* 사업장 관련 */
 	public ResponseEntity  addHostInfo(@ModelAttribute("hostInfoVO") HostInfoVO h_hostInfoVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView hostInfoList(HostInfoVO hostInfo, HttpServletRequest request, HttpServletResponse response) throws Exception ;
+	public ModelAndView hostInfoList(HttpServletRequest request, HttpServletResponse response)  throws Exception ;
 	public ModelAndView modifyHostDetail(@RequestParam("h_code") int h_code, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity modifyHostInfo( @RequestParam("h_code") String h_code, 
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
@@ -49,7 +49,6 @@ public interface HostGoodsController {
 	public void addNewHostGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public void  removeHostGoodsImage(@RequestParam("room_code") int room_code,@RequestParam("roomImage_NO") int roomImage_NO, @RequestParam("room_imageName") String room_imageName,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ResponseEntity deleteHostGoods( @RequestParam("room_code") int room_code, 
-            HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
 
 }
