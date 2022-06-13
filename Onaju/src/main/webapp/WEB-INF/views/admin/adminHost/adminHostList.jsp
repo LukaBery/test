@@ -245,7 +245,7 @@
   			</c:when>
   			<c:when test="${!empty hostList}" >
     			<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
-    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do?h_id=${host.h_id}'" >
+    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(pageMaker.cri.page)}&h_id=${host.h_id }'" >
 						<td>${hostNum.count}</td>
 						<td>${host.joinDate }</td>
 						<td>${host.h_id}</td>
@@ -268,7 +268,7 @@
 		<div style="display: flex; justify-content: center;">
 	<c:if test="${pageMaker.prev }">
 		<div>
-			<a href="${contextPath }/admin/hostList.do?page=${pageMaker.startPage - 1}">앞으로</a>
+			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.startPage-1)}">앞으로</a>
 		</div>
 	</c:if>
 	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
@@ -278,7 +278,7 @@
 	</c:forEach>
 	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 		<div>
-			<a href="${contextPath }/admin/hostList.do?page=${pageMaker.endPage + 1}">뒤로</a>
+			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.endPage+1)}">뒤로</a>
 		</div>
 	</c:if>
 	</div>

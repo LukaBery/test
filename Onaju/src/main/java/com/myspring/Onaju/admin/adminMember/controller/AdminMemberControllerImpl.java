@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.time.DateFormatUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,7 @@ import com.myspring.Onaju.member.vo.MemberVO;
 
 @Controller("adminMemberController")
 public class AdminMemberControllerImpl implements AdminMemberController {
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private AdminMemberService adminMemberService;
 	@Autowired
@@ -51,11 +49,15 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 
 	@Override
 	@RequestMapping(value="/admin/memberDetail.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView memberDetail(String u_id, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ModelAndView memberDetail(String u_id, Criteria cri) throws Exception {
 		memberVO = adminMemberService.memberDetail(u_id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberVO",memberVO);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		mav.addObject("page", cri.getPage());
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 
