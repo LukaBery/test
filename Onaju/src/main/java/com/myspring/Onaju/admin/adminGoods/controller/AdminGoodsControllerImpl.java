@@ -1,6 +1,7 @@
 package com.myspring.Onaju.admin.adminGoods.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 import com.myspring.Onaju.admin.adminGoods.service.AdminGoodsService;
 import com.myspring.Onaju.admin.adminGoods.vo.AdminHostRoomVO;
 
@@ -21,25 +24,18 @@ public class AdminGoodsControllerImpl implements AdminGoodsController {
 	
 	@Override
 	@RequestMapping(value = "/admin/goodsList.do", method = { RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView roomsList(AdminHostRoomVO roomVO) throws Exception {
-		
-		int total = adminGoodsService.adminRoomTotal(roomVO);
-		int totalPage = (int) Math.ceil((double)total/10);
-		
-		int viewPage = roomVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
-		
-		roomVO.setStartNO(startNO);
-		roomVO.setEndNO(endNO);
+	public ModelAndView roomsList(Criteria cri) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		List<AdminHostRoomVO> roomsList = adminGoodsService.roomsList(roomVO);
-		mav.addObject("total", total);
-		mav.addObject("totalPage", totalPage);
-		mav.addObject("roomsList", roomsList);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminGoodsService.adminRoomTotal());
 		
+		
+		List<Map<String, Object>> roomsList = adminGoodsService.roomsList(cri);
+		mav.addObject("roomsList", roomsList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 

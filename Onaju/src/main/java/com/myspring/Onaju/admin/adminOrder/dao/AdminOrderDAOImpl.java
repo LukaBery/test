@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminOrder.vo.AdminOrderVO;
 
 @Repository("adminOrderDAO")
@@ -16,9 +17,10 @@ public class AdminOrderDAOImpl implements AdminOrderDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<AdminOrderVO> selectAllOrderList() {
-		return sqlSession.selectList("mapper.admin.order.selectAllOrderList");
+	public List<Map<String, Object>> selectAllOrderList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.order.selectAllOrderList", cri);
 	}
+	
 	@Override
 	public AdminOrderVO selectOrderDetail(String order_code) {
 		return sqlSession.selectOne("mapper.admin.order.selectOrderDetail", order_code);
@@ -27,6 +29,11 @@ public class AdminOrderDAOImpl implements AdminOrderDAO {
 	@Override
 	public int selectOrderCancel(String order_code) {
 		return sqlSession.update("mapper.admin.order.selectOrderCancel", order_code);	
+	}
+	
+	@Override
+	public int selectOrderListTotal() {
+		return sqlSession.selectOne("mapper.admin.order.selectOrderListTotal");
 	}
 
 }

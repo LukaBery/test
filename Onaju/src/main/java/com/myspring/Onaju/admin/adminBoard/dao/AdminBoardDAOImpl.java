@@ -18,6 +18,7 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//==========================공지사항==========================
 	@Override
 	public List<Map<String,Object>> selectAllNoticeList(Criteria cri) {
 		return sqlSession.selectList("mapper.admin.board.selectAllNoticeList", cri);
@@ -39,6 +40,11 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 	}
 	
 	@Override
+	public int selectAllNoticeListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.board.selectAllNoticeTotal", searchMap);
+	}
+	
+	@Override
 	public int insertNotice(AdminNoticeVO noticeVO) {
 		return sqlSession.insert("mapper.admin.board.insertNotice", noticeVO);
 	}
@@ -49,13 +55,16 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 	}
 
 	@Override
-	public List<AdminNoticeVO> selectSearchNotice(AdminNoticeVO searchVO) {
-		return sqlSession.selectList("mapper.admin.board.selectSearchNotice", searchVO);
+	public List<Map<String, Object>> selectSearchNotice(Map<String, Object> searchMap) {
+		return sqlSession.selectList("mapper.admin.board.selectSearchNotice", searchMap);
 	}
+	
+	
 
+	//==========================1대1 게시판==========================
 	@Override
-	public List<Map<String, Object>> selectAllEnquireList(AdminEnquireVO equireVO) {
-		return sqlSession.selectList("mapper.admin.board.selectAllEnquireList", equireVO);
+	public List<Map<String, Object>> selectAllEnquireList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.board.selectAllEnquireList", cri);
 	}
 
 	@Override
@@ -65,10 +74,20 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 
 	@Override
 	public void updateHit(AdminEnquireVO enquireVO) {
-		sqlSession.update("mapper.admin.board.updateHit", enquireVO);
-		
+		sqlSession.update("mapper.admin.board.updateHit", enquireVO);	
+	}
+	
+	@Override
+	public int selectAllEnquireListTotal() {
+		return sqlSession.selectOne("mapper.admin.board.selectAllEnquireListTotal");
+	}
+	
+	@Override
+	public int selectAllEnquireListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.board.selectAllEnquireListTotal", searchMap);
 	}
 
+	//==========================1대1 게시판 댓글==========================
 	@Override
 	public int insertEnquireReply(AdminEnquireReplyVO replyVO) {
 		return sqlSession.insert("mapper.admin.board.insertEnquireReply", replyVO);
@@ -76,14 +95,17 @@ public class AdminBoardDAOImpl implements AdminBoardDAO {
 
 	@Override
 	public List<Map<String, Object>> selectEnquireReplyDetail(AdminEnquireReplyVO replyVO) {
-		return sqlSession.selectList("mapper.admin.board.selectEnquireReplyDetail", replyVO);
-		
+		return sqlSession.selectList("mapper.admin.board.selectEnquireReplyDetail", replyVO);	
 	}
 
 	@Override
 	public int updateReplyCheck(AdminEnquireReplyVO replyVO) {
 		return sqlSession.update("mapper.admin.board.updateReplyCheck", replyVO);
 	}
+
+	
+
+	
 
   
 }

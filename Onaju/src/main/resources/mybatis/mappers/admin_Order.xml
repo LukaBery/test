@@ -42,17 +42,61 @@
 		<result property="use_state" column="use_state"/>
 	</resultMap>
 	
-	<select id="selectAllOrderList" resultMap="orderResult">
-		select O.u_id, O.order_code, R.room_code, I.hostInfo_name, H.h_name, O.room_fee 
-		from u_order O 
-		inner join u_member M
-		on O.u_id = M.u_id 
-		inner join h_room R
-		on O.room_code = R.room_code
-		inner join h_host_Info I
-		on O.h_code = I.h_code
-		inner join h_host H
-		on I.h_id = H.h_id
+	<select id="selectAllOrderList" resultType="map" parameterType="map">
+		select 
+				M.u_name, 
+				O.u_id, 
+				O.order_code, 
+				R.room_code, 
+				I.hostInfo_name, 
+				H.h_name,
+				O.room_fee, 
+				O.pay_state, 
+				O.pay_type,
+				O.checkIn_date,
+				O.checkOut_date 
+		from 
+				u_order O 
+		inner join 
+				u_member M
+		on 
+				O.u_id = M.u_id 
+		inner join 
+				h_room R
+		on 
+				O.room_code = R.room_code
+		inner join 
+				h_host_Info I
+		on 
+				O.h_code = I.h_code
+		inner join 
+				h_host H
+		on 
+				I.h_id = H.h_id
+		where
+				O.order_code > 0
+		order by 
+				O.creDate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="selectOrderListTotal" resultType="java.lang.Integer">
+		SELECT count(*) total FROM u_order where u_id != ''
+    		
+    		<if test="cre_startDate !='' and cre_startDate != null">
+        		and creDate >= #{cre_startDate}
+        	</if>
+        	<if test="cre_endDate !='' and cre_endDate != null"> 
+        	<![CDATA[
+        		and creDate <= #{cre_endDate} 
+        	]]>
+        	</if>
+        	<if test="pay_state !='' and pay_state != null">
+        		and pay_state = #{pay_state} 
+        	</if>
+        	<if test="u_id !='' and u_id != null">
+        		and u_id = #{u_id}
+        	</if>
 	</select>
 	
 	<select id="selectOrderDetail" resultMap="orderResult" parameterType="String">
