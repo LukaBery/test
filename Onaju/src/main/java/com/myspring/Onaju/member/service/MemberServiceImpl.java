@@ -237,6 +237,29 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.insertUserProfile(imageFileList);
 	}
 	
-	
+	@Override
+	public S_memberVO naverLogin(S_memberVO naver) throws Exception{
+
+		String name=naver.getS_name();
+		String mail1=naver.getS_email1();
+		String mail2=naver.getS_email2();
+		
+		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+		userInfo.put("name", name);
+		userInfo.put("email1", mail1);
+		userInfo.put("email2", mail2);
+		S_memberVO smember = s_memberDAO.findnaver(userInfo);
+		
+		System.out.println("정보가 저장이 됬닝??젭알....:" + smember);
+		if(smember==null) {
+		
+			s_memberDAO.naverinsert(userInfo);
+			return s_memberDAO.findnaver(userInfo);
+			
+		} else {
+			return smember;
+		}
+		
+	}
 
 }

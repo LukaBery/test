@@ -2,6 +2,7 @@ package com.myspring.Onaju.member.controller;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +22,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.common.aes256.AES256Util;
 import com.myspring.Onaju.common.aes256.SHA256Util;
 import com.myspring.Onaju.common.base.BaseController;
-import com.myspring.Onaju.host.goods.vo.HostImageFileVO;
 import com.myspring.Onaju.member.service.MemberService;
 import com.myspring.Onaju.member.vo.MemberVO;
 import com.myspring.Onaju.s_member.S_memberVO;
@@ -374,7 +375,7 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 		return mav;
 
 	}
-
+	@Override
 	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
 	public ModelAndView kakaoLogin(@RequestParam(value = "code", required = false) String auth_code, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -392,9 +393,10 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 		System.out.println("###nickname#### : " + smember.getS_name());
 		System.out.println("###email#### : " + smember.getS_email1()+ smember.getS_email2());
 		
+	
 		HttpSession session = request.getSession();
-		
-		mav.addObject("isLogOn", "member");
+		session = request.getSession();
+		session.setAttribute("isLogOn", "member");
 		session.setAttribute("userInfo", smember);
 		session.setAttribute("kakaotoken", access_Token);
 		/*
@@ -420,12 +422,8 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 		return mav;
     	}
 
+
 	@Override
-	public ModelAndView kakaoLogin(String auth_code) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@RequestMapping(value = "/kakaoLogout")
 	public String kakaoLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -447,4 +445,45 @@ loginMap.replace("u_pw", aes.encrypt(u_pw));
 	}		
 	
 	
+	/*네이버 로그인*/
+	@Override
+	@RequestMapping(value="callBack", method=RequestMethod.GET)
+	public String callBack(){
+		return "member/callBack";
+	}
+	
+	@Override
+	@RequestMapping(value="naverSave", method=RequestMethod.POST)
+	public @ResponseBody String naverSave(@RequestParam("s_email1") String s_email1,@RequestParam("s_email2") String s_email2,
+			@RequestParam("s_name") String s_name,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		session = request.getSession();
+	ModelAndView mav = new ModelAndView();
+	
+	System.out.println(s_email1);
+	System.out.println(s_email2);
+	System.out.println(s_name);
+	System.out.println("#############################################");
+
+	S_memberVO naver = new S_memberVO();
+	naver.setS_email1(s_email1);
+	naver.setS_email2(s_email2);
+	naver.setS_name(s_name);
+    
+	S_memberVO smember= memberService.naverLogin(naver);
+	
+	session.setAttribute("isLogOn", "member");
+	session.setAttribute("userInfo", smember);
+	
+	// ajax에서 성공 결과에서 ok인지 no인지에 따라 다른 페이지에 갈 수 있게끔 result의 기본값을 "no"로 선언
+		String result = "no";
+	    
+		if(smember!=null) {
+			// naver가 비어있지 않는다는건 데이터를 잘 받아왔다는 뜻이므로 result를 "ok"로 설정
+			result = "ok";
+		}
+
+		return result;
+	    
+		}
 }

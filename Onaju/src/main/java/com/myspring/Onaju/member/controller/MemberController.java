@@ -32,7 +32,14 @@ public interface MemberController {
             HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView pwdChange(@RequestParam Map<String, String> loginMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-	public ModelAndView kakaoLogin(@RequestParam(value = "code", required = false) String auth_code) throws Exception;
+	public ModelAndView kakaoLogin(String auth_code, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String kakaoLogout(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public String callBack() throws Exception;
+	public String naverSave(String n_email1, String n_email2, String n_name, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
+	
+	
+	
 	
 }

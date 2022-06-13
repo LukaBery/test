@@ -21,7 +21,8 @@ public interface HostGoodsService {
 	public HostInfoVO hostInfoDetail(int room_code) throws Exception;
 	public void modifyHostInfo(Map hostInfoMap) throws Exception;
 	public void deleteHostInfo(int h_code) throws Exception;
-	public List<HostInfoVO> hostInfoFormlist(String _h_id) throws Exception;
+	public int hostInfoListTotal(HostInfoVO hostInfo) throws Exception;
+	public List<HostInfoVO> hostInfoFormlist(HostInfoVO hostInfoVO) throws Exception;
 	public Map hostInfoChange(int h_code) throws Exception;
 	public int  addNewGoods(Map newGoodsMap) throws Exception;
 	public void addNewGoodsImage(List imageFileList) throws Exception;
@@ -32,5 +33,7 @@ public interface HostGoodsService {
 	public void modiHostGoodsImage(List<HostImageFileVO> imageFileList) throws Exception;
 	public void addNewHostGoodsImage(List imageFileList) throws Exception;
 	public void removeHostGoodsImage(int roomImage_NO) throws Exception;
+	public void deleteHostGoodsAllImage(int room_code) throws Exception;
+	public void deleteHostGoods(int room_code) throws Exception;
 	
 }

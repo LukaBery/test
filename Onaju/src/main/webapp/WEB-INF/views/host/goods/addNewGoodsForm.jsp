@@ -450,6 +450,7 @@ ul{list-style:none;}
 										<th class="th-date">사업장 일련번호</th>
 										<td class="td-date-writer" colspan="">
 											<select class="roomSelect" id="h_code" name="h_code" onchange="hostFn()">
+												<option class="roomOption"  value="">선택</option>
 												<c:forEach var="list" items="${hostInfoFormList }"> 
 													<option class="roomOption"  value="${list.h_code}">${list.h_code}	
 													</option>
