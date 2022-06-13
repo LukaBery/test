@@ -209,6 +209,22 @@
 	margin-left: 10px;
 	cursor: pointer;
 }
+.mem-item2-chil-2-1{
+	width: 370px;
+	height: 50px;
+	display:flex; 
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #E6E6E6; 
+	border-bottom: none;
+}
+.mem-item2-chil-2-1 div input{
+	width: 92px;
+	height: 35px;
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	text-align: center;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -232,25 +248,32 @@ $(document).ready(function(){
 </head>
 <body>
 	<section class="memDetail_con">
+	<form name="hostModifyForm" action="${contextPath }/admin/updateHost.do" onsubmit="">
 		<div class="mem-item1"><div><h3>사업주 상세 정보 수정</h3></div></div>
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>아이디</div></div>
-				<div class="mem-item2-chil-2"><div>${hostVO.h_id }</div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" name="h_id" size="20" value="${hostVO.h_id }" disabled /></div></div>
 				<div class="mem-item2-chil-1"><div>원정생성일</div></div>
 				<div class="mem-item2-chil-2"><div>${hostVO.joinDate }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자명</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.h_name }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_name" value="${hostVO.h_name }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대표자생년월일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="date" size="20" value="" /></div></div>
+				<div class="mem-item2-chil-2-1">
+					<div>
+						<input name="h_birth_y" id="h_birth_y" type="text" size="20" maxlength="4" value="${hostVO.h_birth_y }" />년
+						<input name="h_birth_m" id="h_birth_m" type="text" size="20" maxlength="2" value="${hostVO.h_birth_m }" />월
+						<input name="h_birth_d" id="h_birth_d" type="text" size="20" maxlength="2" value="${hostVO.h_birth_d }" />일
+					</div>
+				</div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대표자 전화번호</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.h_phone }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_phone" value="${hostVO.h_phone }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대표자 이메일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.h_email1 }${hostVO.h_email2 }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_email1" value="${hostVO.h_email1 }" /><input type="text" size="20" name="h_email2" value="${hostVO.h_email2 }" /></div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-6"><div>주소</div></div>
@@ -268,16 +291,16 @@ $(document).ready(function(){
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>사업주 상태</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.del_yn }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="del_yn" value="${hostVO.del_yn }" /></div></div>
 				<div class="mem-item2-chil-1"><div>사업주 성별</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.h_gender }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_gender" value="${hostVO.h_gender }" /></div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>이벤트 수신 여부</div></div>
 				<div class="mem-item2-chil-5">
 					<div>										
-						이벤트1:<input type="checkbox" id="h_service_01" size="20" value="${hostVO.h_service_01 }" />								
-						이벤트2:<input type="checkbox" id="h_service_02" size="20" value="${hostVO.h_service_02 }" />							
+						이벤트1:<input type="checkbox" id="h_service_01" name="h_service_01" size="20" value="${hostVO.h_service_01 }" />								
+						이벤트2:<input type="checkbox" id="h_service_02" name="h_service_02" size="20" value="${hostVO.h_service_02 }" />							
 					</div>
 				</div>
 				<div class="mem-item2-chil-4"><div>승인 완료일</div></div>
@@ -288,21 +311,76 @@ $(document).ready(function(){
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>대리인명</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" value="${hostVO.deputy_name }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="deputy_name" value="${hostVO.deputy_name }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대리인 생년월일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="date" size="20" value="${hostVO.deputy_birth }" Placeholder="${hostVO.deputy_birth }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="date" size="20" name="deputy_birth" value="${hostVO.deputy_birth }" Placeholder="${hostVO.deputy_birth }" /></div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>대리인 전화번호</div></div>
-				<div class="mem-item2-chil-9"><div><input type="text" size="20" value="${hostVO.deputy_phone }" /></div></div>
+				<div class="mem-item2-chil-9"><div><input type="text" size="20" name="deputy_phone" value="${hostVO.deputy_phone }" /></div></div>
 				<div class="mem-item2-chil-4"><div>대리인 소속</div></div>
-				<div class="mem-item2-chil-9"><div><input type="text" size="20" value="${hostVO.deputy_department }" /></div></div>
+				<div class="mem-item2-chil-9"><div><input type="text" size="20" name="deputy_department" value="${hostVO.deputy_department }" /></div></div>
 			</div>
 		</div>
 		<div class="mem-item5">
-			<div><a class="a1" href="#">수정완료</a></div>
+			<div><input type="submit" class="a1" value="수정하기"/></div>
 			<div><a class="a2" href="${contextPath }/admin/hostDetail.do?h_id=${hostVO.h_id}">돌아가기</a></div>
-		</div>	
+		</div>
+	</form>	
 	</section>
+<script type="text/javascript">
+function execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zipcode').value = data.zonecode;
+            document.getElementById("roadAddress").value = roadAddr;
+            document.getElementById("numberAddress").value = data.jibunAddress;
+        }
+    }).open();
+}
+</script>
+<script type="text/javascript">
+function fn_updateHost(){
+	$("input[name=roadAddress]").attr("disabled", false);
+	$("input[name=numberAddress]").attr("disabled", false);
+	$("input[name=zipcode]").attr("disabled", false);
+	
+	$.ajax({
+		url:"${contextPath}/admin/updateHost.do",
+		type:"post",
+		data:JSON.stringify(hostVO),
+		dataType:"text",
+		success:function(data){
+			alert("회원정보 수정이 완료되었습니다.");
+			location.href="${contextPath}/admin/hostDetail.do?h_id=${h_id}";
+		},
+		error:function(HttpStatus){
+			alert("error :" + HttpStatus);
+		}
+	})
+}
+</script>
 </body>
 </html>

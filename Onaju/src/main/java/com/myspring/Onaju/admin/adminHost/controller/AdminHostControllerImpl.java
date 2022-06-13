@@ -92,6 +92,7 @@ public class AdminHostControllerImpl implements AdminHostController {
 	}
 	
 	
+	
 	@Override
 	@RequestMapping(value="/admin/hostInfoList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView hostInfoList(Criteria cri) {
@@ -131,7 +132,7 @@ public class AdminHostControllerImpl implements AdminHostController {
 	}
 	
 	@Override
-	@RequestMapping(value = "/admin/updateHost.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/admin/updateHost.do", method = RequestMethod.POST)
 	public ResponseEntity<String> updateHost(AdminHostVO hostVO) {
 		int update_host = adminHostService.updateHost(hostVO);
 		return update_host == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -140,7 +141,6 @@ public class AdminHostControllerImpl implements AdminHostController {
 	@Override
 	@RequestMapping(value = "/admin/deleteHost.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public void deleteHost(String h_id) {
-		System.out.println("aaa :"+ h_id);
 		adminHostService.deleteHost(h_id);
 	}
 
@@ -157,11 +157,7 @@ public class AdminHostControllerImpl implements AdminHostController {
 	
 			searchVO.setJoin_endDate(join_endDate);	
 		}
-		
-		
-		
-		
-		
+			
 		List<AdminHostVO> searchHostList =  adminHostService.searchHost(searchVO);
 		
 		ModelAndView mav = new ModelAndView();
