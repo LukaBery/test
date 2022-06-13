@@ -14,7 +14,7 @@ import com.myspring.Onaju.member.vo.MemberVO;
 
 public interface AdminMemberController {
 	public ModelAndView listMembers(Criteria cri) throws Exception;
-	public ModelAndView memberDetail(String u_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView memberDetail(String u_id, Criteria cri) throws Exception;
 	public ModelAndView memberModifyForm(String u_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView memberUpdate(@ModelAttribute MemberVO vo) throws Exception;
 	public ModelAndView searchMember(@RequestParam Map<String, Object> searchMap, Criteria cri) throws Exception;

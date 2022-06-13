@@ -248,7 +248,7 @@ $(document).ready(function(){
 </head>
 <body>
 	<section class="memDetail_con">
-	<form name="hostModifyForm" action="${contextPath }/admin/updateHost.do" onsubmit="">
+	<form name="hostModifyForm" id="hostModifyForm" onsubmit="fn_updateHost()">
 		<div class="mem-item1"><div><h3>사업주 상세 정보 수정</h3></div></div>
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
@@ -280,7 +280,7 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-7">
 					<div class="mem-item2-chil-3">
 						<div>
-							<input type="text" id="zipcode" name="zipcode" disabled />
+							<input type="text" id="zipcode" name="zipcode" value="${hostVO.zipcode }" disabled />
 							<input type="button" class="zipcode_search" value="우편번호검색" onclick="execDaumPostcode()">
 						</div>
 					</div>
@@ -313,7 +313,7 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>대리인명</div></div>
 				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="deputy_name" value="${hostVO.deputy_name }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대리인 생년월일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="date" size="20" name="deputy_birth" value="${hostVO.deputy_birth }" Placeholder="${hostVO.deputy_birth }" /></div></div>
+				<div class="mem-item2-chil-2"><div><input type="date" size="20" name="deputy_birth" value="${hostVO.deputy_birth }" /></div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>대리인 전화번호</div></div>
@@ -366,21 +366,25 @@ function fn_updateHost(){
 	$("input[name=roadAddress]").attr("disabled", false);
 	$("input[name=numberAddress]").attr("disabled", false);
 	$("input[name=zipcode]").attr("disabled", false);
+	$("input[name=h_id]").attr("disabled", false);
 	
 	$.ajax({
-		url:"${contextPath}/admin/updateHost.do",
+		url:"${contextPath}/admin/updateHost.do${pageMaker.makeQueryPage(page)}",
 		type:"post",
-		data:JSON.stringify(hostVO),
-		dataType:"text",
+		data:$('#hostModifyForm').serialize(),
 		success:function(data){
+			if(data.success == "success"){
+				alert(data.success);
 			alert("회원정보 수정이 완료되었습니다.");
-			location.href="${contextPath}/admin/hostDetail.do?h_id=${h_id}";
+			location.href="${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(page)}&h_id=${hostVO.h_id}";
+			}	
 		},
 		error:function(HttpStatus){
 			alert("error :" + HttpStatus);
 		}
 	})
 }
+
 </script>
 </body>
 </html>

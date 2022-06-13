@@ -2,6 +2,7 @@ package com.myspring.Onaju.admin.adminHost.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,14 +62,18 @@ public class AdminHostControllerImpl implements AdminHostController {
 	
 	@Override
 	@RequestMapping(value="/admin/hostDetail.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostDetail(String h_id)
+	public ModelAndView hostDetail(@RequestParam("h_id")String h_id, @ModelAttribute Criteria cri)
 			throws Exception {
 
 		adminHostVO = adminHostService.hostDetail(h_id);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hostVO", adminHostVO);
-		mav.addObject("hostInfoVO", hostInfoVO);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		mav.addObject("page", cri.getPage());
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 	
@@ -80,13 +87,18 @@ public class AdminHostControllerImpl implements AdminHostController {
 
 	@Override
 	@RequestMapping(value="/admin/hostModify.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostModifyForm(String h_id)
+	public ModelAndView hostModifyForm(String h_id, @ModelAttribute Criteria cri)
 			throws Exception {
 		
+		ModelAndView mav = new ModelAndView();
 		adminHostVO = adminHostService.hostDetail(h_id);
 				
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("hostVO",adminHostVO);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		mav.addObject("page", cri.getPage());
+		mav.addObject("pageMaker", pageMaker);
 
 		return mav;
 	}
@@ -132,10 +144,19 @@ public class AdminHostControllerImpl implements AdminHostController {
 	}
 	
 	@Override
-	@RequestMapping(value = "/admin/updateHost.do", method = RequestMethod.POST)
-	public ResponseEntity<String> updateHost(AdminHostVO hostVO) {
+	@RequestMapping(value = "/admin/updateHost.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity<Map<String, Object>> updateHost(AdminHostVO hostVO, Criteria cri) {
 		int update_host = adminHostService.updateHost(hostVO);
-		return update_host == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		Map<String, Object> criMap = new HashMap<String, Object>();
+		
+		
+		
+		criMap.put("success", "success");
+		criMap.put("page", cri.getPage());
+		criMap.put("perPageNum", cri.getPerPageNum());
+		
+		return update_host == 1 ? new ResponseEntity<Map<String, Object>>(criMap, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@Override
