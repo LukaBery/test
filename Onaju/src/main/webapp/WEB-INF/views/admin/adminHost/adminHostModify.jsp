@@ -46,6 +46,14 @@
 	border: 1px solid #E6E6E6; 
 	border-bottom: none;
 }
+.mem-item2-chil-2-email{
+	width: 370px;
+	height: 50px;
+	display:flex; 
+	align-items: center;
+	border: 1px solid #E6E6E6; 
+	border-bottom: none;
+}
 .mem-item2-chil-3{
 	width: 940px;
 	height: 50px;
@@ -105,6 +113,9 @@
 	font-size: 14px;
 }
 .mem-item2-chil-2 div{
+	margin-left: 20px;
+}
+.mem-item2-chil-2-email div{
 	margin-left: 20px;
 }
 .mem-item2-chil-3 div{
@@ -225,30 +236,41 @@
 	border-radius: 5px;
 	text-align: center;
 }
+.mem-item2-chil-2-email div input{
+	width: 151px;
+	height: 35px;
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	text-align: center;
+}
+#h_email2{
+	width: 151px;
+	height: 35px;
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	text-align: center;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#u_gender option").each(function(){
-		if($(this).val()=="${memberVO.u_gender}"){
+	$("#h_gender option").each(function(){
+		if($(this).val()=="${hostVO.h_gender}"){
 	    	$(this).attr("selected","selected"); // attr적용안될경우 prop
 	    }	    
 	});
-	$("#h_service_01").each(function(){
-		if($(this).val()== "Y" || $(this).val()== "y"){
-			$(this).prop("checked","checked"); // attr적용안될경우 prop
-		}	    
-	});
-	$("#h_service_02").each(function(){
-		if($(this).val()== "Y" || $(this).val()== "y"){
-		    $(this).attr("checked","checked"); // attr적용안될경우 prop
-		}	    
+	$("#h_email2 option").each(function(){
+		if($(this).val()=="${hostVO.h_email2}"){
+	    	$(this).attr("selected","selected"); // attr적용안될경우 prop
+	    }	    
 	});
 });
+
+
 </script>
 </head>
 <body>
 	<section class="memDetail_con">
-	<form name="hostModifyForm" id="hostModifyForm" onsubmit="fn_updateHost()">
+	<form name="adminHostVO" id="adminHostVO" >
 		<div class="mem-item1"><div><h3>사업주 상세 정보 수정</h3></div></div>
 		<div class="mem-item2">
 			<div class="mem-item2-chil">
@@ -273,7 +295,13 @@ $(document).ready(function(){
 				<div class="mem-item2-chil-1"><div>대표자 전화번호</div></div>
 				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_phone" value="${hostVO.h_phone }" /></div></div>
 				<div class="mem-item2-chil-1"><div>대표자 이메일</div></div>
-				<div class="mem-item2-chil-2"><div><input type="text" size="20" name="h_email1" value="${hostVO.h_email1 }" /><input type="text" size="20" name="h_email2" value="${hostVO.h_email2 }" /></div></div>
+				<div class="mem-item2-chil-2-email"><div><input type="text" size="20" name="h_email1" value="${hostVO.h_email1 }" />&nbsp;@
+				<select name="h_email2" id="h_email2">
+					<option value="naver.com">네이버</option>
+					<option value="daum.net">다음</option>
+					<option value="gmail.com">구글</option>
+				</select>
+				</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-6"><div>주소</div></div>
@@ -323,8 +351,8 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<div class="mem-item5">
-			<div><input type="submit" class="a1" value="수정하기"/></div>
-			<div><a class="a2" href="${contextPath }/admin/hostDetail.do?h_id=${hostVO.h_id}">돌아가기</a></div>
+			<div><input id="updateHost" type="submit" class="a1" value="수정하기"/></div>
+			<div><a class="a2" href="${contextPath }/admin/hostDetail.do${pageMaker.makeQueryPage(page)}&h_id=${hostVO.h_id}">돌아가기</a></div>
 		</div>
 	</form>	
 	</section>
@@ -362,28 +390,31 @@ function execDaumPostcode() {
 }
 </script>
 <script type="text/javascript">
-function fn_updateHost(){
-	$("input[name=roadAddress]").attr("disabled", false);
-	$("input[name=numberAddress]").attr("disabled", false);
-	$("input[name=zipcode]").attr("disabled", false);
-	$("input[name=h_id]").attr("disabled", false);
-	
-	$.ajax({
-		url:"${contextPath}/admin/updateHost.do${pageMaker.makeQueryPage(page)}",
-		type:"post",
-		data:$('#hostModifyForm').serialize(),
-		success:function(data){
-			if(data.success == "success"){
-				alert(data.success);
-			alert("회원정보 수정이 완료되었습니다.");
-			location.href="${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(page)}&h_id=${hostVO.h_id}";
-			}	
-		},
-		error:function(HttpStatus){
-			alert("error :" + HttpStatus);
-		}
-	})
-}
+$(document).ready(function(){
+	$("#updateHost").click(function(){
+		$("input[name=roadAddress]").attr("disabled", false);
+		$("input[name=numberAddress]").attr("disabled", false);
+		$("input[name=zipcode]").attr("disabled", false);
+		$("input[name=h_id]").attr("disabled", false);
+		$.ajax({
+			url:"${contextPath}/admin/updateHost.do${pageMaker.makeQueryPage(page)}",
+			type:"post",
+			data:$('#adminHostVO').serialize(),
+			success:function(data){
+				if(data.success == "success"){
+				alert("회원정보 수정이 완료되었습니다.");
+				location.href="${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(page)}&h_id=${hostVO.h_id}";
+				}	
+			},
+			error:function(HttpStatus){
+				alert("회원정보 수정 실패 :" + HttpStatus);
+			}
+		})	
+	});
+});
+
+
+
 
 </script>
 </body>

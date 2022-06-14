@@ -19,8 +19,8 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<Map<String, Object>> selectAllHostList(Criteria cri) {
-		return sqlSession.selectList("mapper.admin.host.selectAllHostList", cri);	
+	public List<Map<String, Object>> selectAllHostList(Map<String, Object> condMap) {
+		return sqlSession.selectList("mapper.admin.host.selectAllHostList", condMap);	
 	}
 
 	@Override
@@ -59,7 +59,13 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public List<AdminHostVO> selectSearchHost(AdminHostVO searchVO) {
-		return sqlSession.selectList("mapper.admin.host.selectSearchHost", searchVO);
+	public List<Map<String, Object>> selectSearchHost(Map<String, Object> searchMap) {
+		 List<Map<String, Object>> searchhost = sqlSession.selectList("mapper.admin.host.selectSearchHost", searchMap);
+		 return searchhost;
+	}
+
+	@Override
+	public int selectAllHostListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal", searchMap);
 	}
 }

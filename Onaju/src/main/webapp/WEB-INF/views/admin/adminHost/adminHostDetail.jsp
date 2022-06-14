@@ -160,7 +160,7 @@
 				<div class="mem-item2-chil-1"><div>대표자 전화번호</div></div>
 				<div class="mem-item2-chil-2"><div>${hostVO.h_phone }</div></div>
 				<div class="mem-item2-chil-1"><div>대표자 이메일</div></div>
-				<div class="mem-item2-chil-2"><div>${hostVO.h_email1 }${hostVO.h_email2 }</div></div>
+				<div class="mem-item2-chil-2"><div>${hostVO.h_email1 }&nbsp;@&nbsp;${hostVO.h_email2 }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>거주지 주소</div></div>

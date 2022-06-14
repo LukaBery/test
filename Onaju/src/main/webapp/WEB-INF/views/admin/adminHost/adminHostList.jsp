@@ -171,13 +171,13 @@
 <article>
 
 <div>
-	<form name="searchVO" action="${contextPath }/admin/hostSearch.do" method="get">
+	<form name="searchMap">
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>가입일자</div></div>
 			<div class="host-row-col2">
 			<div>
-			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="startDate" name="join_startDate" autocomplete=off>&emsp;
-			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
+			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="join_startDate" name="join_startDate" autocomplete=off>&emsp;
+			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="join_endDate" name="join_endDate" autocomplete=off>&emsp; 
 			
 			<button type="button" id="settingDate1" value="yesterday">어제</button>
 			<button type="button" id="settingDate2" value="today">오늘</button>
@@ -187,18 +187,18 @@
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>상태</div></div>
-			<div class="host-row-col3"><div><select name="del_yn"><option value="">상태</option><option value="N">가입완료</option><option value="Y">회원탈퇴</option></select></div></div>
+			<div class="host-row-col3"><div><select id="del_yn" name="del_yn"><option value="">상태</option><option value="N">가입완료</option><option value="Y">회원탈퇴</option></select></div></div>
 			<div class="host-row-col1"><div>사업자등록번호</div></div>
-			<div class="host-row-col3"><div><input type="text" name="h_sellerNum"></div></div>
+			<div class="host-row-col3"><div><input type="text" id="h_sellerNum" name="h_sellerNum"></div></div>
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>아이디</div></div>
-			<div class="host-row-col4"><div><input type="text" name="h_id"></div></div>
+			<div class="host-row-col4"><div><input type="text" id="h_id" name="h_id"></div></div>
 			<div class="host-row-col1"><div>대표자명</div></div>
-			<div class="host-row-col4"><div><input type="text" name="h_name"></div></div>
+			<div class="host-row-col4"><div><input type="text" id="h_name" name="h_name"></div></div>
 		</div>
 		<div class="memberList-row2">
-			<div><button type="submit">조회</button></div>
+			<div><button type="button" onclick="search_host()">조회</button></div>
 		</div>
 	</form>
 	<div align="right">
@@ -232,7 +232,7 @@
   			</tr>
   		</thead>
 		<c:choose>
-  			<c:when test="${empty hostList}" >
+  			<c:when test="${empty seachHostList}" >
   				<tbody>
     				<tr  height="10">
     					<td colspan="9">
@@ -243,8 +243,8 @@
     				</tr>
     			</tbody>
   			</c:when>
-  			<c:when test="${!empty hostList}" >
-    			<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
+  			<c:when test="${!empty seachHostList}" >
+    			<c:forEach  var="host" items="${seachHostList }" varStatus="hostNum" >
     				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(pageMaker.cri.page)}&h_id=${host.h_id }'" >
 						<td>${hostNum.count}</td>
 						<td>${host.joinDate }</td>
@@ -265,6 +265,19 @@
 
 <section>
 	<div>
+		<c:forEach var="page" begin="1" end="10" step="1">
+			<c:if test="${section > 1 && page == 1 }">
+				<a href="${contextPath }/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section-1}&pageNum=${(section-1)*10-9}">앞</a>
+			</c:if>
+			<a href="${contextPath}/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section}&pageNum=${page}">${(section-1)*10 +page }</a>
+			<c:if test="${page ==10 }">
+				<a href="${contextPath}/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section+1}&pageNum=${section*10+1}"></a>
+			</c:if>
+		</c:forEach>
+	</div>
+
+
+<%-- 	<div>
 		<div style="display: flex; justify-content: center;">
 	<c:if test="${pageMaker.prev }">
 		<div>
@@ -273,7 +286,7 @@
 	</c:if>
 	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
-			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/hostList.do?page=${pageNum}">${pageNum }</a>
+			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageNum)}?&h_sellerNum=${searchMap.h_sellerNum}">${pageNum }</a>
 		</div>
 	</c:forEach>
 	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
@@ -282,7 +295,7 @@
 		</div>
 	</c:if>
 	</div>
-	</div>
+	</div> --%>
 </section>
 
 <script>
@@ -389,6 +402,57 @@ $("#settingDate1").click(function(){
 		}
 	});
 });
+</script>
+<script type="text/javascript">
+function search_host(){
+	var searchMap = document.searchMap;
+
+	join_startDate = searchMap.join_startDate.value;
+	join_endDate = searchMap.join_endDate.value;
+	del_yn = searchMap.del_yn.value;
+	h_id = searchMap.h_id.value;
+	h_sellerNum = searchMap.h_sellerNum.value;
+	h_name = searchMap.h_name.value;
+
+	var formObj = document.createElement("form");
+	var h_command = document.createElement("input");
+	var h_join_startDate = document.createElement("input");
+	var h_join_endDate = document.createElement("input");
+	var h_del_yn = document.createElement("input");
+	var h_h_id = document.createElement("input");
+	var h_h_sellerNum = document.createElement("input");
+	var h_h_name = document.createElement("input");
+
+	h_command.name = "command";
+	h_join_startDate.name = "join_startDate";
+	h_join_endDate.name = "join_endDate";
+	h_del_yn.name = "del_yn";
+	h_h_id.name = "h_id";
+	h_h_sellerNum.name = "h_sellerNum";
+	h_h_name.name = "h_name";
+
+	h_command.value = "search_host";
+	h_join_startDate.value = join_startDate;
+	h_join_endDate.value = join_endDate;
+	h_del_yn.value = del_yn;
+	h_h_id.value = h_id;
+	h_h_sellerNum.value = h_sellerNum;
+	h_h_name.value = h_name;
+
+	formObj.appendChild(h_command);
+	formObj.appendChild(h_join_startDate);
+	formObj.appendChild(h_join_endDate);
+	formObj.appendChild(h_del_yn);
+	formObj.appendChild(h_h_id);
+	formObj.appendChild(h_h_sellerNum);
+	formObj.appendChild(h_h_name);
+	document.body.appendChild(formObj);
+
+	formObj.method = "get";
+	formObj.action = "${contextPath}/admin/hostList.do";
+	formObj.submit();
+	
+}
 </script>
 </body>
 </html>

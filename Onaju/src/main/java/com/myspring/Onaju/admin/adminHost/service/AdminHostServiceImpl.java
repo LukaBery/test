@@ -18,8 +18,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	private AdminHostDAO adminHostDAO;
 	
 	@Override
-	public List<Map<String, Object>> listAllHost(Criteria cri) {
-		return adminHostDAO.selectAllHostList(cri);	 
+	public List<Map<String, Object>> listAllHost(Map<String, Object> condMap) {
+		return adminHostDAO.selectAllHostList(condMap);	 
 	}
 	
 	@Override
@@ -58,7 +58,12 @@ public class AdminHostServiceImpl implements AdminHostService {
 	}
 
 	@Override
-	public List<AdminHostVO> searchHost(AdminHostVO searchVO) {
-		return adminHostDAO.selectSearchHost(searchVO);
+	public List<Map<String, Object>> searchHost(Map<String, Object> searchMap) {
+		return adminHostDAO.selectSearchHost(searchMap);
+	}
+
+	@Override
+	public int hostListTotal(Map<String, Object> searchMap) {
+		return adminHostDAO.selectAllHostListTotal(searchMap);
 	}
 }
