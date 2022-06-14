@@ -17,12 +17,13 @@
 		
 		<result property="h_code" column="h_code" />
 		<result property="hostInfo_name" column="hostInfo_name" />
-		<result property="roadAddress" column="roadAddress" />
-		<result property="host_type" column="host_type" />
-		
-		<result property="room_code" column="room_code" />
-		<result property="room_type" column="room_type" />
-		<result property="room_number" column="room_number" />
+	<result property="roadAddress" column="roadAddress" />
+	<result property="host_type" column="host_type" />
+	<result property="hit" column="hit" />
+
+	<result property="room_code" column="room_code" />
+	<result property="room_type" column="room_type" />
+	<result property="room_number" column="room_number" />
 		<result property="room_fee" column="room_fee" />
 		<result property="able_checkIn" column="able_checkIn" />
 		<result property="able_checkOut" column="able_checkOut" />
@@ -50,7 +51,7 @@
 <!-- 게시판 목록 불러오기 -->
 	<select id="hostAllCommunityList" resultType="hostCommunityVO"  parameterType="String"  >
 	    <![CDATA[
-				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code, C.bigTitle, C.creDate
+				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code, C.bigTitle, C.creDate, C.hit
 				from h_community C inner join h_room R
 				on C.room_code = R.room_code
                 inner join h_host_info I
@@ -124,7 +125,7 @@
 <!-- 게시판 수정글 불러오기 -->
 	<select id="modCommunity" resultType="hostCommunityVO"   parameterType="String"  >
      <![CDATA[
-			    select C.cmnNum,C.bigTitle,C.smallTitle,C.cmn_image,C.content,C.h_id,R.room_code,R.room_type,R.room_number,R.room_fee,
+			    select C.cmnNum,C.bigTitle,C.smallTitle,C.cmn_image,C.content,C.h_id,R.room_code,R.room_type,R.room_number,R.room_fee, C.hit,
 				R.able_checkIn,R.able_checkOut,R.min_number,R.max_number,I.h_code,I.hostInfo_name,I.roadAddress,I.host_type,
 				H.h_imageName
 				from h_community C 
@@ -193,7 +194,7 @@
 	
 	<select id="comunityList_best" resultType="hostCommunityVO"  parameterType="java.util.HashMap"  >
 	    <![CDATA[
-				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code,C.cmn_image, C.bigTitle, C.creDate, T.h_name, T.h_imageName
+				select C.cmnNum, I.hostInfo_name, R.room_number, R.room_code,C.cmn_image, C.bigTitle, C.creDate, T.h_name, T.h_imageName, C.hit
 				from h_community C inner join h_room R
 				on C.room_code = R.room_code
                 inner join h_host_info I
@@ -209,5 +210,18 @@
 				
 	
 	</select>
+		<update id="updateHit" parameterType="int">
+	update h_community
+	<set>
+	hit = hit+1
+	where cmnNum = #{cmnNum}
+	
+	</set>
+	
+	
+	
+	
+	
+	</update>
    
 </mapper>

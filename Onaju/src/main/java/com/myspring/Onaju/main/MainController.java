@@ -42,6 +42,7 @@ public class MainController extends BaseController {
 		
 		mav.addObject("comunityList_best", comunityList_best);
 		mav.addObject("comunityList_newest", comunityList_newest);
+		
 	
 		mav.setViewName(viewName);
 
@@ -62,7 +63,8 @@ public class MainController extends BaseController {
 		Map goodsMap = hostCommunityService.selectCommunityView(room_code);
 		mav.addObject("goodsMap", goodsMap);
 
-		
+		hostCommunityService.updateHit(cmnNum);
+
 		return mav;
 	}
 

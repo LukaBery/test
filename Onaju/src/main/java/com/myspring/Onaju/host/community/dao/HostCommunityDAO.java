@@ -17,7 +17,8 @@ public interface HostCommunityDAO {
 	public void deleteHostCommunity(int cmnNum) throws DataAccessException;
 	public void updateHostCommunity(HostCommunityVO hostCommunityVO)throws Exception;
 	
-	
+	public void updateHit(int cmnNum) throws DataAccessException;
+
 	public void addLike(Map likeMap) throws DataAccessException;
 	public void delLike(Map likeMap) throws DataAccessException;
 	public String get_likeId(Map likeMap) throws DataAccessException;

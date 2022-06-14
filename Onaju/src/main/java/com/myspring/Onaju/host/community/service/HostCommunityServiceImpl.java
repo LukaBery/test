@@ -88,5 +88,10 @@ public class HostCommunityServiceImpl implements HostCommunityService{
 		
 		return hostCommunityDAO.comunityList_best(searchMap);
 	}
+
+	@Override
+	public void updateHit(int cmnNum) throws Exception{
+		hostCommunityDAO.updateHit(cmnNum);
+	}
 	
 }

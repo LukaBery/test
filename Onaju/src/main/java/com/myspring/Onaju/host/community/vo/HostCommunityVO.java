@@ -33,6 +33,8 @@ public class HostCommunityVO {
 	
 	private int roomImage_NO;
 	private String room_imageName;
+	private String hit;
+
 	
 	public HostCommunityVO() {
 		System.out.println("HostCommunityVO생성자 메서드 호출");
@@ -48,6 +50,14 @@ public class HostCommunityVO {
 
 	public String getBigTitle() {
 		return bigTitle;
+	}
+
+	public String getHit() {
+		return hit;
+	}
+
+	public void setHit(String hit) {
+		this.hit = hit;
 	}
 
 	public void setBigTitle(String bigTitle) {

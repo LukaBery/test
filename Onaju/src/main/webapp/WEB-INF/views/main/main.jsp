@@ -480,6 +480,21 @@ background-color:  white;
 text-shadow : 1px 1px 3px white;
 
 }
+.hitStyle{
+ color: white;
+    right: 5%;
+    top: 85%;
+    font-weight:550;
+    font-size:14px;
+    position: absolute;
+    text-shadow : 1px 1px 3px black;
+}
+.hit_image{
+padding:6px 0px 0px 0px;
+width:18px; 
+height:18px;
+
+}
 </style>
 
 </head>
@@ -577,7 +592,8 @@ text-shadow : 1px 1px 3px white;
 				<div class="hb_rec_4">
 					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do?cmnNum=${item.cmnNum }&room_code=${item.room_code }"><img
 						src="${contextPath}/host/community/download2.do?room_code=${item.room_code}&fileName=${item.cmn_image}"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
+						style="width: 100%; height: 100%; border-radius: 20px;"><i class="hitStyle">
+						<img class="hit_image"src="${contextPath}/resources/image/icons/hit_icon.png"/> ${item.hit}</i></a>
 				</div>
 				<!-- 	<텍스트 상자> -->
 				<div class="hb_textbox_1">
@@ -612,7 +628,8 @@ text-shadow : 1px 1px 3px white;
 				<div class="hb_rec_4">
 					<a id="hb_a_main" href="${contextPath}/board/boardArticle.do?cmnNum=${item.cmnNum }&room_code=${item.room_code }"><img
 						src="${contextPath}/host/community/download2.do?room_code=${item.room_code}&fileName=${item.cmn_image}"
-						style="width: 100%; height: 100%; border-radius: 20px;"></a>
+						style="width: 100%; height: 100%; border-radius: 20px;"><i class="hitStyle">
+						<img class="hit_image"src="${contextPath}/resources/image/icons/hit_icon.png"/> ${item.hit}</i></a>
 				</div>
 				<!-- 	<텍스트 상자> -->
 				<div class="hb_textbox_1">

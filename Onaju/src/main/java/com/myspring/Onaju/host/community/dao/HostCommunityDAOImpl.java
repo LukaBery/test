@@ -93,6 +93,10 @@ public class HostCommunityDAOImpl implements HostCommunityDAO {
 		System.out.println("hostAllCommunityList#########"+hostAllCommunityList);
 		return hostAllCommunityList;
 	}
+	@Override
+	public void updateHit(int cmnNum) throws DataAccessException{
+		sqlSession.update("mapper.hostCommunity.updateHit",cmnNum);
+	}
 	
 	
 }
