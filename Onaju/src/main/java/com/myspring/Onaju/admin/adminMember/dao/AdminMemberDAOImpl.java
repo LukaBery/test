@@ -1,12 +1,14 @@
 package com.myspring.Onaju.admin.adminMember.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.member.vo.MemberVO;
 
 @Repository("adminMemberDAO")
@@ -15,15 +17,19 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	private SqlSession sqlSession;	
 		
 	@Override
-	public List<MemberVO> selectAllMemberList(MemberVO vo) throws DataAccessException {
-		return sqlSession.selectList("mapper.admin.member.selectAllMemberList", vo);	
+	public List<Map<String, Object>> selectAllMemberList(Criteria cri) throws DataAccessException {
+		return sqlSession.selectList("mapper.admin.member.selectAllMemberList", cri);	
 	}
 
 	@Override
-	public int selectAllMemberListTotal(MemberVO vo) throws DataAccessException {
-		return (Integer)sqlSession.selectOne("mapper.admin.member.selectAllMemberTotal", vo);
+	public int selectAllMemberListTotal() {
+		return (Integer)sqlSession.selectOne("mapper.admin.member.selectAllMemberTotal");
 	}
-
+	@Override
+	public int selectAllMemberListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.member.selectAllMemberTotal", searchMap);
+	}
+	
 	@Override
 	public MemberVO selectMemberDetail(String u_id) throws DataAccessException {
 		return sqlSession.selectOne("mapper.admin.member.selectMemberDetail", u_id);
@@ -35,8 +41,10 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	}
 
 	@Override
-	public List<MemberVO> selectSearchMember(MemberVO searchVO) {
-		return sqlSession.selectList("mapper.admin.member.selectSearchMember", searchVO);
+	public List<Map<String, Object>> selectSearchMember(Map<String, Object> searchMap) {
+		return sqlSession.selectList("mapper.admin.member.selectSearchMember", searchMap);
 	}
+
+	
 	
 }

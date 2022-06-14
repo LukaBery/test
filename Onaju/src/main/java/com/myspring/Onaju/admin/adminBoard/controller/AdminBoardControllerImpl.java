@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,8 +52,6 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 	private AdminBoardService adminBoardService;
 	@Autowired
 	private AdminVO adminVO;
-	@Autowired
-	private AdminEnquireVO enquireVO;
 	
 	@Resource(name="adminUploadPath")
 	String adminUploadPath;
@@ -187,48 +186,48 @@ public class AdminBoardControllerImpl implements AdminBoardController {
 
 	@Override
 	@RequestMapping(value = "/admin/searchNotice.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView adminSearchNoticeList(AdminNoticeVO searchVO) throws Exception {
+	public ModelAndView adminSearchNoticeList(@RequestParam Map<String, Object> searchMap, Criteria cri) throws Exception {
 	
     
-		if(searchVO.getWrite_endDate() != null && searchVO.getWrite_endDate() != "") {
-			String endDate = searchVO.getWrite_endDate();
+		if(searchMap.get("write_endDate") != null && searchMap.get("write_endDate") != "") {
+			String endDate = (String)searchMap.get("write_endDate");
 		
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = format.parse(endDate);
 			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
 			String write_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
 	
-			searchVO.setWrite_endDate(write_endDate);
+			searchMap.put("write_endDate",write_endDate);
 		}
 		
-	
-		/* int total = adminBoardService.noticeListTotal(searchVO); */
-		/* int totalPage = (int) Math.ceil((double)total/10); */
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminBoardService.noticeListTotal(searchMap));
 		
-		int viewPage = searchVO.getViewPage();
-		int startNO = (viewPage - 1) * 10 + 1;
-		int endNO = startNO + (10 - 1);
+		searchMap.put("pageStart",cri.getPageStart());
+		searchMap.put("perPageNum", cri.getPerPageNum());
 		
-		searchVO.setStartNO(startNO);
-		searchVO.setEndNO(endNO);
-		
-		List<AdminNoticeVO> searchNoticeList =  adminBoardService.searchNotice(searchVO);
+		List<Map<String, Object>> searchNoticeList =  adminBoardService.searchNotice(searchMap);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/noticeList");
 		mav.addObject("noticeList", searchNoticeList);
-		/*
-		 * mav.addObject("total", total); mav.addObject("totalPage", totalPage);
-		 */
+		mav.addObject("pageMaker", pageMaker);
 		return mav; 
 	}
 
 	@Override
 	@RequestMapping(value = "/admin/enquireBoard.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView enquireBoardList(AdminEnquireVO enquireVO) throws Exception {
+	public ModelAndView enquireBoardList(Criteria cri) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		List<Map<String, Object>> enquireList = adminBoardService.enquireBoardList(enquireVO);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminBoardService.enquireListTotal());
+		
+		List<Map<String, Object>> enquireList = adminBoardService.enquireBoardList(cri);
 		mav.addObject("enquireList", enquireList);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
 

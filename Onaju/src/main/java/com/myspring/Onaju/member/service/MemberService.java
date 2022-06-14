@@ -19,5 +19,6 @@ public interface MemberService {
 	public S_memberVO getUserInfo(String access_Token) throws Exception;
 	public void kakaoLogout(String access_Token) throws Exception;
 	public void addNewUserProfile(Map newGoodsMap) throws Exception;
+	public S_memberVO naverLogin(S_memberVO s_memberVO) throws Exception;
 
 }

@@ -217,51 +217,11 @@
 			</div>
 		</div>
 		
-<%-- 		<c:choose>
-		<c:when test="${!empty hostInfoVO}" >
-		<c:forEach  var="hostInfoVO" items="${hostInfoVO }" >
-		<div class="mem-item1"><div><h3 style="color: #ff3333;">${hostInfoVO.hostInfo_name }</h3></div><div><h3>사업장 정보</h3></div></div>
-		<div class="mem-item2">
-			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-1"><div>가맹점명</div></div>
-				<div class="mem-item2-chil-2"><div>${hostInfoVO.hostInfo_name }</div></div>
-				<div class="mem-item2-chil-1"><div>원정생성일</div></div>
-				<div class="mem-item2-chil-2"><div>${hostInfoVO.creDate }</div></div>
-			</div>
-			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-1"><div>사업자등록번호</div></div>
-				<div class="mem-item2-chil-2"><div>${hostInfoVO.h_sellerNum }</div></div>
-				<div class="mem-item2-chil-1"><div>사업자계좌번호</div></div>
-				<div class="mem-item2-chil-2"><div>${hostInfoVO.h_accountNum }</div></div>
-			</div>
-			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-1"><div>가맹점 영업 타입</div></div>
-				<div class="mem-item2-chil-2"><div>${hostInfoVO.host_type }</div></div>
-				<div class="mem-item2-chil-1"><div>가맹점 전화번호</div></div>
-				<div class="mem-item2-chil-2"><div>${hostVO.h_phone }</div></div>
-			</div>
-			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-1"><div>가맹점 주소</div></div>
-				<div class="mem-item2-chil-3"><div>${hostInfoVO.zipcode }</div><div>${hostInfoVO.roadAddress }${hostInfoVO.numberAddress }${hostInfoVO.restAddress }</div></div>
-			</div>
-			<div class="mem-item2-chil">
-				<div class="mem-item2-chil-4"><div>객실 개수</div></div>
-				<div class="mem-item2-chil-5"><div>${hostInfoVO.room_count }</div></div>
-				<div class="mem-item2-chil-4"><div>승인 여부</div></div>
-				<div class="mem-item2-chil-5"><div>${hostInfoVO.del_yn }</div></div>
-			</div>		
-		</div>
-		</c:forEach>
-		</c:when>
-		<c:otherwise>
-		
-		</c:otherwise>
-		</c:choose> --%>
 		<div class="mem-item5">
-			<div><a class="a1" href="${contextPath }/admin/hostModify.do?h_id=${hostVO.h_id}">수정하기</a></div>
+			<div><a class="a1" href="${contextPath }/admin/hostModify.do${pageMaker.makeQueryPage(page)}&h_id=${hostVO.h_id}">수정하기</a></div>
 			<div><button type="button" id="deleteHost">탈퇴하기</button></div>
 			<input type="hidden" id="h_id" value="${hostVO.h_id }">
-			<div><a class="a2" href="${contextPath }/admin/hostList.do?">돌아가기</a></div>
+			<div><a class="a2" href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(page)}">돌아가기</a></div>
 		</div>	
 	</section>
 <script type="text/javascript">

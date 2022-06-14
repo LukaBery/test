@@ -57,67 +57,76 @@
 		<result property="del_yn" column="del_yn"/>
 		
 	</resultMap>
-	<select id="selectAllRoomList" resultMap="roomResult"   parameterType="adminHostRoomVO"  >
+	<select id="selectAllRoomList" resultType="map"   parameterType="map"  >
 		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, 
-        H.h_id, 
-        H.h_name, 
-        H.h_phone, 
-        H.h_email1,
-        H.h_email2, 
-        H.deputy_name,
-        H.deputy_phone,
-        H.deputy_birth,
-        H.deputy_department,
-        I.hostInfo_name,
-        I.h_code,
-        R.room_code,
-        I.h_sellerNum,
-        I.h_accountNum,
-        I.zipcode,
-        I.roadAddress,
-        I.numberAddress,
-        I.restAddress,
-        I.host_type,
-        R.room_type,
-        R.room_number,
-        R.room_fee,
-        R.able_checkIn,
-        R.able_checkOut,
-        R.title, 
-        R.content,
-        R.room_status,
-        R.min_number,
-        R.max_number,
-        R.bed_type,
-        R.bed_count,
-        R.bath_count,
-        R.party_check,
-        R.kitchen,
-        R.wifi,
-        R.parking,
-        R.tv,
-        R.refrigerator,
-        R.hairdryer,
-        R.washer,
-        R.pet,
-        R.pickup,
-        R.dryer,
-        R.elevator,
-        R.barbecue,
-        R.pool,
-        R.aircon,
-        R.heater,
-        R.smoking,
-        R.creDate,
-        R.del_yn
-        from h_host H
-        inner join h_host_info I
-        on H.h_id = I.h_id
-        inner join h_room R
-        on I.h_code = R.h_code , (select @rownum := 0)  as rowcolumn order by creDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
+		 
+        select  
+        		H.h_id, 
+        		H.h_name, 
+        		H.h_phone, 
+       	    	H.h_email1,
+        		H.h_email2, 
+        		H.deputy_name,
+        		H.deputy_phone,
+        		H.deputy_birth,
+        		H.deputy_department,
+        		I.hostInfo_name,
+        		I.h_code,
+        		R.room_code,
+        		I.h_sellerNum,
+        		I.h_accountNum,
+        		I.zipcode,
+        		I.roadAddress,
+        		I.numberAddress,
+        		I.restAddress,
+        		I.host_type,
+        		R.room_type,
+        		R.room_number,
+        		R.room_fee,
+        		R.able_checkIn,
+        		R.able_checkOut,
+        		R.title, 
+        		R.content,
+        		R.room_status,
+        		R.min_number,
+        		R.max_number,
+        		R.bed_type,
+        		R.bed_count,
+        		R.bath_count,
+        		R.party_check,
+        		R.kitchen,
+        		R.wifi,
+        		R.parking,
+        		R.tv,
+        		R.refrigerator,
+        		R.hairdryer,
+        		R.washer,
+        		R.pet,
+        		R.pickup,
+        		R.dryer,
+        		R.elevator,
+        		R.barbecue,
+       			R.pool,
+        		R.aircon,
+        		R.heater,
+        		R.smoking,
+        		R.creDate,
+        		R.del_yn
+        from 
+        		h_host H
+        inner join 
+        		h_host_info I
+        on 
+        		H.h_id = I.h_id
+        inner join 
+        		h_room R
+        on 
+        		I.h_code = R.h_code
+        where
+        		R.room_code > 0
+        order by 
+        		R.room_code desc 
+		limit #{pageStart}, #{perPageNum}
 		 ]]>			        
 	</select>
 	

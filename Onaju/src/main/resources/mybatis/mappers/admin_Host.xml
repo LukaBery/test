@@ -62,12 +62,13 @@
       	<result property="deputy_birth" column="deputy_birth" />
 	</resultMap>
 	
-	<select id="selectAllHostList" resultMap="hostResult"   parameterType="adminHostVO"  >
+	<select id="selectAllHostList" resultType="hashmap"   parameterType="hashmap"  >
 		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, h_id, h_name, joinDate, h_phone, del_yn, roadAddress, h_email1, h_email2, h_sellerNum 
-        from h_host, (select @rownum := 0)  as rowcolumn order by joinDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
+		 select *
+		 from h_host
+		 where h_id != ''
+		 order by joinDate desc
+		 limit #{pageStart}, #{perPageNum}
 		 ]]>						        
 	</select>
 	
@@ -93,28 +94,97 @@
 		 select * from h_host where h_id = #{h_id}					        
 	</select>
 	
+	<update id="selectUpdateHost" parameterType="adminHostVO">
+		update h_host
+		<set>
+			<if test="h_name != '' and h_name != null">
+				h_name = #{h_name},
+			</if>
+			<if test="h_birth_y != '' and h_birth_y != null">
+				h_birth_y = #{h_birth_y},
+			</if>
+			<if test="h_birth_m != '' and h_birth_m != null">
+				h_birth_m = #{h_birth_m},
+			</if>
+			<if test="h_birth_d != '' and h_birth_d != null">
+				h_birth_d = #{h_birth_d},
+			</if>
+			<if test="h_gender != '' and h_gender != null">
+				h_gender = #{h_gender},
+			</if>
+			<if test="h_phone != '' and h_phone != null">
+				h_phone = #{h_phone},
+			</if>
+			<if test="h_email1 != '' and h_email1 != null">
+				h_email1 = #{h_email1},
+			</if>
+			<if test="h_email2 != '' and h_email2 != null">
+				h_email2 = #{h_email2},
+			</if>
+			<if test="zipcode != '' and zipcode != null">
+				zipcode = #{zipcode},
+			</if>
+			<if test="roadAddress != '' and roadAddress != null">
+				roadAddress = #{roadAddress},
+			</if>
+			<if test="numberAddress != '' and numberAddress != null">
+				numberAddress = #{numberAddress},
+			</if>
+			<if test="restAddress != '' and restAddress != null">
+				restAddress = #{restAddress},
+			</if>
+			<if test="h_service_01 != '' and h_service_01 != null">
+				h_service_01 = #{h_service_01},
+			</if>
+			<if test="h_service_02 != '' and h_service_02 != null">
+				h_service_02 = #{h_service_02},
+			</if>
+			<if test="deputy_name != '' and deputy_name != null">
+				deputy_name = #{deputy_name},
+			</if>
+			<if test="h_sellerNum != '' and h_sellerNum != null">
+				h_sellerNum = #{h_sellerNum},
+			</if>
+			<if test="deputy_birth != '' and deputy_birth != null">
+				deputy_birth = #{deputy_birth},
+			</if>
+			<if test="deputy_phone != '' and deputy_phone != null">
+				deputy_phone = #{deputy_phone},
+			</if>
+			<if test="deputy_department != '' and deputy_department != null">
+				deputy_department = #{deputy_department},
+			</if>
+		</set>
+		where h_id = #{h_id}
+	</update>
+	
 	<select id="selectHostInfoDetailList" resultMap="hostInfoResult"   parameterType="String"  >
 		 select * from h_host_info where h_id = #{h_id}					        
 	</select>
 	
-	<select id="selectAllHostInfoList" resultMap="hostInfoResult"   parameterType="adminHostInfoVO"  >
+	<select id="selectAllHostInfoList" resultType="hashmap"   parameterType="hashmap"  >
 		 <![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, 
-        		I.h_id, 
-        		H.h_name, 
-        		I.hostInfo_name, 
-        		I.creDate, 
-        		I.h_sellerNum, 
-        		I.host_type, 
-        		I.del_yn, 
-        		I.roadAddress, 
-        		I.h_code
-        from h_host_Info I 
-        inner join h_host H 
-        on I.h_id = H.h_id , 
-        (select @rownum := 0)  as rowcolumn order by I.creDate desc) z 
-		where rn >= #{startNO} and rn <= #{endNO};
+		 select 
+		 		H.h_id, 
+		 		H.h_name, 
+		 		I.hostInfo_name, 
+		 		I.creDate, 
+		 		I.h_sellerNum, 
+		 		I.host_type, 
+		 		I.del_yn, 
+		 		I.roadAddress, 
+		 		I.h_code
+		 from 
+		 		h_host_Info I
+		 inner 
+		 		join h_host H
+		 on 
+		 		I.h_id = H.h_id
+		 where 
+		 		H.h_id != ''
+		 order by 
+		 		I.h_code desc
+		 limit #{pageStart}, #{perPageNum}
 		 ]]>						        
 	</select>
 	<select id="selectHostInfoDetail" resultMap="hostInfoResult"   parameterType="String"  >

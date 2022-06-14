@@ -341,7 +341,7 @@
 		</div>
 		<div class="mem-item5">
 			<div><a class="a1" href="${contextPath }/admin/memberModify.do?u_id=${memberVO.u_id}">수정하기</a></div>
-			<div><a class="a2" href="${contextPath }/admin/memberList.do">돌아가기</a></div></div>	
+			<div><a class="a2" href="${contextPath }/admin/memberList.do${pageMaker.makeQueryPage(page)}">돌아가기</a></div></div>	
 	</section>
 </body>
 </html>

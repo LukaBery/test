@@ -453,7 +453,7 @@
 					</div><!-- join_form E  -->
 					<div>
 					<div class="btn_wrap"  style="margin-right:0px;"> 
-						<a href="${contextPath}/host/h_loginForm.do">로그인</a>
+						<a href="${contextPath}/member/loginForm.do">로그인</a>
 					</div>
 					<div class="btn_wrap"  style="margin-left:0px; margin-top:3px;"> 
 						<a href="${contextPath}/host/main.do" style="border:1px solid #7f9b75; background-color:white; color:#7f9b75;">호스트 메인</a>

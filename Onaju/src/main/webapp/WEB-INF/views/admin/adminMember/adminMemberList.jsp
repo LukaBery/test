@@ -13,7 +13,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
 .memberList-row{
@@ -170,7 +169,7 @@
 			</article>
 		</div>
 	</section>
-	<form name="searchMap" action="${contextPath }/admin/searchMember.do" method="post">
+	<form action="${contextPath }/admin/searchMember.do" method="get">
 		<div>
 			<div class="memberList-row">
 				<div class="memberList-row-col1"><div>가입일자</div></div>
@@ -265,9 +264,23 @@
 		</table>
 	</section>
 	<div>
-		<c:forEach var="i" begin="1" end="${totalPage }">
-			<a href="${contextPath }/admin/memberList.do?viewPage=${i}">${i }</a>
-		</c:forEach>
+		<div style="display: flex; justify-content: center;">
+			<c:if test="${pageMaker.prev }">
+				<div>
+					<a href="${contextPath }/admin/memberList.do${pageMaker.makeQueryPage(pageMaker.startPage-1)}">앞으로</a>
+				</div>
+			</c:if>
+			<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
+					<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/memberList.do${pageMaker.makequeryPage(pageNum)}">${pageNum }</a>
+				</div>
+			</c:forEach>
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+				<div>
+					<a href="${contextPath }/admin/memberList.do${pageMaker.makeQueryPage(pageMaker.endPage+1)}">뒤로</a>
+				</div>
+			</c:if>
+		</div>
 	</div>
 </body>
 <script>

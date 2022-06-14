@@ -1,13 +1,13 @@
 package com.myspring.Onaju.admin.adminGoods.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminGoods.vo.AdminHostRoomVO;
 
 public interface AdminGoodsDAO {
-	public List<AdminHostRoomVO> selectAllRoomList(AdminHostRoomVO roomVO);
-	public int selectAllRoomTotal(AdminHostRoomVO roomVO) throws DataAccessException;
+	public List<Map<String, Object>> selectAllRoomList(Criteria cri);
+	public int selectAllRoomTotal();
 	public AdminHostRoomVO selectOneRoomDetail(String room_code);
 }

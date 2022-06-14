@@ -13,7 +13,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/host/h_joinResult.jsp" />
 	</definition>
 	
-	<definition name="/host/h_loginForm" extends="hostLayout">
+	<definition name="/host/h_loginForm" extends="baseLayout">
 		<put-attribute name="title" value="호스트 로그인 페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/host/h_loginForm.jsp" />
 	</definition> 

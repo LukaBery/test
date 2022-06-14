@@ -310,8 +310,21 @@ color:black;
 										<li><hr class="dropdown-divider" /></li>
 										<li><a class="dropdown-item"
 											href="${contextPath}/host/h_joinForm.do">호스트가입</a></li>
-									<li><a class="dropdown-item"
-											 href="https://kauth.kakao.com/oauth/logout?client_id=2520c8e17541628f34b1475ac21d1840&logout_redirect_uri=http://localhost:8080/Onaju/member/kakaoLogout">로그아웃</a></li>
+									<c:choose>
+											<c:when test="${userInfo.s_type == 'k'}">
+												<li><a class="dropdown-item"
+													 href="https://kauth.kakao.com/oauth/logout?client_id=2520c8e17541628f34b1475ac21d1840&logout_redirect_uri=http://localhost:8080/Onaju/member/kakaoLogout">로그아웃
+													</a>
+												</li>
+											</c:when>
+											<c:when test="${userInfo.s_type == 'n'}">
+												<li>
+													<a class="dropdown-item" onclick="Logout()"
+													 href="${contextPath}/member/naverLogout">로그아웃
+													</a> 
+												</li>
+											</c:when>
+										</c:choose>
 										<li><a class="dropdown-item"
 											href="${contextPath}/customerService/noticeBoard.do">고객센터</a></li>
 										

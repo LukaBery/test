@@ -148,8 +148,14 @@
 	border-bottom: 1px solid #dddddd;
 	font-size: 13px;
 }
+.styled-table tbody tr:hover{
+	background-color: #99CCFF;
+}
 .styled-table tbody tr:nth-of-type(even){
 	background-color: #f3f3f3;
+}
+.styled-table tbody tr:nth-of-type(even):hover{
+	background-color: #99CCFF;
 }
 .styled-table tbody tr:nth-of-type{
 	border-bottom: 2px solid #009879;
@@ -267,10 +273,24 @@
     </table>
 </section>
 <div>
-		<c:forEach var="i" begin="1" end="${totalPage }">
-			<a href="${contextPath }/admin/noticeList.do?viewPage=${i}">${i }</a>
-		</c:forEach>
+	<div style="display: flex; justify-content: center;">
+	<c:if test="${pageMaker.prev }">
+		<div>
+			<a href="${contextPath }/admin/noticeList.do?page=${pageMaker.startPage - 1}">앞으로</a>
+		</div>
+	</c:if>
+	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
+			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/noticeList.do?page=${pageNum}">${pageNum }</a>
+		</div>
+	</c:forEach>
+	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+		<div>
+			<a href="${contextPath }/admin/noticeList.do?page=${pageMaker.endPage + 1}">뒤로</a>
+		</div>
+	</c:if>
 	</div>
+</div>
 
 <div class="noticeBoard-row-2">
 	<div><a class="a1" href="${contextPath}/admin/noticeForm.do">글쓰기</a></div>

@@ -1,11 +1,12 @@
 package com.myspring.Onaju.admin.adminHost.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminHost.dao.AdminHostDAO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
@@ -17,8 +18,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	private AdminHostDAO adminHostDAO;
 	
 	@Override
-	public List<AdminHostVO> listAllHost(AdminHostVO vo) throws DataAccessException {
-		return adminHostDAO.selectAllHostList(vo);	 
+	public List<Map<String, Object>> listAllHost(Criteria cri) {
+		return adminHostDAO.selectAllHostList(cri);	 
 	}
 	
 	@Override
@@ -27,13 +28,13 @@ public class AdminHostServiceImpl implements AdminHostService {
 	}
 
 	@Override
-	public int hostListTotal(AdminHostVO vo) throws Exception {
-		return adminHostDAO.selectAllHostListTotal(vo);
+	public int hostListTotal() {
+		return adminHostDAO.selectAllHostListTotal();
 	}
 		
 	@Override
-	public List<AdminHostInfoVO> listAllHostInfo(AdminHostInfoVO vo) throws DataAccessException {
-		return  adminHostDAO.selectAllHostInfoList(vo);	 
+	public List<Map<String, Object>> listAllHostInfo(Criteria cri) {
+		return  adminHostDAO.selectAllHostInfoList(cri);	 
 	}
 	
 	@Override
@@ -42,8 +43,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	}
 	
 	@Override
-	public int hostInfoListTotal(AdminHostInfoVO vo) throws Exception {
-		return adminHostDAO.selectAllHostInfoListTotal(vo);
+	public int hostInfoListTotal() {
+		return adminHostDAO.selectAllHostInfoListTotal();
 	}
 	
 	@Override

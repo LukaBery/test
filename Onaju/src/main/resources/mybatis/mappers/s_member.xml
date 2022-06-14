@@ -25,5 +25,14 @@
 			<![CDATA[	insert into s_member(s_name, s_email1,s_email2,s_type) values(#{nickname}, #{email1}, #{email2}, 'k')
 			]]> 
 		</insert>
-		
+		<!--네이버 정보 찾기 -->
+		<select id="findNaver" parameterType="java.util.HashMap" resultType="s_memberVO">
+			<![CDATA[	select * from s_member where s_email1=#{email1} and s_email2=#{email2} and s_type= 'n'
+			]]> 
+		</select>
+			<!--네이버 정보 저장 -->
+		<insert id="naverInsert" parameterType="java.util.HashMap">
+			<![CDATA[	insert into s_member(s_name, s_email1,s_email2,s_type) values(#{name}, #{email1}, #{email2}, 'n')
+			]]> 
+		</insert>
 </mapper>

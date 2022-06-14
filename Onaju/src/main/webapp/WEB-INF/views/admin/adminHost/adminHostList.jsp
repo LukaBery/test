@@ -177,12 +177,12 @@
 			<div class="host-row-col2">
 			<div>
 			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="startDate" name="join_startDate" autocomplete=off>&emsp;
-				<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
+			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off>&emsp; 
 			
-				<button type="button" id="settingDate1" value="yesterday">어제</button>
-				<button type="button" id="settingDate2" value="today">오늘</button>
-				<button type="button" id="settingDate3" value="month">1개월</button>
-				<button type="button" id="settingDate4" value="reset">사용안함</button>
+			<button type="button" id="settingDate1" value="yesterday">어제</button>
+			<button type="button" id="settingDate2" value="today">오늘</button>
+			<button type="button" id="settingDate3" value="month">1개월</button>
+			<button type="button" id="settingDate4" value="reset">사용안함</button>
 			</div></div>
 		</div>
 		<div class="host-search-1">
@@ -245,7 +245,7 @@
   			</c:when>
   			<c:when test="${!empty hostList}" >
     			<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
-    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do?h_id=${host.h_id}'" >
+    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(pageMaker.cri.page)}&h_id=${host.h_id }'" >
 						<td>${hostNum.count}</td>
 						<td>${host.joinDate }</td>
 						<td>${host.h_id}</td>
@@ -265,9 +265,23 @@
 
 <section>
 	<div>
-		<c:forEach var="i" begin="1" end="${totalPage }">
-			<a href="${contextPath }/admin/hostList.do?viewPage=${i}">${i }</a>
-		</c:forEach>
+		<div style="display: flex; justify-content: center;">
+	<c:if test="${pageMaker.prev }">
+		<div>
+			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.startPage-1)}">앞으로</a>
+		</div>
+	</c:if>
+	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
+			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/hostList.do?page=${pageNum}">${pageNum }</a>
+		</div>
+	</c:forEach>
+	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+		<div>
+			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.endPage+1)}">뒤로</a>
+		</div>
+	</c:if>
+	</div>
 	</div>
 </section>
 

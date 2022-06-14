@@ -27,7 +27,7 @@
 	<select id="selectAllNoticeList" resultType="hashmap"   parameterType="hashmap"  >
 		select *
 		from a_noticeboard
-		where del_yn = 'N'
+		where notice_code > 0
 		order by writeDate desc
 		limit #{pageStart}, #{perPageNum}
 	</select>
@@ -96,12 +96,11 @@
 		
 	</select>
 	
-	<select id="selectSearchNotice" resultMap="noticeResult" parameterType="map">
+	<select id="selectSearchNotice" resultType="map" parameterType="map">
 		<![CDATA[
-		 select * from 
-        (select @rownum := @rownum + 1 as rn, a_id, notice_title, writeDate, post_chennel, notice_startDate, notice_endDate, notice_type, notice_code, post_check 
-        from a_noticeboard, (select @rownum := 0)  as rowcolumn order by writeDate desc) s
-		where rn >= #{startNO} and rn <= #{endNO}
+		 select *
+		from a_noticeboard
+		where notice_code > 0
         ]]>      
         <if test="write_startDate !='' and write_startDate != null">
         and writeDate >= #{write_startDate}
@@ -117,9 +116,11 @@
         <if test="notice_title != '' and notice_title != null">
         and notice_title like concat('%',#{notice_title},'%')
         </if>
+        order by writeDate desc
+		limit #{pageStart}, #{perPageNum}
 	</select>
 	
-	<select id="selectAllEnquireList" resultType="hashmap" parameterType="adminEnquireVO">
+	<select id="selectAllEnquireList" resultType="map" parameterType="map">
 		select 
 			enquire_NO,
 			title,
@@ -132,8 +133,31 @@
 			a_enquireboard
 		where
 			del_yn = 'N'
-			order by enquire_NO desc
+		order by 
+			enquire_NO desc
+		limit #{pageStart}, #{perPageNum}
 	</select>
+	<select id="selectAllEnquireListTotal" resultType="java.lang.Integer">
+		
+		SELECT count(*) FROM a_enquireboard where enquire_NO > 0
+		
+		<if test="write_startDate !='' and write_startDate != null">
+        and creDate >= #{write_startDate}
+        </if>
+        <if test="write_endDate !='' and write_endDate != null"> 
+        <![CDATA[
+        and creDate <= #{write_endDate} 
+        ]]>
+        </if>
+        <if test="del_yn !='' and del_yn != null">
+        and del_yn = #{del_yn} 
+        </if>
+        <if test="title !='' and title != null">
+        and title = #{title}
+        </if>
+	</select>
+
+	
 	<select id="selectEnquireDetail" resultType="hashmap" parameterType="adminEnquireVO">
 		select
 			enquire_NO,
