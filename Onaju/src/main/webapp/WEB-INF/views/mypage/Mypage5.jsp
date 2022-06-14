@@ -459,7 +459,27 @@ function  calcPeriod(search_period){
 		<div id = "reviewForm_0_${i }" style="width:50%;height:100%; display:inline-block; ">
 								
 								<div 
-								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">별점  ★★★☆☆</div>
+								style="background-color:none;height:30%;color:rgb(250,100,145,0.7);width:80%;float:left;font-size: 14px;text-align:left;">
+								<div id="myform">
+								<tr>
+                        <td id="detail_title">별점</td>
+                        <td id="detail_title2">
+                           <fieldset>
+                              <input class="reviewStar" type="radio" name="review_star" value="5" id="rate1${i}"<c:if test="${item.review_star ==5}">checked</c:if>/>
+                              <label for="rate1${i}">★</label>
+                              <input class="reviewStar" type="radio" name="review_star" value="4" id="rate2${i}"<c:if test="${item.review_star == 4}">checked</c:if>/>
+                              <label for="rate2${i}">★</label>
+                              <input class="reviewStar" type="radio" name="review_star" value="3" id="rate3${i}"<c:if test="${item.review_star == 3}">checked</c:if>/>
+                              <label for="rate3${i}">★</label>
+                              <input class="reviewStar" type="radio" name="review_star" value="2" id="rate4${i}" <c:if test="${item.review_star == 2}">checked</c:if>/>
+                              <label for="rate4${i}">★</label>
+                              <input class="reviewStar" type="radio" name="review_star" value="1" id="rate5${i}" <c:if test="${item.review_star == 1 || item.review_star == null}">checked</c:if>/>
+                              <label for="rate5${i}">★</label>
+                           </fieldset>
+                        </td>
+                     </tr>
+								</div>
+								</div>
 								<TEXTAREA name="review_content" 
 								placeholder="리뷰 내용을 입력하세요"style=" height:70%;width:80%;float:left;font-size: 12px; border:1px solid #CCCCCC;">${item.review_content }</TEXTAREA>
 										        <input type="hidden" name="review_num" value="${item.review_num }">
