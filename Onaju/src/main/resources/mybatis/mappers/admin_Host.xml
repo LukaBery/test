@@ -62,60 +62,65 @@
       	<result property="deputy_birth" column="deputy_birth" />
 	</resultMap>
 	
-	<select id="selectAllHostList" resultType="map"   parameterType="map"  >
-		select * from (
-		select @ROWNUM := @ROWNUM + 1 as recNum, b.* from (select (@ROWNUM := 0)) a,
-		(select * from h_host where h_agree_1 = 'Y' 
-        	<if test="join_startDate !='' and join_startDate != null">
-        		and joinDate >= #{join_startDate}
-        	</if>
-        	<if test="join_endDate !='' and join_endDate != null"> 
-        	<![CDATA[
-        		and joinDate <= #{join_endDate} 
-        	]]>
-        	</if>
-        	<if test="del_yn !='' and del_yn != null">
-        		and del_yn = #{del_yn} 
-        	</if>
-        	<if test="h_id !='' and h_id != null">
-        		and h_id like concat('%',#{h_id},'%') 
-        	</if>
-        	<if test="h_name !='' and h_name != null">
-        		and h_name like concat('%',#{h_name},'%') 
-        	</if>
-        	<if test="h_sellerNum != '' and h_sellerNum != null">
-        		and h_sellerNum like concat('%',#{h_sellerNum},'%') 
-        	</if>
-        order by joinDate desc
-		)b
-		)c
-		where recNum between (#{section}-1)*100+(#{pageNum}-1)*10+1 and
-		(#{section}-1)*100+(#{pageNum})*10        
+	<select id="selectAllHostList" resultType="hashmap"   parameterType="hashmap"  >
+		 <![CDATA[
+		 select * 
+		 from (
+		 select (@ROWNUM := @ROWNUM + 1) rn, c.* 
+		 from (
+		 select * 
+		 from h_host 
+		 where h_agree_1 = 'Y'
+		 ]]>
+		 <if test="h_id2 != '' and h_id2 != null">
+		 and h_id like concat('%',#{h_id2},'%')
+		 </if>
+		 <if test="join_startDate != '' and join_startDate != null">
+		 and joinDate >= #{join_startDate}
+		 </if>
+		 <if test="join_endDate != '' and join_endDate != null">
+		  <![CDATA[
+		 and joinDate <= #{join_endDate}
+		 ]]>
+		 </if>
+		 <if test="h_name != '' and h_name != null">
+		 and h_name like concat('%',#{h_name},'%')
+		 </if>
+		 <if test="h_del_yn != '' and h_del_yn != null">
+		 and del_yn = #{h_del_yn}
+		 </if>
+		 <if test="h_sellerNum != '' and h_sellerNum != null">
+		 and h_sellerNum like concat('%',#{h_sellerNum},'%') 
+		 </if>
+		 <![CDATA[
+		 order by joinDate desc
+		 )c,(select @ROWNUM := 0)s)b  
+		 where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
+		 ]]>						        
 	</select>
 	
 	<select id="selectAllHostTotal" resultType="java.lang.Integer">
         SELECT count(*) FROM h_host where h_agree_1 = 'Y'
-            <if test="join_startDate !='' and join_startDate != null">
-        		and joinDate >= #{join_startDate}
-        	</if>
-        	<if test="join_endDate !='' and join_endDate != null"> 
-        	<![CDATA[
-        		and joinDate <= #{join_endDate} 
-        	]]>
-        	</if>
-        	<if test="del_yn !='' and del_yn != null">
-        		and del_yn = #{del_yn} 
-        	</if>
-        	<if test="h_id !='' and h_id != null">
-        		and h_id like concat('%',#{h_id},'%') 
-        	</if>
-        	<if test="h_name !='' and h_name != null">
-        		and h_name like concat('%',#{h_name},'%') 
-        	</if>
-        	<if test="h_sellerNum != '' and h_sellerNum != null">
-        		and h_sellerNum like concat('%',#{h_sellerNum},'%') 
-        	</if>
-        
+        <if test="h_id2 != '' and h_id2 != null">
+		 and h_id like concat('%',#{h_id2},'%')
+		 </if>
+		 <if test="join_startDate != '' and join_startDate != null">
+		 and joinDate >= #{join_startDate}
+		 </if>
+		 <if test="join_endDate != '' and join_endDate != null">
+		  <![CDATA[
+		 and joinDate <= #{join_endDate}
+		 ]]>
+		 </if>
+		 <if test="h_name != '' and h_name != null">
+		 and h_name like concat('%',#{h_name},'%')
+		 </if>
+		 <if test="h_del_yn != '' and h_del_yn != null">
+		 and del_yn = #{h_del_yn}
+		 </if>
+		 <if test="h_sellerNum != '' and h_sellerNum != null">
+		 and h_sellerNum like concat ('%',#{h_sellerNum},'%')
+		 </if>
 	</select>
 	
 	<select id="selectHostDetail" resultMap="hostResult"   parameterType="String"  >
@@ -190,31 +195,82 @@
 		 select * from h_host_info where h_id = #{h_id}					        
 	</select>
 	
+	
+	
+	
+	
+	
 	<select id="selectAllHostInfoList" resultType="hashmap"   parameterType="hashmap"  >
 		 <![CDATA[
-		 select 
-		 		H.h_id, 
-		 		H.h_name, 
-		 		I.hostInfo_name, 
-		 		I.creDate, 
-		 		I.h_sellerNum, 
-		 		I.host_type, 
-		 		I.del_yn, 
-		 		I.roadAddress, 
-		 		I.h_code
-		 from 
-		 		h_host_Info I
-		 inner 
-		 		join h_host H
-		 on 
-		 		I.h_id = H.h_id
-		 where 
-		 		H.h_id != ''
-		 order by 
-		 		I.h_code desc
-		 limit #{pageStart}, #{perPageNum}
-		 ]]>						        
+		 select * 
+		 from (
+		 select (@ROWNUM := @ROWNUM + 1) rn, c.*
+		 from (
+		 select H.h_id, H.h_name, I.hostInfo_name, I.creDate, I.h_sellerNum, I.host_type, I.del_yn, I.roadAddress, I.h_code  
+		 from h_host_Info I
+		 inner join h_host H
+         on I.h_id = H.h_id
+		 where I.h_code > 0
+		 ]]>
+		 <if test="h_id2 != '' and h_id2 != null">
+		 and H.h_id like concat('%',#{h_id2},'%')
+		 </if>
+		 <if test="join_startDate != '' and join_startDate != null">
+		 and I.creDate >= #{join_startDate}
+		 </if>
+		 <if test="join_endDate != '' and join_endDate != null">
+		  <![CDATA[
+		 and I.creDate <= #{join_endDate}
+		 ]]>
+		 </if>
+		 <if test="h_name != '' and h_name != null">
+		 and H.h_name like concat('%',#{h_name},'%')
+		 </if>
+		 <if test="h_del_yn != '' and h_del_yn != null">
+		 and I.del_yn = #{h_del_yn}
+		 </if>
+		 <if test="h_sellerNum != '' and h_sellerNum != null">
+		 and I.h_sellerNum like concat('%',#{h_sellerNum},'%') 
+		 </if>
+		 <![CDATA[
+		 order by creDate desc
+		 )c,(select @ROWNUM := 0)s)b  
+		 where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
+		 ]]>							        
 	</select>
+	
+	
+	<select id="selectAllHostInfoTotal" resultType="java.lang.Integer">
+        SELECT count(*) 
+        from h_host_Info I
+		inner join h_host H
+        on I.h_id = H.h_id where I.h_code > 0
+        <if test="h_id2 != '' and h_id2 != null">
+		 and h_id like concat('%',#{h_id2},'%')
+		 </if>
+		 <if test="join_startDate != '' and join_startDate != null">
+		 and creDate >= #{join_startDate}
+		 </if>
+		 <if test="join_endDate != '' and join_endDate != null">
+		  <![CDATA[
+		 and creDate <= #{join_endDate}
+		 ]]>
+		 </if>
+		 <if test="h_name != '' and h_name != null">
+		 and h_name like concat('%',#{h_name},'%')
+		 </if>
+		 <if test="h_del_yn != '' and h_del_yn != null">
+		 and del_yn = #{h_del_yn}
+		 </if>
+		 <if test="h_sellerNum != '' and h_sellerNum != null">
+		 and h_sellerNum like concat ('%',#{h_sellerNum},'%')
+		 </if>
+	</select>
+	
+	
+	
+	
+	
 	<select id="selectHostInfoDetail" resultMap="hostInfoResult"   parameterType="String"  >
 		 select I.h_code, 
 		 		I.h_id, 

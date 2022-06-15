@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.Criteria;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
 
@@ -19,13 +19,13 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<Map<String, Object>> selectAllHostList(Map<String, Object> condMap) {
-		return sqlSession.selectList("mapper.admin.host.selectAllHostList", condMap);	
+	public List<Map<String, Object>> selectAllHostList(Criteria cri) {
+		return sqlSession.selectList("mapper.admin.host.selectAllHostList", cri);	
 	}
 
 	@Override
-	public int selectAllHostListTotal() {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
+	public int selectAllHostListTotal(Criteria cri) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal",cri);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public int selectAllHostInfoListTotal() {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
+	public int selectAllHostInfoListTotal(Criteria cri) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostInfoTotal", cri);
 	}
 
 	@Override

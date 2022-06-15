@@ -11,6 +11,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
 .host-search-1{
@@ -171,13 +173,13 @@
 <article>
 
 <div>
-	<form name="searchMap">
+	<form id="searchVO" action="${contextPath }/admin/hostList.do" method="get">
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>가입일자</div></div>
 			<div class="host-row-col2">
 			<div>
-			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="join_startDate" name="join_startDate" autocomplete=off>&emsp;
-			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="join_endDate" name="join_endDate" autocomplete=off>&emsp; 
+			<label for="startDate">시작날짜&nbsp;:&nbsp;</label><input class="datepicker" id="startDate" name="join_startDate" autocomplete=off value='<c:out value="${pageMaker.cri.join_startDate }" />' />&emsp;
+			<label for="endDate">종료날짜&nbsp;:&nbsp;</label><input class="datepicker" id="endDate" name="join_endDate" autocomplete=off value='<c:out value="${pageMaker.cri.join_endDate }" />' />&emsp; 
 			
 			<button type="button" id="settingDate1" value="yesterday">어제</button>
 			<button type="button" id="settingDate2" value="today">오늘</button>
@@ -187,19 +189,21 @@
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>상태</div></div>
-			<div class="host-row-col3"><div><select id="del_yn" name="del_yn"><option value="">상태</option><option value="N">가입완료</option><option value="Y">회원탈퇴</option></select></div></div>
+			<div class="host-row-col3"><div><select name="h_del_yn"><option value="">상태</option><option value="N"<c:out value="${pageMaker.cri.h_del_yn eq 'N'?'selected':'' }" />>가입완료</option><option value="Y" <c:out value="${pageMaker.cri.h_del_yn eq 'Y'?'selected':'' }" />>회원탈퇴</option></select></div></div>
 			<div class="host-row-col1"><div>사업자등록번호</div></div>
-			<div class="host-row-col3"><div><input type="text" id="h_sellerNum" name="h_sellerNum"></div></div>
+			<div class="host-row-col3"><div><input type="text" name="h_sellerNum" value='<c:out value="${pageMaker.cri.h_sellerNum }" />' /></div></div>
 		</div>
 		<div class="host-search-1">
 			<div class="host-row-col1"><div>아이디</div></div>
-			<div class="host-row-col4"><div><input type="text" id="h_id" name="h_id"></div></div>
+			<div class="host-row-col4"><div><input type="text" name="h_id2" value='<c:out value="${pageMaker.cri.h_id2 }" />' /></div></div>
 			<div class="host-row-col1"><div>대표자명</div></div>
-			<div class="host-row-col4"><div><input type="text" id="h_name" name="h_name"></div></div>
+			<div class="host-row-col4"><div><input type="text" name="h_name" value='<c:out value="${pageMaker.cri.h_name }" />' /></div></div>
 		</div>
 		<div class="memberList-row2">
-			<div><button type="button" onclick="search_host()">조회</button></div>
+			<div><button class="searchButton">조회</button></div>
 		</div>
+		<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }" />' />
+		<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount }" />' />
 	</form>
 	<div align="right">
 		<div>드롭다운박스</div>
@@ -232,7 +236,7 @@
   			</tr>
   		</thead>
 		<c:choose>
-  			<c:when test="${empty seachHostList}" >
+  			<c:when test="${empty hostList}" >
   				<tbody>
     				<tr  height="10">
     					<td colspan="9">
@@ -243,13 +247,13 @@
     				</tr>
     			</tbody>
   			</c:when>
-  			<c:when test="${!empty seachHostList}" >
-    			<c:forEach  var="host" items="${seachHostList }" varStatus="hostNum" >
-    				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostDetail.do${pageMaker.makeQueryPage(pageMaker.cri.page)}&h_id=${host.h_id }'" >
-						<td>${hostNum.count}</td>
+  			<c:when test="${!empty hostList}" >
+    			<c:forEach  var="host" items="${hostList }" varStatus="hostNum" >
+    				<tr   >
+						<td>${host.rn}</td>
 						<td>${host.joinDate }</td>
 						<td>${host.h_id}</td>
-						<td>${host.h_name }</td>   
+						<td><a class="move" href='<c:out value="${host.h_id }" />'>${host.h_name }</a></td>   
 						<td>${host.h_phone }</td>   
 						<td>${host.h_email1}@${host.h_email2}</td>   
 						<td>${host.h_sellerNum}</td>   
@@ -260,42 +264,51 @@
     		 </c:when>
    		 </c:choose>
 	</table>
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				처리가 완료되었습니다.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+				<button type="button" class="btn btn-primary">save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <section>
-	<div>
-		<c:forEach var="page" begin="1" end="10" step="1">
-			<c:if test="${section > 1 && page == 1 }">
-				<a href="${contextPath }/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section-1}&pageNum=${(section-1)*10-9}">앞</a>
+	<div class="pull-right">
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev }">
+				<li class="paginate_button previous"><a href="${pageMaker.startPage - 1 }">Previous</a></li>
 			</c:if>
-			<a href="${contextPath}/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section}&pageNum=${page}">${(section-1)*10 +page }</a>
-			<c:if test="${page ==10 }">
-				<a href="${contextPath}/admin/hostList.do?join_startDate=${join_startDate}&join_endDate=${join_endDate}&del_yn=${del_yn}&h_sellerNum=${h_sellerNum}&h_id=${h_id }&h_name=${h_name}&section=${section+1}&pageNum=${section*10+1}"></a>
+			
+			<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : '' }"><a href="${num }">${num }</a></li>
+			</c:forEach>
+			
+			<c:if test="${pageMaker.next }">
+				<li class="paginate_button next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
 			</c:if>
-		</c:forEach>
+		</ul>
+		<form id="actionForm" action="${contextPath }/admin/hostList.do" method="get">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
+			<input type="hidden" name="join_startDate" value='<c:out value="${pageMaker.cri.join_startDate }" />'>
+			<input type="hidden" name="join_endDate" value='<c:out value="${pageMaker.cri.join_endDate }"/>' >
+			<input type="hidden" name="h_del_yn" value='<c:out value="${pageMaker.cri.h_del_yn }"/>'>
+			<input type="hidden" name="h_name" value='<c:out value="${pageMaker.cri.h_name }"/>'>
+			<input type="hidden" name="h_sellerNum" value='<c:out value="${pageMaker.cri.h_sellerNum }"/>'>
+			<input type="hidden" name="h_id2" value='<c:out value="${pageMaker.cri.h_id2 }"/>'>
+		</form>
 	</div>
-
-
-<%-- 	<div>
-		<div style="display: flex; justify-content: center;">
-	<c:if test="${pageMaker.prev }">
-		<div>
-			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.startPage-1)}">앞으로</a>
-		</div>
-	</c:if>
-	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
-			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageNum)}?&h_sellerNum=${searchMap.h_sellerNum}">${pageNum }</a>
-		</div>
-	</c:forEach>
-	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-		<div>
-			<a href="${contextPath }/admin/hostList.do${pageMaker.makeQueryPage(pageMaker.endPage+1)}">뒤로</a>
-		</div>
-	</c:if>
-	</div>
-	</div> --%>
 </section>
 
 <script>
@@ -402,57 +415,66 @@ $("#settingDate1").click(function(){
 		}
 	});
 });
+
 </script>
 <script type="text/javascript">
-function search_host(){
-	var searchMap = document.searchMap;
-
-	join_startDate = searchMap.join_startDate.value;
-	join_endDate = searchMap.join_endDate.value;
-	del_yn = searchMap.del_yn.value;
-	h_id = searchMap.h_id.value;
-	h_sellerNum = searchMap.h_sellerNum.value;
-	h_name = searchMap.h_name.value;
-
-	var formObj = document.createElement("form");
-	var h_command = document.createElement("input");
-	var h_join_startDate = document.createElement("input");
-	var h_join_endDate = document.createElement("input");
-	var h_del_yn = document.createElement("input");
-	var h_h_id = document.createElement("input");
-	var h_h_sellerNum = document.createElement("input");
-	var h_h_name = document.createElement("input");
-
-	h_command.name = "command";
-	h_join_startDate.name = "join_startDate";
-	h_join_endDate.name = "join_endDate";
-	h_del_yn.name = "del_yn";
-	h_h_id.name = "h_id";
-	h_h_sellerNum.name = "h_sellerNum";
-	h_h_name.name = "h_name";
-
-	h_command.value = "search_host";
-	h_join_startDate.value = join_startDate;
-	h_join_endDate.value = join_endDate;
-	h_del_yn.value = del_yn;
-	h_h_id.value = h_id;
-	h_h_sellerNum.value = h_sellerNum;
-	h_h_name.value = h_name;
-
-	formObj.appendChild(h_command);
-	formObj.appendChild(h_join_startDate);
-	formObj.appendChild(h_join_endDate);
-	formObj.appendChild(h_del_yn);
-	formObj.appendChild(h_h_id);
-	formObj.appendChild(h_h_sellerNum);
-	formObj.appendChild(h_h_name);
-	document.body.appendChild(formObj);
-
-	formObj.method = "get";
-	formObj.action = "${contextPath}/admin/hostList.do";
-	formObj.submit();
+$(document).ready(function(){
+	var result = '<c:out value="${result}" />';
 	
-}
+	checkModal(result);
+	
+	history.replaceState({}, null, null);
+	
+	function checkModal(result){
+		
+		if(result === '' || history.state){
+			return;
+		}
+		
+		if(parseInt(result) > 0) {
+			$(".modal-body").html(
+				"게시글"	+ parseInt(result) + "번이 등록되었습니다.");
+		}
+		
+		$("#myModal").modal("show");
+	}
+	
+	$("#regBtn").on("click", function(){
+		
+		self.location = "${contextPath}/admin/hostList.do";
+	});
+	
+	var actionForm = $("#actionForm");
+	
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+		console.log('click');
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var actionForm = $("#actionForm");
+$(".move").on("click",function(e){
+	alert("zzzz");
+	e.preventDefault();
+	actionForm.append("<input type='hidden' name='h_id' value='"+$(this).attr("href")+"'>");
+	actionForm.attr("action", "${contextPath}/admin/hostDetail.do");
+	actionForm.submit();
+});
+});
+
+var searchVO = $("#searchVO");
+
+$(".searchButton").on("click", function(e){
+	alert("클릭");
+	searchVO.find("input[name='pageNum']").val("1");
+	
+	searchVO.submit();
+});
 </script>
 </body>
 </html>

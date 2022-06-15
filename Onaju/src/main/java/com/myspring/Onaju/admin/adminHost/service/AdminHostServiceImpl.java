@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.Criteria;
 import com.myspring.Onaju.admin.adminHost.dao.AdminHostDAO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
@@ -18,8 +18,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	private AdminHostDAO adminHostDAO;
 	
 	@Override
-	public List<Map<String, Object>> listAllHost(Map<String, Object> condMap) {
-		return adminHostDAO.selectAllHostList(condMap);	 
+	public List<Map<String, Object>> listAllHost(Criteria cri) {
+		return adminHostDAO.selectAllHostList(cri);	 
 	}
 	
 	@Override
@@ -28,8 +28,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	}
 
 	@Override
-	public int hostListTotal() {
-		return adminHostDAO.selectAllHostListTotal();
+	public int hostListTotal(Criteria cri) {
+		return adminHostDAO.selectAllHostListTotal(cri);
 	}
 		
 	@Override
@@ -43,8 +43,8 @@ public class AdminHostServiceImpl implements AdminHostService {
 	}
 	
 	@Override
-	public int hostInfoListTotal() {
-		return adminHostDAO.selectAllHostInfoListTotal();
+	public int hostInfoListTotal(Criteria cri) {
+		return adminHostDAO.selectAllHostInfoListTotal(cri);
 	}
 	
 	@Override
