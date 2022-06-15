@@ -2,8 +2,6 @@ package com.myspring.Onaju.member.controller;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.myspring.Onaju.common.aes256.AES256Util;
 import com.myspring.Onaju.common.aes256.SHA256Util;
