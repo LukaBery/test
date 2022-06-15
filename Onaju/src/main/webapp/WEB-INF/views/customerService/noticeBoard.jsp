@@ -116,10 +116,9 @@
         width: 200px;
       }
       .one-on-one-container {
+      padding:30px 0px;
   width: 800px;
-  /* margin: 0 auto; */
   position: relative;
-  margin-bottom: 60px;
 }
     </style>
   </head>
@@ -143,37 +142,10 @@
         <div class="customer-help-notice">
           <div>
             <div class="one-on-one-container">
-            <h3>공지사항</h3>
+            <h2>공지사항</h2>
         </div>
           </div>
-          <div>
-            <form action="">
-              <div style="display: flex;" class="customer-help-searchbar">
-                <input      
-                  type="text"
-                  name="searchText"
-                  placeholder="검색어를 입력해주세요."
-                  class="main_input"
-                  style="display: right;"
-                />
-                <button
-                  type="submit"
-                  style="
-                    height: 35px;
-                    width: 100px;
-                    color: white;
-                    background-color: rgb(252,78,130);
-                    border-radius: 10px;
-                    border: 1px solid #f305ab;
-                    float: right;
-                  "
-                  value="검색"
-                >
-                  검색
-                </button>
-              </div>
-            </form>
-          </div>
+         
           <div>
             <div class="customer-notice-detail">
               <table class="customer-notice-board-table">
@@ -188,7 +160,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" items="${noticeList}" varStatus="status">
-                  <tr>
+                  <tr style="cursor: pointer;" onclick="location.href='${contextPath}/cs/noticeDetail.do?notice_code=${item.notice_code}'">
                     <td class="board-col-box">${status.count }</td>
                     <th>
                       <a href="#!"
@@ -215,6 +187,26 @@
               </table>
             </div>
           </div>
+          
+<div>
+	<div style="display: flex; justify-content: center;">
+	<c:if test="${pageMaker.prev }">
+		<div>
+			<a href="${contextPath }/cs/noticeBoard.do?page=${pageMaker.startPage - 1}">앞으로</a>
+		</div>
+	</c:if>
+	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
+			<a style="text-decoration: none; color: #666666;" href="${contextPath }/cs/noticeBoard.do?page=${pageNum}">${pageNum }</a>
+		</div>
+	</c:forEach>
+	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+		<div>
+			<a href="${contextPath }/cs/noticeBoard.do?page=${pageMaker.endPage + 1}">뒤로</a>
+		</div>
+	</c:if>
+	</div>
+</div>
         </div>
       </div>
     </section>

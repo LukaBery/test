@@ -58,6 +58,16 @@ ModelAndView mav = new ModelAndView();
 
 		return mav; 
 	}
+	@Override
+	@RequestMapping(value = "/noticeDetail.do", method = RequestMethod.GET)
+	public ModelAndView noticeDetail(String notice_code) throws Exception {
 	
+		ModelAndView mav = new ModelAndView("/admin/noticeDetail.do");
+		Map<String, Object> noticeMap = adminBoardService.noticeDetail(notice_code);
+		mav.addObject("noticeMap", noticeMap);
+		mav.setViewName("/customerService/noticeDetail");
+
+		return mav;
+	}
 
 }

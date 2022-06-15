@@ -101,8 +101,9 @@
 	border-radius: 5px; 
 	border: 1px solid #EEEEEE; 
 	text-decoration: none;
-	background: #ffffff;
-	color: #666666;	
+	background: rgb(253,82,134);
+	color: white;	
+	border-radius:20px;
 }
 </style>
 
@@ -116,8 +117,7 @@
 			</div>
 			<div class="notice-box2">
 				<div><div>작성자 : ${noticeMap.a_id }</div></div>
-				
-                    	<fmt:setLocale value="en_US" scope="session" />
+				<fmt:setLocale value="en_US" scope="session" />
 								<fmt:parseDate var="writeDate_" value="${ noticeMap.writeDate }"
 									pattern="yyyy-MM-dd hh:mm:ss.SSS" />
 								<fmt:formatDate var="writeDate" value="${writeDate_}"
@@ -144,9 +144,7 @@
 			<div><div>게시기간 : ${noticeMap.notice_startDate }&emsp;~&emsp;${noticeMap.notice_endDate }</div></div>
 		</div>
 		<div class="noticeBoard-row-2">
-			<div><a class="a3" href="${contextPath}/admin/noticeList.do">돌아가기</a></div>
-			<div><a class="a1" href="${contextPath}/admin/noticeModify.do">수정하기</a></div>
-			<div><input class="a2" type="" value="삭제하기"></div>
+			<div><a class="a3" href="${contextPath}/cs/noticeBoard.do">돌아가기</a></div>
 		</div>
 		<div></div>
 	</div>

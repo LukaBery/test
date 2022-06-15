@@ -10,6 +10,7 @@ import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 public interface CSController {
 	public ModelAndView qnaList(Criteria cri) throws Exception ;
 	public ModelAndView noticeBoard(Criteria cri) throws Exception;
+	public ModelAndView noticeDetail(String notice_code) throws Exception;
 	
 
 }

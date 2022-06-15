@@ -343,7 +343,7 @@ color:black;
 											</c:when>
 										</c:choose>
 										<li><a class="dropdown-item"
-											href="${contextPath}/customerService/noticeBoard.do">고객센터</a></li>
+											href="${contextPath}/cs/noticeBoard.do">고객센터</a></li>
 										
 									</c:when>
 									<c:when test="${not empty isLogOn and not empty nonmemberInfo}">

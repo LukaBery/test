@@ -31,5 +31,9 @@
 		<put-attribute name="title" value="1:1문의글쓰기 페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/customerService/qnaForm.jsp" />
 	</definition>
+		<definition name="/customerService/noticeDetail" extends="baseLayout">
+		<put-attribute name="title" value="공지사항 상세페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/customerService/noticeDetail.jsp" />
+	</definition>
 	
 </tiles-definitions>
