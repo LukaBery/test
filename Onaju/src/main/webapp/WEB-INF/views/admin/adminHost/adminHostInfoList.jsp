@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style type="text/css">
@@ -247,7 +248,7 @@
   	</c:when>
   	<c:when test="${!empty hostInfoList}" >
     	<c:forEach  var="hostInfo" items="${hostInfoList }" varStatus="hostNum" >
-    		<tr style="cursor: pointer;" onclick="location.href='${contextPath}/admin/hostInfoDetail.do?h_code=${hostInfo.h_code}'" >
+    		<tr style="cursor: pointer;" class="move" value='<c:out value="${hostInfo.h_code }" />' >
 				<td>${hostInfo.h_code}</td>
 				<td>${hostInfo.creDate}</td>
 				<td>${hostInfo.hostInfo_name}</td>
@@ -255,7 +256,7 @@
 				<td>${hostInfo.h_name }</td>   
 				<td>${hostInfo.h_sellerNum}</td>   
 				<td>${hostInfo.roadAddress }</td>   
-				<td>${hostInfo.del_yn}</td>    
+				<td>${hostInfo.del_yn}</td> 
 			</tr>
     	</c:forEach>
      </c:when>
@@ -265,25 +266,35 @@
 
 
 <section>
-	<div>
-		<div style="display: flex; justify-content: center;">
-	<c:if test="${pageMaker.prev }">
-		<div>
-			<a href="${contextPath }/admin/hostInfoList.do?page=${pageMaker.startPage - 1}">앞으로</a>
-		</div>
-	</c:if>
-	<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		<div style="width: 30px; height: 30px; margin: 15px 3px 15px 3px; border: 1px solid #eeeeee; border-radius:5px; text-align: center; line-height: 30px;">
-			<a style="text-decoration: none; color: #666666;" href="${contextPath }/admin/hostInfoList.do?page=${pageNum}">${pageNum }</a>
-		</div>
-	</c:forEach>
-	<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-		<div>
-			<a href="${contextPath }/admin/hostInfoList.do?page=${pageMaker.endPage + 1}">뒤로</a>
-		</div>
-	</c:if>
+	<div class="pull-right">
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev }">
+				<li class="paginate_button previous"><a href="${pageMaker.startPage - 1 }">Previous</a></li>
+			</c:if>
+			
+			<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : '' }"><a href="${num }">${num }</a></li>
+			</c:forEach>
+			
+			<c:if test="${pageMaker.next }">
+				<li class="paginate_button next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+			</c:if>
+		</ul>
 	</div>
-	</div>
+	<form id="actionForm" action="${contextPath }/admin/hostInfoList.do" method="get">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
+			<input type="hidden" name="join_startDate" value='<c:out value="${pageMaker.cri.join_startDate }" />'>
+			<input type="hidden" name="join_endDate" value='<c:out value="${pageMaker.cri.join_endDate }"/>' >
+			<input type="hidden" name="h_del_yn" value='<c:out value="${pageMaker.cri.h_del_yn }"/>'>
+			<input type="hidden" name="h_name" value='<c:out value="${pageMaker.cri.h_name }"/>'>
+			<input type="hidden" name="h_sellerNum" value='<c:out value="${pageMaker.cri.h_sellerNum }"/>'>
+			<input type="hidden" name="h_id2" value='<c:out value="${pageMaker.cri.h_id2 }"/>'>
+			<input type="hidden" name="hostInfo_name" value='<c:out value="${pageMaker.cri.hostInfo_name }"/>'>
+			<input type="hidden" name="del_yn" value='<c:out value="${pageMaker.cri.del_yn }"/>'>
+			<input type="hidden" name="roadAddress" value='<c:out value="${pageMaker.cri.roadAddress }"/>'>
+			
+	</form>
 </section>
 
 <script>
@@ -389,6 +400,66 @@ $("#settingDate1").click(function(){
 		break
 		}
 	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var result = '<c:out value="${result}" />';
+	
+	checkModal(result);
+	
+	history.replaceState({}, null, null);
+	
+	function checkModal(result){
+		
+		if(result === '' || history.state){
+			return;
+		}
+		
+		if(parseInt(result) > 0) {
+			$(".modal-body").html(
+				"게시글"	+ parseInt(result) + "번이 등록되었습니다.");
+		}
+		
+		$("#myModal").modal("show");
+	}
+	
+	$("#regBtn").on("click", function(){
+		
+		self.location = "${contextPath}/admin/hostList.do";
+	});
+	
+	var actionForm = $("#actionForm");
+	
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+		console.log('click');
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var actionForm = $("#actionForm");
+	$(".move").on("click",function(e){
+	alert("zzzz");
+	e.preventDefault();
+	actionForm.append("<input type='hidden' name='h_code' value='"+$(this).attr("value")+"'>");
+	actionForm.attr("action", "${contextPath}/admin/hostInfoDetail.do");
+	actionForm.submit();
+	});
+});
+</script>
+<script type="text/javascript">
+var searchVO = $("#searchVO");
+
+$(".searchButton").on("click", function(e){
+	alert("클릭");
+	searchVO.find("input[name='pageNum']").val("1");
+	
+	searchVO.submit();
 });
 </script>
 </body>

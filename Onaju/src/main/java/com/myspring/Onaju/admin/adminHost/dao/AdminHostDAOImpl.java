@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.Criteria;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
 
@@ -24,8 +24,8 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public int selectAllHostListTotal() {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
+	public int selectAllHostListTotal(Criteria cri) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal",cri);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public int selectAllHostInfoListTotal() {
-		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal");
+	public int selectAllHostInfoListTotal(Criteria cri) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostInfoTotal", cri);
 	}
 
 	@Override
@@ -59,7 +59,13 @@ public class AdminHostDAOImpl implements AdminHostDAO{
 	}
 
 	@Override
-	public List<AdminHostVO> selectSearchHost(AdminHostVO searchVO) {
-		return sqlSession.selectList("mapper.admin.host.selectSearchHost", searchVO);
+	public List<Map<String, Object>> selectSearchHost(Map<String, Object> searchMap) {
+		 List<Map<String, Object>> searchhost = sqlSession.selectList("mapper.admin.host.selectSearchHost", searchMap);
+		 return searchhost;
+	}
+
+	@Override
+	public int selectAllHostListTotal(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("mapper.admin.host.selectAllHostTotal", searchMap);
 	}
 }

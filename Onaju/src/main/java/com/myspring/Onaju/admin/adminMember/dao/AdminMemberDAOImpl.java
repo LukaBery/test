@@ -45,6 +45,11 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 		return sqlSession.selectList("mapper.admin.member.selectSearchMember", searchMap);
 	}
 
+	@Override
+	public int selectMemberDelete(String u_id) {
+		return sqlSession.delete("mapper.admin.member.selectMemberDelete", u_id);
+	}
+
 	
 	
 }

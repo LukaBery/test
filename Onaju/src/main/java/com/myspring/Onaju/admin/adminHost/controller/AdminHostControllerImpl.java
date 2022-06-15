@@ -2,7 +2,6 @@ package com.myspring.Onaju.admin.adminHost.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,21 +12,20 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.Criteria;
+import com.myspring.Onaju.admin.adminCommon.paging.PageVO;
 import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 import com.myspring.Onaju.admin.adminHost.service.AdminHostService;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostInfoVO;
 import com.myspring.Onaju.admin.adminHost.vo.AdminHostVO;
-import com.myspring.Onaju.host.goods.vo.HostInfoVO;
 import com.myspring.Onaju.member.controller.MemberControllerImpl;
 
 @RestController("adminHostController")
@@ -38,42 +36,56 @@ public class AdminHostControllerImpl implements AdminHostController {
 	@Autowired
 	private AdminHostVO adminHostVO ;
 	@Autowired
-	private HostInfoVO hostInfoVO;
-	@Autowired
 	private AdminHostInfoVO adminHostInfoVO;
 	
 	
 	@Override
-	@RequestMapping(value="/admin/hostList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostList(Criteria cri) {
+	@RequestMapping(value="/admin/hostList.do" ,method = {RequestMethod.GET,RequestMethod.POST}) 
+	public ModelAndView hostList(Criteria cri) throws Exception {
+		
+		if(cri.getJoin_endDate() != "" && cri.getJoin_endDate() != null) {
+			String endDate = cri.getJoin_endDate();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			Date plus_date = new Date(date.getTime() + (1000*60*60*24));
+			String join_endDate = DateFormatUtils.format(plus_date, "yyyy-MM-dd");
+		
+			cri.setJoin_endDate(join_endDate);
+		}
 		
 		ModelAndView mav = new ModelAndView();
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(adminHostService.hostListTotal());
-		
 		List<Map<String, Object>> hostList = adminHostService.listAllHost(cri);
 		
+		int total = adminHostService.hostListTotal(cri);
+		
 		mav.addObject("hostList", hostList);
-		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageMaker", new PageVO(cri, total));
 		return mav;
-	}
+	  }
+	 
 	
 	@Override
-	@RequestMapping(value="/admin/hostDetail.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostDetail(@RequestParam("h_id")String h_id, @ModelAttribute Criteria cri)
+	@RequestMapping(value="/admin/hostDetail.do" ,method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView hostDetail(@RequestParam("h_id")String h_id, @ModelAttribute("cri") Criteria cri)
 			throws Exception {
 
 		adminHostVO = adminHostService.hostDetail(h_id);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hostVO", adminHostVO);
+	
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/admin/hostModify.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView hostModifyForm(@RequestParam("h_id") String h_id, @ModelAttribute("cri") Criteria cri)
+			throws Exception {
+		adminHostVO = adminHostService.hostDetail(h_id);
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		mav.addObject("page", cri.getPage());
-		mav.addObject("pageMaker", pageMaker);
+		ModelAndView mav = new ModelAndView();		
+		mav.addObject("hostVO",adminHostVO);
+		
 		return mav;
 	}
 	
@@ -84,26 +96,6 @@ public class AdminHostControllerImpl implements AdminHostController {
 		mav.setViewName(viewName);		
 		return mav;
 	}
-
-	@Override
-	@RequestMapping(value="/admin/hostModify.do" ,method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView hostModifyForm(String h_id, @ModelAttribute Criteria cri)
-			throws Exception {
-		
-		ModelAndView mav = new ModelAndView();
-		adminHostVO = adminHostService.hostDetail(h_id);
-				
-		mav.addObject("hostVO",adminHostVO);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		mav.addObject("page", cri.getPage());
-		mav.addObject("pageMaker", pageMaker);
-
-		return mav;
-	}
-	
-	
 	
 	@Override
 	@RequestMapping(value="/admin/hostInfoList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
@@ -111,14 +103,12 @@ public class AdminHostControllerImpl implements AdminHostController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(adminHostService.hostInfoListTotal());
+		int total = adminHostService.hostInfoListTotal(cri);
 		
 		List<Map<String, Object>> hostInfoList = adminHostService.listAllHostInfo(cri);
 		
 		mav.addObject("hostInfoList", hostInfoList);
-		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageMaker", new PageVO(cri, total));
 		return mav;
 	}
 	
@@ -145,46 +135,60 @@ public class AdminHostControllerImpl implements AdminHostController {
 	
 	@Override
 	@RequestMapping(value = "/admin/updateHost.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateHost(AdminHostVO hostVO, Criteria cri) {
+	public String updateHost(String h_id, AdminHostVO hostVO,
+			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+		
 		int update_host = adminHostService.updateHost(hostVO);
+		if(update_host == 1) {
+			rttr.addFlashAttribute("result", "success");
+		}
 		
-		Map<String, Object> criMap = new HashMap<String, Object>();
-		
-		
-		
-		criMap.put("success", "success");
-		criMap.put("page", cri.getPage());
-		criMap.put("perPageNum", cri.getPerPageNum());
-		
-		return update_host == 1 ? new ResponseEntity<Map<String, Object>>(criMap, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		return "redirect:/admin/hostDetail.do";
 	}
 
 	@Override
 	@RequestMapping(value = "/admin/deleteHost.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public void deleteHost(String h_id) {
-		adminHostService.deleteHost(h_id);
+	public String deleteHost(@RequestParam("h_id") String h_id, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+		int delete_host = adminHostService.deleteHost(h_id);
+		
+		if(delete_host == 1) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
+		return "redirect:/admin/hostList.do";
 	}
 
 	@Override
 	@RequestMapping(value = "/admin/hostSearch.do", method = RequestMethod.GET)
-	public ModelAndView hostSearch(AdminHostVO searchVO) throws Exception {
-		if(searchVO.getJoin_endDate() != null && searchVO.getJoin_endDate() != "") {
-			String endDate = searchVO.getJoin_endDate();
-			
+	public ModelAndView hostSearch(@RequestParam Map<String, Object> searchMap, Criteria cri) throws Exception {
+		if(searchMap.get("join_endDate") != null && searchMap.get("join_endDate") != "") {
+			String endDate = (String)searchMap.get("join_endDate");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = format.parse(endDate);
 			Date plus_endDate = new Date(date.getTime() + (1000*60*60*24));
 			String join_endDate = DateFormatUtils.format(plus_endDate, "yyyy-MM-dd");
 	
-			searchVO.setJoin_endDate(join_endDate);	
+			searchMap.put("join_endDate", join_endDate);	
 		}
-			
-		List<AdminHostVO> searchHostList =  adminHostService.searchHost(searchVO);
+		
+		PageMaker pageMaker = new PageMaker();
+		
+		pageMaker.setTotalCount(adminHostService.hostListTotal(searchMap));
+		
+		
+		List<Map<String, Object>> searchHostList = adminHostService.searchHost(searchMap);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/hostList");
 		mav.addObject("hostList", searchHostList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("searchMap", searchMap);
 	
-		return mav; 
+		return mav;
 	}
+
 }
