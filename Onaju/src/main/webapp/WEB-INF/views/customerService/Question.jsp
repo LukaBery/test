@@ -113,19 +113,13 @@ h2{
 
 <div class="customer-help-sidebar"> <!-- 사이드바 -->
             <div class="customer-notice">
-            <a href="${contextPath }/customerService/noticeBoard.do"
+            <a href="${contextPath }/cs/noticeBoard.do"
               ><button class="customer-help-side-button">공지사항</button></a
             >
           </div>
-          <div class="customer-QnA">
-            <a href="${contextPath }/customerService/Question.do"
-              ><button class="customer-help-side-button">
-                자주 묻는 질문
-              </button></a
-            >
-          </div>
+       
           <div class="customer-one-on-one">
-            <a href="${contextPath }/customerService/qnaList.do"
+            <a href="${contextPath }/cs/qnaList.do"
               ><button class="customer-help-side-button">1:1 문의</button></a
             >
           </div>

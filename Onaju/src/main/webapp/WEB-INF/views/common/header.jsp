@@ -311,7 +311,7 @@ color:black;
 											href="${contextPath}/host/h_joinForm.do">호스트가입</a></li>
 									
 										<li><a class="dropdown-item"
-											href="${contextPath}/customerService/noticeBoard.do">고객센터</a></li>
+											href="${contextPath}/cs/noticeBoard.do">고객센터</a></li>
 										<li><a class="dropdown-item"
 											href="${contextPath}/member/logout.do">로그아웃</a></li>
 									</c:when>
@@ -357,7 +357,7 @@ color:black;
 											href="${contextPath}/member/logout.do">로그아웃</a></li>			
 							
 										<li><a class="dropdown-item"
-											href="${contextPath}/customerService/noticeBoard.do">고객센터</a></li>
+											href="${contextPath}/cs/noticeBoard.do">고객센터</a></li>
 										
 									</c:when>
 
@@ -372,7 +372,7 @@ color:black;
 										<li><hr class="dropdown-divider" /></li>
 								
 										<li><a class="dropdown-item"
-											href="${contextPath}/customerService/noticeBoard.do">고객센터</a></li>
+											href="${contextPath}/cs/noticeBoard.do">고객센터</a></li>
 										<li><a class="dropdown-item" href="#">도움말</a></li>
 
 									</c:otherwise>
