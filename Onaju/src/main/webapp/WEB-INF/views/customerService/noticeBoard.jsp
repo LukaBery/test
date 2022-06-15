@@ -150,7 +150,7 @@
             <div class="customer-notice-detail">
               <table class="customer-notice-board-table">
                 <thead>
-                  <tr >
+ 			<tr  style="font-weight: bold;">
                     <th scope="col" class="th-num">번호</th>
                     <th scope="col" class="th-sort">유형</th>
                     
@@ -160,7 +160,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" items="${noticeList}" varStatus="status">
-                  <tr style="cursor: pointer;" onclick="location.href='${contextPath}/cs/noticeDetail.do?notice_code=${item.notice_code}'">
+                  <tr style="cursor: pointer; font-weight:normal;" onclick="location.href='${contextPath}/cs/noticeDetail.do?notice_code=${item.notice_code}'">
                     <td class="board-col-box">${status.count }</td>
                     <th>
                       <a href="#!"

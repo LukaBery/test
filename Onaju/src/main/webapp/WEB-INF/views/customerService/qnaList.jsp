@@ -185,9 +185,9 @@ table {
   display: block;
   clear: both;
 }
-.one-on-one-container {
+ .one-on-one-container {
+      padding:30px 0px;
   width: 800px;
-  /* margin: 0 auto; */
   position: relative;
 }
 .blind {
@@ -247,6 +247,19 @@ table {
         width: 1100px;
         height: 100%;
       }
+      
+.styled-table{
+
+border-bottom:1px solid #CCCCCC;
+border-top:1px solid #CCCCCC;
+    border-collapse: separate;
+      font-size:13px;
+      border-spacing: 0 10px;
+ text-align:center;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0 0.15); 
+	width: 100%;
+	
+}
 
 </style>
 </head>
@@ -266,84 +279,66 @@ table {
           </div>
         </div>
 <section class="one-on-one-notice">
-  <div class="page-title">
         <div class="one-on-one-container">
-            <h3>1:1 문의</h3>
+            <h2>1:1 문의</h2>
         </div>
-    </div>
+
 
     <!-- board seach area -->
-    <div id="board-search">
-        <div class="one-on-one-container">
-            <div class="search-window">
-                <form action="">
-                    <div class="search-wrap">
-                        <label for="search" class="blind">문의 내용 검색</label>
-                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
-                        <button type="submit" class="btn_0 btn_0-dark">검색</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-   
-  <!-- board list area -->
-    <div id="board-list">
-        <div class="one-on-one-container">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-title">제목</th>
-                    <th scope="col" class="th-title">작성자</th>
-                    <th scope="col" class="th-date">등록일</th>
-                </tr>
-                </thead>
-                <tbody>
-						<c:choose>
-							<c:when test="${empty articlesList}">
-								<tr>
-									<td colspan= "4">
-										<p>
-											<b><span>등록된 글이 없습니다.</span></b>
-										</p>
-									</td>
-								</tr>
-							</c:when>
-							<c:when test="${empty articlesList}">
-								<c:forEach var="article" items="${articlesList}"
-									varStatus="articleNum">
-									<tr>
-										<td>${articleNum}</td>
-										<td><span></span> <c:choose>
-												<c:when test='${article.level>1}'>
-													<c:forEach begin="1" end="${article.level}" step="1">
-														<span></span>
-													</c:forEach>
-													<span>답변</span>
-													<a class='cls1'
-														href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title}</a>
-												</c:when>
-												<c:otherwise>
-													<a class='cls1'
-														href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title}</a>
-												</c:otherwise>
-											</c:choose></td>
-										<td>${article.id}</td>
-										<td><tmt:formatDate value="${article.writeDate}" /></td>
-									</tr>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-					</tbody>
-            </table>
-        </div>
-        <div style="width: 800px; height: 40px; display: inline-block;">
-			
-				<button type="button" style="width:100px; height: 35px; background-color: rgb(252,78,130); color: white; border-radius: 10px; float: right;" onclick="location.href='${contextPath}/customerService/qnaForm.do'">글쓰기</button>
-			
-		</div>
-    </div>
+    
+   	<table class="styled-table">
+		<colgroup>
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:10%">
+			<col style="width:34%">
+			<col style="width:10%">
+			<col style="width:16%">
+			<col style="width:10%">
+		</colgroup>
+		<thead>
+ 			<tr  style="font-weight: bold;">
+				<td >번호</td>
+				<td >답변 여부</td>
+     			<td >질문 번호</td>  
+     			<td >제목</td>            
+     			<td >작성자</td>
+     			<td >작성일</td>
+     			<td >조회수</td>			
+  			</tr>
+		</thead>
+		<c:choose>
+  			<c:when test="${empty enquireList}" >
+    			<tr  height="10">
+      				<td colspan="7">
+         				<p align="center">
+            				<b><span style="font-size:9pt;">조회된 결과가 없습니다.</span></b>
+        				</p>
+      				</td>  
+    			</tr>
+  			</c:when>
+  			<c:when test="${!empty enquireList}" >
+    			<c:forEach  var="enquire" items="${enquireList }" varStatus="reviewNum" >
+     				<tr style="cursor: pointer;" onclick="location.href='${contextPath}/cs/enquireDetail.do?enquire_NO=${enquire.enquire_NO}'">
+						<td >${reviewNum.count}</td>
+						<td>${enquire.reply_yn}</td>
+						<td>${enquire.enquire_NO }</td>
+						<td>${enquire.title }</td>
+						<td>${enquire.u_id }</td>
+						
+						<fmt:setLocale value="en_US" scope="session" />
+								<fmt:parseDate var="creDate_" value="${enquire.creDate}"
+									pattern="yyyy-MM-dd hh:mm:ss.SSS" />
+								<fmt:formatDate var="creDate" value="${creDate_}"
+									pattern="yyyy년 MM월 dd일" />
+						<td>${creDate}</td>   
+						<td>${enquire.hit_cnt }</td>      								  
+					</tr>
+    			</c:forEach>
+     		</c:when>  		
+    	</c:choose>
+    </table>
+
 	</section>
 	</section>
 </body>

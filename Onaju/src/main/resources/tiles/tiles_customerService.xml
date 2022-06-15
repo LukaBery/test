@@ -36,4 +36,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/customerService/noticeDetail.jsp" />
 	</definition>
 	
+		<definition name="/customerService/qnaDetail" extends="baseLayout">
+		<put-attribute name="title" value="공지사항 상세페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/customerService/qnaDetail.jsp" />
+	</definition>
+	
 </tiles-definitions>

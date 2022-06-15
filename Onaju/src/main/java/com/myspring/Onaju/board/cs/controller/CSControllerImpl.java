@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.admin.adminBoard.service.AdminBoardService;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
 import com.myspring.Onaju.common.base.BaseController;
@@ -70,4 +71,18 @@ ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 
+	@Override
+	@RequestMapping(value = "/enquireDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView enquireDetail(AdminEnquireVO enquireVO) throws Exception {
+		
+		adminBoardService.updateHit(enquireVO);
+		
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> enquireDetail = adminBoardService.enquireBoardDetail(enquireVO);
+		
+		mav.addObject("enquireDetail", enquireDetail);
+		mav.setViewName("/customerService/qnaDetail");
+
+		return mav;
+	}
 }
