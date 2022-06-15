@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -116,5 +117,11 @@ public class AdminMemberControllerImpl implements AdminMemberController {
 		mav.addObject("membersList", searchMemberList);
 		mav.addObject("pageMaker", pageMaker);
 		return mav;	
+	}
+
+	@Override
+	public ResponseEntity<Map<String, Object>> memberDelete(String u_id, Criteria cri) {
+		int delete_Member = adminMemberService.memberDelete(u_id); 
+		return null;
 	}
 }

@@ -15,4 +15,5 @@ public interface AdminMemberDAO {
 	public MemberVO selectMemberDetail(String u_id) throws DataAccessException;
 	public int memberUpdate(MemberVO vo) throws DataAccessException;
 	public List<Map<String, Object>> selectSearchMember(Map<String,Object> searchMap);
+	public int selectMemberDelete(String u_id);
 }

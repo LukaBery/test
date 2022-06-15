@@ -136,7 +136,7 @@
 				<div class="mem-item2-chil-1"><div>사업장관리번호</div></div>
 				<div class="mem-item2-chil-2"><div>${adminHostInfoVO.h_code }</div></div>
 				<div class="mem-item2-chil-1"><div>사업장명</div></div>
-				<div class="mem-item2-chil-2"><div>${adminHostInfoVO.h_name }</div></div>
+				<div class="mem-item2-chil-2"><div>${adminHostInfoVO.hostInfo_name }</div></div>
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-1"><div>사업자등록번호</div></div>
@@ -171,7 +171,7 @@
 			</div>
 			<div class="mem-item2-chil">
 				<div class="mem-item2-chil-4"><div>대표자 이메일</div></div>
-				<div class="mem-item2-chil-5"><div>${adminHostInfoVO.h_email1 }${adminHostInfoVO.h_email2 }</div></div>
+				<div class="mem-item2-chil-5"><div>${adminHostInfoVO.h_email1 }&nbsp;@&nbsp;${adminHostInfoVO.h_email2 }</div></div>
 				<div class="mem-item2-chil-4"><div>대표자전화번호</div></div>
 				<div class="mem-item2-chil-5"><div>${adminHostInfoVO.h_phone } </div></div>
 			</div>	
