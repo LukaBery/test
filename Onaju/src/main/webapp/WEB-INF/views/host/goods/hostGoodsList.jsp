@@ -174,7 +174,7 @@ section.host_notice {
 }
 .noticeBtn2 {
 	display: inline-block;
-	padding: 5px 30px;
+	padding: 5px 10px;
 	margin: 30px 0 30px 0px;
 	float : right;
 	font-size: 16px;
@@ -328,7 +328,8 @@ section.host_notice {
 							</tbody>
 						</table>
 							<div>
-								<button type="submit" class="noticeBtn2 btn-dark2" onClick="${contextPath}/host/goods/addNewGoodsForm.do">글쓰기</button>
+								<button type="button" class="noticeBtn2 btn-dark2" onclick="location.href='${contextPath}/host/goods/addNewGoodsForm.do'">신규 등록</button>
+								
 							</div>
 					</div>
 				</div>

@@ -383,7 +383,7 @@ section.host_notice {
 						</div> 
 					</div>
 					<div class="noticeBtn2Box">
-						<button type="button" class="noticeBtn2 btn-dark2" onClick="${contextPath}/host/goods/hostInfoList.do">목록</button>
+						<button type="button" class="noticeBtn2 btn-dark2" onclick="location.href='${contextPath}/host/goods/hostInfoList.do'">목록</button>
 						<button type="button" class="noticeBtn2 btn-dark2" onClick="addHostInfo()">등록</button>
 					</div>		
 				</form>

@@ -299,12 +299,21 @@
 	  delete from h_host_info
 	  where h_code=#{h_code}
 	</delete>
+	<select id="selectAllHostInfoListTotal" resultType="java.lang.Integer" parameterType="hostInfoVO">
 	
-   <select id="selectHostInfoList" resultMap="hostInfo"   parameterType="String"  >
+		SELECT count(*) total FROM h_host_info where h_code > 0 and h_id=#{h_id}
+	
+	</select>
+	
+  <select id="selectHostInfoList" resultMap="hostInfo" parameterType="hostInfoVO">
+	   
 	    <![CDATA[
-		    select * from h_host_info
-            where h_id = #{h_id}
-    	]]>
+		 select * from 
+        (select @rownum := @rownum + 1 as rn, h_code, hostInfo_name, roadAddress, host_type, room_count 
+        from h_host_info, (select @rownum := 0)  as rowcolumn where h_id=#{h_id} order by h_code desc) z 
+		where rn >= #{startNO} and rn <= #{endNO};
+		 ]]>  	
+    	
 	</select>
 	
 	<select id="selectGoodsList" resultMap="goodsResult"  parameterType="String"  >
@@ -613,8 +622,16 @@
 	  delete from h_roomImage
 	  where roomImage_NO=#{roomImage_NO}
 	</delete>
-
 	
+	<delete id="deleteHostGoodsAllImage" parameterType="int">
+	  delete from h_roomImage
+	  where room_code=#{room_code}
+	</delete>	
+	
+	<delete id="deleteHostGoods" parameterType="int">
+	  delete from h_room
+	  where room_code=#{room_code}
+	</delete>
 	
    
 </mapper>

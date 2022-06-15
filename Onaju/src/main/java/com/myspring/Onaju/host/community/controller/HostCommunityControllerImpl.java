@@ -46,6 +46,8 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 	private HostCommunityService hostCommunityService;
 	@Autowired
 	private HostGoodsService hostGoodsService;
+	@Autowired
+	private HostInfoVO hostInfoVO;
 
 	/* 커뮤니티 글 등록시 첫번째 사업장 정보 나오는 페이지 */
 	@RequestMapping(value = "/cmnAticleForm1.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -58,9 +60,10 @@ public class HostCommunityControllerImpl extends BaseController implements HostC
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		System.out.println("hostVO의 VO : " + hostVO);
 		String h_id = hostVO.getH_id();
-		System.out.println("h_id : " + h_id);
+		System.out.println("h_id : " + h_id);;
+		hostInfoVO.setH_id(h_id);
 		
-		List<HostInfoVO> hostInfoList=hostGoodsService.hostInfoFormlist(h_id);
+		List<HostInfoVO> hostInfoList=hostGoodsService.hostInfoFormlist(hostInfoVO);
 		mav.addObject("hostInfoList", hostInfoList);
 		return mav;
 
