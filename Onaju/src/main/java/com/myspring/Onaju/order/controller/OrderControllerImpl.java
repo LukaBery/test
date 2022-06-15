@@ -250,7 +250,7 @@ System.out.println("리스트 추가완료");
 			orderVO.setPay_type(receiverMap.get("pay_type"));	
 			/* orderVO.setDiscount(Float.parseFloat(receiverMap.get("discount"))); */
 			orderVO.setTotal(Integer.parseInt(receiverMap.get("total")));	
-			orderVO.setPay_state("fin");
+			orderVO.setPay_state("결재 완료");
 	
 		
 			System.out.println("애드 멤버 메서드 진입");
