@@ -188,7 +188,7 @@ ChannelIO('boot', {
 			</a> <b>호스트 페이지</b>
 		</h1>
 		<ul class="host_menu">
-			<li><a href="${contextPath}/host/h_login.do"> <i
+			<li><a href="${contextPath}/host/mypage/hostMypageDetail.do"> <i
 					class="fas fa-user fa-fw"></i> <c:choose>
 						<c:when test="${not empty isLogOn and not empty hostInfo }">
 							<i id="main_font_i" class=" fa-fw">${hostInfo.h_id}</i>
