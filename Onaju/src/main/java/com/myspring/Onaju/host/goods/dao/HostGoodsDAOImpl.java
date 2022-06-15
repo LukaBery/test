@@ -65,8 +65,13 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 	}
 	
 	@Override
-	public List<HostInfoVO> hostInfoFormlist(String _h_id) throws DataAccessException {
-		List<HostInfoVO>  hostInfoFormlist = (List)sqlSession.selectList("mapper.hostGoods.selectHostInfoList",_h_id);
+	public int selectAllhostInfoListTotal(HostInfoVO hostInfo) throws DataAccessException {
+		return sqlSession.selectOne("mapper.hostGoods.selectAllHostInfoListTotal", hostInfo);
+	}
+	
+	@Override
+	public List<HostInfoVO> hostInfoFormlist(HostInfoVO hostInfoVO) throws DataAccessException {
+		List<HostInfoVO>  hostInfoFormlist = (List)sqlSession.selectList("mapper.hostGoods.selectHostInfoList",hostInfoVO);
 		return hostInfoFormlist;
 	}
 	
@@ -151,6 +156,15 @@ public class HostGoodsDAOImpl implements HostGoodsDAO{
 	@Override
 	public void deleteHostGoodsImage(int roomImage_NO) throws DataAccessException{
 		sqlSession.delete("mapper.hostGoods.deleteHostGoodsImage",roomImage_NO);
+	}
+	@Override
+	public void deleteHostGoodsAllImage(int room_code) throws DataAccessException {
+		sqlSession.delete("mapper.hostGoods.deleteHostGoodsAllImage",room_code);
+	}
+
+	@Override
+	public void deleteHostGoods(int room_code) throws DataAccessException {
+		sqlSession.delete("mapper.hostGoods.deleteHostGoods",room_code);
 	}
 
 	

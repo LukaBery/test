@@ -197,7 +197,8 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	
 	@Override
 	@RequestMapping(value="/hostInfoList.do" , method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView hostInfoList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	public ModelAndView hostInfoList(HostInfoVO hostInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		
 		String viewName = (String) request.getAttribute("viewName");
 		System.out.println("컨트롤러 viewName : " + viewName);
@@ -206,12 +207,26 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		System.out.println("hostVO의 VO : " + hostVO);
 		String _h_id = hostVO.getH_id();
+		hostInfo.setH_id(_h_id);
 		
-		List<HostInfoVO> hostInfoList=hostGoodsService.hostInfoFormlist(_h_id);
+		int total = hostGoodsService.hostInfoListTotal(hostInfo);
+		System.out.println("리스트 total : " + total);
+		int totalPage = (int) Math.ceil((double)total/10);
+		int viewPage = hostInfoVO.getViewPage();
+		int startNO = (viewPage - 1) * 10 + 1;
+		int endNO = startNO + (10 - 1);
+		
+		hostInfo.setStartNO(startNO);
+		hostInfo.setEndNO(endNO);
+		
+		List<HostInfoVO> hostInfoList=hostGoodsService.hostInfoFormlist(hostInfo);
+		mav.addObject("total", total);
+		mav.addObject("totalPage", totalPage);
 		mav.addObject("hostInfoList", hostInfoList);
 
 		return mav;
 	}
+	
 	
 	
 	@Override
@@ -310,9 +325,11 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		HostVO hostVO = (HostVO) session.getAttribute("hostInfo");
 		System.out.println("hostVO의 VO : " + hostVO);
 		String _h_id = hostVO.getH_id();
-		System.out.println("_h_id : " + _h_id);			
+		System.out.println("_h_id : " + _h_id);
+		hostInfoVO.setH_id(_h_id);
 		
-		List<HostInfoVO> hostInfoFormList = hostGoodsService.hostInfoFormlist(_h_id);			
+		
+		List<HostInfoVO> hostInfoFormList = hostGoodsService.hostInfoFormlist(hostInfoVO);			
 		mav.addObject("hostInfoFormList", hostInfoFormList); 
 		return mav;			
 	}
@@ -396,8 +413,7 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 	/* 등록 */
 	@Override
 	@RequestMapping(value = "/addNewGoodsImage.do", method = { RequestMethod.POST })
-	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
+	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception {
 		System.out.println("addNewGoodsImage");
 		multipartRequest.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -476,11 +492,12 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 		System.out.println("hostVO의 VO : " + hostVO);
 		String _h_id = hostVO.getH_id();
 		System.out.println("_h_id : " + _h_id);
+		hostInfoVO.setH_id(_h_id);
 		
 		Map goodsMap = new HashMap();
 		goodsMap = hostGoodsService.hostGoodsDetail(room_code);
 		System.out.println("첫번째 goodsMap :" + goodsMap);
-		List<HostInfoVO> hostInfoFormList = hostGoodsService.hostInfoFormlist(_h_id);
+		List<HostInfoVO> hostInfoFormList = hostGoodsService.hostInfoFormlist(hostInfoVO);
 		goodsMap.put("hostInfoFormList", hostInfoFormList);
 		mav.addObject("goodsMap",goodsMap);
 		System.out.println("두번째 goodsMap :" + goodsMap);
@@ -650,9 +667,56 @@ public class HostGoodsControllerImpl extends BaseController implements HostGoods
 			srcFile.delete();
 		}catch(Exception e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 
+	@RequestMapping(value="/deleteHostGoods.do" ,method={RequestMethod.POST, RequestMethod.GET})
+	public ResponseEntity deleteHostGoods( @RequestParam("room_code") int room_code, 
+			                     HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+	
+		System.out.println("삭제 컨트롤러 들어왔음 응답");
+		System.out.println("삭제 컨트롤러의 room_code : " + room_code);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+	    HttpHeaders responseHeaders = new HttpHeaders();
+	    responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+
+	    try {
+	    	hostGoodsService.deleteHostGoodsAllImage(room_code);
+	    	
+	    	
+	    	File folder = new File(CURR_IMAGE_REPO_PATH+"\\"+room_code);
+	    	if (folder.exists()) {
+			  	  FileUtils.cleanDirectory(folder);//하위 폴더와 파일 모두 삭제
+			  	  //isDirectory()경로에 있는 객체가 folder이면 true아니면 false
+			    if (folder.isDirectory()) {
+			      folder.delete(); // 대상폴더 삭제
+			      System.out.println(folder + "폴더가 삭제되었습니다.");
+			    }
+			    }else {
+			    	System.out.println("대실패");
+			    }
+	    	
+	    	hostGoodsService.deleteHostGoods(room_code);
+	    	message = "<script>";
+	    	message += " alert('객실 삭제 완료');";
+	    	message += " location.href='" + request.getContextPath() + "/host/goods/hostGoodsList.do';";
+	    	message += " </script>";
+
+	    } catch (Exception e) {
+	    	message = "<script>";
+	    	message += " alert('객실 삭제 실패');";
+	    	message += " location.href='" + request.getContextPath() + "/host/goods/modiHostGoodForm.do';";
+	    	message += " </script>";
+	    	e.printStackTrace();
+	    }
+	    resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+	    return resEntity;	
+		
+	}
 	
 
 }

@@ -204,7 +204,7 @@ public class HostMypageControllerImpl extends BaseController implements HostMypa
 		if(h_pw_com.equals(_pw)) {
 			hostMypageServie.removeHost(h_id);
 			mav.addObject("message","회원 탈퇴에 성공하였습니다.");
-			mav.setViewName("forward:/host/main.do");
+			mav.setViewName("forward:/main/main.do");
 			session.invalidate();
 		}else {
 			mav.addObject("message","비밀번호가 일치하지 않습니다.");
