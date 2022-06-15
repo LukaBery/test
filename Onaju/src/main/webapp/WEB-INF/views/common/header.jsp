@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -21,6 +23,14 @@ request.setCharacterEncoding("UTF-8");
 <meta name="keywords" content="Colrolib Templates">
 
 <title>오나주</title>
+
+<script type="text/javascript">
+	
+function Logout(){
+    sessionStorage.clear();
+}
+	</script>
+	
 
 <style>
 #header_center {
@@ -175,6 +185,11 @@ color:black;
 
 		alert(people_num);
 	}
+	
+	function please(){
+		
+		location.href = "${contextPath}/main/main.do";
+	}
 </script>
 
 
@@ -207,18 +222,18 @@ color:black;
 								>
 								<div class="input-group input--large">
 									<label class="label">장소</label> <input id="keyword"class="input--style-1"
-										type="text" placeholder=" 목적지" name="going" value="${searchKeyword.going }"autocomplete='off'>
+										type="text" placeholder=" 목적지" name="going" autocomplete='off'>
 										<input type="hidden" name="search_longitude" id="search_longitude">
 										<input type="hidden" name="search_latitude" id="search_latitude">
 								</div>
 								<div class="input-group input--medium">
 									<label class="label">체크인</label> <input class="input--style-1"
-										type="text" name="checkin" value="${searchKeyword.checkin }"placeholder="      월/일/년"
+										type="text" name="checkin" placeholder="      월/일/년"
 										id="input-start" autocomplete='off'>
 								</div>
 								<div class="input-group input--medium">
 									<label class="label">체크 아웃</label> <input
-										class="input--style-1" type="text" name="checkout"value="${searchKeyword.checkout }"
+										class="input--style-1" type="text" name="checkout"
 										placeholder="      월/일/년" id="input-end" autocomplete='off'>
 								</div>
 								<div class="input-group input--small" style="width: 100px;">
@@ -310,7 +325,7 @@ color:black;
 										<li><hr class="dropdown-divider" /></li>
 										<li><a class="dropdown-item"
 											href="${contextPath}/host/h_joinForm.do">호스트가입</a></li>
-									<c:choose>
+										<c:choose>
 											<c:when test="${userInfo.s_type == 'k'}">
 												<li><a class="dropdown-item"
 													 href="https://kauth.kakao.com/oauth/logout?client_id=2520c8e17541628f34b1475ac21d1840&logout_redirect_uri=http://localhost:8080/Onaju/member/kakaoLogout">로그아웃
@@ -319,6 +334,8 @@ color:black;
 											</c:when>
 											<c:when test="${userInfo.s_type == 'n'}">
 												<li>
+												
+												<!-- 	<input type="button" class="search_button" id="requestBtn" value="로그아웃" onclick="Logout()"> -->
 													<a class="dropdown-item" onclick="Logout()"
 													 href="${contextPath}/member/naverLogout">로그아웃
 													</a> 
