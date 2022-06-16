@@ -70,6 +70,7 @@ request.setCharacterEncoding("UTF-8");
 	
 }
 .articlesize{
+	min-height: 920px;
 	display:inline-block;
 	background-color: white;
 	width: 900px;
