@@ -40,16 +40,17 @@
 	width: 1000px;
 	height: 300px;
 }
-.notice-box5{
-	display: flex;
-	width: 1000px;
-	height: 350px;
-	justify-content: space-around;
-	align-items: center;
-	border-top : 1px solid #666666;
-	border-bottom: 1px solid #EEEEEE;
-	background-color: #eeeeee;
-	color: #666666;
+.notice-box50{
+	    width: 1000px;
+    height: 50px;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #666666;
+    border-bottom: 1px solid #EEEEEE;
+    background-color: #eeeeee;
+    color: #666666;
+    text-align: left;
+    padding: 15px 10px;
 }
 .notice-box3 div img {
 	object-fit: scale-down;
@@ -93,6 +94,33 @@
 	background: #ff3333;
 	color: #ffffff;	
 }
+
+.reply_submit{
+	display:block; 
+	width:130px; 
+	line-height:40px; 
+	text-align:center; 
+	border-radius: 5px; 
+	border: 1px solid #EEEEEE; 
+	text-decoration: none;
+	background: #000033;
+	color: #ffffff;	
+}
+#reply{
+	width:900px; 
+	height:100px; 
+	border: 1px solid #cccccc;
+}
+.reply_box{
+	width:1000px;
+	height:70px;
+	border-bottom: 1px solid #EEEEEE;
+	margin: 10px 0px 0px 0px;
+}
+.reply_box_chil{
+	display: flex;
+	justify-content: space-between;
+}
 .a3{
 	display:block; 
 	width:150px; 
@@ -101,10 +129,10 @@
 	border-radius: 5px; 
 	border: 1px solid #EEEEEE; 
 	text-decoration: none;
-	background: #ffffff;
-	color: #666666;	
+	background: rgb(253,82,134);
+	color: white;	
+	border-radius:20px;
 }
-
 </style>
 
 </head>
@@ -135,27 +163,34 @@
 			<div class="notice-box4"><div>${enquireDetail[0].contents }</div></div>
 		</div>
 		<div class="noticeBoard-row-2">
-			<div><a class="a3" href="${contextPath}/cs/noticeList.do">돌아가기</a></div>
-			<div><input class="a2" type="" value="삭제하기"></div>
+			<div><a class="a3" href="${contextPath}/cs/qnaList.do">돌아가기</a></div>
+			
 		</div>
 		<div>
-			<%@ include file="/WEB-INF/views/customerService/qnaReply.jsp" %>
+		<div class="notice-box50">
+			<span><strong>댓글</strong><span>&nbsp;${replyLength} 개</span></span>
+			<br><br>
+		</div>
+		                <c:forEach var="item" items="${replysList}" >
+		
+		<form id="replyListForm" name="replyListForm" method="post">
+		<div id="replyList">
+		<div class='reply_box'>
+		<div class='reply_box_chil'><div><strong>${item.a_id}</strong></div>
+		<div>${item.creDate}</div></div><br>
+		<div style="text-align:left;">${item.re_contents}
+		</div>
+		</div>
+		
+		
+		</div>
+	</form>
+		</c:forEach>
 		</div>
 	</div>
 	</section>
 	
 <script type="text/javascript">
-function enquireReply(){
-	var enquire_NO = ${enquireDetail[0].enquire_NO};
-	var reply_contents = $("#reply_contents").val();
-	$.ajax({
-		type:"get",
-		dataType:"text",
-		async: false,
-		url:"${contextPath}/cs/enquireReply.do",
-		data: {"enquire_NO": enquire_NO, "reply_contents" : reply_contents}
-	})
-}
 </script>
 </body>
 </html>

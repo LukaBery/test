@@ -3,10 +3,6 @@ package com.myspring.Onaju.board.cs.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Onaju.admin.adminBoard.service.AdminBoardService;
+import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireReplyVO;
 import com.myspring.Onaju.admin.adminBoard.vo.AdminEnquireVO;
 import com.myspring.Onaju.admin.adminCommon.paging.vo.Criteria;
 import com.myspring.Onaju.admin.adminCommon.paging.vo.PageMaker;
@@ -79,7 +76,13 @@ ModelAndView mav = new ModelAndView();
 		
 		ModelAndView mav = new ModelAndView();
 		List<Map<String, Object>> enquireDetail = adminBoardService.enquireBoardDetail(enquireVO);
-		
+		AdminEnquireReplyVO replyVO = new AdminEnquireReplyVO();
+		String enquire_NO = enquireVO.getEnquire_NO();
+		replyVO.setEnquire_NO(enquire_NO);
+		List<Map<String, Object>> replysList = adminBoardService.enquireReplyDetail(replyVO);
+		int replyLength = replysList.size();
+		mav.addObject("replyLength", replyLength);
+		mav.addObject("replysList", replysList);
 		mav.addObject("enquireDetail", enquireDetail);
 		mav.setViewName("/customerService/qnaDetail");
 
