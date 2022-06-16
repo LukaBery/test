@@ -288,19 +288,18 @@ int cnt_1 = (int) Math.ceil(Integer.parseInt(cnt_) / 10) + 1;
 			memberMap.put("u_email2",val[1]);
 			System.out.println("이메일 진입");
 
-		}else if(attribute.equals("address")){
-			System.out.println(value);
-			val=value.split(",", -1);
-			System.out.println(val[0]);
-			System.out.println(val[1]);
-			System.out.println(val[2]);
-			System.out.println(val[3]);
+		}
+		else if(attribute.equals("u_email")){
+			val=value.split(",");
+			memberMap.put("u_email1",val[0]);
+			memberMap.put("u_email2",val[1]);
+			System.out.println("이메일 진입");
 
-			memberMap.put("zipcode",val[0]);
-			memberMap.put("roadAddress",val[1]);
-			memberMap.put("numberAddress", val[2]);
-			memberMap.put("restAddress", val[3]);
-			System.out.println("주소 진입");
+		}else if(attribute.equals("u_pw")){
+			String salt = memberVO.getSalt();
+			String _pw = SHA256Util.getEncrypt(value, salt);
+			memberMap.put("u_pw",_pw);
+
 
 		}else {
 			memberMap.put(attribute,value);	
